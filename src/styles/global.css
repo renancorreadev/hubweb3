@@ -4,6 +4,5 @@
 
 /* Seus estilos customizados */
 html, body {
-  @apply bg-hub-background text-white;
-  scroll-behavior: smooth;
+  @apply bg-hub-background text-white min-h-screen antialiased;
 }
