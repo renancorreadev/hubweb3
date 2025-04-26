@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Seus estilos customizados */
+html, body {
+  @apply bg-hub-background text-white;
+  scroll-behavior: smooth;
+}
