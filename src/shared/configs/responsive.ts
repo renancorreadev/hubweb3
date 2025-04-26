@@ -107,6 +107,7 @@ export const mobileOnly = {
       gap4: 'max-xs:gap-4',
       gap6: 'max-xs:gap-6',
       gap8: 'max-xs:gap-8',
+      gap10: 'max-xs:gap-10',
     },
   };
   
@@ -219,6 +220,7 @@ export const mobileOnly = {
       gap4: 'lg:gap-4',
       gap6: 'lg:gap-6',
       gap8: 'lg:gap-8',
+      gap10: 'lg:gap-10',
     },
   };
   
@@ -331,5 +333,6 @@ export const mobileOnly = {
       gap4: 'md:gap-4',
       gap6: 'md:gap-6',
       gap8: 'md:gap-8',
+      gap10: 'md:gap-10',
     },
   }; 

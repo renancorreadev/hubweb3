@@ -8,8 +8,9 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { InkeepSearchBar } from "@/shared/components/Header/components/SearchBar";
 import { DevelopersNav } from "@/shared/components/Header/components/DevelopersNav";
-import { HeaderList } from "@/shared/components/Header/components/HeaderList";
-import { headerStyles } from "./syles";
+import { SubMenuList } from "@/shared/components/Header/components/SubMenu/SubMenuList";
+import { headerStyles } from "./styles";
+import { RenderContainer } from "../RenderContainer";
 
 export function Header() {
   const pathname = usePathname();
@@ -28,7 +29,7 @@ export function Header() {
   const isThemePage = true; // Se quiser condicionar troca de tema só para algumas rotas
 
   return (
-    <>
+    <RenderContainer>
       <header className={headerStyles.container}>
         <div className={headerStyles.wrapper}>
           {/* Logo */}
@@ -55,7 +56,7 @@ export function Header() {
 
           {/* Nav items desktop */}
           <div className={headerStyles.navDesktop}>
-            <HeaderList />
+            <SubMenuList />
             <InkeepSearchBar />
             {isMounted && isThemePage && (
               <button
@@ -72,7 +73,7 @@ export function Header() {
         {/* Nav items mobile */}
         {isOpen && (
           <div className={headerStyles.navMobile}>
-            <HeaderList />
+            <SubMenuList />
             <div className="flex justify-between items-center">
               <InkeepSearchBar />
               {isMounted && isThemePage && (
@@ -93,6 +94,6 @@ export function Header() {
       {(pathname.includes("/developers") || pathname.includes("/docs")) && (
         <DevelopersNav />
       )}
-    </>
+    </RenderContainer>
   );
 }
