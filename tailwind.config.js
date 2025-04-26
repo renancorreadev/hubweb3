@@ -37,6 +37,15 @@ module.exports = {
       borderRadius: {
         lg: "1rem",
       },
+      screens: {
+        'xs': '480px',   // small devices
+        'sm': '640px',   // mobile landscape
+        'md': '768px',   // tablets
+        'lg': '1024px',  // laptops
+        'xl': '1280px',  // desktops
+        '2xl': '1536px', // large screens, 2K
+        '3xl': '1920px', // ultra-wide monitors, 4K
+      },
     },
   },
   plugins: [

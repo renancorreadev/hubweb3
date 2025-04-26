@@ -9,6 +9,7 @@ import { useTheme } from "next-themes";
 import { InkeepSearchBar } from "@/shared/components/Header/components/SearchBar";
 import { DevelopersNav } from "@/shared/components/Header/components/DevelopersNav";
 import { HeaderList } from "@/shared/components/Header/components/HeaderList";
+import { headerStyles } from "./syles";
 
 export function Header() {
   const pathname = usePathname();
@@ -24,14 +25,14 @@ export function Header() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  const isThemePage = true; // Ajuste se quiser condicionar
+  const isThemePage = true; // Se quiser condicionar troca de tema só para algumas rotas
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-hub-background/80 backdrop-blur-md border-b border-white/1 p-2">
-        <div className="w-full max-w-[1440px] mx-auto px-4 flex items-center justify-between h-16">
+      <header className={headerStyles.container}>
+        <div className={headerStyles.wrapper}>
           {/* Logo */}
-          <Link href="/" className="flex items-center" aria-label="HubWeb3">
+          <Link href="/" className={headerStyles.logo} aria-label="HubWeb3">
             <Image
               src="/logos/hub.png"
               alt="HubWeb3"
@@ -41,25 +42,25 @@ export function Header() {
             />
           </Link>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden flex flex-col gap-1"
+            className={headerStyles.mobileMenuButton}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            <span className="w-6 h-0.5 bg-white" />
-            <span className="w-6 h-0.5 bg-white" />
-            <span className="w-6 h-0.5 bg-white" />
+            <span className={headerStyles.menuIconLine} />
+            <span className={headerStyles.menuIconLine} />
+            <span className={headerStyles.menuIconLine} />
           </button>
 
-          {/* Nav items */}
-          <div className={`lg:flex items-center gap-6 hidden`}>
+          {/* Nav items desktop */}
+          <div className={headerStyles.navDesktop}>
             <HeaderList />
             <InkeepSearchBar />
             {isMounted && isThemePage && (
               <button
                 onClick={toggleTheme}
-                className="ml-3 hover:scale-110 transition-transform "
+                className={headerStyles.themeToggle}
                 aria-label="Toggle theme"
               >
                 {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
@@ -68,16 +69,16 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Nav items mobile */}
         {isOpen && (
-          <div className="lg:hidden px-4 pb-4">
+          <div className={headerStyles.navMobile}>
             <HeaderList />
-            <div className="mt-4 flex justify-between items-center">
+            <div className="flex justify-between items-center">
               <InkeepSearchBar />
               {isMounted && isThemePage && (
                 <button
                   onClick={toggleTheme}
-                  className="ml-3 hover:scale-110 transition-transform"
+                  className={headerStyles.themeToggle}
                   aria-label="Toggle theme"
                 >
                   {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
