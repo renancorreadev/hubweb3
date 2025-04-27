@@ -8,12 +8,12 @@ export const heroStyles = {
     flex
     flex-col
     items-center
-    justify-center
+    ${desktopOnly.flex.center}
+    ${mobileOnly.flex.center}
     text-center
-    min-h-[90vh]
+    min-h-[85vh]
     px-4
     sm:px-8
-    py-20
     bg-gradient-to-b
     dark:from-black dark:via-hub-background-dark dark:to-black
     overflow-hidden
