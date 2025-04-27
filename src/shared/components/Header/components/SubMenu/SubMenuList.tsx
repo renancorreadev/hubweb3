@@ -4,70 +4,73 @@ import Link from "next/link";
 import { SubMenu } from "./SubMenu";
 import { SubMenuItem } from "./SubMenuItem";
 import { Code2, BookOpen, Network } from "lucide-react";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 
 export function SubMenuList() {
+  const { t } = useLanguage();
+  
   return (
-    <nav className="flex flex-col lg:flex-row gap-4 lg:gap-6 text-lg font-monument">
-      <SubMenu label="Developers" icon={<Code2 size={20} />} href="/developers">
+    <nav className="flex flex-col lg:flex-row gap-4 lg:gap-6 font-monument">
+      <SubMenu label={t('nav.developers')} icon={<Code2 size={20} className="" />} href="/developers">
         <SubMenuItem
           href="/developers/getting-started"
-          label="Getting Started"
+          label={t('nav.getting-started')}
           icon={<Code2 size={20} />}
-          description="Start building with HubWeb3"
+          description={t('nav.desc.getting-started')}
         />
         <SubMenuItem
           href="/developers/sdk"
           label="SDK"
           icon={<Code2 size={20} />}
-          description="Our powerful SDK for developers"
+          description={t('nav.desc.sdk')}
         />
         <SubMenuItem
           href="/developers/api"
           label="API"
           icon={<Code2 size={20} />}
-          description="REST API documentation"
+          description={t('nav.desc.api')}
         />
       </SubMenu>
 
-      <SubMenu label="Docs" icon={<BookOpen size={20} />} href="/docs">
+      <SubMenu label={t('nav.docs')} icon={<BookOpen size={20} />} href="/docs">
         <SubMenuItem
           href="/docs/overview"
-          label="Overview"
+          label={t('nav.overview')}
           icon={<BookOpen size={20} />}
-          description="Learn about HubWeb3"
+          description={t('nav.desc.overview')}
         />
         <SubMenuItem
           href="/docs/tutorials"
-          label="Tutorials"
+          label={t('nav.tutorials')}
           icon={<BookOpen size={20} />}
-          description="Step-by-step guides"
+          description={t('nav.desc.tutorials')}
         />
         <SubMenuItem
           href="/docs/faq"
           label="FAQ"
           icon={<BookOpen size={20} />}
-          description="Frequently asked questions"
+          description={t('nav.desc.faq')}
         />
       </SubMenu>
 
-      <SubMenu label="Ecosystem" icon={<Network size={20} />} href="/ecosystem">
+      <SubMenu label={t('nav.ecosystem')} icon={<Network size={20} />} href="/ecosystem">
         <SubMenuItem
           href="/ecosystem/projects"
-          label="Projects"
+          label={t('nav.projects')}
           icon={<Network size={20} />}
-          description="Built on HubWeb3"
+          description={t('nav.desc.projects')}
         />
         <SubMenuItem
           href="/ecosystem/partners"
-          label="Partners"
+          label={t('nav.partners')}
           icon={<Network size={20} />}
-          description="Our partners"
+          description={t('nav.desc.partners')}
         />
         <SubMenuItem
           href="/ecosystem/community"
-          label="Community"
+          label={t('nav.community')}
           icon={<Network size={20} />}
-          description="Join our community"
+          description={t('nav.desc.community')}
         />
       </SubMenu>
     </nav>

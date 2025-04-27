@@ -5,7 +5,7 @@ export function InkeepSearchBar() {
     <input
       type="text"
       placeholder="Search..."
-      className="bg-white/10 text-white px-3 py-1 rounded-md text-lg focus:outline-none focus:ring focus:border-hub-primary "
+      className="bg-white/10 text-white px-3 py-1 rounded-md text-lg md:text-2xl focus:outline-none focus:ring focus:border-hub-primary "
     />
   );
 }

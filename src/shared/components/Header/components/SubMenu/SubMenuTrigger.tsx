@@ -22,7 +22,7 @@ export function SubMenuTrigger({ label, isOpen, onClick, icon, href }: SubMenuTr
         } ${desktopOnly.text.base}`}
       >
         {icon && <span className="flex-shrink-0">{icon}</span>}
-        <span>{label}</span>
+        <span className={`${desktopOnly.text["2xl"]} ${mobileOnly.text.base}`}>{label}</span>
       </Link>
       <button
         onClick={onClick}
@@ -30,7 +30,7 @@ export function SubMenuTrigger({ label, isOpen, onClick, icon, href }: SubMenuTr
         aria-expanded={isOpen}
       >
         <ChevronDown
-          size={16}
+          size={24}
           className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
