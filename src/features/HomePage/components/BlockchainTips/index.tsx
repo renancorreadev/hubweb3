@@ -4,25 +4,28 @@ import { Container } from "@/components/Container";
 import { ContainerSpace } from "@/components/Container/ContainerSpace";
 import { Card } from "@/components/Card";
 import Link from "next/link";
+import { mobileOnly } from "@/styles/responsive-classes";
 
 export const BlockchainTips = () => {
   return (
     <section className="py-24 bg-black">
       {/* Cabeçalho com título e botão - abordagem simples */}
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 mb-12">
-        <div className="flex justify-between items-center">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 mb-12 ">
+        <div className={`flex justify-between items-center ${mobileOnly.flexDirection.col} ${mobileOnly.gap.gap6}`}>
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Blockchain Tips
           </h2>
           
           <Link
             href="/case-studies"
-            className="
-              inline-flex items-center gap-2 px-6 py-3
+            className={
+              `inline-flex items-center gap-2 px-6 py-3
               rounded-full border border-white/20 text-white
               transition-all duration-300
               hover:bg-white hover:text-black
-            "
+              ${mobileOnly.margin.mt2}
+              `
+            }
           >
             GO TO CASE STUDIES
             <svg
