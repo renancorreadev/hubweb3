@@ -77,6 +77,21 @@ module.exports = {
         '2xl': '1536px', // large screens, 2K
         '3xl': '1920px', // ultra-wide monitors, 4K
       },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      keyframes: {
+        'rotate-gradient': {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' }
+        }
+      },
+      animation: {
+        'rotate-gradient': 'rotate-gradient 5s ease infinite'
+      }
     },
   },
   plugins: [

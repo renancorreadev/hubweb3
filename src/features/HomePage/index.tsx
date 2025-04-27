@@ -3,6 +3,7 @@ import { Hero } from "./components/Hero";
 import { RenderContainer } from "@/shared/components/RenderContainer";
 import { HeroSlider } from "@/components/HeroSlider";
 import { desktopOnly } from "@/styles/responsive-classes";
+import { BlockchainTips } from "@/features/HomePage/components/BlockchainTips";
 
 const projects = [
   {
@@ -31,6 +32,8 @@ export function HomePage() {
       <Hero />
       {/* Slider de projetos */}
       <HeroSlider projects={projects} className={desktopOnly.padding.p6} imageRadius={24} textContainerRadius={16} />
+      {/* Bloco de dicas de blockchain */}
+      <BlockchainTips />
     </RenderContainer>
   );
 }
