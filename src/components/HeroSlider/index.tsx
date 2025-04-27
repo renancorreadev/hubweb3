@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
-import type { PaginationOptions } from "swiper/types";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -11,15 +11,22 @@ import "swiper/css/effect-fade";
 import { mobileOnly, desktopOnly } from "@/shared/configs/responsive";
 import "./styles.css";
 import { RenderContainer } from "@/shared/components/RenderContainer";
+import { PrimaryButton } from "@/components/Button/PrimaryButton";
+import Link from "next/link";
+
+
 
 interface Project {
   id: number;
   title: string;
   subtitle: string;
   imageUrl: string;
+  /** URL para onde o slide redireciona quando clicado */
+  linkUrl: string;
 }
 
 interface HeroSliderProps {
+  /** Array de projetos a serem exibidos no slider. Cada projeto deve ter id, título, subtítulo, URL da imagem e URL do link */
   projects: Project[];
   /** Altura do slider. Pode ser um valor em px, rem, vh, etc. Exemplo: '400px', '50vh' */
   height?: string;
@@ -41,6 +48,10 @@ interface HeroSliderProps {
   textContainerRadius?: number;
   /** Border radius da imagem em pixels */
   imageRadius?: number;
+  /** Define se o botão será exibido */
+  showButton?: boolean;
+  /** Texto do botão */
+  buttonText?: string;
 }
 
 export const HeroSlider = ({
@@ -55,11 +66,17 @@ export const HeroSlider = ({
   borderRadius = 0,
   textContainerRadius = 16,
   imageRadius = 0,
+  showButton = true,
+  buttonText = "Start Building",
 }: HeroSliderProps) => {
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const swiperRef = useRef<any>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
+  // Obtém o link do projeto ativo
+  const activeLink = projects[activeIndex]?.linkUrl || "#";
+  
   // Validação e normalização das opacidades e raios
   const safeOverlayOpacity = Math.max(0, Math.min(100, overlayOpacity)) / 100;
   const safeTextContainerOpacity =
@@ -72,20 +89,18 @@ export const HeroSlider = ({
 
   useEffect(() => {
     setMounted(true);
-    
+
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 1024);
     };
 
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    
+
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   if (!mounted) return null;
-
-
 
   const textContainerStyle = {
     "--tw-backdrop-blur": `blur(${safeBlurIntensity}px)`,
@@ -102,10 +117,9 @@ export const HeroSlider = ({
     borderRadius: `${safeImageRadius}px`,
   } as React.CSSProperties;
 
-
   return (
     <RenderContainer>
-      <div 
+      <div
         className={className}
         style={{
           height,
@@ -126,19 +140,23 @@ export const HeroSlider = ({
           }}
           navigation={{
             enabled: true,
-            prevEl: '.swiper-button-prev',
-            nextEl: '.swiper-button-next',
+            prevEl: ".swiper-button-prev",
+            nextEl: ".swiper-button-next",
           }}
           pagination={{
             enabled: true,
-            el: '.swiper-pagination',
+            el: ".swiper-pagination",
             clickable: true,
           }}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           className="w-full relative overflow-hidden"
         >
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <SwiperSlide key={project.id}>
-              <div className="relative w-full h-full overflow-hidden">
+              <Link 
+                href={project.linkUrl}
+                className="block relative w-full h-full overflow-hidden cursor-pointer"
+              >
                 <div
                   className="hero-image absolute inset-0 bg-cover bg-center"
                   style={{
@@ -181,18 +199,22 @@ export const HeroSlider = ({
                     </p>
                   </div>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
 
           {/* Elementos de navegação */}
-          {!isMobile && (
-            <div className="navigation-controls">
-              <button className="swiper-button-prev" />
-              <button className="swiper-button-next" />
+
+          <div className="swiper-pagination" />
+
+          {/* Botão flutuante que fica fora do ciclo de slides mas dentro do Swiper */}
+          {showButton && (
+            <div className="hero-slider-button-container absolute bottom-8 right-8 md:bottom-12 md:right-12 z-30 shadow-xl">
+              <PrimaryButton href={activeLink}>
+                {buttonText}
+              </PrimaryButton>
             </div>
           )}
-          <div className="swiper-pagination" />
         </Swiper>
       </div>
     </RenderContainer>

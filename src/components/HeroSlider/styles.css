@@ -191,6 +191,74 @@
   }
 }
 
+/* Estilo do botão no HeroSlider */
+.hero-slider-button-container .primary-button {
+  background: linear-gradient(90deg, #2E0094 0%, #06F0B2 100%) !important;
+  border-radius: 28px !important;
+  border: none !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: inline-block !important;
+  isolation: isolate !important;
+}
+
+/* Efeito de brilho no hover - definição do pseudo-elemento */
+.hero-slider-button-container .primary-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Animação do efeito de brilho */
+.hero-slider-button-container .primary-button:hover::after {
+  animation: hero-button-shine 1.2s ease-out;
+}
+
+@keyframes hero-button-shine {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Efeito de hover com transformação e pulsação */
+.hero-slider-button-container .primary-button:hover {
+  transform: translateY(-3px) scale(1.03) !important;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 0 5px rgba(46, 0, 148, 0.1) !important;
+}
+
+/* Adicionar z-index para garantir que o texto fique acima dos efeitos */
+.hero-slider-button-container .primary-button span,
+.hero-slider-button-container .primary-button div {
+  position: relative;
+  z-index: 2;
+}
+
 /* Tema escuro refinado */
 :root[data-theme="dark"] .text-container {
   background: linear-gradient(
@@ -233,4 +301,14 @@
     rgba(0, 0, 0, calc(var(--overlay-opacity) * 0.5)) 100%
   );
   pointer-events: none;
+}
+
+/* Remover estilos antigos para evitar conflitos */
+.fixed-button-container .primary-button,
+.fixed-button-container .primary-button:hover,
+.fixed-button-container .primary-button::after,
+.fixed-button-container .primary-button:hover::after {
+  animation: none;
+  transform: none;
+  transition: none;
 } 
