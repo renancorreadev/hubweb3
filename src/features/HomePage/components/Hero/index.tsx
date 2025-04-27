@@ -21,7 +21,7 @@ export function Hero() {
           fill
           priority
           quality={100}
-          className="object-cover object-center opacity-40 dark:opacity-80 transition-opacity duration-300"
+          className="object-cover object-center opacity-40 dark:opacity-80 transition-opacity duration-300 pointer-events-none"
         />
 
         <div className={heroStyles.content}>
