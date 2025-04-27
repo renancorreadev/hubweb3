@@ -15,10 +15,10 @@ export const heroStyles = {
     sm:px-8
     py-20
     bg-gradient-to-b
-    from-black
-    via-hub-background
-    to-black
+    dark:from-black dark:via-hub-background-dark dark:to-black
     overflow-hidden
+    transition-colors
+    duration-300
   `,
 
   backgroundImage: `
@@ -32,8 +32,14 @@ export const heroStyles = {
 
   image: `
     object-cover
-    opacity-40
+    object-center
+    dark:opacity-40
+    opacity-80
     saturate-150
+    transition-all
+    duration-300
+    w-full
+    h-full
   `,
 
   content: `
@@ -43,9 +49,12 @@ export const heroStyles = {
     items-center
     justify-center
     w-full
+    text-hub-text-primary-light
+    dark:text-hub-text-primary-dark
     ${mobileOnly.padding.p4} 
     ${tabletOnly.padding.p8} 
     ${desktopOnly.padding.p12}
+    z-10
   `,
 
   buttonsContainer: `

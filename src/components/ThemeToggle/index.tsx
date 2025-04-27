@@ -25,10 +25,19 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="ml-2 p-2 rounded-full border border-white/10 hover:border-hub-primary transition-transform hover:scale-110"
+      className="ml-2 p-2 rounded-full 
+        border transition-all duration-300 ease-in-out
+        dark:border-hub-border-dark border-hub-border-light
+        hover:bg-hub-hover-light dark:hover:bg-hub-hover-dark
+        hover:border-hub-primary-light dark:hover:border-hub-primary-dark
+        dark:text-hub-text-primary-dark text-hub-text-primary-light"
       aria-label="Alternar tema"
     >
-      {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+      {theme === "dark" ? (
+        <Sun size={20} className="text-hub-primary-dark" />
+      ) : (
+        <Moon size={20} className="text-hub-primary-light" />
+      )}
     </button>
   );
 }

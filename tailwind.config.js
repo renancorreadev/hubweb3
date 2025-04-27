@@ -30,9 +30,40 @@ module.exports = {
         "9xl": ["8rem", { lineHeight: "1" }], // 128px
       },
       colors: {
-        "hub-background": "#000508",
-        "hub-primary": "#14F195",
-        "hub-secondary": "#9945FF",
+        hub: {
+          background: {
+            DEFAULT: "#000508",
+            light: "#ffffff"
+          },
+          primary: {
+            DEFAULT: "#14F195",
+            light: "#0EA66B",
+            dark: "#14F195"
+          },
+          secondary: {
+            DEFAULT: "#9945FF",
+            light: "#7435CC",
+            dark: "#9945FF"
+          },
+          text: {
+            primary: {
+              light: "#1A1A1A",
+              dark: "#FFFFFF"
+            },
+            secondary: {
+              light: "#666666",
+              dark: "#A1A1A1"
+            }
+          },
+          border: {
+            light: "#E5E5E5",
+            dark: "rgba(255, 255, 255, 0.1)"
+          },
+          hover: {
+            light: "#F5F5F5",
+            dark: "rgba(255, 255, 255, 0.05)"
+          }
+        },
       },
       borderRadius: {
         lg: "1rem",
