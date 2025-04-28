@@ -1,6 +1,13 @@
+
+import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
+
+const titleStyles  = {
+  h1: `text-white font-monument leading-tight tracking-tight ${desktopOnly.text["8xl"]} ${mobileOnly.text["5xl"]}` 
+}
+
 export function HeroTitle() {
     return (
-      <h1 className="text-white text-4xl md:text-6xl max-xs:mb-2 max-xs:pb-6 lg:text-7xl font-monument leading-tight tracking-tight">
+      <h1 className={titleStyles.h1}>
         Powerful for developers.<br />
         Fast for everyone.
       </h1>
