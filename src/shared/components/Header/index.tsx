@@ -94,15 +94,15 @@ export function Header() {
             <SubMenuList />
             <div className="flex flex-col w-full gap-4 mt-4">
                 
-            <div className="flex gap-2 items-center ">
+            <div className="flex gap-2 ">
             {isMounted && (
                 <button
                   onClick={toggleLanguage}
-                  className={`${headerStyles.themeToggle} self-start ml-2`}
+                  className={`${headerStyles.themeToggle}  ml-2 gap-2`}
                   aria-label="Toggle language"
                 >
                   <Globe size={18} />
-                  <span className="ml-1 text-xs font-medium">{language.toUpperCase()}</span>
+                  <span className="ml-1 max-sm:text-xs max-lg:text-4xl font-medium">{language.toUpperCase()}</span>
                 </button>
               )}
               

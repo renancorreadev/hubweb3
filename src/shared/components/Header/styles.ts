@@ -67,5 +67,6 @@ export const headerStyles = {
     ml-3 
     hover:scale-110 
     transition-transform
+    md:flex hidden gap-2 items-center
   `,
 };
