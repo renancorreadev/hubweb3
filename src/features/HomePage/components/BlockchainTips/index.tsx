@@ -46,8 +46,8 @@ export const BlockchainTips = () => {
         </div>
       </div>
 
-      {/* Container para o Card principal */}
-      <Container columns={12} responsiveGrid={true}>
+      {/* Container para o Card principal - ocupa 100% em todos tamanhos de tela */}
+      <Container columns={12}>
         <ContainerSpace cols={12}>
           <Card
             backgroundImage="/images/solids/neonSolid.png"
@@ -62,8 +62,9 @@ export const BlockchainTips = () => {
         </ContainerSpace>
       </Container>
 
-      <Container columns={12} className="mt-12" responsiveGrid={true}>
-        <ContainerSpace cols={4}>
+      {/* Container para os 3 cards - responsivo com 1 coluna em mobile e 3 colunas em desktop */}
+      <Container columns={3} className="mt-12" responsiveGrid={true}>
+        <ContainerSpace cols={1}>
           <Card
             backgroundImage="/images/solids/neonSolid.png"
             tag="BLOCKCHAIN"
@@ -73,7 +74,7 @@ export const BlockchainTips = () => {
             href="/tech/solana"
           />
         </ContainerSpace>
-        <ContainerSpace cols={4}> 
+        <ContainerSpace cols={1}>
           <Card
             backgroundImage="/images/solids/neonSolid.png"
             tag="BLOCKCHAIN"
@@ -83,7 +84,7 @@ export const BlockchainTips = () => {
             href="/tech/solana"
           />
         </ContainerSpace>
-        <ContainerSpace cols={4}> 
+        <ContainerSpace cols={1}>
           <Card
             backgroundImage="/images/solids/neonSolid.png"
             tag="BLOCKCHAIN"
@@ -93,6 +94,30 @@ export const BlockchainTips = () => {
             href="/tech/solana"
           />
         </ContainerSpace>
+      </Container>
+
+      <Container columns={2} className="mt-12" responsiveGrid={true}>
+        <ContainerSpace cols={1}>
+          <Card
+            backgroundImage="/images/solids/neonSolid.png"
+            tag="BLOCKCHAIN"
+            className="p-2"
+            title="Solana"
+            description="Blockchain de alta performance com transações rápidas e baixas taxas."
+            href="/tech/solana"
+          />
+        </ContainerSpace>
+        <ContainerSpace cols={1}>
+          <Card
+            backgroundImage="/images/solids/neonSolid.png"
+            tag="BLOCKCHAIN"
+            className="p-2"
+            title="Solana"
+            description="Blockchain de alta performance com transações rápidas e baixas taxas."
+            href="/tech/solana"
+          />
+        </ContainerSpace>
+
       </Container>
     </section>
   );

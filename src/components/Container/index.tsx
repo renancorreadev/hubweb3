@@ -22,8 +22,14 @@ export const Container = ({
   responsiveGrid = false
 }: ContainerProps) => {
   
-  // Criar manualmente o CSS para garantir que o tailwind processe corretamente
-  const desktopGridClass = 
+  // Criar manualmente classes responsivas para o grid
+  const gridColsClass = `grid-cols-${responsiveGrid ? '1' : columns}`;
+  
+  // Classes para breakpoints maiores que mobile
+  const tabletGridColsClass = responsiveGrid ? 'md:grid-cols-1' : '';
+  
+  // Classes para desktop
+  const desktopGridColsClass = 
     columns === 1 ? "lg:grid-cols-1" :
     columns === 2 ? "lg:grid-cols-2" :
     columns === 3 ? "lg:grid-cols-3" :
@@ -34,12 +40,11 @@ export const Container = ({
     columns === 8 ? "lg:grid-cols-8" :
     columns === 9 ? "lg:grid-cols-9" :
     columns === 10 ? "lg:grid-cols-10" :
-    columns === 11 ? "lg:grid-cols-11" : "lg:grid-cols-12";
+    columns === 11 ? "lg:grid-cols-11" : 
+    columns === 12 ? "lg:grid-cols-12" : "";
 
   // Determinar as classes do grid
-  let gridClasses = responsiveGrid
-    ? `grid grid-cols-1 ${desktopGridClass}`
-    : `grid grid-cols-${columns}`;
+  const gridClasses = `grid ${gridColsClass} ${tabletGridColsClass} ${responsiveGrid ? desktopGridColsClass : ''}`;
 
   return (
     <div className={`mx-auto ${fluid ? 'px-4' : 'container px-4 md:px-6 lg:px-8'} ${className}`}>

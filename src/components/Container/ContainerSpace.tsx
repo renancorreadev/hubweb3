@@ -25,8 +25,11 @@ export const ContainerSpace = ({
   valign = "start", 
   className = "" 
 }: ContainerSpaceProps) => {
-  // Classes para col-span
-  const colSpanClass = `col-span-${cols}`;
+  // Classes para col-span - no Tailwind, cols é o padrão para mobile
+  // md: é para tablet, lg: é para desktop
+  const baseColSpanClass = mobileCols ? `col-span-${mobileCols}` : `col-span-${cols}`;
+  const tabletColSpanClass = tabletCols ? `md:col-span-${tabletCols}` : '';
+  const desktopColSpanClass = mobileCols || tabletCols ? `lg:col-span-${cols}` : '';
   
   // Mapeamento para alinhamento horizontal
   const alignClass = {
@@ -48,7 +51,7 @@ export const ContainerSpace = ({
   }[valign];
 
   return (
-    <div className={`${colSpanClass} flex flex-col ${alignClass} ${valignClass} ${className}`}>
+    <div className={`${baseColSpanClass} ${tabletColSpanClass} ${desktopColSpanClass} flex flex-col ${alignClass} ${valignClass} ${className}`}>
       {children}
     </div>
   );
