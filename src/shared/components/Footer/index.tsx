@@ -4,8 +4,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { mobileOnly } from "@/shared/configs/responsive";
 import { CustomSelect } from "@/components/CustomSelect";
+import { useTranslation } from "@/shared/hooks/useTranslation";
+import { localeOptions, SupportedLanguage } from "@/shared/i18n";
 
 export function Footer() {
+  const { t, changeLanguage, language } = useTranslation();
+
+
+  const handleLanguageChange = (value: string) => {
+
+    if (value === 'pt' || value === 'en') {
+      changeLanguage(value as SupportedLanguage);
+    }
+  };
+
   return (
     <footer className="border-t border-hub-border-dark bg-hub-background py-12 mt-16">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -13,7 +25,7 @@ export function Footer() {
           {/* Coluna 1: Logo e descrição */}
           <div className="col-span-1 lg:col-span-1">
             <div className="flex flex-col">
-              <h3 className="text-xl font-bold text-white mb-4">Gerenciado por</h3>
+              <h3 className="text-xl font-bold text-white mb-4">{t('footer.managedBy')}</h3>
               <div className="mb-6 flex justify-start">
                 <Image 
                   src="/logos/hub.png" 
@@ -44,13 +56,6 @@ export function Footer() {
                     </svg>
                   </div>
                 </Link>
-                <Link href="https://reddit.com" aria-label="Reddit">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 transition-colors">
-                    <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8zm4.5 8a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-9 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm8.999 3a.999.999 0 0 1-1.751-.657c-.411.844-2.002 1.657-3.248 1.657s-2.837-.813-3.248-1.657a.997.997 0 0 1-.207.65 1 1 0 0 1-1.545-1.275C7.022 14.432 9.243 13 12 13s4.978 1.432 5.499 2.718a1 1 0 0 1-1 1.282z" />
-                    </svg>
-                  </div>
-                </Link>
                 <Link href="https://github.com" aria-label="GitHub">
                   <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 transition-colors">
                     <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
@@ -75,22 +80,22 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link href="/concessoes" className="text-gray-400 hover:text-hub-primary transition-colors">
-                  Concessões
+                  {t('footer.grants')}
                 </Link>
               </li>
               <li>
                 <Link href="/kit-midia" className="text-gray-400 hover:text-hub-primary transition-colors">
-                  Kit de Mídia
+                  {t('footer.media')}
                 </Link>
               </li>
               <li>
                 <Link href="/aviso-legal" className="text-gray-400 hover:text-hub-primary transition-colors">
-                  Aviso Legal
+                  {t('footer.legal')}
                 </Link>
               </li>
               <li>
                 <Link href="/politica-privacidade" className="text-gray-400 hover:text-hub-primary transition-colors">
-                  Política de Privacidade
+                  {t('footer.privacy')}
                 </Link>
               </li>
             </ul>
@@ -98,16 +103,16 @@ export function Footer() {
 
           {/* Coluna 3: Links CONECTE-SE */}
           <div className="col-span-1">
-            <h3 className="text-xl font-bold text-white mb-4">CONECTE-SE</h3>
+            <h3 className="text-xl font-bold text-white mb-4">{t('footer.connect')}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/blog" className="text-gray-400 hover:text-hub-primary transition-colors">
-                  Blog
+                  {t('footer.blog')}
                 </Link>
               </li>
               <li>
                 <Link href="/boletim" className="text-gray-400 hover:text-hub-primary transition-colors">
-                  Boletim Informativo
+                  {t('footer.newsletter')}
                 </Link>
               </li>
             </ul>
@@ -115,16 +120,13 @@ export function Footer() {
 
           {/* Coluna 4: Seletor de idioma (apenas em desktop) */}
           <div className={`col-span-1 ${mobileOnly.display.hidden} md:flex flex-col`}>
-            <h3 className="text-xl font-bold text-white mb-4">IDIOMA</h3>
+            <h3 className="text-xl font-bold text-white mb-4">{t('footer.language')}</h3>
             <CustomSelect 
-              options={[
-                { value: 'pt', label: 'Português', flag: '🇧🇷' },
-                { value: 'en', label: 'English', flag: '🇺🇸' },
-                { value: 'es', label: 'Español', flag: '🇪🇸' },
-              ]}
-              defaultValue="pt"
+              options={localeOptions}
+              defaultValue={language}
               neonColor="purple"
               size="md"
+              onChange={handleLanguageChange}
             />
           </div>
         </div>
@@ -132,7 +134,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="border-t border-white/10 pt-6 text-center">
           <p className="text-sm text-gray-400">
-            © {new Date().getFullYear()} HubWeb3 — Todos os direitos reservados.
+            © {new Date().getFullYear()} HubWeb3 — {t('footer.allRightsReserved')}
           </p>
         </div>
       </div>
