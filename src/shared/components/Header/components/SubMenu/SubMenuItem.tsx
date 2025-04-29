@@ -24,11 +24,14 @@ export function SubMenuItem({ href, label, icon, description }: SubMenuItemProps
         </span>
       )}
       <div className="flex flex-col gap-1">
-        <span className="font-medium group-hover:text-hub-primary transition-colors duration-200 dark:group-hover:text-hub-secondary">
+        <span className={
+          `font-medium group-hover:text-hub-primary transition-colors duration-200 dark:group-hover:text-hub-secondary ${mobileOnly.text.base} ${desktopOnly.text["xl"]}`
+        }>
           {label}
         </span>
         {description && (
-          <span className="text-sm text-hub-text-secondary leading-relaxed group-hover:opacity-90 dark:group-hover:text-black transition-opacity duration-200">
+          <span className={`
+            abcm text-sm text-hub-text-secondary leading-relaxed group-hover:opacity-90 dark:group-hover:text-black transition-opacity duration-200 ${mobileOnly.text.sm} ${desktopOnly.text.base}`}>
             {description}
           </span>
         )}

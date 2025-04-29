@@ -12,6 +12,7 @@ import { SubMenuList } from "@/shared/components/Header/components/SubMenu/SubMe
 import { headerStyles } from "./styles";
 import { RenderContainer } from "../RenderContainer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
 
 export function Header() {
   const pathname = usePathname();
@@ -72,7 +73,7 @@ export function Header() {
                   aria-label="Toggle language"
                 >
                   <Globe size={22} />
-                  <span className="ml-1 text-xs font-medium">{language.toUpperCase()}</span>
+                  <span className={`ml-1 text-xs font-medium ${mobileOnly.text.sm} ${desktopOnly.text.base}`}>{language.toUpperCase()}</span>
                 </button>
               )}
               {isMounted && isThemePage && (
