@@ -1,9 +1,10 @@
 interface PrimaryButtonProps {
   href: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export function PrimaryButton({ href, children }: PrimaryButtonProps) {
+export function PrimaryButton({ href, children, className }: PrimaryButtonProps) {
   return (
     <a
       href={href}
@@ -23,6 +24,7 @@ export function PrimaryButton({ href, children }: PrimaryButtonProps) {
         duration-300
         transform
         hover:scale-105
+        ${className}
       "
     >
       {children}

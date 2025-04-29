@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
+import { motion, AnimatePresence } from "framer-motion";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,8 +14,6 @@ import "./styles.css";
 import { RenderContainer } from "@/shared/components/RenderContainer";
 import { PrimaryButton } from "@/components/Button/PrimaryButton";
 import Link from "next/link";
-
-
 
 interface Project {
   id: number;
@@ -73,6 +72,7 @@ export const HeroSlider = ({
   const [isMobile, setIsMobile] = useState(false);
   const swiperRef = useRef<any>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Obtém o link do projeto ativo
   const activeLink = projects[activeIndex]?.linkUrl || "#";
@@ -119,24 +119,28 @@ export const HeroSlider = ({
 
   return (
     <RenderContainer>
-      <div
+      <motion.div
         className={className}
         style={{
           height,
           width,
           borderRadius: `${safeBorderRadius}px`,
         }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
       >
         <Swiper
           ref={swiperRef}
           modules={[Navigation, Pagination, Autoplay, EffectFade]}
           effect="fade"
-          speed={800}
+          speed={1000}
           slidesPerView={1}
           loop={true}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
           navigation={{
             enabled: true,
@@ -147,6 +151,9 @@ export const HeroSlider = ({
             enabled: true,
             el: ".swiper-pagination",
             clickable: true,
+            renderBullet: (index, className) => {
+              return `<span class="${className} swiper-pagination-bullet-custom"></span>`;
+            },
           }}
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           className="w-full relative overflow-hidden"
@@ -156,48 +163,69 @@ export const HeroSlider = ({
               <Link 
                 href={project.linkUrl}
                 className="block relative w-full h-full overflow-hidden cursor-pointer"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
               >
-                <div
+                <motion.div
                   className="hero-image absolute inset-0 bg-cover bg-center"
                   style={{
                     ...imageStyle,
                     backgroundImage: `url(${project.imageUrl})`,
                   }}
+                  initial={{ scale: 1.1 }}
+                  animate={{ 
+                    scale: isHovered ? 1.15 : 1.1,
+                    transition: { duration: 1.5 }
+                  }}
                 >
-                  <div
+                  <motion.div
                     className="hero-overlay absolute inset-0"
                     style={overlayStyle}
+                    initial={{ opacity: 0.7 }}
+                    animate={{ 
+                      opacity: isHovered ? 0.5 : 0.7,
+                      transition: { duration: 0.5 }
+                    }}
                   />
-                </div>
+                </motion.div>
 
                 <div
                   className={`relative h-full flex flex-col justify-center items-start
                   ${desktopOnly.padding.px16} ${mobileOnly.padding.px4}
                   ${desktopOnly.padding.py8} ${mobileOnly.padding.py4}`}
                 >
-                  <div
+                  <motion.div
                     className="text-container p-6 md:p-8 max-w-2xl w-full md:w-auto"
                     style={textContainerStyle}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
                   >
-                    <h1
+                    <motion.h1
                       className={`hero-title font-bold mb-4
                     ${desktopOnly.text["3xl"]} ${mobileOnly.text.xl}`}
                       style={{
                         color: `rgba(255, 255, 255, ${safeTextOpacity})`,
                       }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
                     >
                       {project.title}
-                    </h1>
-                    <p
+                    </motion.h1>
+                    <motion.p
                       className={`hero-subtitle
                     ${desktopOnly.text.lg} ${mobileOnly.text.sm}`}
                       style={{
                         color: `rgba(255, 255, 255, ${safeTextOpacity * 0.9})`,
                       }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.5 }}
                     >
                       {project.subtitle}
-                    </p>
-                  </div>
+                    </motion.p>
+                  </motion.div>
                 </div>
               </Link>
             </SwiperSlide>
@@ -209,14 +237,22 @@ export const HeroSlider = ({
 
           {/* Botão flutuante que fica fora do ciclo de slides mas dentro do Swiper */}
           {showButton && (
-            <div className="hero-slider-button-container absolute bottom-8 right-8 md:bottom-12 md:right-12 z-30 shadow-xl">
-              <PrimaryButton href={activeLink}>
+            <motion.div 
+              className="hero-slider-button-container absolute bottom-8 right-8 md:bottom-12 md:right-12 z-30"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <PrimaryButton 
+                href={activeLink}
+                className="shadow-xl hover:shadow-2xl transition-all duration-300"
+              >
                 {buttonText}
               </PrimaryButton>
-            </div>
+            </motion.div>
           )}
         </Swiper>
-      </div>
+      </motion.div>
     </RenderContainer>
   );
 };

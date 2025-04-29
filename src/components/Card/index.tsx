@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { motion, useMotionValue, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 interface CardProps {
   /** Tag do card (ex: "CASE STUDY", "VIDEO") */
@@ -30,6 +32,8 @@ interface CardProps {
   };
   /** Mostrar ou esconder a barra superior e sua cor */
   topBorder?: boolean | "green" | "purple";
+  /** Índice do card para animação sequencial */
+  index?: number;
 }
 
 export const Card = ({
@@ -45,7 +49,32 @@ export const Card = ({
   neonEffect = false,
   neonColors = { from: "#14F195", to: "#9945FF" },
   topBorder = true,
+  index = 0,
 }: CardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useTransform(y, [-100, 100], [10, -10]);
+  const rotateY = useTransform(x, [-100, 100], [-10, 10]);
+
+  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct * 100);
+    y.set(yPct * 100);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
   // Determinar o gradiente baseado no gradientColor
   const getGradientStyle = () => {
     if (gradientColor === "green") {
@@ -63,9 +92,22 @@ export const Card = ({
   };
 
   return (
-    <div className={`w-full h-full ${className} ${neonEffect ? 'p-[2px]' : ''}`}>
+    <motion.div 
+      ref={cardRef}
+      className={`w-full h-full ${className} ${neonEffect ? 'p-[2px]' : ''} perspective-1000`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      style={{
+        transformStyle: "preserve-3d",
+        rotateX,
+        rotateY,
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* Container com efeito neon */}
-      <div 
+      <motion.div 
         className={`
           relative w-full h-full rounded-[40px] overflow-hidden
           ${neonEffect ? 'before:absolute before:inset-0 before:rounded-[40px] before:p-[2px] before:bg-gradient-to-br before:z-0 before:animate-rotate-gradient' : ''}
@@ -74,6 +116,10 @@ export const Card = ({
           boxShadow: `0 0 15px 2px ${neonColors.from}80`,
           background: `linear-gradient(to bottom right, ${neonColors.from}, ${neonColors.to})`,
         } : undefined}
+        whileHover={{ 
+          boxShadow: neonEffect ? `0 0 25px 5px ${neonColors.from}80` : undefined,
+          scale: 1.02,
+        }}
       >
         {/* Card interno */}
         <div 
@@ -84,18 +130,21 @@ export const Card = ({
         >
           {/* Barra superior colorida */}
           {topBorder && (
-            <div 
+            <motion.div 
               className="absolute top-0 left-0 right-0 h-1 z-10" 
               style={{ 
                 backgroundColor: getTopBorderColor(),
                 opacity: 0.8
               }}
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             />
           )}
 
           {/* Background image */}
           {backgroundImage && (
-            <div 
+            <motion.div 
               className="absolute inset-0 w-full h-full"
               style={{
                 backgroundImage: `url(${backgroundImage})`,
@@ -106,6 +155,8 @@ export const Card = ({
                 transformOrigin: 'left center',
                 opacity: 0.6
               }}
+              whileHover={{ scale: 1.15 }}
+              transition={{ duration: 0.5 }}
             />
           )}
 
@@ -119,49 +170,75 @@ export const Card = ({
           <div className="relative z-[2] p-8 h-full flex flex-col">
             {/* Tag */}
             {tag && (
-              <span 
-                className="inline-block px-4 py-1.5 rounded-full text-black text-sm font-medium max-w-fit"
+              <motion.span 
+                className="inline-block px-4 py-1.5 rounded-full text-black text-sm font-medium max-w-fit backdrop-blur-sm"
                 style={{ backgroundColor: gradientColor === "green" ? "#14F195" : "#8A46FF" }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                whileHover={{ scale: 1.05 }}
               >
                 {tag}
-              </span>
+              </motion.span>
             )}
 
             {/* Área de texto e botão */}
             <div className="mt-auto">
               {/* Título */}
-              <h3 className="text-3xl font-bold text-white mb-2 py-4">
+              <motion.h3 
+                className="text-3xl font-bold text-white mb-2 py-4 leading-tight"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                whileHover={{ x: 5 }}
+              >
                 {title}
-              </h3>
+              </motion.h3>
               
               {/* Subtítulo (opcional) */}
               {subtitle && (
-                <p className="text-xl text-gray-300 mb-2">
+                <motion.p 
+                  className="text-xl text-gray-300 mb-2 font-medium"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
                   {subtitle}
-                </p>
+                </motion.p>
               )}
               
               {/* Descrição */}
-              <p className="text-[#848484] text-lg mb-6">
+              <motion.p 
+                className="text-[#848484] text-lg mb-6 leading-relaxed"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
                 {description}
-              </p>
+              </motion.p>
 
               {/* Botão circular */}
               <Link
                 href={href}
                 className="inline-block"
               >
-                <div 
+                <motion.div 
                   className="
                     flex items-center justify-center w-12 h-12
                     rounded-full border text-white
                     transition-all duration-300
                     group-hover:bg-white group-hover:text-black
+                    backdrop-blur-sm
                   "
                   style={{ 
                     borderColor: gradientColor === "green" ? "#14F195" : "#333333",
                     color: gradientColor === "green" ? "#14F195" : "white"
                   }}
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
                 >
                   <svg
                     className="w-6 h-6 transition-colors duration-300 group-hover:stroke-black"
@@ -176,12 +253,12 @@ export const Card = ({
                       d="M14 5l7 7m0 0l-7 7m7-7H3"
                     />
                   </svg>
-                </div>
+                </motion.div>
               </Link>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
