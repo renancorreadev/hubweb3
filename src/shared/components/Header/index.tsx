@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Moon, Sun, Globe } from "lucide-react";
 import { useTheme } from "next-themes";
+import { motion, AnimatePresence } from "framer-motion";
 import { InkeepSearchBar } from "@/shared/components/Header/components/SearchBar";
 import { DevelopersNav } from "@/shared/components/Header/components/DevelopersNav";
 import { SubMenuList } from "@/shared/components/Header/components/SubMenu/SubMenuList";
@@ -13,13 +14,17 @@ import { headerStyles } from "./styles";
 import { RenderContainer } from "../RenderContainer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
+import { useThemeColors } from "@/shared/hooks/useThemeColors";
 
 export function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
+  const { isDark, getColor, getTextColor } = useThemeColors();
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setMounted] = useState(false);
+
+  console.log(isDark);
 
   useEffect(() => {
     setMounted(true);
@@ -33,11 +38,36 @@ export function Header() {
     setLanguage(language === 'pt' ? 'en' : 'pt');
   };
 
-  const isThemePage = true; // Se quiser condicionar troca de tema só para algumas rotas
+  const isThemePage = true; 
+
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    },
+    open: {
+      opacity: 1,
+      height: "auto",
+      transition: {
+        duration: 0.3,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    }
+  };
 
   return (
     <RenderContainer>
-      <header className={headerStyles.container}>
+      <header 
+        className={headerStyles.container}
+        style={{
+          backgroundColor: isDark ? `${getColor('background')}80` : '#ffffff',
+          borderColor: isDark ? getColor('border') : '#E5E5E5',
+        }}
+      >
         <div className={headerStyles.wrapper}>
           {/* Logo */}
           <Link href="/" className={headerStyles.logo} aria-label="HubWeb3">
@@ -51,15 +81,46 @@ export function Header() {
           </Link>
 
           {/* Mobile Menu Toggle */}
-          <button
+          <motion.button
             className={headerStyles.mobileMenuButton}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            style={{
+              color: isDark ? getTextColor('primary') : '#1A1A1A',
+            }}
           >
-            <span className={headerStyles.menuIconLine} />
-            <span className={headerStyles.menuIconLine} />
-            <span className={headerStyles.menuIconLine} />
-          </button>
+            <motion.span 
+              className={headerStyles.menuIconLine} 
+              style={{
+                backgroundColor: isDark ? getTextColor('primary') : '#1A1A1A',
+              }}
+              animate={{
+                rotate: isOpen ? 45 : 0,
+                y: isOpen ? 8 : 0,
+              }}
+            />
+            <motion.span 
+              className={headerStyles.menuIconLine} 
+              style={{
+                backgroundColor: isDark ? getTextColor('primary') : '#1A1A1A',
+              }}
+              animate={{
+                opacity: isOpen ? 0 : 1,
+              }}
+            />
+            <motion.span 
+              className={headerStyles.menuIconLine} 
+              style={{
+                backgroundColor: isDark ? getTextColor('primary') : '#1A1A1A',
+              }}
+              animate={{
+                rotate: isOpen ? -45 : 0,
+                y: isOpen ? -8 : 0,
+              }}
+            />
+          </motion.button>
 
           {/* Nav items desktop */}
           <div className={headerStyles.navDesktop}>
@@ -67,61 +128,105 @@ export function Header() {
             <InkeepSearchBar />
             <div className="flex items-center gap-3">
               {isMounted && (
-                <button
+                <motion.button
                   onClick={toggleLanguage}
                   className={headerStyles.themeToggle}
                   aria-label="Toggle language"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    color: isDark ? getTextColor('primary') : '#1A1A1A',
+                  }}
                 >
                   <Globe size={22} />
-                  <span className={`ml-1 text-xs font-medium ${mobileOnly.text.sm} ${desktopOnly.text.base}`}>{language.toUpperCase()}</span>
-                </button>
+                  <span 
+                    className={`ml-1 text-xs font-medium ${mobileOnly.text.sm} ${desktopOnly.text.base}`}
+                    style={{
+                      color: isDark ? getTextColor('secondary') : '#666666',
+                    }}
+                  >
+                    {language.toUpperCase()}
+                  </span>
+                </motion.button>
               )}
               {isMounted && isThemePage && (
-                <button
+                <motion.button
                   onClick={toggleTheme}
                   className={headerStyles.themeToggle}
                   aria-label="Toggle theme"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    color: isDark ? getTextColor('primary') : '#1A1A1A',
+                  }}
                 >
                   {theme === "light" ? <Moon size={24} /> : <Sun size={24} />}
-                </button>
+                </motion.button>
               )}
             </div>
           </div>
         </div>
 
         {/* Nav items mobile */}
-        {isOpen && (
-          <div className={headerStyles.navMobile}>
-            <SubMenuList />
-            <div className="flex flex-col w-full gap-4 mt-4">
-                
-            <div className="flex gap-2 ">
-            {isMounted && (
-                <button
-                  onClick={toggleLanguage}
-                  className={`${headerStyles.themeToggle}  ml-2 gap-2`}
-                  aria-label="Toggle language"
-                >
-                  <Globe size={18} />
-                  <span className="ml-1 max-sm:text-xs max-lg:text-4xl font-medium">{language.toUpperCase()}</span>
-                </button>
-              )}
-              
-              {isMounted && isThemePage && (
-                <button
-                  onClick={toggleTheme}
-                  className={`${headerStyles.themeToggle} self-start ml-2`}
-                  aria-label="Toggle theme"
-                >
-                  {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-                </button>
-              )}
-            </div>
-              <InkeepSearchBar />
-            
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div 
+              className={headerStyles.navMobile}
+              variants={menuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              style={{
+                backgroundColor: isDark ? getColor('background') : '#ffffff',
+                borderColor: isDark ? getColor('border') : '#E5E5E5',
+              }}
+            >
+              <SubMenuList />
+              <div className="flex flex-col w-full gap-4 mt-4">
+                <div className="flex gap-2">
+                  {isMounted && (
+                    <motion.button
+                      onClick={toggleLanguage}
+                      className={`${headerStyles.themeToggle} ml-2 gap-2`}
+                      aria-label="Toggle language"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        color: isDark ? getTextColor('primary') : '#1A1A1A',
+                      }}
+                    >
+                      <Globe size={18} />
+                      <span 
+                        className="ml-1 max-sm:text-xs max-lg:text-4xl font-medium"
+                        style={{
+                          color: isDark ? getTextColor('secondary') : '#666666',
+                        }}
+                      >
+                        {language.toUpperCase()}
+                      </span>
+                    </motion.button>
+                  )}
+                  
+                  {isMounted && isThemePage && (
+                    <motion.button
+                      onClick={toggleTheme}
+                      className={`${headerStyles.themeToggle} self-start ml-2`}
+                      aria-label="Toggle theme"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        color: isDark ? getTextColor('primary') : '#1A1A1A',
+                      }}
+                    >
+                      {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+                    </motion.button>
+                  )}
+                </div>
+                <InkeepSearchBar />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* DevelopersNav */}
