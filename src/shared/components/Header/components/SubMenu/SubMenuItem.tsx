@@ -10,9 +10,10 @@ interface SubMenuItemProps {
   label: string;
   icon?: React.ReactNode;
   description?: string;
+  isSelected?: boolean;
 }
 
-export function SubMenuItem({ href, label, icon, description }: SubMenuItemProps) {
+export function SubMenuItem({ href, label, icon, description, isSelected = false }: SubMenuItemProps) {
   const { isDark, getColor, getTextColor } = useThemeColors();
 
   const itemVariants = {
@@ -38,14 +39,17 @@ export function SubMenuItem({ href, label, icon, description }: SubMenuItemProps
           transition: { duration: 0.2 }
         }}
         className="rounded-lg"
+        style={{
+          backgroundColor: isDark ? 'transparent' : isSelected ? '#E8F5E9' : 'transparent',
+        }}
       >
         <Link
           href={href}
           className={`group flex items-start gap-4 p-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] hover:shadow-sm active:scale-[0.98] 
             ${mobileOnly.text.base} ${desktopOnly.text.base}`}
           style={{
-            backgroundColor: isDark ? 'transparent' : '#ffffff',
-            color: isDark ? getTextColor('primary') : '#1A1A1A',
+            backgroundColor: 'transparent',
+            color: isDark ? '#ffffff' : isSelected ? '#4CAF50' : '#1A1A1A',
           }}
         >
           {icon && (
@@ -63,10 +67,10 @@ export function SubMenuItem({ href, label, icon, description }: SubMenuItemProps
             <motion.span 
               className={`font-medium transition-colors duration-200 ${mobileOnly.text.base} ${desktopOnly.text["xl"]}`}
               style={{
-                color: isDark ? getTextColor('primary') : '#1A1A1A',
+                color: isDark ? '#ffffff' : '#1A1A1A',
               }}
               whileHover={{
-                color: isDark ? getColor('primary') : '#0EA66B',
+                color: isDark ? getColor('primary') : '#4CAF50',
                 transition: { duration: 0.2 }
               }}
             >
@@ -76,7 +80,7 @@ export function SubMenuItem({ href, label, icon, description }: SubMenuItemProps
               <motion.span 
                 className={`abcm text-sm leading-relaxed transition-opacity duration-200 ${mobileOnly.text.sm} ${desktopOnly.text.base}`}
                 style={{
-                  color: isDark ? getTextColor('secondary') : '#666666',
+                  color: isDark ? '#ffffff' : '#1A1A1A',
                 }}
                 whileHover={{
                   opacity: 0.9,

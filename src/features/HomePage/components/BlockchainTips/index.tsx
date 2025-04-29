@@ -5,28 +5,41 @@ import Link from "next/link";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
 import { Container } from "@/components/Container";
 import { useTranslation } from "@/shared/hooks/useTranslation";
+import { useThemeColors } from "@/shared/hooks/useThemeColors";
 
 export const BlockchainTips = () => {
   const { t } = useTranslation();
+  const { isDark, getColor, getTextColor } = useThemeColors();
 
   return (
-    <section className="py-24 bg-black">
+    <section 
+      className="py-24" 
+      style={{
+        backgroundColor: isDark ? getColor('background') : '#ffffff'
+      }}
+    >
       <div className="container mx-auto px-4 md:px-6 lg:px-8 mb-12 ">
         <div
           className={`flex justify-between items-center ${mobileOnly.flexDirection.col} ${mobileOnly.gap.gap6}`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
+          <h2 
+            className="text-4xl md:text-5xl font-bold"
+            style={{
+              color: isDark ? '#ffffff' : '#1A1A1A'
+            }}
+          >
             {t('blockchain.title')}
           </h2>
 
           <Link
             href="/case-studies"
             className={`inline-flex items-center gap-2 px-6 py-3
-              rounded-full border border-white/20 text-white
-              transition-all duration-300
-              hover:bg-white hover:text-black
-              ${mobileOnly.margin.mt2}
-              `}
+              rounded-full border transition-all duration-300
+              ${mobileOnly.margin.mt2}`}
+            style={{
+              borderColor: isDark ? getColor('border') : '#E5E5E5',
+              color: isDark ? '#ffffff' : '#1A1A1A',
+            }}
           >
             {t('blockchain.caseStudies')}
             <svg

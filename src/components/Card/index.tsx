@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useThemeColors } from "@/shared/hooks/useThemeColors";
 
 interface CardProps {
   /** Tag do card (ex: "CASE STUDY", "VIDEO") */
@@ -54,6 +55,7 @@ export const Card = ({
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const { isDark, getColor, getTextColor } = useThemeColors();
 
   const rotateX = useTransform(y, [-100, 100], [10, -10]);
   const rotateY = useTransform(x, [-100, 100], [-10, 10]);
@@ -124,9 +126,12 @@ export const Card = ({
         {/* Card interno */}
         <div 
           className={`
-            relative w-full h-full rounded-[40px] bg-[#151515] overflow-hidden
+            relative w-full h-full rounded-[40px] overflow-hidden
             group transition-all duration-300
           `}
+          style={{
+            backgroundColor: isDark ? getColor('card.background') : getColor('card.background'),
+          }}
         >
           {/* Barra superior colorida */}
           {topBorder && (
@@ -171,8 +176,11 @@ export const Card = ({
             {/* Tag */}
             {tag && (
               <motion.span 
-                className="inline-block px-4 py-1.5 rounded-full text-black text-sm font-medium max-w-fit backdrop-blur-sm"
-                style={{ backgroundColor: gradientColor === "green" ? "#14F195" : "#8A46FF" }}
+                className="inline-block px-4 py-1.5 rounded-full text-sm font-medium max-w-fit backdrop-blur-sm"
+                style={{ 
+                  backgroundColor: gradientColor === "green" ? "#14F195" : "#8A46FF",
+                  color: isDark ? getColor('card.text.primary') : '#ffffff'
+                }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -186,7 +194,10 @@ export const Card = ({
             <div className="mt-auto">
               {/* Título */}
               <motion.h3 
-                className="text-3xl font-bold text-white mb-2 py-4 leading-tight"
+                className="text-3xl font-bold mb-2 py-4 leading-tight"
+                style={{
+                  color: isDark ? getColor('card.text.primary') : '#ffffff'
+                }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
@@ -198,7 +209,10 @@ export const Card = ({
               {/* Subtítulo (opcional) */}
               {subtitle && (
                 <motion.p 
-                  className="text-xl text-gray-300 mb-2 font-medium"
+                  className="text-xl mb-2 font-medium"
+                  style={{
+                    color: isDark ? getColor('card.text.secondary') : '#ffffff'
+                  }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.5 }}
@@ -209,7 +223,10 @@ export const Card = ({
               
               {/* Descrição */}
               <motion.p 
-                className="text-[#848484] text-lg mb-6 leading-relaxed"
+                className="text-lg mb-6 leading-relaxed"
+                style={{
+                  color: isDark ? getColor('card.text.secondary') : '#ffffff'
+                }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
@@ -225,14 +242,13 @@ export const Card = ({
                 <motion.div 
                   className="
                     flex items-center justify-center w-12 h-12
-                    rounded-full border text-white
+                    rounded-full border
                     transition-all duration-300
-                    group-hover:bg-white group-hover:text-black
                     backdrop-blur-sm
                   "
                   style={{ 
-                    borderColor: gradientColor === "green" ? "#14F195" : "#333333",
-                    color: gradientColor === "green" ? "#14F195" : "white"
+                    borderColor: gradientColor === "green" ? "#14F195" : isDark ? getColor('card.border') : getColor('card.border'),
+                    color: gradientColor === "green" ? "#14F195" : isDark ? getColor('card.text.primary') : getColor('card.text.primary')
                   }}
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
@@ -241,7 +257,7 @@ export const Card = ({
                   transition={{ duration: 0.5, delay: 0.7 }}
                 >
                   <svg
-                    className="w-6 h-6 transition-colors duration-300 group-hover:stroke-black"
+                    className="w-6 h-6 transition-colors duration-300"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

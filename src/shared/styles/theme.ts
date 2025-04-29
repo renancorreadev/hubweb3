@@ -55,6 +55,45 @@ export const theme = {
     '2xl': '1536px',
     '3xl': '1920px',
   },
+
+  colors: {
+    light: {
+      background: '#ffffff',
+      primary: '#0EA66B',
+      secondary: '#8A46FF',
+      'text.primary': '#1A1A1A',
+      'text.secondary': '#666666',
+      border: '#E5E5E5',
+      hover: '#F5F5F5',
+      card: {
+        background: '#ffffff',
+        text: {
+          primary: '#1A1A1A',
+          secondary: '#666666'
+        },
+        border: '#E5E5E5',
+        hover: '#F5F5F5'
+      }
+    },
+    dark: {
+      background: '#0A0A0A',
+      primary: '#14F195',
+      secondary: '#8A46FF',
+      'text.primary': '#ffffff',
+      'text.secondary': '#A3A3A3',
+      border: '#333333',
+      hover: '#1A1A1A',
+      card: {
+        background: '#0A0A0A',
+        text: {
+          primary: '#ffffff',
+          secondary: '#A3A3A3'
+        },
+        border: '#333333',
+        hover: '#1A1A1A'
+      }
+    }
+  },
 } as const;
 
 // Tipos para facilitar o uso com TypeScript
@@ -62,4 +101,56 @@ export type ThemeSpacing = keyof typeof theme.spacing;
 export type ThemeBorderRadius = keyof typeof theme.borderRadius;
 export type ThemeFontSize = keyof typeof theme.typography.fontSizes;
 export type ThemeFontWeight = keyof typeof theme.typography.fontWeights;
-export type ThemeBreakpoint = keyof typeof theme.breakpoints; 
+export type ThemeBreakpoint = keyof typeof theme.breakpoints;
+export type ColorPath = 
+  | 'background'
+  | 'primary'
+  | 'secondary'
+  | 'text.primary'
+  | 'text.secondary'
+  | 'border'
+  | 'hover'
+  | 'card.background'
+  | 'card.text.primary'
+  | 'card.text.secondary'
+  | 'card.border'
+  | 'card.hover';
+
+export type ThemeColors = {
+  dark: {
+    background: string;
+    primary: string;
+    secondary: string;
+    'text.primary': string;
+    'text.secondary': string;
+    border: string;
+    hover: string;
+    card: {
+      background: string;
+      text: {
+        primary: string;
+        secondary: string;
+      };
+      border: string;
+      hover: string;
+    };
+  };
+  light: {
+    background: string;
+    primary: string;
+    secondary: string;
+    'text.primary': string;
+    'text.secondary': string;
+    border: string;
+    hover: string;
+    card: {
+      background: string;
+      text: {
+        primary: string;
+        secondary: string;
+      };
+      border: string;
+      hover: string;
+    };
+  };
+}; 

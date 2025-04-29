@@ -7,53 +7,96 @@ type ColorValue = {
 };
 
 type ThemeColors = {
-  background: ColorValue;
-  primary: ColorValue;
-  secondary: ColorValue;
-  text: {
-    primary: ColorValue;
-    secondary: ColorValue;
+  dark: {
+    background: string;
+    primary: string;
+    secondary: string;
+    'text.primary': string;
+    'text.secondary': string;
+    border: string;
+    hover: string;
+    card: {
+      background: string;
+      text: {
+        primary: string;
+        secondary: string;
+      };
+      border: string;
+      hover: string;
+    };
   };
-  border: ColorValue;
-  hover: ColorValue;
+  light: {
+    background: string;
+    primary: string;
+    secondary: string;
+    'text.primary': string;
+    'text.secondary': string;
+    border: string;
+    hover: string;
+    card: {
+      background: string;
+      text: {
+        primary: string;
+        secondary: string;
+      };
+      border: string;
+      hover: string;
+    };
+  };
 };
 
 const themeColors: ThemeColors = {
-  background: {
-    light: '#ffffff',
-    dark: '#000508',
+  dark: {
+    background: '#0A0A0A',
+    primary: '#14F195',
+    secondary: '#8A46FF',
+    'text.primary': '#ffffff',
+    'text.secondary': '#A3A3A3',
+    border: '#333333',
+    hover: '#1A1A1A',
+    card: {
+      background: '#0A0A0A',
+      text: {
+        primary: '#ffffff',
+        secondary: '#A3A3A3'
+      },
+      border: '#333333',
+      hover: '#1A1A1A'
+    }
   },
-  primary: {
-    light: '#0EA66B',
-    dark: '#14F195',
-  },
-  secondary: {
-    light: '#7435CC',
-    dark: '#9945FF',
-  },
-  text: {
-    primary: {
-      light: '#1A1A1A',
-      dark: '#FFFFFF',
-    },
-    secondary: {
-      light: '#666666',
-      dark: '#A1A1A1',
-    },
-  },
-  border: {
-    light: '#E5E5E5',
-    dark: 'rgba(255, 255, 255, 0.1)',
-  },
-  hover: {
-    light: '#F5F5F5',
-    dark: 'rgba(255, 255, 255, 0.05)',
-  },
+  light: {
+    background: '#ffffff',
+    primary: '#0EA66B',
+    secondary: '#8A46FF',
+    'text.primary': '#1A1A1A',
+    'text.secondary': '#666666',
+    border: '#E5E5E5',
+    hover: '#F5F5F5',
+    card: {
+      background: '#ffffff',
+      text: {
+        primary: '#1A1A1A',
+        secondary: '#666666'
+      },
+      border: '#E5E5E5',
+      hover: '#F5F5F5'
+    }
+  }
 };
 
-type BaseColorPath = keyof Omit<ThemeColors, 'text'>;
-type TextColorPath = `text.${keyof ThemeColors['text']}`;
-type ColorPath = BaseColorPath | TextColorPath;
+type ColorPath = 
+  | 'background'
+  | 'primary'
+  | 'secondary'
+  | 'text.primary'
+  | 'text.secondary'
+  | 'border'
+  | 'hover'
+  | 'card.background'
+  | 'card.text.primary'
+  | 'card.text.secondary'
+  | 'card.border'
+  | 'card.hover';
 
 export function useThemeColors() {
   const { theme, systemTheme } = useTheme();
@@ -66,21 +109,26 @@ export function useThemeColors() {
   const currentTheme = theme === 'system' ? systemTheme : theme;
   const isDark = currentTheme === 'dark';
 
-  const getColor = (colorPath: ColorPath) => {
+  const getColor = (path: ColorPath) => {
     if (!isMounted) return '';
     
-    if (colorPath.startsWith('text.')) {
-      const textType = colorPath.split('.')[1] as keyof ThemeColors['text'];
-      return isDark ? themeColors.text[textType].dark : themeColors.text[textType].light;
+    const colorPath = path.split('.');
+    let current: any = themeColors[isDark ? 'dark' : 'light'];
+    
+    for (const part of colorPath) {
+      current = current[part];
+      if (current === undefined) {
+        console.warn(`Color path "${path}" not found in theme`);
+        return '#000000';
+      }
     }
     
-    const basePath = colorPath as BaseColorPath;
-    return isDark ? themeColors[basePath].dark : themeColors[basePath].light;
+    return current;
   };
 
   const getTextColor = (type: 'primary' | 'secondary') => {
     if (!isMounted) return '';
-    return isDark ? themeColors.text[type].dark : themeColors.text[type].light;
+    return getColor(`text.${type}` as ColorPath);
   };
 
   return {

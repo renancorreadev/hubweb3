@@ -88,13 +88,13 @@ export function Header() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             style={{
-              color: isDark ? getTextColor('primary') : '#1A1A1A',
+              color: isDark ? '#ffffff' : '#1A1A1A',
             }}
           >
             <motion.span 
               className={headerStyles.menuIconLine} 
               style={{
-                backgroundColor: isDark ? getTextColor('primary') : '#1A1A1A',
+                backgroundColor: isDark ? '#ffffff' : '#1A1A1A',
               }}
               animate={{
                 rotate: isOpen ? 45 : 0,
@@ -104,7 +104,7 @@ export function Header() {
             <motion.span 
               className={headerStyles.menuIconLine} 
               style={{
-                backgroundColor: isDark ? getTextColor('primary') : '#1A1A1A',
+                backgroundColor: isDark ? '#ffffff' : '#1A1A1A',
               }}
               animate={{
                 opacity: isOpen ? 0 : 1,
@@ -113,7 +113,7 @@ export function Header() {
             <motion.span 
               className={headerStyles.menuIconLine} 
               style={{
-                backgroundColor: isDark ? getTextColor('primary') : '#1A1A1A',
+                backgroundColor: isDark ? '#ffffff' : '#1A1A1A',
               }}
               animate={{
                 rotate: isOpen ? -45 : 0,
@@ -135,14 +135,14 @@ export function Header() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   style={{
-                    color: isDark ? getTextColor('primary') : '#1A1A1A',
+                    color: isDark ? '#ffffff' : '#1A1A1A',
                   }}
                 >
                   <Globe size={22} />
                   <span 
                     className={`ml-1 text-xs font-medium ${mobileOnly.text.sm} ${desktopOnly.text.base}`}
                     style={{
-                      color: isDark ? getTextColor('secondary') : '#666666',
+                      color: isDark ? '#ffffff' : '#1A1A1A',
                     }}
                   >
                     {language.toUpperCase()}
@@ -157,7 +157,7 @@ export function Header() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   style={{
-                    color: isDark ? getTextColor('primary') : '#1A1A1A',
+                    color: isDark ? '#ffffff' : '#1A1A1A',
                   }}
                 >
                   {theme === "light" ? <Moon size={24} /> : <Sun size={24} />}
@@ -192,14 +192,14 @@ export function Header() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       style={{
-                        color: isDark ? getTextColor('primary') : '#1A1A1A',
+                        color: isDark ? '#ffffff' : '#1A1A1A',
                       }}
                     >
                       <Globe size={18} />
                       <span 
                         className="ml-1 max-sm:text-xs max-lg:text-4xl font-medium"
                         style={{
-                          color: isDark ? getTextColor('secondary') : '#666666',
+                          color: isDark ? '#ffffff' : '#1A1A1A',
                         }}
                       >
                         {language.toUpperCase()}
@@ -215,7 +215,7 @@ export function Header() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       style={{
-                        color: isDark ? getTextColor('primary') : '#1A1A1A',
+                        color: isDark ? '#ffffff' : '#1A1A1A',
                       }}
                     >
                       {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}

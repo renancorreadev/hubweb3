@@ -40,14 +40,14 @@ export function SubMenuTrigger({ label, isOpen, onClick, icon, href }: SubMenuTr
           mobileOnly.text.lg
         } ${desktopOnly.text.base}`}
         style={{
-          color: isDark ? getTextColor('primary') : '#1A1A1A',
+          color: isDark ? '#ffffff' : '#1A1A1A',
         }}
       >
         {icon && <span className="flex-shrink-0">{icon}</span>}
         <span 
           className={`${desktopOnly.text["2xl"]} ${mobileOnly.text.base}`}
           style={{
-            color: isDark ? getTextColor('primary') : '#1A1A1A',
+            color: isDark ? '#ffffff' : '#1A1A1A',
           }}
         >
           {label}
@@ -73,7 +73,7 @@ export function SubMenuTrigger({ label, isOpen, onClick, icon, href }: SubMenuTr
           <ChevronDown
             size={24}
             style={{
-              color: isDark ? getTextColor('primary') : '#1A1A1A',
+              color: isDark ? '#ffffff' : '#1A1A1A',
             }}
           />
         </motion.div>
