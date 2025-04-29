@@ -13,10 +13,11 @@ const logos = [
   { src: "/images/techs/Solidity.svg", alt: "Solidity", scale: 1.0 },
   { src: "/images/techs/NestJS.svg", alt: "NestJS", scale: 1.0 },
   { src: "/images/techs/Go.svg", alt: "Go", scale: 1.2 },
+  { src: "/images/techs/ChainLink.svg", alt: "ChainLink", scale: 1},
   { src: "/images/techs/Rust.svg", alt: "Rust", scale: 1.2 },
   { src: "/images/techs/Node.svg", alt: "Node.js", scale: 1.2 },
   { src: "/images/techs/Docker.svg", alt: "Docker", scale: 1.2 },
-  { src: "/images/techs/Solana.svg", alt: "Solana", scale: 1.2 },
+  { src: "/images/techs/Solana.svg", alt: "Solana", scale: 1.2 }
 ];
 
 export function TechLogos() {
@@ -59,7 +60,8 @@ export function TechLogos() {
                   width: `${80 * logo.scale}px`, 
                   height: `${80 * logo.scale}px`,
                   transform: `scale(${logo.scale})`,
-                  marginRight: index < logos.length - 1 ? '48px' : '0'
+                  marginRight: index < logos.length - 1 ? '48px' : '0',
+                  marginLeft: index === 0 ? '48px' : '0'
                 }}
               >
                 <Image
@@ -105,7 +107,8 @@ export function TechLogos() {
                   width: `${80 * logo.scale}px`, 
                   height: `${80 * logo.scale}px`,
                   transform: `scale(${logo.scale})`,
-                  marginRight: index < logos.length - 1 ? '48px' : '0'
+                  marginRight: index < logos.length - 1 ? '48px' : '0',
+                  marginLeft: index === 0 ? '48px' : '0'
                 }}
               >
                 <Image
@@ -157,7 +160,8 @@ export function TechLogos() {
                   width: `${60 * logo.scale}px`, 
                   height: `${60 * logo.scale}px`,
                   transform: `scale(${logo.scale})`,
-                  marginRight: index < 5 ? '36px' : '0'
+                  marginRight: index < 5 ? '36px' : '0',
+                  marginLeft: index === 0 ? '36px' : '0'
                 }}
               >
                 <Image
@@ -203,7 +207,8 @@ export function TechLogos() {
                   width: `${60 * logo.scale}px`, 
                   height: `${60 * logo.scale}px`,
                   transform: `scale(${logo.scale})`,
-                  marginRight: index < 5 ? '36px' : '0'
+                  marginRight: index < 5 ? '36px' : '0',
+                  marginLeft: index === 0 ? '36px' : '0'
                 }}
               >
                 <Image

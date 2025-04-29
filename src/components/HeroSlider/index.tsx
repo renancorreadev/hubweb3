@@ -203,9 +203,11 @@ export const HeroSlider = ({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
                     onHoverEnd={(e) => {
-                      const target = e.currentTarget as HTMLElement;
-                      target.style.borderBottom = 'none';
-                      target.style.boxShadow = 'none';
+                      const target = e.currentTarget as HTMLElement | null;
+                      if (target && target.style) {
+                        target.style.borderBottom = 'none';
+                        target.style.boxShadow = 'none';
+                      }
                     }}
                   >
                     <motion.h1
