@@ -1,5 +1,19 @@
 export const mobileOnly = {
     // Classes que só funcionam em mobile (< 480px)
+    colSpan: {
+      cols1: 'max-xs:col-span-1',
+      cols2: 'max-xs:col-span-2',
+      cols3: 'max-xs:col-span-3',
+      cols4: 'max-xs:col-span-4',
+      cols5: 'max-xs:col-span-5',
+      cols6: 'max-xs:col-span-6',
+      cols7: 'max-xs:col-span-7',
+      cols8: 'max-xs:col-span-8',
+      cols9: 'max-xs:col-span-9',
+      cols10: 'max-xs:col-span-10',
+      cols11: 'max-xs:col-span-11',
+      cols12: 'max-xs:col-span-12',
+    },
     margin: {
       mb2: 'max-xs:mb-2',
       mb4: 'max-xs:mb-4',
@@ -39,6 +53,18 @@ export const mobileOnly = {
       py8: 'max-xs:py-8',
       py12: 'max-xs:py-12',
       py16: 'max-xs:py-16',
+      pt2: 'max-xs:pt-2',
+      pt4: 'max-xs:pt-4',
+      pt6: 'max-xs:pt-6',
+      pt8: 'max-xs:pt-8',
+      pt12: 'max-xs:pt-12',
+      pt16: 'max-xs:pt-16',
+      pb2: 'max-xs:pb-2',
+      pb4: 'max-xs:pb-4',
+      pb6: 'max-xs:pb-6',
+      pb8: 'max-xs:pb-8',
+      pb12: 'max-xs:pb-12',
+      pb16: 'max-xs:pb-16',
     },
     display: {
       hidden: 'max-xs:hidden',
@@ -48,6 +74,12 @@ export const mobileOnly = {
       inline: 'max-xs:inline',
       inlineBlock: 'max-xs:inline-block',
       inlineFlex: 'max-xs:inline-flex',
+    },
+    flexDirection: {
+      col: 'max-xs:flex-col',
+      row: 'max-xs:flex-row',
+      wrap: 'max-xs:flex-wrap',
+      nowrap: 'max-xs:flex-nowrap',
     },
     flex: {
       col: 'max-xs:flex-col',
@@ -117,10 +149,26 @@ export const mobileOnly = {
       gap8: 'max-xs:gap-8',
       gap10: 'max-xs:gap-10',
     },
+    container: "grid grid-cols-12 gap-6 p-4"
   };
   
   export const desktopOnly = {
     // Classes que só funcionam em desktop (≥ 1024px)
+    colSpan: {
+      cols1: 'lg:col-span-1',
+      cols2: 'lg:col-span-2',
+      cols3: 'lg:col-span-3',
+      cols4: 'lg:col-span-4',
+      cols5: 'lg:col-span-5',
+      cols6: 'lg:col-span-6',
+      cols7: 'lg:col-span-7',
+      col8: 'lg:col-span-8',
+      cols9: 'lg:col-span-9',
+      cols10: 'lg:col-span-10',
+      cols11: 'lg:col-span-11',
+      cols12: 'lg:col-span-12',
+    },
+
     margin: {
       mb2: 'lg:mb-2',
       mb4: 'lg:mb-4',
@@ -238,6 +286,7 @@ export const mobileOnly = {
       gap8: 'lg:gap-8',
       gap10: 'lg:gap-10',
     },
+    container: "grid grid-cols-12 gap-6 p-4"
   };
   
   export const tabletOnly = {

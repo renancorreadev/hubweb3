@@ -13,5 +13,5 @@ export function RenderContainer({ children }: { children: ReactNode }) {
     return null;
   }
 
-  return <>{children}</>;
+  return <div className="w-full h-full">{children}</div >;
 }

@@ -2,14 +2,14 @@ import React from "react";
 import { Hero } from "./components/Hero";
 import { RenderContainer } from "@/shared/components/RenderContainer";
 import { HeroSlider } from "@/components/HeroSlider";
-import { desktopOnly } from "@/styles/responsive-classes";
+import { desktopOnly } from "@/shared/configs/responsive";
 import { BlockchainTips } from "@/features/HomePage/components/BlockchainTips";
 
 const projects = [
   {
     id: 1,
     title: "Chainlink",
-    subtitle: "The leading oracle network for blockchain.", 
+    subtitle: "The leading oracle network for blockchain.",
     imageUrl: "/images/sliders/chainlink.jpg",
     linkUrl: "https://chainlink.com",
   },
@@ -34,16 +34,17 @@ export function HomePage() {
     <RenderContainer>
       <Hero />
       {/* Slider de projetos */}
-      <HeroSlider 
-       projects={projects}
-       className={desktopOnly.padding.p6} 
-       imageRadius={24} 
-       textContainerRadius={16} 
-       showButton={true}
-       buttonText="See Now"
-       />
+      <HeroSlider
+        projects={projects}
+        className={desktopOnly.padding.p6}
+        imageRadius={24}
+        textContainerRadius={16}
+        showButton={true}
+        buttonText="See Now"
+      />
       {/* Bloco de dicas de blockchain */}
-      <BlockchainTips />
+     <BlockchainTips /> 
+
     </RenderContainer>
   );
 }

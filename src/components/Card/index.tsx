@@ -28,6 +28,8 @@ interface CardProps {
     from: string;
     to: string;
   };
+  /** Mostrar ou esconder a barra superior e sua cor */
+  topBorder?: boolean | "green" | "purple";
 }
 
 export const Card = ({
@@ -41,7 +43,8 @@ export const Card = ({
   gradientColor = "default",
   barColor,
   neonEffect = false,
-  neonColors = { from: "#14F195", to: "#9945FF" }, 
+  neonColors = { from: "#14F195", to: "#9945FF" },
+  topBorder = true,
 }: CardProps) => {
   // Determinar o gradiente baseado no gradientColor
   const getGradientStyle = () => {
@@ -52,7 +55,12 @@ export const Card = ({
   };
 
   // Cor da barra superior
-  const barColorStyle = barColor || (gradientColor === "green" ? "#14F195" : "#8A46FF");
+  const getTopBorderColor = () => {
+    if (typeof topBorder === "string") {
+      return topBorder === "green" ? "#14F195" : "#9945FF";
+    }
+    return barColor || (gradientColor === "green" ? "#14F195" : "#9945FF");
+  };
 
   return (
     <div className={`w-full h-full ${className} ${neonEffect ? 'p-[2px]' : ''}`}>
@@ -75,10 +83,13 @@ export const Card = ({
           `}
         >
           {/* Barra superior colorida */}
-          {!neonEffect && (
+          {topBorder && (
             <div 
               className="absolute top-0 left-0 right-0 h-1 z-10" 
-              style={{ backgroundColor: barColorStyle }}
+              style={{ 
+                backgroundColor: getTopBorderColor(),
+                opacity: 0.8
+              }}
             />
           )}
 
@@ -108,12 +119,12 @@ export const Card = ({
           <div className="relative z-[2] p-8 h-full flex flex-col">
             {/* Tag */}
             {tag && (
-              <div 
-                className="inline-block px-4 py-1.5 rounded-full text-white text-sm font-medium max-w-fit"
+              <span 
+                className="inline-block px-4 py-1.5 rounded-full text-black text-sm font-medium max-w-fit"
                 style={{ backgroundColor: gradientColor === "green" ? "#14F195" : "#8A46FF" }}
               >
                 {tag}
-              </div>
+              </span>
             )}
 
             {/* Área de texto e botão */}

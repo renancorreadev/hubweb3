@@ -1,4 +1,5 @@
 import "@/styles/global.css";
+
 import { Header } from "@/shared/components/Header";
 import { Footer } from "@/shared/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";

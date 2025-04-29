@@ -1,5 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from "tailwindcss";
+import { mtConfig } from "@material-tailwind/react";
+import animate from "tailwindcss-animate";
+
+const config: Config = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",  
     "./node_modules/fumadocs-ui/dist/**/*.js",
@@ -95,6 +98,9 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
+    animate,
+
   ],
 };
+
+export default config;

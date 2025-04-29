@@ -1,6 +1,6 @@
 "use client";
 
-import { mobileOnly } from "@/styles/responsive-classes";
+import { mobileOnly } from "@/shared/configs/responsive";
 import Image from "next/image";
 import React from "react";
 
