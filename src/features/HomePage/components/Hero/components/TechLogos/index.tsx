@@ -1,139 +1,230 @@
 "use client";
 
-import { mobileOnly } from "@/shared/configs/responsive";
+import {  desktopOnly } from "@/shared/configs/responsive";
 import Image from "next/image";
 import React from "react";
+import { motion, usePresence } from "framer-motion";
 
 const logos = [
-  { src: "/images/techs/Typescript.svg", alt: "Typescript", scale: "scale-100" },
-  { src: "/images/techs/Ethereum.svg", alt: "Ethereum", scale: "scale-100" },
-  { src: "/images/techs/Besu.svg", alt: "Besu", scale: "scale-[1.6]" },
-  { src: "/images/techs/Next.svg", alt: "Next.js", scale: "scale-100" },
-  { src: "/images/techs/Solidity.svg", alt: "Solidity", scale: "scale-[1.2]" },
-  { src: "/images/techs/NestJS.svg", alt: "NestJS", scale: "scale-[1.3]" },
-  { src: "/images/techs/Go.svg", alt: "Go", scale: "scale-[1.7]" },
+  { src: "/images/techs/Typescript.svg", alt: "Typescript", scale: 1.0 },
+  { src: "/images/techs/Ethereum.svg", alt: "Ethereum", scale: 1.0 },
+  { src: "/images/techs/Besu.svg", alt: "Besu", scale: 1.4 },
+  { src: "/images/techs/Next.svg", alt: "Next.js", scale: 1.0 },
+  { src: "/images/techs/Solidity.svg", alt: "Solidity", scale: 1.0 },
+  { src: "/images/techs/NestJS.svg", alt: "NestJS", scale: 1.0 },
+  { src: "/images/techs/Go.svg", alt: "Go", scale: 1.2 },
+  { src: "/images/techs/Rust.svg", alt: "Rust", scale: 1.2 },
+  { src: "/images/techs/Node.svg", alt: "Node.js", scale: 1.2 },
+  { src: "/images/techs/Docker.svg", alt: "Docker", scale: 1.2 },
+  { src: "/images/techs/Solana.svg", alt: "Solana", scale: 1.2 },
 ];
 
 export function TechLogos() {
-  const firstRow = logos.slice(0, 4);
-  const secondRow = logos.slice(4);
+  const [isPresent] = usePresence();
 
   return (
-    <div className={
-      `mt-8
-      sm:mt-16
-      max-w-screen-lg
-      mx-auto
-      px-4
-      opacity-60
-      dark:opacity-40
-      transition-opacity
-      duration-300
-      ${mobileOnly.padding.pt8}
-      `
-    }>
-      {/* Layout Mobile */}
-      <div className="block sm:hidden">
-        <div className="flex flex-col gap-8">
-          {/* Primeira linha - 4 logos */}
-          <div className="grid grid-cols-4 gap-6">
-            {firstRow.map((logo) => (
-              <div
-                key={logo.alt}
-                className="
-                  flex
-                  items-center
-                  justify-center
-                  w-full
-                  h-[35px]
-                  relative
-                "
-              >
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={45}
-                  height={35}
-                  className={`
-                    dark:invert
-                    transition-transform
-                    duration-300
-                    hover:scale-110
-                    ${logo.scale}
-                    object-contain
-                    max-h-[65px]
-                  `}
-                />
-              </div>
-            ))}
-          </div>
+    <div 
+      className={`w-screen relative mt-16 -mx-[calc((100vw-100%)/2)]`}
+    >
+      {/* Gradiente esquerdo */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
+      
+      {/* Gradiente direito */}
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
 
-          {/* Segunda linha - 3 logos */}
-          <div className="grid grid-cols-3 gap-6 w-[75%] mx-auto">
-            {secondRow.map((logo) => (
+      <div className="hidden lg:flex items-center justify-center h-[120px] overflow-hidden">
+        <div className="relative flex">
+          <motion.div
+            className="flex items-center"
+            animate={{
+              x: ["0%", "-100%"],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 20,
+                ease: "linear",
+              },
+            }}
+            style={{
+              animationPlayState: isPresent ? "running" : "paused"
+            }}
+          >
+            {logos.map((logo, index) => (
               <div
                 key={logo.alt}
-                className="
-                  flex
-                  items-center
-                  justify-center
-                  w-full
-                  h-[35px]
-                  relative
-                "
+                className="flex items-center justify-center"
+                style={{ 
+                  width: `${80 * logo.scale}px`, 
+                  height: `${80 * logo.scale}px`,
+                  transform: `scale(${logo.scale})`,
+                  marginRight: index < logos.length - 1 ? '48px' : '0'
+                }}
               >
                 <Image
                   src={logo.src}
                   alt={logo.alt}
-                  width={45}
-                  height={35}
-                  className={`
-                    dark:invert
-                    transition-transform
-                    duration-300
-                    hover:scale-110
-                    ${logo.scale}
-                    object-contain
-                    max-h-[65px]
-                  `}
+                  width={80}
+                  height={80}
+                  className="w-auto h-auto object-contain dark:invert opacity-60 hover:opacity-100 transition-all duration-300"
+                  style={{ 
+                    display: 'block',
+                    margin: 'auto',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    width: 'auto',
+                    height: 'auto'
+                  }}
                 />
               </div>
             ))}
-          </div>
+          </motion.div>
+          <motion.div
+            className="flex items-center absolute left-full"
+            animate={{
+              x: ["0%", "-100%"],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 20,
+                ease: "linear",
+              },
+            }}
+            style={{
+              animationPlayState: isPresent ? "running" : "paused"
+            }}
+          >
+            {logos.map((logo, index) => (
+              <div
+                key={`${logo.alt}-clone`}
+                className="flex items-center justify-center"
+                style={{ 
+                  width: `${80 * logo.scale}px`, 
+                  height: `${80 * logo.scale}px`,
+                  transform: `scale(${logo.scale})`,
+                  marginRight: index < logos.length - 1 ? '48px' : '0'
+                }}
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={80}
+                  height={80}
+                  className="w-auto h-auto object-contain dark:invert opacity-60 hover:opacity-100 transition-all duration-300"
+                  style={{ 
+                    display: 'block',
+                    margin: 'auto',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    width: 'auto',
+                    height: 'auto'
+                  }}
+                />
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
 
-      {/* Layout Tablet/Desktop */}
-      <div className="hidden sm:grid sm:grid-cols-4 lg:grid-cols-7 sm:gap-8">
-        {logos.map((logo) => (
-          <div
-            key={logo.alt}
-            className="
-              flex
-              items-center
-              justify-center
-              w-full
-              h-[40px]
-              relative
-            "
+      {/* Versão simplificada para tablet e mobile */}
+      <div className="lg:hidden flex items-center justify-center h-[120px] overflow-hidden">
+        <div className="relative flex">
+          <motion.div
+            className="flex items-center"
+            animate={{
+              x: ["0%", "-100%"],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 15,
+                ease: "linear",
+              },
+            }}
+            style={{
+              animationPlayState: isPresent ? "running" : "paused"
+            }}
           >
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={45}
-              height={35}
-              className={`
-                dark:invert
-                transition-transform
-                duration-300
-                hover:scale-110
-                ${logo.scale}
-                object-contain
-                max-h-[80px]
-              `}
-            />
-          </div>
-        ))}
+            {logos.slice(0, 6).map((logo, index) => (
+              <div
+                key={logo.alt}
+                className="flex items-center justify-center"
+                style={{ 
+                  width: `${60 * logo.scale}px`, 
+                  height: `${60 * logo.scale}px`,
+                  transform: `scale(${logo.scale})`,
+                  marginRight: index < 5 ? '36px' : '0'
+                }}
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={60}
+                  height={60}
+                  className="w-auto h-auto object-contain dark:invert opacity-60 hover:opacity-100 transition-all duration-300"
+                  style={{ 
+                    display: 'block',
+                    margin: 'auto',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    width: 'auto',
+                    height: 'auto'
+                  }}
+                />
+              </div>
+            ))}
+          </motion.div>
+          <motion.div
+            className="flex items-center absolute left-full"
+            animate={{
+              x: ["0%", "-100%"],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 15,
+                ease: "linear",
+              },
+            }}
+            style={{
+              animationPlayState: isPresent ? "running" : "paused"
+            }}
+          >
+            {logos.slice(0, 6).map((logo, index) => (
+              <div
+                key={`${logo.alt}-clone`}
+                className="flex items-center justify-center"
+                style={{ 
+                  width: `${60 * logo.scale}px`, 
+                  height: `${60 * logo.scale}px`,
+                  transform: `scale(${logo.scale})`,
+                  marginRight: index < 5 ? '36px' : '0'
+                }}
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={60}
+                  height={60}
+                  className="w-auto h-auto object-contain dark:invert opacity-60 hover:opacity-100 transition-all duration-300"
+                  style={{ 
+                    display: 'block',
+                    margin: 'auto',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    width: 'auto',
+                    height: 'auto'
+                  }}
+                />
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </div>
   );

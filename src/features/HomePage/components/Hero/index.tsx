@@ -84,6 +84,7 @@ export function Hero() {
           </motion.div>
 
           <motion.div
+            className="mt-0 px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}

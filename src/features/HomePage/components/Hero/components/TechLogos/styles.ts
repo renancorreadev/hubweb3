@@ -29,22 +29,20 @@ export const techLogosStyles = {
   `,
 
   logoItem: `
-    w-20 
-    h-20 
     flex 
     items-center 
     justify-center 
-    bg-transparent
+    relative
   `,
 
   logoImage: `
-    relative 
-    w-16 
-    h-16 
+    w-full 
+    h-full 
     object-contain 
-    opacity-80 
+    dark:invert 
+    opacity-60 
     hover:opacity-100 
-    transition-transform 
+    transition-all 
     duration-300
   `,
 };

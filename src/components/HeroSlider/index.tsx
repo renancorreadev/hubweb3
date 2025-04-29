@@ -197,17 +197,11 @@ export const HeroSlider = ({
                   <motion.div
                     className="text-container p-6 md:p-8 max-w-2xl w-full md:w-auto"
                     style={{
-                      ...textContainerStyle,
-                      borderBottom: 'none',
-                      boxShadow: 'none'
+                      ...textContainerStyle
                     }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    whileHover={{
-                      borderBottom: 'none',
-                      boxShadow: 'none'
-                    }}
                     onHoverEnd={(e) => {
                       const target = e.currentTarget as HTMLElement;
                       target.style.borderBottom = 'none';

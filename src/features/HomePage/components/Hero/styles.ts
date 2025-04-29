@@ -47,13 +47,11 @@ export const heroStyles = {
     flex
     flex-col
     items-center
+    gap-4
 
     w-full
     text-hub-text-primary-light
     dark:text-hub-text-primary-dark
-    ${mobileOnly.padding.p4} 
-    ${tabletOnly.padding.p8} 
-    ${desktopOnly.padding.p12}
     ${desktopOnly.flex.center}
     z-10
   `,
