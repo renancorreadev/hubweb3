@@ -4,8 +4,11 @@ import { Card } from "@/components/Card";
 import Link from "next/link";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
 import { Container } from "@/components/Container";
+import { useTranslation } from "@/shared/hooks/useTranslation";
 
 export const BlockchainTips = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="py-24 bg-black">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 mb-12 ">
@@ -13,7 +16,7 @@ export const BlockchainTips = () => {
           className={`flex justify-between items-center ${mobileOnly.flexDirection.col} ${mobileOnly.gap.gap6}`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Blockchain Tips
+            {t('blockchain.title')}
           </h2>
 
           <Link
@@ -25,7 +28,7 @@ export const BlockchainTips = () => {
               ${mobileOnly.margin.mt2}
               `}
           >
-            GO TO CASE STUDIES
+            {t('blockchain.caseStudies')}
             <svg
               className="w-4 h-4"
               fill="none"
@@ -49,9 +52,9 @@ export const BlockchainTips = () => {
         <div className="col-span-12">
           <Card
             backgroundImage="/images/solids/neonSolid.png"
-            tag="BLOCKCHAIN"
-            title="Solana"
-            description="Blockchain de alta performance com transações rápidas e baixas taxas."
+            tag={t('blockchain.tag')}
+            title={t('blockchain.solana.title')}
+            description={t('blockchain.solana.description')}
             href="/tech/solana"
             neonEffect={true}
             neonColors={{ from: "#9333EA", to: "#14F195" }}
@@ -67,10 +70,10 @@ export const BlockchainTips = () => {
         >
           <Card
             backgroundImage="/images/solids/geometric.png"
-            tag="BLOCKCHAIN"
+            tag={t('blockchain.tag')}
             className="p-2"
-            title="Solana"
-            description="Blockchain de alta performance com transações rápidas e baixas taxas."
+            title={t('blockchain.solana.title')}
+            description={t('blockchain.solana.description')}
             href="/tech/solana"
             gradientColor="green"
             topBorder={false}
@@ -81,10 +84,10 @@ export const BlockchainTips = () => {
         >
           <Card
             backgroundImage="/images/solids/geometric.png"
-            tag="BLOCKCHAIN"
+            tag={t('blockchain.tag')}
             className="p-2"
-            title="Solana"
-            description="Blockchain de alta performance com transações rápidas e baixas taxas."
+            title={t('blockchain.solana.title')}
+            description={t('blockchain.solana.description')}
             href="/tech/solana"
             gradientColor="green"
             topBorder={false}
@@ -95,10 +98,10 @@ export const BlockchainTips = () => {
         >
           <Card
             backgroundImage="/images/solids/geometric.png"
-            tag="BLOCKCHAIN"
+            tag={t('blockchain.tag')}
             className="p-2"
-            title="Solana"
-            description="Blockchain de alta performance com transações rápidas e baixas taxas."
+            title={t('blockchain.solana.title')}
+            description={t('blockchain.solana.description')}
             href="/tech/solana"
             gradientColor="green"
             topBorder={false}

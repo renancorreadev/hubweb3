@@ -63,9 +63,12 @@ export const pt = {
   'page.home.hero.subtitle': 'Plataforma completa para desenvolvimento Web3',
   
   // Blockchain
-  'blockchain.title': 'Blockchain Tips',
+  'blockchain.title': 'Dicas de Blockchain',
   'blockchain.description': 'Blockchain de alta performance com transações rápidas e baixas taxas.',
   'blockchain.caseStudies': 'IR PARA ESTUDOS DE CASO',
+  'blockchain.tag': 'BLOCKCHAIN',
+  'blockchain.solana.title': 'Solana',
+  'blockchain.solana.description': 'Blockchain de alta performance com transações rápidas e baixas taxas.',
   
   // SEO e metadados
   'meta.title': 'HubWeb3',
@@ -80,4 +83,19 @@ export const pt = {
   // Outros
   'app.theme': 'Tema',
   'app.language': 'Idioma',
+  
+  // Hero
+  'hero.startBuilding': 'Começar a Construir',
+  'hero.resources': 'Recursos',
+  'hero.title': 'Poderoso para desenvolvedores.\nRápido para todos.',
+  'hero.description': 'Leve o blockchain para as pessoas. HubWeb3 suporta experiências para usuários avançados, novos consumidores e todos os outros.',
+  
+  // Projects
+  'projects.chainlink.title': 'Chainlink',
+  'projects.chainlink.subtitle': 'A principal rede de oráculos para blockchain.',
+  'projects.money.title': 'Money',
+  'projects.money.subtitle': 'A principal rede de oráculos para blockchain.',
+  'projects.token.title': 'Token',
+  'projects.token.subtitle': 'A principal rede de oráculos para blockchain.',
+  'projects.seeNow': 'Ver Agora',
 }; 

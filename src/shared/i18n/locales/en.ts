@@ -66,6 +66,9 @@ export const en = {
   'blockchain.title': 'Blockchain Tips',
   'blockchain.description': 'High-performance blockchain with fast transactions and low fees.',
   'blockchain.caseStudies': 'GO TO CASE STUDIES',
+  'blockchain.tag': 'BLOCKCHAIN',
+  'blockchain.solana.title': 'Solana',
+  'blockchain.solana.description': 'High-performance blockchain with fast transactions and low fees.',
   
   // SEO and metadata
   'meta.title': 'HubWeb3',
@@ -80,4 +83,19 @@ export const en = {
   // Others
   'app.theme': 'Theme',
   'app.language': 'Language',
+  
+  // Hero
+  'hero.startBuilding': 'Start Building',
+  'hero.resources': 'Resources',
+  'hero.title': 'Powerful for developers.\nFast for everyone.',
+  'hero.description': 'Bring blockchain to the people. HubWeb3 supports experiences for power users, new consumers, and everyone in between.',
+  
+  // Projects
+  'projects.chainlink.title': 'Chainlink',
+  'projects.chainlink.subtitle': 'The leading oracle network for blockchain.',
+  'projects.money.title': 'Money',
+  'projects.money.subtitle': 'The leading oracle network for blockchain.',
+  'projects.token.title': 'Token',
+  'projects.token.subtitle': 'The leading oracle network for blockchain.',
+  'projects.seeNow': 'See Now',
 }; 
