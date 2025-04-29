@@ -31,13 +31,12 @@
   border-left: 1px solid rgba(255, 255, 255, 0.2);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none !important;
   border-radius: 16px;
-  box-shadow: 
-    0 4px 16px -1px rgba(0, 0, 0, 0.15),
-    0 0 32px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: none !important;
   position: relative;
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 /* Efeito de brilho no container */
@@ -60,6 +59,24 @@
 .swiper-slide-active .text-container:hover::before {
   left: 100%;
   transition: 0.8s ease-in-out;
+}
+
+/* Remover qualquer efeito de borda durante hover e animações */
+.text-container:hover,
+.text-container:active,
+.text-container:focus,
+.text-container:focus-within,
+.text-container:focus-visible,
+.text-container:target,
+.text-container:visited {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Remover efeitos de borda durante animações do Framer Motion */
+[data-framer-motion-component="true"] .text-container {
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
 
 /* Animações de texto refinadas */

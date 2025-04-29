@@ -120,7 +120,7 @@ export const HeroSlider = ({
   return (
     <RenderContainer>
       <motion.div
-        className={className}
+        className={`${className} overflow-hidden`}
         style={{
           height,
           width,
@@ -196,10 +196,23 @@ export const HeroSlider = ({
                 >
                   <motion.div
                     className="text-container p-6 md:p-8 max-w-2xl w-full md:w-auto"
-                    style={textContainerStyle}
+                    style={{
+                      ...textContainerStyle,
+                      borderBottom: 'none',
+                      boxShadow: 'none'
+                    }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
+                    whileHover={{
+                      borderBottom: 'none',
+                      boxShadow: 'none'
+                    }}
+                    onHoverEnd={(e) => {
+                      const target = e.currentTarget as HTMLElement;
+                      target.style.borderBottom = 'none';
+                      target.style.boxShadow = 'none';
+                    }}
                   >
                     <motion.h1
                       className={`hero-title font-bold mb-4
