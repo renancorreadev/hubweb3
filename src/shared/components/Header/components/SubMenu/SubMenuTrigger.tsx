@@ -33,7 +33,7 @@ export function SubMenuTrigger({ label, isOpen, onClick, icon, href, showDropdow
 
   return (
     <motion.div 
-      className="flex items-center gap-2"
+      className="flex items-center gap-2 "
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >

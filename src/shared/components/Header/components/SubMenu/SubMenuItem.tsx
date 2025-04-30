@@ -139,7 +139,7 @@ export function SubMenuItem({
             <div className="flex items-center justify-between">
               <Link href={href} className="flex-grow">
                 <motion.span 
-                  className={`font-medium transition-colors duration-200 ${mobileOnly.text.base} ${desktopOnly.text["xl"]}`}
+                  className={`font-medium transition-colors font-monument duration-200 ${mobileOnly.text.base} ${desktopOnly.text["xl"]}`}
                   style={{
                     color: isDark ? '#ffffff' : '#1A1A1A',
                   }}
@@ -163,7 +163,7 @@ export function SubMenuItem({
               {hasChildren && (
                 <motion.button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="p-1  text-xl font-monument rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
                   animate={{ 
                     rotate: isOpen ? 180 : 0,
                     scale: isHovered ? 1.1 : 1
@@ -179,7 +179,7 @@ export function SubMenuItem({
             </div>
             {description && (
               <motion.span 
-                className={`text-sm leading-relaxed transition-opacity duration-200 ${mobileOnly.text.sm} ${desktopOnly.text.base}`}
+                className={`font-monument leading-relaxed transition-opacity duration-200 ${mobileOnly.text.sm} ${desktopOnly.text["xl"]}`}
                 style={{
                   color: isDark ? '#ffffff' : '#1A1A1A',
                 }}

@@ -47,8 +47,8 @@ export function SubMenuContent({ isOpen, children }: SubMenuContentProps) {
             ${mobileOnly.display.block} ${desktopOnly.display.block} 
             ${mobileOnly.width.full} ${desktopOnly.width.full} 
             ${mobileOnly.margin.mt2} ${desktopOnly.margin.mt2} 
-            ${mobileOnly.padding.p4} ${desktopOnly.padding.p4} 
-            rounded-lg shadow-lg min-w-[280px] max-w-[320px]`}
+            ${mobileOnly.padding.p8} ${desktopOnly.padding.p8} 
+            rounded-lg shadow-lg min-w-[400px] max-w-[500px]`}
           style={{
             backgroundColor: isDark ? getColor('background') : '#ffffff',
             border: `1px solid ${isDark ? getColor('border') : '#E5E5E5'}`,
@@ -56,7 +56,7 @@ export function SubMenuContent({ isOpen, children }: SubMenuContentProps) {
           }}
         >
           <motion.div 
-            className="flex flex-col gap-2"
+            className="flex flex-col gap-4"
             variants={{
               closed: { opacity: 0 },
               open: { opacity: 1 }
