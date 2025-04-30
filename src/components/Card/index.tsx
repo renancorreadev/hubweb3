@@ -176,10 +176,10 @@ export const Card = ({
             {/* Tag */}
             {tag && (
               <motion.span 
-                className="inline-block px-4 py-1.5 rounded-full text-sm font-medium max-w-fit backdrop-blur-sm"
+                className="inline-block px-4 py-1.5 rounded-full text-sm max-w-fit backdrop-blur-sm font-monument font-bold"
                 style={{ 
                   backgroundColor: gradientColor === "green" ? "#14F195" : "#8A46FF",
-                  color: isDark ? getColor('card.text.primary') : '#ffffff'
+                  color: '#000000'
                 }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -223,7 +223,7 @@ export const Card = ({
               
               {/* Descrição */}
               <motion.p 
-                className="text-lg mb-6 leading-relaxed"
+                className="text-xl mb-6 leading-relaxed"
                 style={{
                   color: isDark ? getColor('card.text.secondary') : '#ffffff'
                 }}
@@ -245,10 +245,13 @@ export const Card = ({
                     rounded-full border
                     transition-all duration-300
                     backdrop-blur-sm
+                    hover:bg-green-600/40 dark:hover:bg-slate-400/20
+                    border-hub-primary dark:border-hub-secondary
+                    text-hub-primary dark:text-hub-secondary
                   "
                   style={{ 
-                    borderColor: gradientColor === "green" ? "#14F195" : isDark ? getColor('card.border') : getColor('card.border'),
-                    color: gradientColor === "green" ? "#14F195" : isDark ? getColor('card.text.primary') : getColor('card.text.primary')
+                    borderColor: gradientColor === "green" ? "#14F195" : undefined,
+                    color: gradientColor === "green" ? "#14F195" : undefined
                   }}
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
