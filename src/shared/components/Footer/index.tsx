@@ -5,7 +5,7 @@ import Image from "next/image";
 import { mobileOnly } from "@/shared/configs/responsive";
 import { CustomSelect } from "@/components/CustomSelect";
 import { useTranslation } from "@/shared/hooks/useTranslation";
-import { localeOptions, SupportedLanguage } from "@/shared/i18n";
+import {  SupportedLanguage } from "@/i18n";
 
 export function Footer() {
   const { t, changeLanguage, language, isCurrentLanguage } = useTranslation();
@@ -21,7 +21,6 @@ export function Footer() {
     { value: 'en', label: 'English', flag: '🇺🇸' }
   ];
 
-  const currentLanguage = languageOptions.find(option => isCurrentLanguage(option.value as SupportedLanguage))?.value || language;
 
   return (
     <footer className="border-t border-hub-border-dark bg-hub-background py-12 mt-16">
@@ -82,7 +81,7 @@ export function Footer() {
           {/* Coluna 2: Links HubWeb3 */}
           <div className="col-span-1">
             <h3 className="text-xl font-bold text-white mb-4">{t('footer.hubweb3.title')}</h3>
-            <ul className="space-y-3">
+            <ul className="space-y-3 text-xl font-monument">
               <li>
                 <Link href="/concessoes" className="text-gray-400 hover:text-hub-primary transition-colors">
                   {t('footer.hubweb3.grants')}
@@ -109,7 +108,7 @@ export function Footer() {
           {/* Coluna 3: Links CONECTE-SE */}
           <div className="col-span-1">
             <h3 className="text-xl font-bold text-white mb-4">{t('footer.connect.title')}</h3>
-            <ul className="space-y-3">
+            <ul className="space-y-3 text-xl font-monument">
               <li>
                 <Link href="/blog" className="text-gray-400 hover:text-hub-primary transition-colors">
                   {t('footer.connect.blog')}
@@ -125,7 +124,7 @@ export function Footer() {
 
           {/* Coluna 4: Seletor de idioma (apenas em desktop) */}
           <div className={`col-span-1 ${mobileOnly.display.hidden} md:flex flex-col`}>
-            <h3 className="text-xl font-bold text-white mb-4">{t('footer.language.title')}</h3>
+            <h3 className="text-xl font-monument font-bold text-white mb-4">{t('footer.language.title')}</h3>
             <CustomSelect 
               options={languageOptions}
               defaultValue={'en'}
@@ -138,7 +137,7 @@ export function Footer() {
 
         {/* Copyright */}
         <div className="border-t border-white/10 pt-6 text-center">
-          <p className="text-sm text-gray-400">
+          <p className="text-xl font-monument text-gray-400">
             © {new Date().getFullYear()} HubWeb3 — {t('footer.copyright')}
           </p>
         </div>

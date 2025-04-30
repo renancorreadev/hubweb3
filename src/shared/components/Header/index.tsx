@@ -26,7 +26,6 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setMounted] = useState(false);
 
-  console.log(isDark);
 
   useEffect(() => {
     setMounted(true);
@@ -72,10 +71,10 @@ export function Header() {
       >
         <div className={headerStyles.wrapper}>
           {/* Logo */}
-          <Link href="/" className={headerStyles.logo} aria-label={t('nav.home')}>
+          <Link href="/" className={headerStyles.logo} aria-label={"HubWeb3"}>
             <Image
               src="/logos/hub.png"
-              alt={t('nav.home')}
+              alt={"HubWeb3"}
               width={50}
               height={30}
               priority
@@ -86,7 +85,7 @@ export function Header() {
           <motion.button
             className={headerStyles.mobileMenuButton}
             onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? t('common.close') : t('common.menu')}
+            aria-label={isOpen ? "Close Menu" : "Open Menu"}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             style={{

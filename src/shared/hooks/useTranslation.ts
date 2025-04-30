@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react';
 import { useLanguage } from '@/shared/contexts/LanguageContext';
-import { SupportedLanguage, translations } from '@/shared/i18n';
+import { SupportedLanguage, translations } from '@/i18n';
 
 export interface TranslationHookResult {
   /**

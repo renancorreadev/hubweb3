@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { SupportedLanguage, detectBrowserLanguage, translations, languageCodeToHtml } from '@/shared/i18n';
+import { SupportedLanguage, detectBrowserLanguage, translations, languageCodeToHtml } from '@/i18n';
 
 interface LanguageContextType {
   language: SupportedLanguage;

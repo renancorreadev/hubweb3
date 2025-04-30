@@ -95,7 +95,7 @@ export function CustomSelect({
           ${isOpen ? "rounded-b-none" : ""}
         `}
         >
-          <div className="flex items-center text-white">
+          <div className="flex items-center text-white text-xl font-monument">
             {selectedOption ? (
               <>
                 {selectedOption.flag && (
@@ -104,7 +104,7 @@ export function CustomSelect({
                 <span>{selectedOption.label}</span>
               </>
             ) : (
-              <span className="text-gray-400">{placeholder}</span>
+              <span className="text-gray-400 text-xl font-monument">{placeholder}</span>
             )}
           </div>
           <div className="text-white ml-4">
