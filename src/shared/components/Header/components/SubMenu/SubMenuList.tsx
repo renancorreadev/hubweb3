@@ -5,16 +5,6 @@ import { SubMenuItem } from "./SubMenuItem";
 import { Code2, BookOpen, Network } from "lucide-react";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 
-/**
- * 
- * @returns 
- * 
-  'nav.home': 'Início',
-  'nav.developer': 'Desenvolvedor',
-  'nav.tools': 'Ferramentas',
-  'nav.tips': 'Dicas',
-  'nav.projects': 'Projetos',
- */
 export function SubMenuList() {
   const { t } = useTranslation();
   
@@ -71,6 +61,7 @@ export function SubMenuList() {
       </SubMenu>
 
       <SubMenu label={t('nav-blockchain-label')} icon={<Network size={20} />} href="/drex">
+        {/* BLOCKCHAIN PROJECTS */}
         <SubMenuItem
           href="/blockchain/projects"
           label={t('nav-blockchain-projects-label')}
@@ -78,21 +69,25 @@ export function SubMenuList() {
           description={t('nav-blockchain-projects-description')}
           level={0}
         >
+          {/* BLOCKCHAIN RWA HUB */}
           <SubMenuItem
-            href="/blockchain/projects/defi"
-            label={t('nav-blockchain-defi-label')}
+            href="/blockchain/projects/rwa-hub"
+            label={t('nav-blockchain-rwa-hub-label')}
             icon={<Network size={16} />}
-            description={t('nav-blockchain-defi-description')}
+            description={t('nav-blockchain-rwa-hub-description')}
             level={1}
           />
+          {/* BLOCKCHAIN LOYAHUB */}
           <SubMenuItem
-            href="/blockchain/projects/nft"
-            label={t('nav-blockchain-nft-label')}
+            href="/blockchain/projects/loyahub"
+            label={t('nav-blockchain-loyahub-label')}
             icon={<Network size={16} />}
-            description={t('nav-blockchain-nft-description')}
+            description={t('nav-blockchain-loyahub-description')}
             level={1}
           />
         </SubMenuItem>
+
+        {/* BLOCKCHAIN TIPS */}
         <SubMenuItem
           href="/blockchain/tips"
           label={t('nav-blockchain-tips-label')}
