@@ -15,11 +15,13 @@ import { RenderContainer } from "../RenderContainer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
+import { useTranslation } from "@/shared/hooks/useTranslation";
 
 export function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
+  const { t } = useTranslation();
   const { isDark, getColor, getTextColor } = useThemeColors();
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setMounted] = useState(false);
@@ -70,10 +72,10 @@ export function Header() {
       >
         <div className={headerStyles.wrapper}>
           {/* Logo */}
-          <Link href="/" className={headerStyles.logo} aria-label="HubWeb3">
+          <Link href="/" className={headerStyles.logo} aria-label={t('nav.home')}>
             <Image
               src="/logos/hub.png"
-              alt="HubWeb3"
+              alt={t('nav.home')}
               width={50}
               height={30}
               priority
@@ -84,7 +86,7 @@ export function Header() {
           <motion.button
             className={headerStyles.mobileMenuButton}
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
+            aria-label={isOpen ? t('common.close') : t('common.menu')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             style={{
@@ -131,7 +133,7 @@ export function Header() {
                 <motion.button
                   onClick={toggleLanguage}
                   className={headerStyles.themeToggle}
-                  aria-label="Toggle language"
+                  aria-label={t('app.language')}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   style={{
@@ -153,7 +155,7 @@ export function Header() {
                 <motion.button
                   onClick={toggleTheme}
                   className={headerStyles.themeToggle}
-                  aria-label="Toggle theme"
+                  aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   style={{
@@ -188,7 +190,7 @@ export function Header() {
                     <motion.button
                       onClick={toggleLanguage}
                       className={`${headerStyles.themeToggle} ml-2 gap-2`}
-                      aria-label="Toggle language"
+                      aria-label={t('app.language')}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       style={{
@@ -211,7 +213,7 @@ export function Header() {
                     <motion.button
                       onClick={toggleTheme}
                       className={`${headerStyles.themeToggle} self-start ml-2`}
-                      aria-label="Toggle theme"
+                      aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       style={{

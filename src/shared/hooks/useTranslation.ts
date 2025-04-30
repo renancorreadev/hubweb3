@@ -52,29 +52,42 @@ export interface TranslationHookResult {
  */
 export function useTranslation(): TranslationHookResult {
   const { language, setLanguage } = useLanguage();
-  
 
   const t = useCallback((key: string, params?: Record<string, string | number>): string => {
-
-    const translationData = translations[language as keyof typeof translations];
-    const translatedText = translationData[key as keyof typeof translationData] as string || key;
-    
-    if (!params) return translatedText;
-    
-
-    return Object.entries(params).reduce(
-      (acc, [paramKey, paramValue]) => 
-        acc.replace(new RegExp(`{{${paramKey}}}`, 'g'), String(paramValue)),
-      translatedText
-    );
+    try {
+      // Get the translation directly from the translations object
+      const translationObj = translations[key];
+      
+      if (!translationObj || typeof translationObj !== 'object') {
+        console.warn(`Translation key not found: ${key}`);
+        return key;
+      }
+      
+      const translation = translationObj[language];
+      
+      if (!translation) {
+        console.warn(`Translation not found for key: ${key} and language: ${language}`);
+        return key;
+      }
+      
+      if (!params) return translation;
+      
+      // Replace parameters in the translation string
+      return Object.entries(params).reduce(
+        (acc, [paramKey, paramValue]) => 
+          acc.replace(new RegExp(`{{${paramKey}}}`, 'g'), String(paramValue)),
+        translation
+      );
+    } catch (error) {
+      console.error('Translation error:', error);
+      return key;
+    }
   }, [language]);
   
- 
   const changeLanguage = useCallback((lang: SupportedLanguage): void => {
     setLanguage(lang);
   }, [setLanguage]);
   
-
   const isCurrentLanguage = useCallback((lang: SupportedLanguage): boolean => {
     return language === lang;
   }, [language]);

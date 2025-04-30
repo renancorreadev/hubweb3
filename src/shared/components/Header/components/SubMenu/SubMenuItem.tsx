@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { mobileOnly, desktopOnly } from "@/shared/configs/responsive";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 
 interface SubMenuItemProps {
   href: string;
@@ -11,10 +13,22 @@ interface SubMenuItemProps {
   icon?: React.ReactNode;
   description?: string;
   isSelected?: boolean;
+  children?: React.ReactNode;
+  level?: number;
 }
 
-export function SubMenuItem({ href, label, icon, description, isSelected = false }: SubMenuItemProps) {
+export function SubMenuItem({ 
+  href, 
+  label, 
+  icon, 
+  description, 
+  isSelected = false,
+  children,
+  level = 0
+}: SubMenuItemProps) {
   const { isDark, getColor, getTextColor } = useThemeColors();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const itemVariants = {
     closed: { 
@@ -31,25 +45,76 @@ export function SubMenuItem({ href, label, icon, description, isSelected = false
     }
   };
 
+  const childrenVariants = {
+    closed: {
+      height: 0,
+      opacity: 0,
+      transition: {
+        height: {
+          duration: 0.2
+        },
+        opacity: {
+          duration: 0.1
+        }
+      }
+    },
+    open: {
+      height: "auto",
+      opacity: 1,
+      transition: {
+        height: {
+          duration: 0.2
+        },
+        opacity: {
+          duration: 0.1,
+          delay: 0.1
+        }
+      }
+    }
+  };
+
+  const hoverVariants = {
+    initial: { scale: 1 },
+    hover: { 
+      scale: 1.02,
+      transition: {
+        duration: 0.2,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const hasChildren = Boolean(children);
+  const paddingLeft = `${level * 1.5}rem`;
+
   return (
-    <motion.div variants={itemVariants}>
+    <motion.div 
+      variants={itemVariants}
+      initial="initial"
+      whileHover="hover"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
       <motion.div
-        whileHover={{
-          backgroundColor: isDark ? getColor('hover') : '#F5F5F5',
-          transition: { duration: 0.2 }
-        }}
+        variants={hoverVariants}
         className="rounded-lg"
         style={{
-          backgroundColor: isDark ? 'transparent' : isSelected ? '#E8F5E9' : 'transparent',
+          backgroundColor: isDark 
+            ? isSelected 
+              ? 'rgba(255, 255, 255, 0.05)' 
+              : 'transparent'
+            : isSelected 
+              ? '#E8F5E9' 
+              : 'transparent',
         }}
       >
-        <Link
-          href={href}
-          className={`group flex items-start gap-4 p-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] hover:shadow-sm active:scale-[0.98] 
+        <div
+          className={`group flex items-start gap-4 p-4 rounded-lg transition-all duration-200 transform
             ${mobileOnly.text.base} ${desktopOnly.text.base}`}
           style={{
             backgroundColor: 'transparent',
             color: isDark ? '#ffffff' : isSelected ? '#4CAF50' : '#1A1A1A',
+            paddingLeft,
           }}
         >
           {icon && (
@@ -58,40 +123,98 @@ export function SubMenuItem({ href, label, icon, description, isSelected = false
               style={{
                 color: isDark ? getColor('primary') : '#0EA66B',
               }}
-              whileHover={{ scale: 1.1 }}
+              animate={{
+                scale: isHovered ? 1.1 : 1,
+                rotate: isHovered ? 5 : 0,
+              }}
+              transition={{
+                duration: 0.2,
+                ease: "easeOut"
+              }}
             >
               {icon}
             </motion.span>
           )}
-          <div className="flex flex-col gap-1">
-            <motion.span 
-              className={`font-medium transition-colors duration-200 ${mobileOnly.text.base} ${desktopOnly.text["xl"]}`}
-              style={{
-                color: isDark ? '#ffffff' : '#1A1A1A',
-              }}
-              whileHover={{
-                color: isDark ? getColor('primary') : '#4CAF50',
-                transition: { duration: 0.2 }
-              }}
-            >
-              {label}
-            </motion.span>
+          <div className="flex flex-col gap-1 flex-grow">
+            <div className="flex items-center justify-between">
+              <Link href={href} className="flex-grow">
+                <motion.span 
+                  className={`font-medium transition-colors duration-200 ${mobileOnly.text.base} ${desktopOnly.text["xl"]}`}
+                  style={{
+                    color: isDark ? '#ffffff' : '#1A1A1A',
+                  }}
+                  animate={{
+                    color: isHovered 
+                      ? isDark 
+                        ? getColor('primary') 
+                        : '#4CAF50'
+                      : isDark 
+                        ? '#ffffff' 
+                        : '#1A1A1A'
+                  }}
+                  transition={{
+                    duration: 0.2,
+                    ease: "easeOut"
+                  }}
+                >
+                  {label}
+                </motion.span>
+              </Link>
+              {hasChildren && (
+                <motion.button
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+                  animate={{ 
+                    rotate: isOpen ? 180 : 0,
+                    scale: isHovered ? 1.1 : 1
+                  }}
+                  transition={{ 
+                    duration: 0.2,
+                    ease: "easeOut"
+                  }}
+                >
+                  <ChevronDown size={16} />
+                </motion.button>
+              )}
+            </div>
             {description && (
               <motion.span 
-                className={`abcm text-sm leading-relaxed transition-opacity duration-200 ${mobileOnly.text.sm} ${desktopOnly.text.base}`}
+                className={`text-sm leading-relaxed transition-opacity duration-200 ${mobileOnly.text.sm} ${desktopOnly.text.base}`}
                 style={{
                   color: isDark ? '#ffffff' : '#1A1A1A',
                 }}
-                whileHover={{
-                  opacity: 0.9,
-                  transition: { duration: 0.2 }
+                animate={{
+                  opacity: isHovered ? 0.9 : 0.7
+                }}
+                transition={{
+                  duration: 0.2,
+                  ease: "easeOut"
                 }}
               >
                 {description}
               </motion.span>
             )}
           </div>
-        </Link>
+        </div>
+        <AnimatePresence>
+          {isOpen && children && (
+            <motion.div
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={childrenVariants}
+              className="overflow-hidden"
+              style={{
+                borderLeft: isDark 
+                  ? '1px solid rgba(255, 255, 255, 0.1)' 
+                  : '1px solid rgba(0, 0, 0, 0.1)',
+                marginLeft: '1.5rem'
+              }}
+            >
+              {children}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </motion.div>
   );

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { SubMenuTrigger } from "./SubMenuTrigger";
 import { SubMenuContent } from "./SubMenuContent";
 import { mobileOnly, desktopOnly } from "@/shared/configs/responsive";
+import React from "react";
 
 interface SubMenuProps {
   label: string;
@@ -17,7 +18,12 @@ export function SubMenu({ label, icon, children, href }: SubMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  // Check if children is a single item
+  const isSingleItem = React.Children.count(children) === 1;
+
   useEffect(() => {
+    if (isSingleItem) return; // No need for click outside handler for single items
+
     function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
@@ -26,9 +32,10 @@ export function SubMenu({ label, icon, children, href }: SubMenuProps) {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [isSingleItem]);
 
   const handleToggle = () => {
+    if (isSingleItem) return; // No toggle for single items
     setIsOpen(!isOpen);
   };
 
@@ -44,6 +51,7 @@ export function SubMenu({ label, icon, children, href }: SubMenuProps) {
           onClick={handleToggle}
           icon={icon}
           href={href}
+          showDropdown={!isSingleItem}
         />
         
         {/* Desktop */}

@@ -1,8 +1,7 @@
-// Importar todos os arquivos de tradução
-import { pt } from './locales/pt';
-import { en } from './locales/en';
+// Import translations
+import { home } from './locales/pages/home';
 
-// Tipos para o sistema de internacionalização
+// Types for the internationalization system
 export type SupportedLanguage = 'pt' | 'en';
 
 export interface LocaleOption {
@@ -11,29 +10,37 @@ export interface LocaleOption {
   flag: string;
 }
 
-// Objeto que contém todas as traduções
-export const translations = {
-  pt,
-  en,
-};
+// Type for translation values
+export interface TranslationValue {
+  en: string;
+  pt: string;
+}
 
-// Lista de idiomas suportados para uso em seletores de idioma
+// Type for translations object
+export interface Translations {
+  [key: string]: TranslationValue;
+}
+
+// Object containing all translations
+export const translations: Translations = home;
+
+// List of supported languages for language selectors
 export const localeOptions: LocaleOption[] = [
   { value: 'pt', label: 'Português', flag: '🇧🇷' },
   { value: 'en', label: 'English', flag: '🇺🇸' },
 ];
 
-// Detectar o idioma preferido do navegador
+// Detect browser's preferred language
 export const detectBrowserLanguage = (): SupportedLanguage => {
-  if (typeof window === 'undefined') return 'pt'; // Valor padrão para SSR
+  if (typeof window === 'undefined') return 'pt'; // Default value for SSR
   
   const browserLang = navigator.language.split('-')[0];
   return (browserLang === 'pt' || browserLang === 'en') 
     ? browserLang as SupportedLanguage 
-    : 'pt'; // Valor padrão se o idioma não for suportado
+    : 'pt'; // Default if language is not supported
 };
 
-// Mapeamento de chaves de idioma para idiomas completos (para metadados HTML)
+// Language code to HTML language mapping (for HTML metadata)
 export const languageCodeToHtml: Record<SupportedLanguage, string> = {
   pt: 'pt-BR',
   en: 'en-US',

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { mobileOnly, desktopOnly } from "@/shared/configs/responsive";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { motion } from "framer-motion";
+import { useTranslation } from "@/shared/hooks/useTranslation";
 
 interface SubMenuTriggerProps {
   label: string;
@@ -12,10 +13,12 @@ interface SubMenuTriggerProps {
   onClick: () => void;
   icon?: React.ReactNode;
   href: string;
+  showDropdown?: boolean;
 }
 
-export function SubMenuTrigger({ label, isOpen, onClick, icon, href }: SubMenuTriggerProps) {
+export function SubMenuTrigger({ label, isOpen, onClick, icon, href, showDropdown = true }: SubMenuTriggerProps) {
   const { isDark, getColor, getTextColor } = useThemeColors();
+  const { t } = useTranslation();
 
   const triggerVariants = {
     closed: { 
@@ -42,6 +45,7 @@ export function SubMenuTrigger({ label, isOpen, onClick, icon, href }: SubMenuTr
         style={{
           color: isDark ? '#ffffff' : '#1A1A1A',
         }}
+        aria-label={t('nav.desc.overview', { label })}
       >
         {icon && <span className="flex-shrink-0">{icon}</span>}
         <span 
@@ -53,31 +57,35 @@ export function SubMenuTrigger({ label, isOpen, onClick, icon, href }: SubMenuTr
           {label}
         </span>
       </Link>
-      <motion.button
-        onClick={onClick}
-        className="p-1 rounded-full transition-colors duration-200"
-        style={{
-          backgroundColor: isDark ? getColor('hover') : '#F5F5F5',
-        }}
-        whileHover={{ 
-          scale: 1.1,
-          backgroundColor: isDark ? getColor('primary') : '#0EA66B',
-        }}
-        whileTap={{ scale: 0.9 }}
-        aria-expanded={isOpen}
-      >
-        <motion.div
-          variants={triggerVariants}
-          animate={isOpen ? "open" : "closed"}
+      {showDropdown && (
+        <motion.button
+          onClick={onClick}
+          className="p-1 rounded-full transition-colors duration-200"
+          style={{
+            backgroundColor: isDark ? getColor('hover') : '#F5F5F5',
+          }}
+          whileHover={{ 
+            scale: 1.1,
+            backgroundColor: isDark ? getColor('primary') : '#0EA66B',
+          }}
+          whileTap={{ scale: 0.9 }}
+          aria-expanded={isOpen}
+          aria-label={isOpen ? t('common.close') : t('common.open')}
         >
-          <ChevronDown
-            size={24}
-            style={{
-              color: isDark ? '#ffffff' : '#1A1A1A',
-            }}
-          />
-        </motion.div>
-      </motion.button>
+          <motion.div
+            variants={triggerVariants}
+            animate={isOpen ? "open" : "closed"}
+          >
+            <ChevronDown
+              size={24}
+              style={{
+                color: isDark ? '#ffffff' : '#1A1A1A',
+              }}
+              aria-hidden="true"
+            />
+          </motion.div>
+        </motion.button>
+      )}
     </motion.div>
   );
 } 
