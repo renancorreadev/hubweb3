@@ -1,6 +1,6 @@
 // Import translations
 import { home } from './locales/pages/home';
-
+import { footer } from './locales/components/footer';
 // Types for the internationalization system
 export type SupportedLanguage = 'pt' | 'en';
 
@@ -22,7 +22,10 @@ export interface Translations {
 }
 
 // Object containing all translations
-export const translations: Translations = home;
+export const translations: Translations = {
+  ...home,
+  ...footer,
+};
 
 // List of supported languages for language selectors
 export const localeOptions: LocaleOption[] = [
