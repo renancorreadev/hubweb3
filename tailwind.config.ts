@@ -68,6 +68,71 @@ const config: Config = {
           }
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'var(--tw-prose-body)',
+            '[class~="lead"]': {
+              color: 'var(--tw-prose-lead)',
+            },
+            a: {
+              color: 'var(--tw-prose-links)',
+              textDecoration: 'underline',
+              fontWeight: '500',
+            },
+            strong: {
+              color: 'var(--tw-prose-bold)',
+              fontWeight: '600',
+            },
+            'ol > li::before': {
+              color: 'var(--tw-prose-counters)',
+            },
+            'ul > li::before': {
+              backgroundColor: 'var(--tw-prose-bullets)',
+            },
+            hr: {
+              borderColor: 'var(--tw-prose-hr)',
+            },
+            blockquote: {
+              color: 'var(--tw-prose-quotes)',
+              borderLeftColor: 'var(--tw-prose-quote-borders)',
+            },
+            h1: {
+              color: 'var(--tw-prose-headings)',
+            },
+            h2: {
+              color: 'var(--tw-prose-headings)',
+            },
+            h3: {
+              color: 'var(--tw-prose-headings)',
+            },
+            h4: {
+              color: 'var(--tw-prose-headings)',
+            },
+            'figure figcaption': {
+              color: 'var(--tw-prose-captions)',
+            },
+            code: {
+              color: 'var(--tw-prose-code)',
+            },
+            'a code': {
+              color: 'var(--tw-prose-links)',
+            },
+            pre: {
+              color: 'var(--tw-prose-pre-code)',
+              backgroundColor: 'var(--tw-prose-pre-bg)',
+            },
+            thead: {
+              color: 'var(--tw-prose-th)',
+              borderBottomColor: 'var(--tw-prose-th-borders)',
+            },
+            'tbody tr': {
+              borderBottomColor: 'var(--tw-prose-td-borders)',
+            },
+          },
+        },
+      },
       borderRadius: {
         lg: "1rem",
       },
@@ -99,7 +164,7 @@ const config: Config = {
   },
   plugins: [
     animate,
-
+    require('@tailwindcss/typography'),
   ],
 };
 

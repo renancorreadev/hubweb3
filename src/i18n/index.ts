@@ -2,10 +2,11 @@
 import { home } from './locales/pages/home';
 import { footer } from './locales/components/footer';
 import { header } from './locales/components/header';
+import { docsTranslations } from './locales/pages/docs';
 
 
 // Types for the internationalization system
-export type SupportedLanguage = 'pt' | 'en';
+export type SupportedLanguage = 'en' | 'es' | 'pt';
 
 export interface LocaleOption {
   value: SupportedLanguage;
@@ -29,6 +30,7 @@ export const translations: Translations = {
   ...home,
   ...footer,
   ...header,
+  ...docsTranslations,
 };
 
 // List of supported languages for language selectors
