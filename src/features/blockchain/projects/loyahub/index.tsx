@@ -12,6 +12,8 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useTranslation } from "@/shared/hooks/useTranslation";
 import { Breadcrumbs } from "./components/layout/Breadcrumbs";
 import {
   Navigation,
@@ -24,34 +26,42 @@ import { DocPager } from "./components/layout/DocPager";
 
 export function LoyahubPage() {
   const [navigationItems, setNavigationItems] = useState<NavItem[]>([]);
-  const [currentPath, setCurrentPath] = useState("/blockchain/projects/loyahub/introduction");
+  const [currentPath, setCurrentPath] = useState("/blockchain/projects/loyahub/docs/introduction");
   const [content, setContent] = useState<MDXRemoteSerializeResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isNavLoading, setIsNavLoading] = useState(true);
 
   const { theme, setTheme } = useTheme();
+  const { language } = useLanguage();
+  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Fetch navigation data
   useEffect(() => {
     async function loadNavigation() {
+      setIsNavLoading(true);
       try {
-        const response = await fetch('/api/docs/navigation');
+        const response = await fetch(`/api/docs/navigation?lang=${language}`);
         const data = await response.json();
         if (data.navigation) {
           setNavigationItems(data.navigation);
+        } else {
+          console.error('Navigation data missing in response:', data);
+          setNavigationItems([]);
         }
       } catch (error) {
         console.error('Error loading navigation:', error);
+        setNavigationItems([]);
       } finally {
         setIsNavLoading(false);
       }
     }
 
-    loadNavigation();
-  }, []);
+    if (language) {
+      loadNavigation();
+    }
+  }, [language]);
 
   useEffect(() => {
     setMounted(true);
@@ -59,31 +69,32 @@ export function LoyahubPage() {
 
   useEffect(() => {
     async function loadContent() {
+      if (!currentPath || !language) return;
+      
       try {
         setIsLoading(true);
-        // Remove leading slash and handle index files
         const normalizedPath = currentPath
-          .replace(/^\/blockchain\/projects\/loyahub\//, '') // Remove the base path
-          .replace(/^\//, ''); // Remove leading slash
+          .replace(/^\/blockchain\/projects\/loyahub\/docs\//, '')
+          .replace(/^\//, '');
         
-        // Construct the file path
-        const filePath = normalizedPath
-          ? `src/features/blockchain/projects/loyahub/docs/${normalizedPath}/index.mdx`
-          : 'src/features/blockchain/projects/loyahub/docs/introduction/index.mdx';
+        const relativeContentPath = normalizedPath || 'introduction';
 
-        console.log('Loading content from:', filePath); // Debug log
+        console.log(`Fetching content for lang '${language}' with relative path:`, relativeContentPath);
 
         const response = await fetch(
-          `/api/mdx?path=${encodeURIComponent(filePath)}`
+          `/api/mdx?path=${encodeURIComponent(relativeContentPath)}&lang=${language}`
         );
         
         if (!response.ok) {
-          throw new Error(`Failed to load content from ${filePath}`);
+          const errorText = await response.text();
+          console.error(`Failed to load content for ${relativeContentPath} (${language}). Status: ${response.status}. Response: ${errorText}`);
+          throw new Error(`Failed to load content for ${relativeContentPath} (${language})`);
         }
 
         const data = await response.json();
 
         if (!data || !data.mdxSource) {
+          console.error('Invalid content format received:', data);
           throw new Error('Invalid content format received');
         }
 
@@ -91,7 +102,7 @@ export function LoyahubPage() {
       } catch (error) {
         console.error("Error loading content:", error);
         const errorContent = await serialize(
-          "# Error\nFailed to load content. Please check if the documentation file exists."
+          `# Error\nFailed to load content for language: ${language}. Please check if the documentation file exists.`
         );
         setContent(errorContent);
       } finally {
@@ -100,28 +111,28 @@ export function LoyahubPage() {
     }
 
     loadContent();
-  }, [currentPath]);
+  }, [currentPath, language]);
 
   const handleNavigation = (path: string) => {
-    console.log('Navigating to:', path); // Debug log
+    console.log('Navigating to (physical path):', path);
     setCurrentPath(path);
   };
 
-  // Generate breadcrumb items based on current path
   const breadcrumbItems = [
     { 
-      label: "Documentation", 
-      href: "/blockchain/projects/loyahub/introduction",
-      onClick: () => handleNavigation("/blockchain/projects/loyahub/introduction")
+      label: t('loyahubDocs.breadcrumbs.root'),
+      href: "/blockchain/projects/loyahub/docs/introduction",
+      onClick: () => handleNavigation("/blockchain/projects/loyahub/docs/introduction")
     },
     ...currentPath
       .split("/")
       .filter(Boolean)
-      // Filter out technical path segments we don't want to show
-      .filter(segment => !['blockchain', 'projects', 'loyahub'].includes(segment))
+      .filter(segment => !['blockchain', 'projects', 'loyahub', 'docs'].includes(segment))
       .map((segment, index, array) => {
-        // Create the full href path including the base path
-        const fullPath = "/blockchain/projects/loyahub/" + array.slice(0, index + 1).join("/");
+        const relevantSegments = array.filter(s => !['blockchain', 'projects', 'loyahub', 'docs'].includes(s));
+        const segmentIndex = relevantSegments.indexOf(segment);
+        const pathUnderDocs = relevantSegments.slice(0, segmentIndex + 1).join("/");
+        const fullPath = "/blockchain/projects/loyahub/docs/" + pathUnderDocs;
         return {
           label: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
           href: fullPath,
@@ -142,7 +153,6 @@ export function LoyahubPage() {
 
   return (
     <div className="flex h-screen bg-white dark:bg-hub-background transition-colors duration-200">
-      {/* Left sidebar navigation - hidden on mobile by default */}
       <div className={`${mobileOnly.display.hidden} ${desktopOnly.display.block}`}>
         <Navigation
           items={navigationItems}
@@ -150,12 +160,11 @@ export function LoyahubPage() {
           onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           onNavigate={handleNavigation}
           currentPath={currentPath}
+          language={language}
         />
       </div>
 
-      {/* Main content area */}
       <main className="flex-1 overflow-auto">
-        {/* Top navigation bar */}
         <header className="sticky top-0 z-10 bg-white dark:bg-hub-background border-b border-hub-border-light dark:border-hub-border-dark px-6 py-4">
           <div className="flex items-center justify-between">
             <Breadcrumbs items={breadcrumbItems} />
@@ -188,7 +197,6 @@ export function LoyahubPage() {
           </div>
         </header>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -202,14 +210,12 @@ export function LoyahubPage() {
                 <div className="flex justify-between items-center mb-8">
                   <div>
                     <h3
-                      className={`font-monument text-hub-text-primary-light dark:text-hub-text-primary-dark ${mobileOnly.text["3xl"]} ${desktopOnly.text["4xl"]}`}
-                    >
-                      Documentation
+                      className={`font-monument text-hub-text-primary-light dark:text-hub-text-primary-dark ${mobileOnly.text["3xl"]} ${desktopOnly.text["4xl"]}`}>
+                      {t('loyahubDocs.title')}
                     </h3>
                     <p
-                      className={`text-hub-text-secondary-light dark:text-hub-text-secondary-dark font-diatype mt-2 ${mobileOnly.text.xl} ${desktopOnly.text.xl}`}
-                    >
-                      Learn how to integrate Loyahub
+                      className={`text-hub-text-secondary-light dark:text-hub-text-secondary-dark font-diatype mt-2 ${mobileOnly.text.xl} ${desktopOnly.text.xl}`}>
+                      {t('loyahubDocs.subtitle')}
                     </p>
                   </div>
                   <motion.button
@@ -249,10 +255,9 @@ export function LoyahubPage() {
           )}
         </AnimatePresence>
 
-        {/* Content section */}
         <div className="px-6">
           <AnimatePresence mode="wait">
-            {isLoading ? (
+            {isLoading || isNavLoading ? (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

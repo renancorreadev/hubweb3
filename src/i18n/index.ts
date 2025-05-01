@@ -3,6 +3,7 @@ import { home } from './locales/pages/home';
 import { footer } from './locales/components/footer';
 import { header } from './locales/components/header';
 import { docsTranslations } from './locales/pages/docs';
+import { loyahubDocsTranslations } from './locales/components/docs/breadcrumb';
 
 
 // Types for the internationalization system
@@ -31,6 +32,7 @@ export const translations: Translations = {
   ...footer,
   ...header,
   ...docsTranslations,
+  ...loyahubDocsTranslations,
 };
 
 // List of supported languages for language selectors
@@ -53,4 +55,5 @@ export const detectBrowserLanguage = (): SupportedLanguage => {
 export const languageCodeToHtml: Record<SupportedLanguage, string> = {
   pt: 'pt-BR',
   en: 'en-US',
+  es: 'es-ES',
 }; 

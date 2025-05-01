@@ -1,0 +1,247 @@
+---
+title: "Referência da API"
+description: "Documentação completa da API"
+order: 2
+---
+
+# Referência da API
+
+Explore nossos endpoints da API e aprenda como integrar com o Loyahub.
+
+import { StepByStep } from '../../../components/content/StepByStep';
+import { ApiExample } from '../../../components/content/ApiExample';
+import { CodeBlock } from '../../../components/content/CodeBlock';
+import { TerminalCommands } from '../../../components/content/TerminalCommands';
+
+Bem-vindo à API Loyahub! Esta documentação fornece um guia abrangente para integração com a plataforma de fidelidade baseada em blockchain Loyahub. Use a navegação para explorar endpoints para gerenciar clientes, pontos, autenticação e metadados de NFT.
+
+## Começando
+
+<StepByStep steps={[
+  {
+    title: "1. Obtenha Acesso à API",
+    content: "Entre em contato com a equipe Loyahub para receber suas credenciais de API e instruções de integração.",
+    items: [
+      "Solicite acesso à API através do nosso portal",
+      "Complete o acordo de integração",
+      "Receba suas chaves e credenciais de API"
+    ]
+  },
+  {
+    title: "2. Autentique-se",
+    content: "Use os endpoints de Autenticação para fazer login e obter um token de acesso.",
+    items: [
+      "Implemente o fluxo OAuth2",
+      "Armazene os tokens de forma segura",
+      "Lide com a atualização de tokens"
+    ]
+  },
+  {
+    title: "3. Integre os Endpoints",
+    content: "Explore os endpoints de Cliente, Pontos e Metadados para construir sua integração.",
+    items: [
+      "Comece com operações básicas de cliente",
+      "Implemente o gerenciamento de pontos",
+      "Adicione o manuseio de metadados de NFT"
+    ]
+  },
+  {
+    title: "4. Teste e Lance",
+    content: "Teste sua integração no ambiente de sandbox e, em seguida, entre em produção!",
+    items: [
+      "Use nosso ambiente de sandbox",
+      "Execute testes de integração",
+      "Agende o deploy em produção"
+    ]
+  }
+]} />
+
+## Visão Geral da API
+
+<ApiExample
+  title="URL Base da API"
+  description="Todas as requisições da API devem ser feitas para a seguinte URL base:"
+  items={[
+    {
+      name: "Produção",
+      description: "https://api.loyahub.com/v1"
+    },
+    {
+      name: "Sandbox",
+      description: "https://sandbox-api.loyahub.com/v1"
+    }
+  ]}
+/>
+
+### Autenticação
+
+<CodeBlock
+  language="typescript"
+  title="Exemplo de Autenticação"
+  code={`// Exemplo de autenticação com a API Loyahub
+import axios from 'axios';
+
+const authenticate = async () => {
+  try {
+    const response = await axios.post('https://api.loyahub.com/v1/auth/token', {
+      client_id: 'seu-client-id',
+      client_secret: 'seu-client-secret',
+      grant_type: 'client_credentials'
+    });
+
+    const { access_token, expires_in } = response.data;
+    // Armazene o token de forma segura
+    return access_token;
+  } catch (error) {
+    console.error('Falha na autenticação:', error);
+    throw error;
+  }
+};`}
+/>
+
+## Seções da API
+
+<ApiExample
+  title="Endpoints Disponíveis"
+  description="Explore nossos endpoints abrangentes da API:"
+  items={[
+    {
+      name: "Endpoints de Cliente",
+      description: "Gerencie registros e dados de clientes",
+      details: [
+        "Crie e atualize perfis de clientes",
+        "Recupere informações de clientes",
+        "Gerencie preferências de clientes"
+      ]
+    },
+    {
+      name: "Gerenciamento de Pontos",
+      description: "Adicione, remova e consulte pontos de usuários",
+      details: [
+        "Adicione pontos às contas dos clientes",
+        "Resgate pontos por recompensas",
+        "Consulte saldos e histórico de pontos"
+      ]
+    },
+    {
+      name: "Autenticação",
+      description: "Registro de usuários e gerenciamento de tokens",
+      details: [
+        "Autenticação OAuth2",
+        "Atualização de token",
+        "Gerenciamento de sessão"
+      ]
+    },
+    {
+      name: "Metadados",
+      description: "Gerencie metadados de NFT para recompensas de fidelidade",
+      details: [
+        "Crie e atualize metadados de NFT",
+        "Consulte informações de NFT",
+        "Gerencie níveis de recompensa"
+      ]
+    }
+  ]}
+/>
+
+## Ferramentas CLI
+
+<TerminalCommands
+  title="Comandos CLI Loyahub"
+  commands={[
+    {
+      command: "loyahub init",
+      description: "Inicializa um novo projeto Loyahub"
+    },
+    {
+      command: "loyahub auth login",
+      description: "Autentica com a API Loyahub"
+    },
+    {
+      command: "loyahub customer create",
+      description: "Cria um novo cliente"
+    },
+    {
+      command: "loyahub points add",
+      description: "Adiciona pontos a um cliente"
+    }
+  ]}
+/>
+
+## Limites de Taxa (Rate Limits)
+
+<ApiExample
+  title="Limites de Taxa da API"
+  description="Nossa API possui os seguintes limites de taxa:"
+  items={[
+    {
+      name: "Nível Gratuito (Free Tier)",
+      description: "100 requisições por minuto",
+      details: [
+        "Acesso básico à API",
+        "Endpoints limitados",
+        "Apenas ambiente Sandbox"
+      ]
+    },
+    {
+      name: "Nível Profissional (Professional Tier)",
+      description: "1000 requisições por minuto",
+      details: [
+        "Acesso completo à API",
+        "Suporte prioritário",
+        "Ambiente de produção"
+      ]
+    },
+    {
+      name: "Nível Empresarial (Enterprise Tier)",
+      description: "Limites personalizados",
+      details: [
+        "Soluções personalizadas",
+        "Suporte dedicado",
+        "Garantias de SLA"
+      ]
+    }
+  ]}
+/>
+
+## Tratamento de Erros
+
+<CodeBlock
+  language="typescript"
+  title="Exemplo de Tratamento de Erros"
+  code={`// Exemplo de tratamento de erros da API
+try {
+  const response = await axios.get('https://api.loyahub.com/v1/customers/123');
+} catch (error) {
+  if (error.response) {
+    switch (error.response.status) {
+      case 401:
+        // Lidar com erro de autenticação
+        break;
+      case 404:
+        // Lidar com erro de não encontrado
+        break;
+      case 429:
+        // Lidar com erro de limite de taxa
+        break;
+      default:
+        // Lidar com outros erros
+    }
+  }
+}`}
+/>
+
+## Suporte
+
+Se tiver dúvidas ou precisar de ajuda, entre em contato com a equipe de suporte Loyahub:
+
+- Email: [support@loyahub.com](mailto:support@loyahub.com)
+- Discord: [Junte-se à nossa comunidade](https://discord.gg/loyahub)
+- Documentação: [Veja a documentação completa](https://docs.loyahub.com)
+
+## Próximos Passos
+
+- [Endpoints de Cliente](/api/customer-endpoints)
+- [Gerenciamento de Pontos](/api/points-management)
+- [Autenticação](/api/authentication)
+- [Metadados](/api/metadata) 

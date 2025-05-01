@@ -1,10 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { NavItem } from '@/features/blockchain/projects/loyahub/components/layout/Navigation';
+import { SupportedLanguage } from '@/i18n'; 
 
-const DOCS_ROOT = path.join(process.cwd(), 'src/features/blockchain/projects/loyahub/docs');
+// Base path for docs content
+const DOCS_CONTENT_ROOT = path.join(process.cwd(), 'src/features/blockchain/projects/loyahub/docs');
 
 // Map of section names to icon names
 const SECTION_ICONS: { [key: string]: string } = {
@@ -32,6 +34,8 @@ function getMDXMetadata(filePath: string): MDXMetadata {
       icon: data.icon
     };
   } catch (error) {
+    // Return default metadata if file doesn't exist or has errors
+    console.warn(`Could not read metadata for ${filePath}:`, error);
     return {
       title: path.basename(filePath, '.mdx'),
       order: 999 // Default high order for items without metadata
@@ -39,15 +43,16 @@ function getMDXMetadata(filePath: string): MDXMetadata {
   }
 }
 
-// Generate href for a file or directory
+// Generate href for a file or directory (Mantendo a rota física atual)
 function generateHref(relativePath: string): string {
-  return `/blockchain/projects/loyahub/${relativePath}`
+  // NOT adding /lang/ here yet, as physical route hasn't changed
+  return `/blockchain/projects/loyahub/docs/${relativePath}`
     .replace(/\/index\.mdx$/, '') // Remove index.mdx from the end
     .replace(/\.mdx$/, ''); // Remove .mdx from the end
 }
 
-// Walk through the docs directory and generate navigation structure
-function generateNavigationItems(dir: string = DOCS_ROOT, relativePath: string = ''): NavItem[] {
+// Walk through the docs directory for a specific language
+function generateNavigationItems(lang: SupportedLanguage, dir: string, relativePath: string = ''): NavItem[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   const items: NavItem[] = [];
 
@@ -57,33 +62,20 @@ function generateNavigationItems(dir: string = DOCS_ROOT, relativePath: string =
     const relativeItemPath = path.join(relativePath, entry.name);
 
     if (entry.isDirectory()) {
-      // Always check for index.mdx in directory
       const indexPath = path.join(fullPath, 'index.mdx');
-      const hasIndex = fs.existsSync(indexPath);
-      
-      // Get metadata from index.mdx if it exists
-      const metadata = hasIndex ? getMDXMetadata(indexPath) : { 
-        title: entry.name.charAt(0).toUpperCase() + entry.name.slice(1),
-        order: 999
-      };
-
-      // Get all child items (excluding index.mdx)
-      const children = generateNavigationItems(fullPath, relativeItemPath);
-      
-      // Get the icon name for this section
+      const metadata = getMDXMetadata(indexPath); // Metadata comes from index.mdx
+      const children = generateNavigationItems(lang, fullPath, relativeItemPath); // Recurse
       const iconName = SECTION_ICONS[entry.name.toLowerCase()];
 
-      // Always create a section for directories
       items.push({
-        label: metadata.title,
-        href: hasIndex ? generateHref(relativeItemPath) : undefined,
+        label: metadata.title, // Use title from index.mdx
+        href: generateHref(relativeItemPath), // Path relative to /docs/
         description: metadata.description,
         items: children.length > 0 ? children : undefined,
         order: metadata.order,
         icon: iconName
       });
     } else if (entry.name.endsWith('.mdx') && entry.name !== 'index.mdx') {
-      // Only add non-index MDX files as items
       const metadata = getMDXMetadata(fullPath);
       items.push({
         label: metadata.title,
@@ -103,9 +95,25 @@ function generateNavigationItems(dir: string = DOCS_ROOT, relativePath: string =
   });
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const navigation = generateNavigationItems();
+    const { searchParams } = new URL(request.url);
+    // Get language from query param, default to 'pt'
+    const lang = (searchParams.get('lang') || 'pt') as SupportedLanguage;
+    
+    // Validate language
+    if (!['pt', 'en'].includes(lang)) {
+        return NextResponse.json({ error: 'Unsupported language' }, { status: 400 });
+    }
+
+    // Construct path based on language
+    const langDocsPath = path.join(DOCS_CONTENT_ROOT, lang);
+
+    if (!fs.existsSync(langDocsPath)) {
+      return NextResponse.json({ error: `Docs not found for language: ${lang}` }, { status: 404 });
+    }
+
+    const navigation = generateNavigationItems(lang, langDocsPath);
     return NextResponse.json({ navigation });
   } catch (error) {
     console.error('Error generating navigation:', error);

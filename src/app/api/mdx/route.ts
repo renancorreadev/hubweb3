@@ -1,7 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { serialize } from 'next-mdx-remote/serialize';
 import fs from 'fs';
 import path from 'path';
+import { SupportedLanguage } from '@/i18n';
 
 interface MDXContent {
   content: any;
@@ -44,70 +45,60 @@ function getMDXContent(dirPath: string): MDXContent[] {
   return items;
 }
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const requestPath = searchParams.get('path');
+// Base path for docs content
+const DOCS_CONTENT_ROOT = path.join(process.cwd(), 'src/features/blockchain/projects/loyahub/docs');
 
-  if (!requestPath) {
-    // If no specific path is provided, return the structure of all MDX files
-    const docsPath = path.join(process.cwd(), 'src/features/blockchain/projects/loyahub/docs');
-    try {
-      const allContent = getMDXContent(docsPath);
-      const structure = allContent.map(item => ({
-        slug: item.metadata.slug,
-        title: item.metadata.title,
-        description: item.metadata.description
-      }));
-      return NextResponse.json({ structure });
-    } catch (error) {
-      console.error('Error reading docs structure:', error);
-      return NextResponse.json(
-        { error: "Failed to read docs structure" },
-        { status: 500 }
-      );
-    }
+// Function to get MDX source, now language-aware
+async function getMDXSource(lang: SupportedLanguage, relativePath: string) {
+  const filePath = path.join(DOCS_CONTENT_ROOT, lang, `${relativePath}.mdx`);
+  const indexFilePath = path.join(DOCS_CONTENT_ROOT, lang, relativePath, 'index.mdx');
+
+  let finalPath = '';
+  if (fs.existsSync(filePath)) {
+    finalPath = filePath;
+  } else if (fs.existsSync(indexFilePath)) {
+    finalPath = indexFilePath;
+  }
+
+  if (!finalPath) {
+    console.error(`MDX file not found for lang '${lang}' and path '${relativePath}'. Checked: ${filePath} and ${indexFilePath}`);
+    return null;
   }
 
   try {
-    const fullPath = path.join(process.cwd(), requestPath);
-    
-    // Security check to ensure we're only reading files from the docs directory
-    const docsPath = path.join(process.cwd(), 'src/features/blockchain/projects/loyahub/docs');
-    if (!fullPath.startsWith(docsPath)) {
-      return NextResponse.json(
-        { error: "Invalid path" },
-        { status: 400 }
-      );
-    }
+    const fileContent = fs.readFileSync(finalPath, 'utf8');
+    const mdxSource = await serialize(fileContent, { parseFrontmatter: true });
+    return mdxSource;
+  } catch (error) {
+    console.error(`Error reading or serializing MDX file ${finalPath}:`, error);
+    return null;
+  }
+}
 
-    let filePath = fullPath;
-    // If the path doesn't end with .mdx, try to find an index.mdx
-    if (!fullPath.endsWith('.mdx')) {
-      filePath = path.join(fullPath, 'index.mdx');
-    }
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const relativePath = searchParams.get('path'); // Agora esperamos o path RELATIVO
+  const lang = (searchParams.get('lang') || 'pt') as SupportedLanguage;
 
-    if (!fs.existsSync(filePath)) {
-      return NextResponse.json(
-        { error: "Content not found" },
-        { status: 404 }
-      );
-    }
+  if (!['pt', 'en'].includes(lang)) {
+    return NextResponse.json({ error: 'Unsupported language' }, { status: 400 });
+  }
 
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    const mdxSource = await serialize(fileContents, {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [],
-        rehypePlugins: [],
-      },
-    });
+  if (!relativePath) {
+    return NextResponse.json({ error: 'Path parameter is required' }, { status: 400 });
+  }
+
+  try {
+    const mdxSource = await getMDXSource(lang, relativePath);
+
+    if (!mdxSource) {
+      return NextResponse.json({ error: 'MDX content not found' }, { status: 404 });
+    }
 
     return NextResponse.json({ mdxSource });
+
   } catch (error) {
-    console.error('Error loading MDX file:', error);
-    return NextResponse.json(
-      { error: "Failed to load content" },
-      { status: 500 }
-    );
+    console.error('Error in MDX API:', error);
+    return NextResponse.json({ error: 'Failed to process MDX content' }, { status: 500 });
   }
 }

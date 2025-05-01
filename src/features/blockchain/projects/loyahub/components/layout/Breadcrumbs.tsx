@@ -1,8 +1,7 @@
 import React from 'react';
-import Link from 'next/link';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
-import { mobileOnly, desktopOnly } from '@/shared/configs/responsive';
+
 
 interface BreadcrumbItem {
   label: string;
