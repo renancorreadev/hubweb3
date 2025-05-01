@@ -14,6 +14,14 @@ export const header = {
     en: 'Tools',
     pt: 'Ferramentas'
   },
+  'nav-blockchain-drex-label': {
+    en: 'Drex',
+    pt: 'Drex'
+  },
+  'nav-blockchain-drex-description': {
+    en: 'The Drex Hub',
+    pt: 'O Hub Drex'
+  },
 
 
   // SUB MENU BLOCKCHAIN
