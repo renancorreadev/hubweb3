@@ -1,166 +1,27 @@
 # Introduction to Loyahub
 
-Welcome to Loyahub documentation. This comprehensive guide will help you understand the core concepts and get started with development on our platform.
+Welcome to Loyahub documentation. This comprehensive guide will help you understand the core concepts and get started with development on our blockchain-based loyalty platform.
 
-## Quick Installation
+<div className="flex justify-center">
+  <ImageContainer
+    src="/images/projects/loyahub/hexagonal.png"
+    alt="LoyaHub Architecture"
+    caption="The project is built with a hexagonal architecture, which is a design pattern that separates the application into three layers: domain, application, and infrastructure. This allows for a more modular and scalable application."
+    className="max-w-[800px] mx-auto my-8"
+  />
+</div>
 
-Get started with Loyahub by installing our package:
+## What is LoyaHub?
 
-<TerminalCommands
-  title="Installation Steps"
-  commands={[
-    { 
-      command: "npm install loyahub", 
-      description: "Install the Loyahub package" 
-    },
-    { 
-      command: "npm run dev", 
-      description: "Start the development server" 
-    }
-  ]}
-/>
-
-## Core Concepts
-
-Loyahub is built on several key concepts that you should understand before diving in:
-
-### Smart Contract Integration
-
-<CodeBlock
-  language="solidity"
-  title="Basic Smart Contract Example"
-  code={`
-pragma solidity ^0.8.0;
-
-contract LoyaltyProgram {
-    mapping(address => uint256) public points;
-    
-    function awardPoints(address user, uint256 amount) external {
-        points[user] += amount;
-    }
-    
-    function usePoints(uint256 amount) external {
-        require(points[msg.sender] >= amount, "Insufficient points");
-        points[msg.sender] -= amount;
-    }
-}
-`}
-/>
-
-### API Integration
-
-Here's how to interact with our API:
-
-<ApiExample
-  endpoint="/api/v1/loyalty/points"
-  method="POST"
-  request={{
-    headers: {
-      "Authorization": "Bearer YOUR_TOKEN",
-      "Content-Type": "application/json"
-    },
-    body: {
-      "userId": "123",
-      "points": 100,
-      "action": "award"
-    }
-  }}
-  response={{
-    status: 200,
-    body: {
-      "success": true,
-      "newBalance": 250,
-      "transaction": {
-        "id": "tx_123",
-        "timestamp": "2024-03-21T10:30:00Z"
-      }
-    }
-  }}
-/>
+LoyaHub is a revolutionary blockchain-based loyalty platform that enables businesses to create, manage, and scale their loyalty programs with unprecedented security and transparency. Built on Hyperledger Besu, our platform combines the power of blockchain technology with modern web development practices.
 
 ## Platform Architecture
 
 <ImageContainer
-  src="/docs/images/architecture.png"
-  alt="Loyahub Platform Architecture"
-  caption="High-level overview of the Loyahub platform architecture"
+  src="/images/projects/loyahub/API_Infra.png"
+  alt="LoyaHub Platform Architecture"
+  caption="High-level overview of the LoyaHub platform architecture"
+  className="my-8"
 />
 
-## Video Tutorial
 
-Learn how to implement your first loyalty program:
-
-<VideoContainer
-  src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-  title="Getting Started with Loyahub"
-  caption="Step-by-step guide to creating your first loyalty program"
-/>
-
-## Development Setup
-
-To set up your development environment, follow these steps:
-
-<TerminalCommands
-  title="Development Setup"
-  commands={[
-    { 
-      command: "git clone https://github.com/your-org/loyahub.git",
-      description: "Clone the repository"
-    },
-    { 
-      command: "cd loyahub",
-      description: "Navigate to the project directory"
-    },
-    { 
-      command: "npm install",
-      description: "Install dependencies"
-    },
-    { 
-      command: "cp .env.example .env",
-      description: "Create your environment file"
-    },
-    { 
-      command: "npm run dev",
-      description: "Start the development server"
-    }
-  ]}
-/>
-
-## Next Steps
-
-Now that you have a basic understanding of Loyahub, you can:
-
-1. Set up your development environment
-2. Create your first loyalty program
-3. Integrate with our API
-4. Deploy your smart contracts
-5. Test your implementation
-
-Check out our other guides for more detailed information on each topic.
-
----
-
-## Example: Step by Step Timeline
-
-<StepByStep
-  steps={[
-    {
-      title: 'Create Your Account',
-      content: <>
-        <p>Sign up on the Loyahub platform to get started. You'll need a valid email and password.</p>
-      </>,
-    },
-    {
-      title: 'Configure Your Project',
-      content: <>
-        <p>Set up your project settings, add team members, and define your loyalty rules.</p>
-      </>,
-    },
-    {
-      title: 'Launch and Track',
-      content: <>
-        <p>Deploy your loyalty program and monitor user engagement in real time from your dashboard.</p>
-      </>,
-    },
-  ]}
-/> 

@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:docs-nav": "node --loader ts-node/esm src/features/blockchain/projects/loyahub/utils/generateNavigation.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
@@ -43,6 +44,7 @@
     "eslint-config-next": "15.3.1",
     "postcss": "8.4.38",
     "tailwindcss": "^3.4.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
