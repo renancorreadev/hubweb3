@@ -10,8 +10,6 @@ import {
   XMarkIcon,
   Bars3Icon,
   MagnifyingGlassIcon,
-  HomeIcon,
-  InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
 import { Breadcrumbs } from "./components/layout/Breadcrumbs";
@@ -24,64 +22,36 @@ import { SectionContent } from "./components/content/SectionContent";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
 import { DocPager } from "./components/layout/DocPager";
 
-// Navigation structure with more detailed topics
-const navigationItems: NavItem[] = [
-  {
-    label: "Introduction",
-    href: "/blockchain/projects/loyahub/introduction",
-    icon: HomeIcon,
-    items: [
-      {
-        label: "About",
-        href: "/blockchain/projects/loyahub/introduction/about",
-        icon: InformationCircleIcon,
-      },
-    ],
-  },
-  {
-    label: "Getting Started",
-    href: "/blockchain/projects/loyahub/introduction/getting-started",
-    icon: InformationCircleIcon,
-  },
-  {
-    label: "API",
-    href: "/blockchain/projects/loyahub/api",
-    icon: InformationCircleIcon,
-  },
-  {
-    label: "Test",
-    href: "/blockchain/projects/loyahub/test",
-    icon: InformationCircleIcon,
-    items: [
-      {
-        label: "How",
-        href: "/blockchain/projects/loyahub/test/how",
-        icon: InformationCircleIcon,
-      },
-      {
-        label: "Testing",
-        href: "/blockchain/projects/loyahub/test/testing",
-        icon: InformationCircleIcon,
-      },
-    ],
-  },
-];
-
-interface DocStructure {
-  slug: string;
-  title?: string;
-  description?: string;
-}
-
 export function LoyahubPage() {
+  const [navigationItems, setNavigationItems] = useState<NavItem[]>([]);
   const [currentPath, setCurrentPath] = useState("/introduction");
   const [content, setContent] = useState<MDXRemoteSerializeResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [docStructure, setDocStructure] = useState<DocStructure[]>([]);
+  const [isNavLoading, setIsNavLoading] = useState(true);
+
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Fetch navigation data
+  useEffect(() => {
+    async function loadNavigation() {
+      try {
+        const response = await fetch('/api/docs/navigation');
+        const data = await response.json();
+        if (data.navigation) {
+          setNavigationItems(data.navigation);
+        }
+      } catch (error) {
+        console.error('Error loading navigation:', error);
+      } finally {
+        setIsNavLoading(false);
+      }
+    }
+
+    loadNavigation();
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -168,7 +138,7 @@ export function LoyahubPage() {
       )
   );
 
-  if (!mounted) return null;
+  if (!mounted || isNavLoading) return null;
 
   return (
     <div className="flex h-screen bg-white dark:bg-hub-background transition-colors duration-200">
@@ -302,11 +272,8 @@ export function LoyahubPage() {
                   <SectionContent content={content} />
 
                   <DocPager
-                    previous={{
-                      href: "/previous-topic",
-                      label: "Composing Multiple Programs",
-                    }}
-                    next={{ href: "/core-concepts", label: "Core Concepts" }}
+                    navigationItems={navigationItems}
+                    currentPath={currentPath}
                   />
                 </motion.div>
               )

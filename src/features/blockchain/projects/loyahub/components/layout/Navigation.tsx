@@ -5,17 +5,34 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronRightIcon,
   MagnifyingGlassIcon,
+  HomeIcon,
+  BeakerIcon,
+  CommandLineIcon,
+  BookOpenIcon,
+  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 import { mobileOnly, desktopOnly } from "@/shared/configs/responsive";
 
 type HeroIcon = React.ComponentType<{ className?: string }>;
 
+// Map of icon names to actual components
+const ICON_COMPONENTS: { [key: string]: HeroIcon } = {
+  HomeIcon,
+  BeakerIcon,
+  CommandLineIcon,
+  BookOpenIcon,
+  DocumentTextIcon,
+  ChevronRightIcon,
+  MagnifyingGlassIcon,
+};
+
 export interface NavItem {
   label: string;
   href?: string;
   items?: NavItem[];
-  icon?: HeroIcon;
+  icon?: string;
   description?: string;
+  order?: number;
 }
 
 interface NavigationProps {
@@ -51,7 +68,8 @@ export const NavItemComponent: React.FC<{
     }
   }, [isActive, isParentActive]);
 
-  const Icon = item.icon;
+  // Get the actual icon component from the icon name
+  const IconComponent = item.icon ? ICON_COMPONENTS[item.icon] : undefined;
 
   const handleClick = () => {
     if (item.href) {
@@ -90,18 +108,18 @@ export const NavItemComponent: React.FC<{
               isActive ? 'text-hub-primary-light dark:text-hub-primary-dark' : ''
             }`}
           >
-            {Icon && (
+            {IconComponent && (
               <span className="group-hover:scale-110 transition-transform duration-200">
-                <Icon className="h-6 w-6" />
+                <IconComponent className="h-6 w-6" />
               </span>
             )}
             <span>{item.label}</span>
           </button>
         ) : (
           <span className={`flex items-center space-x-3 text-hub-text-secondary-light dark:text-hub-text-secondary-dark font-dsemi ml-2 ${mobileOnly.text.xl} ${desktopOnly.text.xl}`}>
-            {Icon && (
+            {IconComponent && (
               <span>
-                <Icon className="h-6 w-6" />
+                <IconComponent className="h-6 w-6" />
               </span>
             )}
             <span>{item.label}</span>
