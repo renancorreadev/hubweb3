@@ -4,54 +4,18 @@ import fs from 'fs';
 import path from 'path';
 import { SupportedLanguage } from '@/i18n';
 
-interface MDXContent {
-  content: any;
-  metadata: {
-    slug: string;
-    title?: string;
-    description?: string;
-  };
-}
 
-function getMDXContent(dirPath: string): MDXContent[] {
-  const items: MDXContent[] = [];
-  const files = fs.readdirSync(dirPath, { withFileTypes: true });
 
-  for (const file of files) {
-    const fullPath = path.join(dirPath, file.name);
-    
-    if (file.isDirectory()) {
-      // Recursively get content from subdirectories
-      items.push(...getMDXContent(fullPath));
-    } else if (file.name.endsWith('.mdx')) {
-      const content = fs.readFileSync(fullPath, 'utf8');
-      const slug = path
-        .relative(process.cwd(), fullPath)
-        .replace(/\.mdx$/, '')
-        .split(path.sep)
-        .slice(5) // Skip src/features/blockchain/projects/loyahub/docs
-        .join('/');
+// Base path for all projects' docs content
+const PROJECTS_ROOT = path.join(process.cwd(), 'src/features/blockchain/projects');
 
-      items.push({
-        content,
-        metadata: {
-          slug,
-          // You can add more metadata extraction here if needed
-        }
-      });
-    }
-  }
-
-  return items;
-}
-
-// Base path for docs content
-const DOCS_CONTENT_ROOT = path.join(process.cwd(), 'src/features/blockchain/projects/loyahub/docs');
-
-// Function to get MDX source, now language-aware
-async function getMDXSource(lang: SupportedLanguage, relativePath: string) {
-  const filePath = path.join(DOCS_CONTENT_ROOT, lang, `${relativePath}.mdx`);
-  const indexFilePath = path.join(DOCS_CONTENT_ROOT, lang, relativePath, 'index.mdx');
+// Function to get MDX source, now project and language-aware
+async function getMDXSource(project: string, lang: SupportedLanguage, relativePath: string) {
+  // Construct dynamic content root path
+  const projectDocsContentRoot = path.join(PROJECTS_ROOT, project, 'docs');
+  
+  const filePath = path.join(projectDocsContentRoot, lang, `${relativePath}.mdx`);
+  const indexFilePath = path.join(projectDocsContentRoot, lang, relativePath, 'index.mdx');
 
   let finalPath = '';
   if (fs.existsSync(filePath)) {
@@ -61,13 +25,14 @@ async function getMDXSource(lang: SupportedLanguage, relativePath: string) {
   }
 
   if (!finalPath) {
-    console.error(`MDX file not found for lang '${lang}' and path '${relativePath}'. Checked: ${filePath} and ${indexFilePath}`);
+    console.error(`MDX file not found for project '${project}', lang '${lang}' and path '${relativePath}'. Checked: ${filePath} and ${indexFilePath}`);
     return null;
   }
 
   try {
     const fileContent = fs.readFileSync(finalPath, 'utf8');
-    const mdxSource = await serialize(fileContent, { parseFrontmatter: true });
+    // Ensure frontmatter is parsed
+    const mdxSource = await serialize(fileContent, { parseFrontmatter: true }); 
     return mdxSource;
   } catch (error) {
     console.error(`Error reading or serializing MDX file ${finalPath}:`, error);
@@ -77,19 +42,29 @@ async function getMDXSource(lang: SupportedLanguage, relativePath: string) {
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const relativePath = searchParams.get('path'); // Agora esperamos o path RELATIVO
+  const relativePath = searchParams.get('path');
   const lang = (searchParams.get('lang') || 'pt') as SupportedLanguage;
+  const project = searchParams.get('project'); // Obter projeto
 
+  // --- Validação --- 
+  if (!project) {
+    return NextResponse.json({ error: 'Project parameter is required' }, { status: 400 });
+  }
+  const allowedProjects = ['loyahub', 'rwa']; // Exemplo
+  if (!allowedProjects.includes(project)) {
+      return NextResponse.json({ error: `Unsupported project: ${project}` }, { status: 400 });
+  }
   if (!['pt', 'en'].includes(lang)) {
     return NextResponse.json({ error: 'Unsupported language' }, { status: 400 });
   }
-
   if (!relativePath) {
     return NextResponse.json({ error: 'Path parameter is required' }, { status: 400 });
   }
+  // --- Fim Validação ---
 
   try {
-    const mdxSource = await getMDXSource(lang, relativePath);
+    // Passar project, lang e path
+    const mdxSource = await getMDXSource(project, lang, relativePath);
 
     if (!mdxSource) {
       return NextResponse.json({ error: 'MDX content not found' }, { status: 404 });

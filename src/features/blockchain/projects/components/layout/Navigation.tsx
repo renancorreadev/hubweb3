@@ -50,6 +50,7 @@ interface NavigationProps {
   onNavigate: (path: string) => void;
   currentPath: string;
   language: string;
+  project: string;
 }
 
 export const NavItemComponent: React.FC<{
@@ -183,7 +184,8 @@ export const Navigation: React.FC<NavigationProps> = ({
   onMobileMenuToggle,
   onNavigate,
   currentPath,
-  language
+  language,
+  project
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -205,7 +207,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       const timeout = setTimeout(async () => {
         setIsSearching(true);
         try {
-          const response = await fetch(`/api/docs/search?q=${encodeURIComponent(query)}&lang=${language}`);
+          const response = await fetch(`/api/docs/search?q=${encodeURIComponent(query)}&lang=${language}&project=${project}`);
           const data = await response.json();
           console.log('Search API Response:', data);
           setSearchResults(data.results || []);

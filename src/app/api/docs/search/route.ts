@@ -4,7 +4,8 @@ import path from 'path';
 import matter from 'gray-matter';
 import { SupportedLanguage } from '@/i18n';
 
-const DOCS_ROOT = path.join(process.cwd(), 'src/features/blockchain/projects/loyahub/docs');
+// Base path for all projects' docs content
+const PROJECTS_ROOT = path.join(process.cwd(), 'src/features/blockchain/projects');
 
 interface SearchResult {
   title: string;
@@ -15,8 +16,10 @@ interface SearchResult {
   headings?: string[];
 }
 
-function generateHref(relativePath: string): string {
-  return `/blockchain/projects/loyahub/docs/${relativePath}`
+// Generate href for a file or directory, now project-aware
+function generateHref(project: string, relativePath: string): string {
+  // Assume a rota física reflete o projeto: /blockchain/projects/[project]/docs/...
+  return `/blockchain/projects/${project}/docs/${relativePath}`
     .replace(/\/index\.mdx$/, '')
     .replace(/\.mdx$/, '');
 }
@@ -51,7 +54,8 @@ function extractContentFromMDX(mdxContent: string): { content: string; headings:
   };
 }
 
-async function searchInDirectory(lang: SupportedLanguage, dir: string, query: string, results: SearchResult[] = [], relativePath: string = ''): Promise<SearchResult[]> {
+// Search within a specific project and language directory
+async function searchInDirectory(project: string, lang: SupportedLanguage, dir: string, query: string, results: SearchResult[] = [], relativePath: string = ''): Promise<SearchResult[]> {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
 
   for (const entry of entries) {
@@ -59,7 +63,8 @@ async function searchInDirectory(lang: SupportedLanguage, dir: string, query: st
     const newRelativePath = path.join(relativePath, entry.name);
 
     if (entry.isDirectory()) {
-      await searchInDirectory(lang, fullPath, query, results, newRelativePath);
+      // Pass project and lang down recursively
+      await searchInDirectory(project, lang, fullPath, query, results, newRelativePath);
     } else if (entry.name.endsWith('.mdx')) {
       const content = fs.readFileSync(fullPath, 'utf-8');
       const { data, content: mdxContent } = matter(content);
@@ -105,7 +110,8 @@ async function searchInDirectory(lang: SupportedLanguage, dir: string, query: st
           title: data.title || entry.name.replace('.mdx', ''),
           description: data.description,
           content: processedContent,
-          href: generateHref(newRelativePath),
+          // Pass project to generate href
+          href: generateHref(project, newRelativePath), 
           matches,
           headings
         });
@@ -121,23 +127,37 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('q');
     const lang = (searchParams.get('lang') || 'pt') as SupportedLanguage;
+    const project = searchParams.get('project'); // Obter projeto
 
+    // --- Validação --- 
+    if (!project) {
+      return NextResponse.json({ error: 'Project parameter is required' }, { status: 400 });
+    }
+    const allowedProjects = ['loyahub', 'rwa']; // Exemplo
+    if (!allowedProjects.includes(project)) {
+      return NextResponse.json({ error: `Unsupported project: ${project}` }, { status: 400 });
+    }
     if (!query) {
       return NextResponse.json({ error: 'Query parameter is required' }, { status: 400 });
     }
-    
     if (!['pt', 'en'].includes(lang)) {
       return NextResponse.json({ error: 'Unsupported language' }, { status: 400 });
     }
+    // --- Fim Validação ---
 
-    const langDocsPath = path.join(DOCS_ROOT, lang);
+    // Construct dynamic content root path
+    const projectDocsContentRoot = path.join(PROJECTS_ROOT, project, 'docs');
+    const langDocsPath = path.join(projectDocsContentRoot, lang);
 
     if (!fs.existsSync(langDocsPath)) {
+      // Retornar array vazio se pasta não existe
       return NextResponse.json({ results: [] });
     }
 
-    const results = await searchInDirectory(lang, langDocsPath, query);
+    // Passar project e lang para a função de busca
+    const results = await searchInDirectory(project, lang, langDocsPath, query);
     
+    // Sort results by relevance (sem mudanças)
     results.sort((a, b) => {
       const aTitle = a.title.toLowerCase();
       const bTitle = b.title.toLowerCase();
@@ -156,6 +176,7 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json({ results });
+
   } catch (error) {
     console.error('Error searching docs:', error);
     return NextResponse.json({ error: 'Failed to search documentation' }, { status: 500 });

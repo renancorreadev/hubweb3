@@ -4,7 +4,7 @@ import { footer } from './locales/components/footer';
 import { header } from './locales/components/header';
 import { docsTranslations } from './locales/pages/docs';
 import { loyahubDocsTranslations } from './locales/components/docs/breadcrumb';
-
+import { rwaDocsTranslations } from './locales/components/docs/breadcrumb';
 
 // Types for the internationalization system
 export type SupportedLanguage = 'en' | 'es' | 'pt';
@@ -33,6 +33,7 @@ export const translations: Translations = {
   ...header,
   ...docsTranslations,
   ...loyahubDocsTranslations,
+  ...rwaDocsTranslations,
 };
 
 // List of supported languages for language selectors

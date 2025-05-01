@@ -24,9 +24,9 @@ import { SectionContent } from "../components/content/SectionContent";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
 import { DocPager } from "../components/layout/DocPager";
 
-export function LoyahubPage() {
+export function RwaDocsPage() {
   const [navigationItems, setNavigationItems] = useState<NavItem[]>([]);
-  const [currentPath, setCurrentPath] = useState("/blockchain/projects/loyahub/docs/introduction");
+  const [currentPath, setCurrentPath] = useState("/blockchain/projects/rwa/docs/introduction");
   const [content, setContent] = useState<MDXRemoteSerializeResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isNavLoading, setIsNavLoading] = useState(true);
@@ -42,7 +42,7 @@ export function LoyahubPage() {
     async function loadNavigation() {
       setIsNavLoading(true);
       try {
-        const projectName = 'loyahub';
+        const projectName = 'rwa';
         const response = await fetch(`/api/docs/navigation?lang=${language}&project=${projectName}`);
         const data = await response.json();
         if (data.navigation) {
@@ -75,11 +75,11 @@ export function LoyahubPage() {
       try {
         setIsLoading(true);
         const normalizedPath = currentPath
-          .replace(/^\/blockchain\/projects\/loyahub\/docs\//, '')
+          .replace(/^\/blockchain\/projects\/rwa\/docs\//, '')
           .replace(/^\//, '');
         
         const relativeContentPath = normalizedPath || 'introduction';
-        const projectName = 'loyahub';
+        const projectName = 'rwa';
 
         console.log(`Fetching content for project '${projectName}', lang '${language}' with relative path:`, relativeContentPath);
 
@@ -123,18 +123,18 @@ export function LoyahubPage() {
   const breadcrumbItems = [
     { 
       label: t('loyahubDocs.breadcrumbs.root'),
-      href: "/blockchain/projects/loyahub/docs/introduction",
-      onClick: () => handleNavigation("/blockchain/projects/loyahub/docs/introduction")
+      href: "/blockchain/projects/rwa/docs/introduction",
+      onClick: () => handleNavigation("/blockchain/projects/rwa/docs/introduction")
     },
     ...currentPath
       .split("/")
       .filter(Boolean)
-      .filter(segment => !['blockchain', 'projects', 'loyahub', 'docs'].includes(segment))
+      .filter(segment => !['blockchain', 'projects', 'rwa', 'docs'].includes(segment))
       .map((segment, index, array) => {
-        const relevantSegments = array.filter(s => !['blockchain', 'projects', 'loyahub', 'docs'].includes(s));
+        const relevantSegments = array.filter(s => !['blockchain', 'projects', 'rwa', 'docs'].includes(s));
         const segmentIndex = relevantSegments.indexOf(segment);
         const pathUnderDocs = relevantSegments.slice(0, segmentIndex + 1).join("/");
-        const fullPath = "/blockchain/projects/loyahub/docs/" + pathUnderDocs;
+        const fullPath = "/blockchain/projects/rwa/docs/" + pathUnderDocs;
         return {
           label: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
           href: fullPath,
@@ -163,7 +163,7 @@ export function LoyahubPage() {
           onNavigate={handleNavigation}
           currentPath={currentPath}
           language={language}
-          project="loyahub"
+          project="rwa"
         />
       </div>
 

@@ -6,6 +6,7 @@ import { ApiExample } from './ApiExample';
 import { StepByStep } from './StepByStep';
 import { TerminalCommands } from './TerminalCommands';
 import { ImageContainer, VideoContainer } from './MediaContainer';
+import { FeatureHighlight } from './FeatureHighlight';
 import { mobileOnly, desktopOnly } from '@/shared/configs/responsive';
 
 interface SectionContentProps {
@@ -19,7 +20,8 @@ const defaultComponents = {
   StepByStep,
   TerminalCommands,
   ImageContainer,
-  VideoContainer,
+  VideoContainer, 
+  FeatureHighlight,
   h1: (props: any) => (
     <motion.h1
       initial={{ opacity: 0, y: 20 }}
