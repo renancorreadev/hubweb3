@@ -1,40 +1,11 @@
 import React from 'react';
-import Link from 'next/link';
 import { NavItem } from './Navigation';
-
-// Extended type for flattened navigation items
-interface FlattenedNavItem extends NavItem {
-  parentPath?: string;
-}
 
 interface DocPagerProps {
   navigationItems: NavItem[];
   currentPath: string;
+  onNavigate: (path: string) => void;
 }
-
-// Helper function to flatten navigation items into a single array while preserving hierarchy
-const flattenNavigation = (items: NavItem[], parentPath: string = ''): FlattenedNavItem[] => {
-  let flattened: FlattenedNavItem[] = [];
-  
-  items.forEach(item => {
-    if (item.href) {
-      // Add current item
-      flattened.push({
-        ...item,
-        parentPath
-      });
-    }
-    
-    // If item has children, process them with current item's path as parent
-    if (item.items) {
-      const childParentPath = item.href || parentPath;
-      flattened = flattened.concat(flattenNavigation(item.items, childParentPath));
-    }
-  });
-  
-  return flattened;
-};
-
 
 // Helper function to find the next and previous items based on the current path
 const findAdjacentItems = (items: NavItem[], currentPath: string): { previous?: NavItem; next?: NavItem } => {
@@ -68,15 +39,15 @@ const findAdjacentItems = (items: NavItem[], currentPath: string): { previous?: 
   };
 };
 
-export const DocPager: React.FC<DocPagerProps> = ({ navigationItems, currentPath }) => {
+export const DocPager: React.FC<DocPagerProps> = ({ navigationItems, currentPath, onNavigate }) => {
   const { previous, next } = findAdjacentItems(navigationItems, currentPath);
 
   return (
     <nav className="mt-16 mb-8 grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto">
       {/* Previous */}
       {previous?.href ? (
-        <Link
-          href={previous.href}
+        <button
+          onClick={() => onNavigate(previous.href!)}
           className="group flex flex-col items-start rounded-2xl border border-hub-border-light dark:border-hub-border-dark px-6 py-5 shadow-md transition-colors duration-200 hover:bg-black/10 dark:hover:bg-white/20"
         >
           <span className="text-hub-text-secondary-light dark:text-hub-text-secondary-dark text-base mb-1 flex items-center gap-1">
@@ -90,13 +61,13 @@ export const DocPager: React.FC<DocPagerProps> = ({ navigationItems, currentPath
               {previous.description}
             </span>
           )}
-        </Link>
+        </button>
       ) : <div />}
 
       {/* Next */}
       {next?.href ? (
-        <Link
-          href={next.href}
+        <button
+          onClick={() => onNavigate(next.href!)}
           className="group flex flex-col items-end rounded-2xl border border-hub-border-light dark:border-hub-border-dark px-6 py-5 shadow-md transition-colors duration-200 hover:bg-black/10 dark:hover:bg-white/20"
         >
           <span className="text-hub-text-secondary-light dark:text-hub-text-secondary-dark text-base mb-1 flex items-center gap-1">
@@ -110,7 +81,7 @@ export const DocPager: React.FC<DocPagerProps> = ({ navigationItems, currentPath
               {next.description}
             </span>
           )}
-        </Link>
+        </button>
       ) : <div />}
     </nav>
   );

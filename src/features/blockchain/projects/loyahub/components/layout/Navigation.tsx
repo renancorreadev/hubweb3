@@ -10,6 +10,7 @@ import {
   CommandLineIcon,
   BookOpenIcon,
   DocumentTextIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { mobileOnly, desktopOnly } from "@/shared/configs/responsive";
 
@@ -33,6 +34,13 @@ export interface NavItem {
   icon?: string;
   description?: string;
   order?: number;
+}
+
+interface SearchResult {
+  title: string;
+  description?: string;
+  matches: string[];
+  href: string;
 }
 
 interface NavigationProps {
@@ -62,11 +70,21 @@ export const NavItemComponent: React.FC<{
   const hasChildren = item.items && item.items.length > 0;
   const pathname = usePathname();
 
+  // Check if the current item or any of its children are active
+  const checkActive = (item: NavItem): boolean => {
+    if (item.href === pathname) return true;
+    if (item.items) {
+      return item.items.some(child => checkActive(child));
+    }
+    return false;
+  };
+
   useEffect(() => {
-    if (isActive || isParentActive) {
+    const isCurrentActive = checkActive(item);
+    if (isCurrentActive || isParentActive) {
       setIsOpen(true);
     }
-  }, [isActive, isParentActive]);
+  }, [isActive, isParentActive, item]);
 
   // Get the actual icon component from the icon name
   const IconComponent = item.icon ? ICON_COMPONENTS[item.icon] : undefined;
@@ -166,14 +184,50 @@ export const Navigation: React.FC<NavigationProps> = ({
   currentPath
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
 
-  const filteredItems = items.filter(
-    (item) =>
-      item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.items?.some((child) =>
-        child.label.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-  );
+  // Handle search input changes
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    // Clear existing timeout
+    if (searchTimeout) {
+      clearTimeout(searchTimeout);
+    }
+
+    if (query.trim()) {
+      // Set new timeout for search
+      const timeout = setTimeout(async () => {
+        setIsSearching(true);
+        try {
+          const response = await fetch(`/api/docs/search?q=${encodeURIComponent(query)}`);
+          const data = await response.json();
+          console.log('Search API Response:', data);
+          setSearchResults(data.results || []);
+        } catch (error) {
+          console.error('Error searching:', error);
+          setSearchResults([]);
+        } finally {
+          setIsSearching(false);
+        }
+      }, 300); // Debounce time
+
+      setSearchTimeout(timeout);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  // Handle search result click
+  const handleSearchResultClick = (href: string) => {
+    onNavigate(href);
+    setSearchQuery("");
+    setSearchResults([]);
+    onMobileMenuToggle();
+  };
 
   return (
     <nav className={`${desktopOnly.display.block} w-80 bg-white dark:bg-hub-background border-r border-hub-border-light dark:border-hub-border-dark h-full overflow-y-auto`}>
@@ -192,23 +246,77 @@ export const Navigation: React.FC<NavigationProps> = ({
             type="text"
             placeholder="Search documentation..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleSearchChange}
             className="w-full px-4 py-3 rounded-lg bg-hub-hover-light dark:bg-hub-hover-dark border border-hub-border-light dark:border-hub-border-dark text-hub-text-primary-light dark:text-hub-text-primary-dark placeholder-hub-text-secondary-light dark:placeholder-hub-text-secondary-dark focus:outline-none focus:ring-2 focus:ring-hub-primary-light dark:focus:ring-hub-primary-dark"
           />
-          <MagnifyingGlassIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-hub-text-secondary-light dark:text-hub-text-secondary-dark" />
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+            {isSearching ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-hub-primary-light dark:border-hub-primary-dark" />
+            ) : (
+              <MagnifyingGlassIcon className="h-5 w-5 text-hub-text-secondary-light dark:text-hub-text-secondary-dark" />
+            )}
+          </div>
         </div>
 
-        <div className="space-y-2">
-          {filteredItems.map((item, index) => (
-            <NavItemComponent
-              key={`${item.label}-${index}`}
-              item={item}
-              isActive={currentPath === item.href}
-              onMobileMenuToggle={onMobileMenuToggle}
-              onNavigate={onNavigate}
-            />
-          ))}
-        </div>
+        {/* Search Results */}
+        <AnimatePresence>
+          {searchResults.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="space-y-4 mt-4"
+            >
+              {searchResults.map((result, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="border-b border-hub-border-light dark:border-hub-border-dark pb-4"
+                >
+                  <button
+                    onClick={() => handleSearchResultClick(result.href)}
+                    className="text-left w-full"
+                  >
+                    <h4 className="text-hub-primary-light dark:text-hub-primary-dark font-dsemi text-lg">
+                      {result.title}
+                    </h4>
+                    {result.description && (
+                      <p className="text-hub-text-secondary-light dark:text-hub-text-secondary-dark text-sm mt-1">
+                        {result.description}
+                      </p>
+                    )}
+                    {result.matches.map((match, matchIndex) => (
+                      <p
+                        key={matchIndex}
+                        className="text-hub-text-secondary-light dark:text-hub-text-secondary-dark text-sm mt-2 line-clamp-2"
+                      >
+                        ...{match}...
+                      </p>
+                    ))}
+                  </button>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Regular Navigation Items (shown when not searching) */}
+        {!searchQuery && (
+          <div className="space-y-2">
+            {items.map((item, index) => (
+              <NavItemComponent
+                key={`${item.label}-${index}`}
+                item={item}
+                isActive={currentPath === item.href}
+                onMobileMenuToggle={onMobileMenuToggle}
+                onNavigate={onNavigate}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );

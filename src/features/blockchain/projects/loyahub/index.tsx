@@ -24,7 +24,7 @@ import { DocPager } from "./components/layout/DocPager";
 
 export function LoyahubPage() {
   const [navigationItems, setNavigationItems] = useState<NavItem[]>([]);
-  const [currentPath, setCurrentPath] = useState("/introduction");
+  const [currentPath, setCurrentPath] = useState("/blockchain/projects/loyahub/introduction");
   const [content, setContent] = useState<MDXRemoteSerializeResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isNavLoading, setIsNavLoading] = useState(true);
@@ -63,7 +63,7 @@ export function LoyahubPage() {
         setIsLoading(true);
         // Remove leading slash and handle index files
         const normalizedPath = currentPath
-          .replace(/^\/blockchain\/projects\/loyahub/, '') // Remove the base path
+          .replace(/^\/blockchain\/projects\/loyahub\//, '') // Remove the base path
           .replace(/^\//, ''); // Remove leading slash
         
         // Construct the file path
@@ -274,6 +274,7 @@ export function LoyahubPage() {
                   <DocPager
                     navigationItems={navigationItems}
                     currentPath={currentPath}
+                    onNavigate={handleNavigation}
                   />
                 </motion.div>
               )
