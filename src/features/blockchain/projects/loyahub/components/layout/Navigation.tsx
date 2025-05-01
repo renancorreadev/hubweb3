@@ -117,14 +117,31 @@ export const NavItemComponent: React.FC<{
             <span>{item.label}</span>
           </Link>
         ) : (
-          <span className={`flex items-center space-x-3 text-hub-text-secondary-light dark:text-hub-text-secondary-dark font-dsemi ml-2 ${mobileOnly.text.xl} ${desktopOnly.text.xl}`}>
-            {icon && (
-              <span>
-                {icon}
+          <>
+            {item.href ? (
+              <Link
+                href={item.href}
+                onClick={handleClick}
+                className={`flex items-center space-x-3 text-hub-text-secondary-light dark:text-hub-text-secondary-dark hover:text-hub-primary-light dark:hover:text-hub-primary-dark transition-all duration-200 font-dsemi ml-2 ${mobileOnly.text.xl} ${desktopOnly.text.xl}`}
+              >
+                {icon && (
+                  <span>
+                    {icon}
+                  </span>
+                )}
+                <span>{item.label}</span>
+              </Link>
+            ) : (
+              <span className={`flex items-center space-x-3 text-hub-text-secondary-light dark:text-hub-text-secondary-dark font-dsemi ml-2 ${mobileOnly.text.xl} ${desktopOnly.text.xl}`}>
+                {icon && (
+                  <span>
+                    {icon}
+                  </span>
+                )}
+                <span>{item.label}</span>
               </span>
             )}
-            <span>{item.label}</span>
-          </span>
+          </>
         )}
       </div>
       {item.description && (

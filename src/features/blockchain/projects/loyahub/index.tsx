@@ -20,51 +20,13 @@ import {
 } from "./components/layout/Navigation";
 import { SectionContent } from "./components/content/SectionContent";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
-import { StepByStep } from "./components/content/StepByStep";
-import { CodeBlock } from "./components/content/CodeBlock";
 import { DocPager } from "./components/layout/DocPager";
 
 // Navigation structure with more detailed topics
 const navigationItems: NavItem[] = [
   {
-    label: "Getting Started",
-    items: [
-      { label: "Introduction", href: "/introduction" },
-      { label: "Quick Start", href: "/quick-start" },
-      { label: "Installation", href: "/installation" },
-    ],
-  },
-  {
-    label: "Core Concepts",
-    items: [
-      { label: "Architecture", href: "/architecture" },
-      { label: "Authentication", href: "/authentication" },
-      { label: "Security", href: "/security" },
-      {
-        label: "Smart Contracts",
-        items: [
-          { label: "Overview", href: "/smart-contracts" },
-          { label: "Deployment", href: "/smart-contracts/deployment" },
-          { label: "Interaction", href: "/smart-contracts/interaction" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "API Reference",
-    items: [
-      { label: "REST API", href: "/api-reference/rest" },
-      { label: "WebSocket API", href: "/api-reference/websocket" },
-      { label: "SDK Reference", href: "/api-reference/sdk" },
-    ],
-  },
-  {
-    label: "Guides",
-    items: [
-      { label: "User Management", href: "/guides/user-management" },
-      { label: "Loyalty Programs", href: "/guides/loyalty-programs" },
-      { label: "Rewards System", href: "/guides/rewards" },
-    ],
+    label: "Introduction",
+    href: "/blockchain/projects/loyahub/",
   },
 ];
 
