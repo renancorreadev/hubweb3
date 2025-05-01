@@ -10,6 +10,8 @@ import {
   XMarkIcon,
   Bars3Icon,
   MagnifyingGlassIcon,
+  HomeIcon,
+  InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
 import { Breadcrumbs } from "./components/layout/Breadcrumbs";
@@ -26,14 +28,56 @@ import { DocPager } from "./components/layout/DocPager";
 const navigationItems: NavItem[] = [
   {
     label: "Introduction",
-    href: "/blockchain/projects/loyahub/",
+    href: "/blockchain/projects/loyahub/introduction",
+    icon: HomeIcon,
+    items: [
+      {
+        label: "About",
+        href: "/blockchain/projects/loyahub/introduction/about",
+        icon: InformationCircleIcon,
+      },
+    ],
+  },
+  {
+    label: "Getting Started",
+    href: "/blockchain/projects/loyahub/introduction/getting-started",
+    icon: InformationCircleIcon,
+  },
+  {
+    label: "API",
+    href: "/blockchain/projects/loyahub/api",
+    icon: InformationCircleIcon,
+  },
+  {
+    label: "Test",
+    href: "/blockchain/projects/loyahub/test",
+    icon: InformationCircleIcon,
+    items: [
+      {
+        label: "How",
+        href: "/blockchain/projects/loyahub/test/how",
+        icon: InformationCircleIcon,
+      },
+      {
+        label: "Testing",
+        href: "/blockchain/projects/loyahub/test/testing",
+        icon: InformationCircleIcon,
+      },
+    ],
   },
 ];
+
+interface DocStructure {
+  slug: string;
+  title?: string;
+  description?: string;
+}
 
 export function LoyahubPage() {
   const [currentPath, setCurrentPath] = useState("/introduction");
   const [content, setContent] = useState<MDXRemoteSerializeResult | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [docStructure, setDocStructure] = useState<DocStructure[]>([]);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -47,21 +91,37 @@ export function LoyahubPage() {
     async function loadContent() {
       try {
         setIsLoading(true);
-        const filePath = `src/features/Blockchain/Projects/Loyahub/docs${currentPath}.mdx`;
+        // Remove leading slash and handle index files
+        const normalizedPath = currentPath
+          .replace(/^\/blockchain\/projects\/loyahub/, '') // Remove the base path
+          .replace(/^\//, ''); // Remove leading slash
+        
+        // Construct the file path
+        const filePath = normalizedPath
+          ? `src/features/blockchain/projects/loyahub/docs/${normalizedPath}/index.mdx`
+          : 'src/features/blockchain/projects/loyahub/docs/introduction/index.mdx';
+
+        console.log('Loading content from:', filePath); // Debug log
+
         const response = await fetch(
           `/api/mdx?path=${encodeURIComponent(filePath)}`
         );
+        
+        if (!response.ok) {
+          throw new Error(`Failed to load content from ${filePath}`);
+        }
+
         const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.error);
+        if (!data || !data.mdxSource) {
+          throw new Error('Invalid content format received');
         }
 
         setContent(data.mdxSource);
       } catch (error) {
         console.error("Error loading content:", error);
         const errorContent = await serialize(
-          "# Error\nFailed to load content."
+          "# Error\nFailed to load content. Please check if the documentation file exists."
         );
         setContent(errorContent);
       } finally {
@@ -72,17 +132,32 @@ export function LoyahubPage() {
     loadContent();
   }, [currentPath]);
 
+  const handleNavigation = (path: string) => {
+    console.log('Navigating to:', path); // Debug log
+    setCurrentPath(path);
+  };
+
   // Generate breadcrumb items based on current path
   const breadcrumbItems = [
-    { label: "Documentation", href: "/" },
+    { 
+      label: "Documentation", 
+      href: "/blockchain/projects/loyahub/introduction",
+      onClick: () => handleNavigation("/blockchain/projects/loyahub/introduction")
+    },
     ...currentPath
       .split("/")
       .filter(Boolean)
-      .map((segment, index, array) => ({
-        label:
-          segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
-        href: "/" + array.slice(0, index + 1).join("/"),
-      })),
+      // Filter out technical path segments we don't want to show
+      .filter(segment => !['blockchain', 'projects', 'loyahub'].includes(segment))
+      .map((segment, index, array) => {
+        // Create the full href path including the base path
+        const fullPath = "/blockchain/projects/loyahub/" + array.slice(0, index + 1).join("/");
+        return {
+          label: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
+          href: fullPath,
+          onClick: () => handleNavigation(fullPath),
+        };
+      }),
   ];
 
   const filteredItems = navigationItems.filter(
@@ -98,13 +173,13 @@ export function LoyahubPage() {
   return (
     <div className="flex h-screen bg-white dark:bg-hub-background transition-colors duration-200">
       {/* Left sidebar navigation - hidden on mobile by default */}
-      <div
-        className={`${mobileOnly.display.hidden} ${desktopOnly.display.block}`}
-      >
+      <div className={`${mobileOnly.display.hidden} ${desktopOnly.display.block}`}>
         <Navigation
           items={navigationItems}
           isMobileMenuOpen={isMobileMenuOpen}
           onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          onNavigate={handleNavigation}
+          currentPath={currentPath}
         />
       </div>
 
@@ -195,6 +270,7 @@ export function LoyahubPage() {
                       item={item}
                       isActive={currentPath === item.href}
                       onMobileMenuToggle={() => setIsMobileMenuOpen(false)}
+                      onNavigate={handleNavigation}
                     />
                   ))}
                 </div>
