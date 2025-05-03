@@ -83,7 +83,7 @@ export function SubMenuList() {
         >
           {/* BLOCKCHAIN RWA HUB */}
           <SubMenuItem
-            href="/blockchain/projects/rwa-hub"
+            href="/blockchain/projects/rwa"
             label={t("nav-blockchain-rwa-hub-label")}
             icon={<Network size={16} />}
             description={t("nav-blockchain-rwa-hub-description")}

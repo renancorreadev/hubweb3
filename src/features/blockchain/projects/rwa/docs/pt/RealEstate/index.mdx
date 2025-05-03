@@ -1,0 +1,126 @@
+---
+title: "Real Estate Tokenization"
+description: "Tokenize real estate assets on our platform."
+order: 3 # Assuming this comes after Introduction and maybe About
+---
+
+import { StepByStep } from '@/features/blockchain/projects/components/content/StepByStep';
+import { FeatureHighlight } from '@/features/blockchain/projects/components/content/FeatureHighlight';
+import { CodeBlock } from '@/features/blockchain/projects/components/content/CodeBlock';
+
+# Tokenizing Real Estate Assets
+
+The RWA Platform enables the tokenization of various real estate assets, transforming traditionally illiquid investments into fractional, tradable digital tokens. This unlocks new opportunities for both property owners and investors.
+
+<FeatureHighlight
+  hasTitle={false}
+  features={[
+    {
+      icon: 'BanknotesIcon',
+      name: 'Enhanced Liquidity',
+      description: 'Facilitate easier buying and selling of property shares compared to traditional markets.',
+      href: './liquidity' // Link to a potential sub-page
+    },
+    {
+      icon: 'ScaleIcon',
+      name: 'Fractional Ownership',
+      description: 'Allow investors to buy smaller portions of high-value properties, lowering entry barriers.'
+    },
+    {
+      icon: 'GlobeAltIcon',
+      name: 'Global Investor Access',
+      description: 'Reach a wider pool of potential investors beyond geographical limitations.'
+    },
+    {
+      icon: 'DocumentChartBarIcon',
+      name: 'Improved Transparency',
+      description: 'Record ownership and transactions immutably on the blockchain, increasing trust.'
+    },
+    {
+      icon: 'ClockIcon',
+      name: 'Reduced Transaction Costs',
+      description: 'Potentially lower fees and faster settlement times compared to traditional real estate deals.'
+    },
+    {
+      icon: 'BuildingOffice2Icon',
+      name: 'Diverse Asset Types',
+      description: 'Tokenize various property types, including residential, commercial, and industrial real estate.'
+    }
+  ]}
+/>
+
+## The Tokenization Process for Real Estate
+
+<StepByStep steps={[
+  {
+    title: "1. Asset Submission & Due Diligence",
+    content: "Submit property details, legal documents (deeds, titles), and valuation reports. Our team performs due diligence.",
+    items: [
+      "Complete the Real Estate Asset Submission Form",
+      "Upload required legal and financial documentation",
+      "Undergo platform verification and compliance checks"
+    ]
+  },
+  {
+    title: "2. Structuring & Legal Setup",
+    content: "Establish the legal structure (e.g., SPV) that will hold the property and issue the tokens, ensuring regulatory compliance.",
+    items: [
+      "Consult with legal advisors",
+      "Set up a Special Purpose Vehicle (SPV) if required",
+      "Define the rights associated with the tokens"
+    ]
+  },
+  {
+    title: "3. Token Configuration",
+    content: "Define the specifics of the real estate tokens, including total supply, price per token, and any specific rights or yields.",
+    items: [
+      "Determine token supply based on property valuation",
+      "Set the offering price",
+      "Configure dividend/rental yield distribution rules (if applicable)"
+    ]
+  },
+  {
+    title: "4. Token Issuance & Distribution",
+    content: "Mint the tokens on the chosen blockchain and distribute them to initial investors according to the offering terms.",
+    items: [
+      "Smart contract deployment and auditing",
+      "Token minting process",
+      "Secure distribution to verified investors"
+    ]
+  },
+  {
+    title: "5. Post-Tokenization Management",
+    content: "Manage the property, handle rental income or dividends, provide investor reports, and facilitate secondary market trading (if applicable).",
+    items: [
+      "Property management integration",
+      "Automated yield distribution via smart contracts",
+      "Platform dashboard for reporting"
+    ]
+  }
+]} />
+
+## Example: Tokenizing a Commercial Property
+
+<CodeBlock
+  language="json"
+  title="Sample Token Configuration (Conceptual)"
+  code={`{
+  "assetType": "Commercial Real Estate",
+  "propertyAddress": "123 Main St, Anytown, USA",
+  "valuationUSD": 5000000,
+  "tokenSymbol": "PROP123",
+  "totalTokens": 500000,
+  "pricePerTokenUSD": 10,
+  "expectedYieldPerTokenAnnual": 0.60, // Example: 6% annual yield
+  "lockupPeriodMonths": 12,
+  "legalStructure": "SPV - Prop123 LLC"
+}`}
+/>
+
+This example illustrates the key parameters you might define when tokenizing a commercial real estate asset on our platform.
+
+## Next Steps
+
+*   [Legal Considerations for Real Estate Tokenization](./legal)
+*   [Managing Tokenized Properties](./management)
+*   [Real Estate API Endpoints](../api/real-estate) // Link to potential API section

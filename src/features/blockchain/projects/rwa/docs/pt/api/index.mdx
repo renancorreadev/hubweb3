@@ -6,25 +6,25 @@ order: 2
 
 # Referência da API
 
-Explore nossos endpoints da API e aprenda como integrar com o Loyahub.
+Explore nossos endpoints de API e aprenda como integrar com a plataforma RWA.
 
 import { StepByStep } from '../../../components/content/StepByStep';
 import { ApiExample } from '../../../components/content/ApiExample';
 import { CodeBlock } from '../../../components/content/CodeBlock';
 import { TerminalCommands } from '../../../components/content/TerminalCommands';
 
-Bem-vindo à API Loyahub! Esta documentação fornece um guia abrangente para integração com a plataforma de fidelidade baseada em blockchain Loyahub. Use a navegação para explorar endpoints para gerenciar clientes, pontos, autenticação e metadados de NFT.
+Bem-vindo à API RWA! Esta documentação fornece um guia abrangente para integração com a plataforma de tokenização de ativos RWA baseada em blockchain. Use a navegação para explorar endpoints para gerenciar clientes, pontos, autenticação e metadados de NFT.
 
-## Começando
+## Primeiros Passos
 
 <StepByStep steps={[
   {
     title: "1. Obtenha Acesso à API",
-    content: "Entre em contato com a equipe Loyahub para receber suas credenciais de API e instruções de integração.",
+    content: "Entre em contato com a equipe RWA para receber suas credenciais de API e instruções de integração.",
     items: [
       "Solicite acesso à API através do nosso portal",
       "Complete o acordo de integração",
-      "Receba suas chaves e credenciais de API"
+      "Receba suas chaves de API e credenciais"
     ]
   },
   {
@@ -32,26 +32,26 @@ Bem-vindo à API Loyahub! Esta documentação fornece um guia abrangente para in
     content: "Use os endpoints de Autenticação para fazer login e obter um token de acesso.",
     items: [
       "Implemente o fluxo OAuth2",
-      "Armazene os tokens de forma segura",
-      "Lide com a atualização de tokens"
+      "Armazene tokens com segurança",
+      "Gerencie a atualização de tokens"
     ]
   },
   {
-    title: "3. Integre os Endpoints",
+    title: "3. Integre Endpoints",
     content: "Explore os endpoints de Cliente, Pontos e Metadados para construir sua integração.",
     items: [
       "Comece com operações básicas de cliente",
-      "Implemente o gerenciamento de pontos",
-      "Adicione o manuseio de metadados de NFT"
+      "Implemente gerenciamento de pontos",
+      "Adicione manipulação de metadados NFT"
     ]
   },
   {
     title: "4. Teste e Lance",
-    content: "Teste sua integração no ambiente de sandbox e, em seguida, entre em produção!",
+    content: "Teste sua integração no ambiente sandbox e depois vá para produção!",
     items: [
-      "Use nosso ambiente de sandbox",
+      "Use nosso ambiente sandbox",
       "Execute testes de integração",
-      "Agende o deploy em produção"
+      "Agende a implantação em produção"
     ]
   }
 ]} />
@@ -64,11 +64,11 @@ Bem-vindo à API Loyahub! Esta documentação fornece um guia abrangente para in
   items={[
     {
       name: "Produção",
-      description: "https://api.loyahub.com/v1"
+      description: "https://api.rwa.com/v1"
     },
     {
       name: "Sandbox",
-      description: "https://sandbox-api.loyahub.com/v1"
+      description: "https://sandbox-api.rwa.com/v1"
     }
   ]}
 />
@@ -78,19 +78,19 @@ Bem-vindo à API Loyahub! Esta documentação fornece um guia abrangente para in
 <CodeBlock
   language="typescript"
   title="Exemplo de Autenticação"
-  code={`// Exemplo de autenticação com a API Loyahub
+  code={`// Exemplo de autenticação com a API RWA
 import axios from 'axios';
 
 const authenticate = async () => {
   try {
-    const response = await axios.post('https://api.loyahub.com/v1/auth/token', {
+    const response = await axios.post('https://api.rwa.com/v1/auth/token', {
       client_id: 'seu-client-id',
       client_secret: 'seu-client-secret',
       grant_type: 'client_credentials'
     });
 
     const { access_token, expires_in } = response.data;
-    // Armazene o token de forma segura
+    // Armazene o token com segurança
     return access_token;
   } catch (error) {
     console.error('Falha na autenticação:', error);
@@ -103,7 +103,7 @@ const authenticate = async () => {
 
 <ApiExample
   title="Endpoints Disponíveis"
-  description="Explore nossos endpoints abrangentes da API:"
+  description="Explore nossos endpoints abrangentes:"
   items={[
     {
       name: "Endpoints de Cliente",
@@ -118,7 +118,7 @@ const authenticate = async () => {
       name: "Gerenciamento de Pontos",
       description: "Adicione, remova e consulte pontos de usuários",
       details: [
-        "Adicione pontos às contas dos clientes",
+        "Adicione pontos às contas de clientes",
         "Resgate pontos por recompensas",
         "Consulte saldos e histórico de pontos"
       ]
@@ -128,17 +128,17 @@ const authenticate = async () => {
       description: "Registro de usuários e gerenciamento de tokens",
       details: [
         "Autenticação OAuth2",
-        "Atualização de token",
+        "Atualização de tokens",
         "Gerenciamento de sessão"
       ]
     },
     {
       name: "Metadados",
-      description: "Gerencie metadados de NFT para recompensas de fidelidade",
+      description: "Gerencie metadados NFT para ativos tokenizados",
       details: [
-        "Crie e atualize metadados de NFT",
-        "Consulte informações de NFT",
-        "Gerencie níveis de recompensa"
+        "Crie e atualize metadados NFT",
+        "Consulte informações NFT",
+        "Gerencie níveis de ativos"
       ]
     }
   ]}
@@ -147,44 +147,44 @@ const authenticate = async () => {
 ## Ferramentas CLI
 
 <TerminalCommands
-  title="Comandos CLI Loyahub"
+  title="Comandos CLI RWA"
   commands={[
     {
-      command: "loyahub init",
-      description: "Inicializa um novo projeto Loyahub"
+      command: "rwa init",
+      description: "Inicialize um novo projeto RWA"
     },
     {
-      command: "loyahub auth login",
-      description: "Autentica com a API Loyahub"
+      command: "rwa auth login",
+      description: "Autentique-se com a API RWA"
     },
     {
-      command: "loyahub customer create",
-      description: "Cria um novo cliente"
+      command: "rwa customer create",
+      description: "Crie um novo cliente"
     },
     {
-      command: "loyahub points add",
-      description: "Adiciona pontos a um cliente"
+      command: "rwa points add",
+      description: "Adicione pontos a um cliente"
     }
   ]}
 />
 
-## Limites de Taxa (Rate Limits)
+## Limites de Taxa
 
 <ApiExample
   title="Limites de Taxa da API"
-  description="Nossa API possui os seguintes limites de taxa:"
+  description="Nossa API tem os seguintes limites de taxa:"
   items={[
     {
-      name: "Nível Gratuito (Free Tier)",
+      name: "Nível Gratuito",
       description: "100 requisições por minuto",
       details: [
         "Acesso básico à API",
         "Endpoints limitados",
-        "Apenas ambiente Sandbox"
+        "Apenas ambiente sandbox"
       ]
     },
     {
-      name: "Nível Profissional (Professional Tier)",
+      name: "Nível Profissional",
       description: "1000 requisições por minuto",
       details: [
         "Acesso completo à API",
@@ -193,7 +193,7 @@ const authenticate = async () => {
       ]
     },
     {
-      name: "Nível Empresarial (Enterprise Tier)",
+      name: "Nível Empresarial",
       description: "Limites personalizados",
       details: [
         "Soluções personalizadas",
@@ -211,21 +211,21 @@ const authenticate = async () => {
   title="Exemplo de Tratamento de Erros"
   code={`// Exemplo de tratamento de erros da API
 try {
-  const response = await axios.get('https://api.loyahub.com/v1/customers/123');
+  const response = await axios.get('https://api.rwa.com/v1/customers/123');
 } catch (error) {
   if (error.response) {
     switch (error.response.status) {
       case 401:
-        // Lidar com erro de autenticação
+        // Trate erro de autenticação
         break;
       case 404:
-        // Lidar com erro de não encontrado
+        // Trate erro de não encontrado
         break;
       case 429:
-        // Lidar com erro de limite de taxa
+        // Trate erro de limite de taxa
         break;
       default:
-        // Lidar com outros erros
+        // Trate outros erros
     }
   }
 }`}
@@ -233,11 +233,11 @@ try {
 
 ## Suporte
 
-Se tiver dúvidas ou precisar de ajuda, entre em contato com a equipe de suporte Loyahub:
+Se você tiver dúvidas ou precisar de ajuda, entre em contato com a equipe de suporte RWA:
 
-- Email: [support@loyahub.com](mailto:support@loyahub.com)
-- Discord: [Junte-se à nossa comunidade](https://discord.gg/loyahub)
-- Documentação: [Veja a documentação completa](https://docs.loyahub.com)
+- Email: [suporte@rwa.com](mailto:suporte@rwa.com)
+- Discord: [Junte-se à nossa comunidade](https://discord.gg/rwa)
+- Documentação: [Ver documentação completa](https://docs.rwa.com)
 
 ## Próximos Passos
 

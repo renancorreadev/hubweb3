@@ -23,8 +23,13 @@ import {
 import { SectionContent } from "../components/content/SectionContent";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
 import { DocPager } from "../components/layout/DocPager";
+import { useParams, usePathname } from "next/navigation";
 
-export function RwaDocsPage() {
+interface RwaDocsPageProps {
+  slug?: string[];
+}
+
+export function RwaDocsPage({ slug }: RwaDocsPageProps = {}) {
   const [navigationItems, setNavigationItems] = useState<NavItem[]>([]);
   const [currentPath, setCurrentPath] = useState("/blockchain/projects/rwa/docs/introduction");
   const [content, setContent] = useState<MDXRemoteSerializeResult | null>(null);
@@ -37,6 +42,18 @@ export function RwaDocsPage() {
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const pathname = usePathname();
+  
+  // If a slug is provided, set the current path
+  useEffect(() => {
+    if (slug && slug.length > 0) {
+      const newPath = `/blockchain/projects/rwa/docs/${slug.join('/')}`;
+      setCurrentPath(newPath);
+    } else if (pathname && pathname.includes('/docs/')) {
+      // Se não temos slug, mas temos pathname que inclui /docs/, usamos ele
+      setCurrentPath(pathname);
+    }
+  }, [slug, pathname]);
 
   useEffect(() => {
     async function loadNavigation() {
