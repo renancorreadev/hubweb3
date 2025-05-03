@@ -15,7 +15,7 @@ interface CustomSelectProps {
   defaultValue?: string;
   onChange?: (value: string) => void;
   className?: string;
-  neonColor?: "purple" | "green" | "blue";
+  neonColor?: "purple" | "green" | "blue" | false;
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
   placeholder?: string;
@@ -36,13 +36,15 @@ export function CustomSelect({
   const selectRef = useRef<HTMLDivElement>(null);
 
   // Determinar a cor neon baseada na prop
-  const neonColorClass = {
-    purple:
-      "shadow-[0_0_25px_rgba(153,69,255,0.5)] border-hub-secondary hover:shadow-[0_0_5px_rgba(153,69,255,0.8)]",
-    green:
-      "shadow-[0_0_15px_rgba(20,241,149,0.5)] border-hub-primary hover:shadow-[0_0_5px_rgba(20,241,149,0.8)]",
-    blue: "shadow-[0_0_15px_rgba(59,130,246,0.5)] border-blue-500 hover:shadow-[0_0_5px_rgba(59,130,246,0.8)]",
-  }[neonColor];
+  const neonColorClass = neonColor === false 
+    ? "border-gray-600 hover:border-gray-400" 
+    : {
+        purple:
+          "shadow-[0_0_25px_rgba(153,69,255,0.5)] border-hub-secondary hover:shadow-[0_0_5px_rgba(153,69,255,0.8)]",
+        green:
+          "shadow-[0_0_15px_rgba(20,241,149,0.5)] border-hub-primary hover:shadow-[0_0_5px_rgba(20,241,149,0.8)]",
+        blue: "shadow-[0_0_15px_rgba(59,130,246,0.5)] border-blue-500 hover:shadow-[0_0_5px_rgba(59,130,246,0.8)]",
+      }[neonColor];
 
   // Tamanho do select
   const sizeClass = {

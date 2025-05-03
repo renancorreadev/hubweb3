@@ -120,7 +120,7 @@ export const HeroSlider = ({
   return (
     <RenderContainer>
       <motion.div
-        className={`${className} overflow-hidden`}
+        className={`${className} overflow-hidden bg-white  dark:bg-black`}
         style={{
           height,
           width,

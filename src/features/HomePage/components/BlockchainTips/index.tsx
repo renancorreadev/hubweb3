@@ -69,10 +69,10 @@ export const BlockchainTips = () => {
             title={t('blockchain.solana.title')}
             description={t('blockchain.solana.description')}
             href="/tech/solana"
-            neonEffect={true}
-            neonColors={{ from: "#9333EA", to: "#14F195" }}
+            neonEffect={false}
+            gradientColor="green"
             className="mb-8 px-6"
-            topBorder={"purple"}
+            topBorder={false}
           />
         </div>
       </Container>

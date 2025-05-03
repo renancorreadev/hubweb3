@@ -1,10 +1,7 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-type ColorValue = {
-  light: string;
-  dark: string;
-};
+
 
 type ThemeColors = {
   dark: {
@@ -15,6 +12,12 @@ type ThemeColors = {
     'text.secondary': string;
     border: string;
     hover: string;
+    fontColor: {
+      white: string;
+      black: string;
+      gray: string;
+      hubPrimary: string;
+    };
     card: {
       background: string;
       text: {
@@ -33,6 +36,12 @@ type ThemeColors = {
     'text.secondary': string;
     border: string;
     hover: string;
+    fontColor: {
+      white: string;
+      black: string;
+      gray: string;
+      hubPrimary: string;
+    };
     card: {
       background: string;
       text: {
@@ -47,13 +56,19 @@ type ThemeColors = {
 
 const themeColors: ThemeColors = {
   dark: {
-    background: '#0A0A0A',
+    background: '#000',
     primary: '#14F195',
     secondary: '#8A46FF',
     'text.primary': '#ffffff',
     'text.secondary': '#A3A3A3',
     border: '#333333',
     hover: '#1A1A1A',
+    fontColor: {
+      white: '#ffffff',
+      black: '#000000',
+      gray: '#666666',
+      hubPrimary: '#14F195',
+    },
     card: {
       background: '#0A0A0A',
       text: {
@@ -72,6 +87,12 @@ const themeColors: ThemeColors = {
     'text.secondary': '#666666',
     border: '#E5E5E5',
     hover: '#F5F5F5',
+    fontColor: {
+      white: '#ffffff',
+      black: '#000000',
+      gray: '#666666',
+      hubPrimary: '#14F195',
+    },
     card: {
       background: '#ffffff',
       text: {

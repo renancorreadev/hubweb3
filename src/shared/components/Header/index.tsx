@@ -16,16 +16,17 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { useTranslation } from "@/shared/hooks/useTranslation";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 
 export function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const { language, setLanguage } = useLanguage();
   const { t } = useTranslation();
-  const { isDark, getColor, getTextColor } = useThemeColors();
+  const { isDark, getColor } = useThemeColors();
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setMounted] = useState(false);
-
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setMounted(true);
@@ -65,7 +66,7 @@ export function Header() {
       <header 
         className={headerStyles.container}
         style={{
-          backgroundColor: isDark ? `${getColor('background')}80` : '#ffffff',
+          backgroundColor: isDark ? getColor('background') : '#ffffff',
           borderColor: isDark ? getColor('border') : '#E5E5E5',
         }}
       >
@@ -75,9 +76,12 @@ export function Header() {
             <Image
               src="/logos/hub.png"
               alt={"HubWeb3"}
-              width={50}
-              height={30}
+              width={isMobile ? 50 : 70}
+              height={isMobile ? 20 : 30}
               priority
+              style={{
+                filter: isDark ? 'brightness(0) invert(1)' : 'none',
+              }}
             />
           </Link>
 

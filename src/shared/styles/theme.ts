@@ -32,6 +32,12 @@ export const theme = {
       semibold: 600,
       bold: 700,
     },
+    fontColor: {
+      white: '#ffffff',
+      black: '#000000',
+      gray: '#666666',
+      hubPrimary: '#14F195',
+    },
   },
 
   transitions: {

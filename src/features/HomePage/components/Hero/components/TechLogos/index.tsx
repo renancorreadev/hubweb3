@@ -69,7 +69,7 @@ export function TechLogos() {
                   alt={logo.alt}
                   width={80}
                   height={80}
-                  className="w-auto h-auto object-contain dark:invert opacity-60 hover:opacity-100 transition-all duration-300"
+                  className="w-auto h-auto object-contain  opacity-60 hover:opacity-100 transition-all duration-300"
                   style={{ 
                     display: 'block',
                     margin: 'auto',
@@ -116,7 +116,7 @@ export function TechLogos() {
                   alt={logo.alt}
                   width={80}
                   height={80}
-                  className="w-auto h-auto object-contain dark:invert opacity-60 hover:opacity-100 transition-all duration-300"
+                  className="w-auto h-auto object-contain  opacity-60 hover:opacity-100 transition-all duration-300"
                   style={{ 
                     display: 'block',
                     margin: 'auto',
@@ -169,7 +169,7 @@ export function TechLogos() {
                   alt={logo.alt}
                   width={60}
                   height={60}
-                  className="w-auto h-auto object-contain dark:invert opacity-60 hover:opacity-100 transition-all duration-300"
+                  className="w-auto h-auto object-contain opacity-60 hover:opacity-100 transition-all duration-300"
                   style={{ 
                     display: 'block',
                     margin: 'auto',
@@ -216,7 +216,7 @@ export function TechLogos() {
                   alt={logo.alt}
                   width={60}
                   height={60}
-                  className="w-auto h-auto object-contain dark:invert opacity-60 hover:opacity-100 transition-all duration-300"
+                  className="w-auto h-auto object-contain opacity-60 hover:opacity-100 transition-all duration-300"
                   style={{ 
                     display: 'block',
                     margin: 'auto',
