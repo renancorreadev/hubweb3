@@ -71,7 +71,7 @@ export const BlockchainTips = () => {
             href="/tech/solana"
             neonEffect={false}
             gradientColor="green"
-            className="mb-8 px-6"
+            className="mb-8 p-2"
             topBorder={false}
           />
         </div>

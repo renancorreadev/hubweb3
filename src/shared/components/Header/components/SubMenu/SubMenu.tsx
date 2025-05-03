@@ -18,11 +18,11 @@ export function SubMenu({ label, icon, children, href }: SubMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Check if children is a single item
+
   const isSingleItem = React.Children.count(children) === 1;
 
   useEffect(() => {
-    if (isSingleItem) return; // No need for click outside handler for single items
+    if (isSingleItem) return; 
 
     function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -35,7 +35,7 @@ export function SubMenu({ label, icon, children, href }: SubMenuProps) {
   }, [isSingleItem]);
 
   const handleToggle = () => {
-    if (isSingleItem) return; // No toggle for single items
+    if (isSingleItem) return;
     setIsOpen(!isOpen);
   };
 

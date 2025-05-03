@@ -63,6 +63,11 @@ export const heroStyles = {
     sm:flex-row
     flex-wrap
     justify-center
+    items-center
     gap-4
+    w-full
+    max-w-md
+    mx-auto
+    sm:gap-6
   `,
 };

@@ -32,7 +32,7 @@ export function Footer() {
       <div className="bg-white dark:bg-black">
         <footer
           className={`
-            border-t dark:border-hub-border-dark py-12 
+            border-t border-slate-800 dark:border-hub-border-dark py-12 
             ${mobileOnly.margin.mx6}
             ${desktopOnly.margin.mx12}
             `}

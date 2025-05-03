@@ -1,30 +1,9 @@
-interface SecondaryButtonProps {
-  href: string;
-  children: React.ReactNode;
-}
+import Link from "next/link";
 
-export function SecondaryButton({ href, children }: SecondaryButtonProps) {
+export function SecondaryButton({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <a
-      href={href}
-      className="
-        px-8
-        py-4
-        rounded-lg
-        font-dsemi
-        text-lg
-        bg-transparent
-        text-hub-secondary-light dark:text-hub-secondary-dark
-        border
-        border-hub-secondary-light dark:border-hub-secondary-dark
-        hover:bg-hub-secondary-light/10 dark:hover:bg-hub-secondary-dark/10
-        transition-all
-        duration-300
-        transform
-        hover:scale-105
-      "
-    >
+    <Link href={href} className="inline-block border border-white text-white font-dsemi py-3 px-8 rounded-full text-sm md:text-base uppercase tracking-wider hover:bg-white hover:text-black transition-all">
       {children}
-    </a>
+    </Link>
   );
-} 
+}

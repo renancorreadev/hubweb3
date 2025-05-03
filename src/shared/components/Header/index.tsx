@@ -13,10 +13,11 @@ import { SubMenuList } from "@/shared/components/Header/components/SubMenu/SubMe
 import { headerStyles } from "./styles";
 import { RenderContainer } from "../RenderContainer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
+
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 import { useIsMobile } from "@/shared/hooks/useIsMobile";
+import { Typography } from "@/components/Typography";
 
 export function Header() {
   const pathname = usePathname();
@@ -144,14 +145,17 @@ export function Header() {
                   }}
                 >
                   <Globe size={22} />
-                  <span 
-                    className={`ml-1 text-xs font-medium ${mobileOnly.text.sm} ${desktopOnly.text.base}`}
-                    style={{
-                      color: isDark ? '#ffffff' : '#1A1A1A',
-                    }}
+                  <Typography 
+                    variant="button"
+                    color="text.primary"
+                    className="ml-1"
+                    size="xs"
+                    mobileSize="xs"
+                    weight="medium"
+                    transform="uppercase"
                   >
-                    {language.toUpperCase()}
-                  </span>
+                    {language}
+                  </Typography>
                 </motion.button>
               )}
               {isMounted && isThemePage && (
@@ -201,14 +205,17 @@ export function Header() {
                       }}
                     >
                       <Globe size={18} />
-                      <span 
-                        className="ml-1 max-sm:text-xs max-lg:text-4xl font-medium"
-                        style={{
-                          color: isDark ? '#ffffff' : '#1A1A1A',
-                        }}
+                      <Typography 
+                        variant="button"
+                        color="text.primary"
+                        className="ml-1"
+                        size="sm"
+                        mobileSize="xs"
+                        weight="medium"
+                        transform="uppercase"
                       >
-                        {language.toUpperCase()}
-                      </span>
+                        {language}
+                      </Typography>
                     </motion.button>
                   )}
                   

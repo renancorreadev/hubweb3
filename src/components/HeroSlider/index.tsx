@@ -12,7 +12,7 @@ import "swiper/css/effect-fade";
 import { mobileOnly, desktopOnly } from "@/shared/configs/responsive";
 import "./styles.css";
 import { RenderContainer } from "@/shared/components/RenderContainer";
-import { PrimaryButton } from "@/components/Button/PrimaryButton";
+import { Button } from "@/components/Button";
 import Link from "next/link";
 
 interface Project {
@@ -251,13 +251,15 @@ export const HeroSlider = ({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
+
             >
-              <PrimaryButton 
+              <Button 
+                variant="secondary"
                 href={activeLink}
                 className="shadow-xl hover:shadow-2xl transition-all duration-300"
               >
                 {buttonText}
-              </PrimaryButton>
+              </Button>
             </motion.div>
           )}
         </Swiper>

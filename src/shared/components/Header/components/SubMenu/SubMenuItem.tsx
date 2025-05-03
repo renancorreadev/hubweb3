@@ -26,7 +26,7 @@ export function SubMenuItem({
   children,
   level = 0
 }: SubMenuItemProps) {
-  const { isDark, getColor, getTextColor } = useThemeColors();
+  const { isDark, getColor } = useThemeColors();
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 

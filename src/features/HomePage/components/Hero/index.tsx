@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { PrimaryButton } from "./components/PrimaryButton";
-import { SecondaryButton } from "./components/SecondaryButton";
+import { PrimaryButton } from "@/components/Button";
+import { SecondaryButton } from "@/components/Button";
 import { TechLogos } from "./components/TechLogos";
 import { heroStyles } from "./styles";
 import { RenderContainer } from "@/shared/components/RenderContainer";
@@ -75,7 +75,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <PrimaryButton href="#start">
+            <PrimaryButton href="#start" >
               {t("hero.startBuilding")}
             </PrimaryButton>
             <SecondaryButton href="#resources">
