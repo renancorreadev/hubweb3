@@ -102,10 +102,14 @@ export function SubMenuItem({
           backgroundColor: isDark 
             ? isSelected 
               ? 'rgba(255, 255, 255, 0.05)' 
-              : 'transparent'
+              : isHovered
+                ? 'rgba(255, 255, 255, 0.05)'
+                : 'transparent'
             : isSelected 
               ? '#E8F5E9' 
-              : 'transparent',
+              : isHovered
+                ? 'rgba(0, 0, 0, 0.04)'
+                : 'transparent',
         }}
       >
         <div
