@@ -229,6 +229,10 @@ export const mobileOnly = {
       pt16: 'lg:pt-16',
       pb12: 'lg:pb-12',
       pb16: 'lg:pb-16',
+      pb18: 'lg:pb-18',
+      pb20: 'lg:pb-20',
+      pb24: 'lg:pb-24',
+      pb32: 'lg:pb-32',
     },
     display: {
       hidden: 'lg:hidden',

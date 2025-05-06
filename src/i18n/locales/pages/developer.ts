@@ -179,4 +179,137 @@ export const developerTranslations = {
     en: "View All Projects",
     pt: "Ver Todos os Projetos",
   },
+  // Blockchain Experience Component - Layout Texts
+  'developer.experience.intro': {
+    en: "My journey developing blockchain solutions, from smart contracts to complete infrastructure for decentralized applications.",
+    pt: "Minha trajetória desenvolvendo soluções blockchain, desde contratos inteligentes até infraestruturas completas para aplicações descentralizadas.",
+  },
+  'developer.experience.latestBlocks': {
+    en: "Latest blocks",
+    pt: "Últimos blocos",
+  },
+  'developer.experience.more': {
+    en: "more",
+    pt: "mais",
+  },
+  'developer.experience.genesisBlock': {
+    en: "GENESIS BLOCK",
+    pt: "BLOCO GÊNESIS",
+  },
+  'developer.experience.endOfChain': {
+    en: "End of blockchain reached",
+    pt: "Fim da blockchain alcançado",
+  },
+  'developer.experience.totalBlocks': {
+    en: "Total blocks",
+    pt: "Total de blocos",
+  },
+  // Blockchain Experience - Help Instructions
+  'developer.experience.how.title': {
+    en: "How this visualization works:",
+    pt: "Como funciona esta visualização:",
+  },
+  'developer.experience.how.click': {
+    en: "Click on the circular arrow in any block to expand details",
+    pt: "Clique na seta circular em qualquer bloco para expandir detalhes",
+  },
+  'developer.experience.how.mining': {
+    en: "When expanded, the block starts mining (simulating a real blockchain)",
+    pt: "Ao expandir, o bloco inicia a mineração (simulando uma blockchain real)",
+  },
+  'developer.experience.how.data': {
+    en: "The hash data and block fields show technical details of the blockchain",
+    pt: "Os dados hash e campos de bloco mostram detalhes técnicos da blockchain",
+  },
+  'developer.experience.how.blocks': {
+    en: "Each block represents a professional experience in the chain",
+    pt: "Cada bloco representa uma experiência profissional na cadeia",
+  },
+  // Blockchain Stats Panel
+  'developer.experience.blockchain.stats': {
+    en: "Blockchain Stats",
+    pt: "Estatísticas Blockchain",
+  },
+  'developer.experience.blockchain.chain': {
+    en: "Experience Chain",
+    pt: "Cadeia de Experiência",
+  },
+  'developer.experience.blockchain.network': {
+    en: "Network",
+    pt: "Rede",
+  },
+  'developer.experience.blockchain.networkName': {
+    en: "Career Blockchain (EXPR)",
+    pt: "Blockchain de Carreira (EXPR)",
+  },
+  'developer.experience.blockchain.consensus': {
+    en: "Consensus",
+    pt: "Consenso",
+  },
+  'developer.experience.blockchain.consensusType': {
+    en: "Proof of Work Experience",
+    pt: "Prova de Trabalho por Experiência",
+  },
+  'developer.experience.blockchain.difficulty': {
+    en: "Mining difficulty",
+    pt: "Dificuldade de mineração",
+  },
+  'developer.experience.blockchain.minedBlocks': {
+    en: "Mined blocks",
+    pt: "Blocos minerados",
+  },
+  'developer.experience.blockchain.miningProgress': {
+    en: "Mining Progress",
+    pt: "Progresso da Mineração",
+  },
+  'developer.experience.blockchain.live': {
+    en: "LIVE",
+    pt: "AO VIVO",
+  },
+  // Blockchain Status Labels
+  'developer.blockchain.status.mining': {
+    en: "MINING",
+    pt: "MINERANDO",
+  },
+  'developer.blockchain.status.verified': {
+    en: "VERIFIED",
+    pt: "VERIFICADO",
+  },
+  'developer.blockchain.status.pending': {
+    en: "PENDING",
+    pt: "PENDENTE",
+  },
+  // Blockchain Technical Terms
+  'developer.blockchain.technical.genesis': {
+    en: "genesis",
+    pt: "gênesis",
+  },
+  'developer.blockchain.technical.nonce': {
+    en: "nonce",
+    pt: "nonce",
+  },
+  'developer.blockchain.technical.timestamp': {
+    en: "timestamp",
+    pt: "timestamp",
+  },
+  'developer.blockchain.technical.blockHeight': {
+    en: "Block Height",
+    pt: "Altura do Bloco",
+  },
+  'developer.blockchain.technical.gasUsed': {
+    en: "Gas Used",
+    pt: "Gas Utilizado",
+  },
+  'developer.blockchain.technical.transactions': {
+    en: "Transactions",
+    pt: "Transações",
+  },
+  'developer.blockchain.technical.confirmations': {
+    en: "Confirmations",
+    pt: "Confirmações",
+  },
+  'developer.blockchain.technical.prev': {
+    en: "prev",
+    pt: "anterior",
+  },
 };

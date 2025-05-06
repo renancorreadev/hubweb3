@@ -3,17 +3,22 @@
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import { mobileOnly, desktopOnly } from "@/shared/configs/responsive";
-import { useRef, useState, useEffect } from "react";
+import { mobileOnly } from "@/shared/configs/responsive";
+import { useRef, useState, useEffect, useMemo, useCallback } from "react";
 import Prism from 'prismjs';
 import 'prismjs/components/prism-solidity';
 import 'prismjs/themes/prism-tomorrow.css';
+import Particles from "@tsparticles/react";
+import { Container, tsParticles } from "@tsparticles/engine";
+import { loadSlim } from "@tsparticles/slim";
 
 export const Hero = () => {
   const { t } = useTranslation();
   const { isDark, getColor } = useThemeColors();
   const containerRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
+  const particlesContainerRef = useRef<Container | null>(null);
+  const particlesIdRef = useRef<string>(`hero-particles-${Math.random().toString(36).substring(2, 9)}`);
   
   // Para efeito 3D no mouse
   const x = useMotionValue(0);
@@ -31,9 +36,141 @@ export const Hero = () => {
   const [isCompiling, setIsCompiling] = useState(false);
   const [showEnergyFlow, setShowEnergyFlow] = useState(false);
   
-  // Inicializar Prism para syntax highlighting
+  // Para controle de partículas
+  const [particlesLoaded, setParticlesLoaded] = useState(false);
+
+  // Inicializar Prism para syntax highlighting e partículas 
   useEffect(() => {
     Prism.highlightAll();
+    
+    // Inicializar partículas 
+    const initParticles = async () => {
+      try {
+        console.log("Hero: Inicializando partículas...");
+        await loadSlim(tsParticles);
+        console.log("Hero: Partículas inicializadas com sucesso");
+      } catch (error) {
+        console.error("Hero: Erro ao inicializar partículas", error);
+      }
+    };
+    
+    initParticles();
+    
+    return () => {
+      // Cleanup ao desmontar
+      if (particlesContainerRef.current) {
+        console.log("Hero: Limpando container de partículas");
+        particlesContainerRef.current.destroy();
+      }
+    };
+  }, []);
+
+  // Configuração das partículas
+  const particlesConfig = useMemo(() => {
+    const primaryColor = isDark ? getColor('secondary') : getColor('primary');
+    const secondaryColor = isDark ? "#4B0082" : "#8A2BE2";
+    
+    return {
+      fullScreen: { enable: false },
+      fpsLimit: 60,
+      particles: {
+        number: {
+          value: 30,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: [primaryColor, secondaryColor, "#ffffff"]
+        },
+        shape: {
+          type: ["circle", "triangle", "polygon"],
+          polygon: {
+            sides: 6
+          }
+        },
+        opacity: {
+          value: { min: 0.1, max: 0.5 },
+          animation: {
+            enable: true,
+            speed: 1,
+            minimumValue: 0.1,
+            sync: false
+          }
+        },
+        size: {
+          value: { min: 1, max: 6 },
+          animation: {
+            enable: true,
+            speed: 3,
+            minimumValue: 1,
+            sync: false
+          }
+        },
+        links: {
+          enable: true,
+          distance: 150,
+          color: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(100, 100, 100, 0.1)",
+          opacity: 0.2,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none" as const,
+          random: true,
+          straight: false,
+          outModes: {
+            default: "bounce" as const
+          },
+          attract: {
+            enable: true,
+            x: 600,
+            y: 1200
+          }
+        }
+      },
+      interactivity: {
+        events: {
+          onHover: {
+            enable: true,
+            mode: "grab"
+          },
+          onClick: {
+            enable: true,
+            mode: "push"
+          },
+          resize: {
+            enable: true
+          }
+        },
+        modes: {
+          grab: {
+            distance: 140,
+            links: {
+              opacity: 0.4
+            }
+          },
+          push: {
+            quantity: 3
+          }
+        }
+      },
+      detectRetina: true,
+      background: {
+        color: "transparent",
+      }
+    };
+  }, [isDark, getColor]);
+
+  // Função para lidar com partículas carregadas
+  const handleParticlesLoaded = useCallback(async (container?: Container) => {
+    if (container) {
+      console.log("Hero: Container de partículas carregado", container.id);
+      particlesContainerRef.current = container;
+      setParticlesLoaded(true);
+    }
   }, []);
 
   // Handling mouse movement for 3D effect
@@ -253,6 +390,24 @@ contract DeveloperProfile {
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* Partículas blockchain direto no componente */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div 
+            className="absolute inset-0 opacity-70" 
+            style={{ 
+              willChange: 'opacity',
+              transition: 'opacity 400ms ease-in-out'
+            }}
+          >
+            <Particles
+              id={particlesIdRef.current}
+              options={particlesConfig}
+              particlesLoaded={handleParticlesLoaded}
+              className="absolute inset-0"
+            />
+          </div>
+        </div>
+        
         {/* SVG Pattern Background */}
         <div className="absolute inset-0 opacity-5">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -383,7 +538,7 @@ contract DeveloperProfile {
         />
       )}
 
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-30">
         <div className="flex flex-col lg:flex-row items-center gap-8">
           {/* Solidity Contract - Left Side */}
           <div className="w-full lg:w-1/2">
@@ -415,7 +570,7 @@ contract DeveloperProfile {
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     <span className="text-white text-xs md:text-sm ml-4 font-mono">blockchain_developer.sol</span>
                     
-                    <div className="ml-auto flex items-center gap-2">
+                    <div className="ml-auto flex items-center gap-2 relative z-50">
                       <motion.button 
                         className="bg-[#14F19520] text-[#14F195] px-2 py-1 rounded text-xs font-mono border border-[#14F19540] hover:bg-[#14F19540]"
                         whileTap={{ scale: 0.95 }}
@@ -429,14 +584,13 @@ contract DeveloperProfile {
                 </div>
                 
                 <div 
-                  className="font-mono text-xs md:text-sm code-container"
+                  className="font-mono text-xs md:text-sm code-container text-black dark:text-white"
                   style={{ 
                     transformStyle: "preserve-3d",
                     transform: "translateZ(40px)",
                     maxHeight: "60vh",
                     overflowY: "auto",
                     backgroundColor: isDark ? 'rgba(20, 20, 20, 0.95)' : 'rgba(250, 250, 250, 0.95)',
-                    color: isDark ? '#fff' : '#333'
                   }}
                 >
                   <pre className="language-solidity" style={{ margin: 0 }}>
@@ -736,13 +890,12 @@ contract DeveloperProfile {
                 
                 {/* EVM Terminal Output */}
                 <div 
-                  className="p-6 md:p-8 font-mono text-xs md:text-sm"
+                  className="p-6 md:p-8 font-mono text-xs md:text-sm text-black dark:text-white"
                   style={{ 
                     maxHeight: "60vh",
                     height: "60vh",
                     overflowY: "auto",
                     backgroundColor: isDark ? 'rgba(0, 0, 0, 0.95)' : 'rgba(30, 30, 40, 0.95)',
-                    color: isDark ? '#14F195' : '#14F195'
                   }}
                 >
                   <div className="flex flex-col gap-1">
@@ -756,9 +909,9 @@ contract DeveloperProfile {
                         }}
                         className={
                           line.includes("Error") ? "text-red-400" : 
-                          line.includes(">") ? (isDark ? "text-blue-400" : "text-blue-400") : 
-                          line.includes("0x") ? (isDark ? "text-purple-400" : "text-purple-500") :
-                          line.includes("=>") ? (isDark ? "text-yellow-300" : "text-yellow-500") :
+                          line.includes(">") ? (isDark ? "text-blue-400" : "text-blue-600") : 
+                          line.includes("0x") ? (isDark ? "text-purple-400" : "text-purple-600") :
+                          line.includes("=>") ? (isDark ? "text-yellow-300" : "text-yellow-600") :
                           ""
                         }
                       >
@@ -814,8 +967,8 @@ contract DeveloperProfile {
                     borderColor: isDark ? 'rgba(60, 60, 60, 0.5)' : 'rgba(100, 100, 100, 0.5)'
                   }}
                 >
-                  <div className="flex justify-between items-center text-xs text-gray-400 font-mono">
-                    <div>Gas Used: <span className={isDark ? "text-green-400" : "text-green-500"}>{isCompiling ? 
+                  <div className="flex justify-between items-center text-xs text-gray-400 font-mono text-black dark:text-white">
+                    <div>Gas Used: <span className={isDark ? "text-green-400" : "text-green-600"}>{isCompiling ? 
                       <motion.span
                         animate={{ opacity: [1, 0.5, 1] }}
                         transition={{ duration: 1, repeat: Infinity }}
@@ -823,7 +976,7 @@ contract DeveloperProfile {
                         {Math.floor(Math.random() * 20000) + 50000}
                       </motion.span> : "134,529"}
                     </span></div>
-                    <div>Block: <span className={isDark ? "text-purple-400" : "text-purple-500"}>{isCompiling ? 
+                    <div>Block: <span className={isDark ? "text-purple-400" : "text-purple-600"}>{isCompiling ? 
                       <motion.span
                         animate={{ opacity: [1, 0.5, 1] }}
                         transition={{ duration: 1, repeat: Infinity }}
@@ -831,7 +984,7 @@ contract DeveloperProfile {
                         {Math.floor(Math.random() * 1000) + 17000000}
                       </motion.span> : "17284392"}
                     </span></div>
-                    <div className="hidden md:block">Network: <span className={isDark ? "text-yellow-400" : "text-yellow-500"}>Ethereum</span></div>
+                    <div className="hidden md:block">Network: <span className={isDark ? "text-yellow-400" : "text-yellow-600"}>Ethereum</span></div>
                   </div>
                 </div>
               </motion.div>

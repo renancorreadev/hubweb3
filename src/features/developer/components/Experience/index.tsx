@@ -279,10 +279,8 @@ export const Experience = () => {
             animate={{ opacity: 0.8 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            <Body>
-              Minha trajetória desenvolvendo soluções blockchain, desde
-              contratos inteligentes até infraestruturas completas para
-              aplicações descentralizadas.
+            <Body className="text-start w-full" >
+              {t("developer.experience.intro")}
             </Body>
           </motion.div>
         </motion.div>
@@ -293,7 +291,7 @@ export const Experience = () => {
             <div className="mb-6 flex flex-col md:flex-row">
               {/* Cabeçalho Mobile */}
               <div
-                className="mb-3 md:mb-0 w-full md:w-auto flex items-center px-3 py-2 rounded-md md:mr-3 text-xs font-mono"
+                className="mb-3 md:mb-0 w-full md:w-auto flex items-center px-3 py-2 rounded-md md:mr-3 text-xs font-mono text-black dark:text-white"
                 style={{
                   backgroundColor: isDark
                     ? "rgba(30, 30, 35, 0.7)"
@@ -370,7 +368,7 @@ export const Experience = () => {
                     strokeLinecap="round"
                   />
                 </svg>
-                <span>Latest blocks</span>
+                <span className="text-black dark:text-white">{t("developer.experience.latestBlocks")}</span>
               </div>
 
               {/* Blocos rolável - otimizado para toque em mobile */}
@@ -410,8 +408,8 @@ export const Experience = () => {
                   </motion.div>
                 ))}
                 {experienceData.length > 5 && (
-                  <div className="flex items-center text-xs font-mono opacity-50 px-2">
-                    +{experienceData.length - 5} more
+                  <div className="flex items-center text-xs font-mono opacity-50 px-2 text-black dark:text-white">
+                    +{experienceData.length - 5} {t("developer.experience.more")}
                   </div>
                 )}
               </div>
@@ -423,7 +421,7 @@ export const Experience = () => {
             >
               {/* Decorativo - Bloco Gênesis */}
               <motion.div
-                className="absolute -top-8 left-16 z-30 px-3 py-1 rounded-lg -ml-12 font-mono text-xs"
+                className="absolute -top-8 left-16 z-30 px-3 py-1 rounded-lg -ml-12 font-mono text-xs text-black dark:text-white"
                 style={{
                   backgroundColor: isDark
                     ? "rgba(40, 40, 40, 0.9)"
@@ -438,7 +436,7 @@ export const Experience = () => {
                 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
               >
-                GENESIS BLOCK
+                {t("developer.experience.genesisBlock")}
               </motion.div>
 
               {/* Timeline com nós blockchain - usando key estável */}
@@ -472,10 +470,10 @@ export const Experience = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1.2 }}
               >
-                <div className="p-2 rounded-lg bg-black bg-opacity-20 text-xs font-mono">
-                  <span className="opacity-70">End of blockchain reached</span>
+                <div className="p-2 rounded-lg bg-black bg-opacity-20 text-xs font-mono text-black dark:text-white  max-sm:text-xs md:text-sm">
+                  <span className="opacity-70">{t("developer.experience.endOfChain")}</span>
                   <br />
-                  <span>Total blocks: {experienceData.length}</span>
+                  <span>{t("developer.experience.totalBlocks")}: {experienceData.length}</span>
                 </div>
               </motion.div>
             </div>
@@ -498,7 +496,7 @@ export const Experience = () => {
                 }}
               >
                 <div
-                  className="text-sm p-3 rounded-lg mb-0"
+                  className="text-sm p-3 rounded-lg mb-0 text-black dark:text-white"
                   style={{
                     background: isDark
                       ? "linear-gradient(135deg, rgba(153, 69, 255, 0.1), rgba(20, 241, 149, 0.05))"
@@ -508,26 +506,22 @@ export const Experience = () => {
                       : "1px dashed rgba(122, 53, 204, 0.2)",
                   }}
                 >
-                  <div className="font-bold mb-2">
+                  <div className="font-bold mb-2 ">
                     <span className="mr-2">💡</span>
-                    Como funciona esta visualização:
+                    {t("developer.experience.how.title")}
                   </div>
                   <ul className="space-y-2 opacity-90 text-xs">
                     <li>
-                      • Clique na <b>seta circular</b> em qualquer bloco para
-                      expandir detalhes
+                      • {t("developer.experience.how.click")}
                     </li>
                     <li>
-                      • Ao expandir, o bloco inicia a <b>mineração</b>{" "}
-                      (simulando uma blockchain real)
+                      • {t("developer.experience.how.mining")}
                     </li>
                     <li>
-                      • Os <b>dados hash</b> e campos de bloco mostram detalhes
-                      técnicos da blockchain
+                      • {t("developer.experience.how.data")}
                     </li>
                     <li>
-                      • Cada bloco representa uma{" "}
-                      <b>experiência profissional</b> na cadeia
+                      • {t("developer.experience.how.blocks")}
                     </li>
                   </ul>
                 </div>
@@ -637,7 +631,7 @@ export const Experience = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="rounded-2xl overflow-hidden shadow-2xl border border-opacity-10 dark:border-opacity-20"
+                className="rounded-2xl overflow-hidden shadow-2xl border border-opacity-10 dark:border-opacity-20 "
                 style={{
                   borderColor: isDark
                     ? "rgba(153, 69, 255, 0.2)"
@@ -668,13 +662,30 @@ export const Experience = () => {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path d="M4 5H20V7H4V5Z" fill="white" />
-                        <path d="M4 9H20V11H4V9Z" fill="white" />
-                        <path d="M4 13H20V15H4V13Z" fill="white" />
-                        <path d="M4 17H14V19H4V17Z" fill="white" />
+                        <path
+                          d="M4 5H20V7H4V5Z"
+                          fill={isDark ? "white" : "#333333"}
+                        />
+                        <path
+                          d="M4 9H20V11H4V9Z"
+                          fill={isDark ? "white" : "#333333"}
+                        />
+                        <path
+                          d="M4 13H20V15H4V13Z"
+                          fill={isDark ? "white" : "#333333"}
+                        />
+                        <path
+                          d="M4 17H14V19H4V17Z"
+                          fill={isDark ? "white" : "#333333"}
+                        />
                       </svg>
                     </div>
-                    <Typography variant="h3">Blockchain Stats</Typography>
+                    <Typography
+                      variant="h3"
+                      className="text-black dark:text-white"
+                    >
+                      {t("developer.experience.blockchain.stats")}
+                    </Typography>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -697,11 +708,17 @@ export const Experience = () => {
                         }}
                         whileHover={{ scale: 1.05 }}
                       >
-                        <div className="text-2xl mb-1">{stat.icon}</div>
-                        <Typography variant="h4" className="mb-1">
+                        <div className="text-2xl mb-1 ">{stat.icon}</div>
+                        <Typography
+                          variant="h4"
+                          className="mb-1 text-black dark:text-white"
+                        >
                           {stat.value}
                         </Typography>
-                        <Typography variant="small" className="opacity-70">
+                        <Typography
+                          variant="small"
+                          className="opacity-70 text-black dark:text-white"
+                        >
                           {stat.label}
                         </Typography>
                       </motion.div>
@@ -748,33 +765,38 @@ export const Experience = () => {
                       >
                         <path
                           d="M12 2L2 7L12 12L22 7L12 2Z"
-                          stroke="white"
+                          stroke={isDark ? "white" : "#333333"}
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
                         <path
                           d="M2 17L12 22L22 17"
-                          stroke="white"
+                          stroke={isDark ? "white" : "#333333"}
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
                         <path
                           d="M2 12L12 17L22 12"
-                          stroke="white"
+                          stroke={isDark ? "white" : "#333333"}
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
                       </svg>
                     </div>
-                    <Typography variant="h3">Experience Chain</Typography>
+                    <Typography
+                      variant="h3"
+                      className="text-black dark:text-white"
+                    >
+                      {t("developer.experience.blockchain.chain")}
+                    </Typography>
                   </div>
 
                   <div className="space-y-2 font-mono text-sm">
                     <div
-                      className="p-3 rounded-lg"
+                      className="p-3 rounded-lg text-black dark:text-white"
                       style={{
                         backgroundColor: isDark
                           ? "rgba(30, 30, 35, 0.5)"
@@ -784,13 +806,13 @@ export const Experience = () => {
                         }`,
                       }}
                     >
-                      <span className="opacity-60">Network:</span>{" "}
+                      <span className="opacity-60">{t("developer.experience.blockchain.network")}:</span>{" "}
                       <span className="font-bold">
-                        Career Blockchain (EXPR)
+                        {t("developer.experience.blockchain.networkName")}
                       </span>
                     </div>
                     <div
-                      className="p-3 rounded-lg"
+                      className="p-3 rounded-lg text-black dark:text-white"
                       style={{
                         backgroundColor: isDark
                           ? "rgba(30, 30, 35, 0.5)"
@@ -800,13 +822,13 @@ export const Experience = () => {
                         }`,
                       }}
                     >
-                      <span className="opacity-60">Consensus:</span>{" "}
+                      <span className="opacity-60">{t("developer.experience.blockchain.consensus")}:</span>{" "}
                       <span className="font-bold">
-                        Proof of Work Experience
+                        {t("developer.experience.blockchain.consensusType")}
                       </span>
                     </div>
                     <div
-                      className="p-3 rounded-lg"
+                      className="p-3 rounded-lg text-black dark:text-white"
                       style={{
                         backgroundColor: isDark
                           ? "rgba(30, 30, 35, 0.5)"
@@ -816,13 +838,13 @@ export const Experience = () => {
                         }`,
                       }}
                     >
-                      <span className="opacity-60">Mining difficulty:</span>{" "}
+                      <span className="opacity-60">{t("developer.experience.blockchain.difficulty")}:</span>{" "}
                       <span className="font-bold">
                         {(minedBlocksCount + 1) * 12.73}.5 TH/s
                       </span>
                     </div>
                     <div
-                      className="p-3 rounded-lg"
+                      className="p-3 rounded-lg text-black dark:text-white"
                       style={{
                         backgroundColor: isDark
                           ? "rgba(30, 30, 35, 0.5)"
@@ -832,17 +854,22 @@ export const Experience = () => {
                         }`,
                       }}
                     >
-                      <span className="opacity-60">Mined blocks:</span>{" "}
+                      <span className="opacity-60 text-black dark:text-white">
+                        {t("developer.experience.blockchain.minedBlocks")}:
+                      </span>{" "}
                       <span className="font-bold flex items-center">
                         <span className="mr-2">
                           {minedBlocksCount} / {experienceData.length}
                         </span>
                         {minedBlocksCount > 0 && (
                           <span
-                            className="px-2 py-0.5 text-xs rounded-full bg-green-500 text-white animate-pulse"
-                            style={{ fontSize: "10px" }}
+                            className="px-2 py-0.5 text-xs rounded-full bg-green-500 text-white"
+                            style={{
+                              fontSize: "10px",
+                              color: "white",
+                            }}
                           >
-                            LIVE
+                            {t("developer.experience.blockchain.live")}
                           </span>
                         )}
                       </span>
@@ -850,9 +877,9 @@ export const Experience = () => {
                   </div>
 
                   {/* Progress bar de blocos minerados */}
-                  <div className="mt-4">
-                    <div className="text-xs mb-1 flex justify-between">
-                      <span>Mining Progress</span>
+                  <div className="mt-4 ">
+                    <div className="text-xs mb-1 flex justify-between text-black dark:text-white">
+                      <span>{t("developer.experience.blockchain.miningProgress")}</span>
                       <span>
                         {Math.round(
                           (minedBlocksCount / experienceData.length) * 100
@@ -861,7 +888,7 @@ export const Experience = () => {
                       </span>
                     </div>
                     <div
-                      className="h-2 w-full rounded-full overflow-hidden"
+                      className="h-2 w-full rounded-full overflow-hidden "
                       style={{
                         backgroundColor: isDark
                           ? "rgba(40, 40, 45, 0.5)"

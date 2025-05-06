@@ -52,7 +52,7 @@ export const Projects = () => {
 
   return (
     <section
-      className="max-sm:py-0 md:py-24"
+      className="max-sm:py-0 md:py-24 md:px-24"
       style={{
         backgroundColor: isDark ? getColor("background") : "#ffffff",
       }}

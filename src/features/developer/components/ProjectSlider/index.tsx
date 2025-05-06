@@ -55,7 +55,7 @@ export const ProjectSlider = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10"
+          className="text-start mb-10"
         >
           <Heading2>{t("developer.projects.title")}</Heading2>
         </motion.div>

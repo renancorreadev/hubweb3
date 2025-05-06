@@ -1,305 +1,292 @@
 "use client";
 
-import React, { useRef, useState, useEffect, useMemo, useLayoutEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Box, Text } from "@react-three/drei";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
+import { useTranslation } from "@/shared/hooks/useTranslation";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Box, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-
-interface BlockProps {
-  active: boolean;
-  mining: boolean;
-  hash: string;
-  position: [number, number, number];
-  size?: [number, number, number];
-  color?: string;
-  wireframe?: boolean;
-  onMiningComplete?: () => void;
-  mined?: boolean;
-}
-
-// Componente do cubo 3D (bloco de blockchain) com prevenção de re-renderização
-const Block = ({ 
-  active, 
-  mining, 
-  hash, 
-  position, 
-  size = [1, 1, 1], 
-  color, 
-  wireframe = false,
-  onMiningComplete,
-  mined: externalMined = false
-}: BlockProps) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const { isDark, getColor } = useThemeColors();
-  const [rotationSpeed, setRotationSpeed] = useState(0);
-  const [miningProgress, setMiningProgress] = useState(0);
-  const [miningComplete, setMiningComplete] = useState(externalMined);
-  
-  // Refs para evitar loops de renderização
-  const callbackFiredRef = useRef(false);
-  const animationFrameRef = useRef<number | null>(null);
-  const lastTimeRef = useRef(0);
-  const miningRef = useRef(mining);
-  const activeRef = useRef(active);
-  const minedRef = useRef(externalMined);
-  
-  // Atualiza as refs quando as props mudam, sem causar re-renderização
-  useLayoutEffect(() => {
-    miningRef.current = mining;
-    activeRef.current = active;
-    minedRef.current = externalMined;
-    
-    // Atualiza estado se necesário - causará re-renderização controlada
-    if (externalMined && !miningComplete) {
-      setMiningComplete(true);
-      setMiningProgress(1);
-      setRotationSpeed(0.2);
-    }
-    
-    // Atualiza rotação baseado no estado ativo/mineração
-    if (active) {
-      setRotationSpeed(mining ? 1 : 0.2);
-    } else if (rotationSpeed !== 0) {
-      setRotationSpeed(0);
-    }
-  }, [active, mining, externalMined, miningComplete, rotationSpeed]);
-  
-  // Loop de animação de mineração controlada por RAF
-  useEffect(() => {
-    // Cancela animação existente ao desmontar
-    const cancelAnimation = () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = null;
-      }
-    };
-    
-    // Se não devemos minerar ou já completou, cancela animação
-    if (!miningRef.current || miningComplete) {
-      cancelAnimation();
-      return cancelAnimation;
-    }
-    
-    // Reseta estado para nova animação
-    if (miningRef.current && !miningComplete) {
-      lastTimeRef.current = 0;
-      callbackFiredRef.current = false;
-    }
-    
-    // Função animação usando timestamp para suavidade
-    const updateMiningProgress = (time: number) => {
-      // Setup inicial do timestamp
-      if (lastTimeRef.current === 0) {
-        lastTimeRef.current = time;
-        animationFrameRef.current = requestAnimationFrame(updateMiningProgress);
-        return;
-      }
-      
-      // Cálculo delta de tempo para animação suave
-      const deltaTime = Math.min(time - lastTimeRef.current, 32); // max 32ms (protege contra lags)
-      lastTimeRef.current = time;
-      
-      // Evita calcular se já terminou
-      if (miningComplete) {
-        cancelAnimation();
-        return;
-      }
-      
-      // Velocidade fixa para completar exatamente em 5000ms (5 segundos)
-      const progressSpeed = deltaTime / 5000;
-      
-      setMiningProgress(prev => {
-        const newProgress = Math.min(prev + progressSpeed, 1);
-        
-        // Dispara callback para componente parent quando mineração completa
-        if (newProgress >= 1 && !callbackFiredRef.current) {
-          setMiningComplete(true);
-          setRotationSpeed(0.2);
-          callbackFiredRef.current = true;
-          
-          // Usa microtask para evitar problemas no ciclo de renderização
-          if (onMiningComplete) {
-            queueMicrotask(onMiningComplete);
-          }
-          
-          return 1;
-        }
-        
-        return newProgress;
-      });
-      
-      // Continua loop se ainda estiver minerando
-      if (!miningComplete && miningRef.current) {
-        animationFrameRef.current = requestAnimationFrame(updateMiningProgress);
-      }
-    };
-    
-    // Inicia animação
-    if (!animationFrameRef.current && miningRef.current && !miningComplete) {
-      animationFrameRef.current = requestAnimationFrame(updateMiningProgress);
-    }
-    
-    return cancelAnimation;
-  }, [miningComplete, onMiningComplete]);
-  
-  // Animação do cubo usando timebase independente
-  useFrame(() => {
-    if (!meshRef.current) return;
-    
-    // Rotação constante
-    meshRef.current.rotation.x += rotationSpeed * 0.01;
-    meshRef.current.rotation.y += rotationSpeed * 0.02;
-    
-    // Efeito pulsante durante mineração
-    if (miningRef.current && !miningComplete) {
-      const scale = 1 + Math.sin(Date.now() * 0.005) * 0.05;
-      meshRef.current.scale.set(scale, scale, scale);
-    } else if (miningComplete && 
-              (meshRef.current.scale.x !== 1 || 
-               meshRef.current.scale.y !== 1 || 
-               meshRef.current.scale.z !== 1)) {
-      // Reset scale apenas se necessário
-      meshRef.current.scale.set(1, 1, 1);
-    }
-  });
-  
-  // Memoização de valores para prevenir recálculos
-  const blockColor = useMemo(() => 
-    color || (isDark ? getColor('secondary') : getColor('primary')),
-    [color, isDark, getColor]
-  );
-  
-  const emissiveIntensity = mining ? 0.5 : (active ? 0.2 : 0);
-  
-  return (
-    <group position={position}>
-      <Box 
-        ref={meshRef} 
-        args={size}
-        receiveShadow
-        castShadow
-      >
-        <meshStandardMaterial 
-          color={blockColor}
-          wireframe={wireframe}
-          emissive={blockColor}
-          emissiveIntensity={emissiveIntensity}
-          roughness={0.5}
-          metalness={0.8}
-          opacity={active ? 1 : 0.7}
-          transparent
-        />
-      </Box>
-      
-      {active && (
-        <Text
-          position={[0, -size[1]/1.5, size[2]/2]}
-          fontSize={0.05}
-          color={isDark ? "#ffffff" : "#000000"}
-          anchorX="center"
-          anchorY="middle"
-        >
-          {hash.substring(0, 8)}
-        </Text>
-      )}
-      
-      {mining && !miningComplete && (
-        <group position={[0, size[1]/2 + 0.1, 0]}>
-          <Box args={[size[0], 0.03, 0.03]} position={[0, 0, 0]}>
-            <meshBasicMaterial color="#333333" opacity={0.5} transparent />
-          </Box>
-          <Box 
-            args={[size[0] * miningProgress, 0.02, 0.02]} 
-            position={[-size[0]/2 * (1 - miningProgress), 0, 0.01]}
-          >
-            <meshBasicMaterial color={isDark ? "#9945FF" : "#7A35CC"} />
-          </Box>
-        </group>
-      )}
-    </group>
-  );
-};
 
 interface BlockchainCubeProps {
   active?: boolean;
   mining?: boolean;
+  mined?: boolean;
   hash?: string;
   onMiningComplete?: () => void;
-  className?: string;
-  mined?: boolean;
 }
 
-export const BlockchainCube = React.memo(({ 
+// Componente de cubo 3D para Three.js
+const Cube = ({ 
   active = false, 
   mining = false, 
-  hash = "0x1a2b3c4d5e6f",
-  onMiningComplete,
-  className = "",
-  mined = false
+  mined = false,
+  hash = "",
+  onMiningComplete
 }: BlockchainCubeProps) => {
-  // Valores memorizados para o Canvas
-  const cubeProps = useMemo(() => ({
-    active,
-    mining,
-    hash,
-    mined,
-    onMiningComplete
-  }), [active, mining, hash, mined, onMiningComplete]);
+  const meshRef = useRef<THREE.Mesh>(null);
+  const { isDark } = useThemeColors();
   
-  // Memoização para evitar re-renderizações do Canvas 3D
-  const canvasConfig = useMemo(() => ({
-    shadows: true,
-    gl: { 
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance" as const
-    },
-    camera: { 
-      position: [0, 0, 2.5] as [number, number, number], 
-      fov: 50 
-    },
-    frameloop: "demand" as const
-  }), []);
+  // Para fins de efeito de mineração
+  const [progress, setProgress] = useState(0);
+  const [rotationDirection, setRotationDirection] = useState({ x: 1, y: 1 });
+  
+  // Referência para rastrear se a animação já está concluída
+  const miningCompleteRef = useRef(false);
+  
+  // Cores baseadas no tema
+  const baseColor = isDark ? "#9945FF" : "#7A35CC";  // Purple
+  const minedColor = isDark ? "#14F195" : "#10B981"; // Green
+  const miningColor = "#e43f5a";                     // Red durante mineração
+  
+  // Efeito quando a mineração começa
+  useEffect(() => {
+    if (mining && !mined && !miningCompleteRef.current) {
+      setProgress(0);
+      
+      // Muda a direção de rotação quando começa a mineração
+      setRotationDirection({
+        x: Math.random() > 0.5 ? 1 : -1,
+        y: Math.random() > 0.5 ? 1 : -1
+      });
+      
+      // Simula o processo de mineração durante alguns segundos
+      const timer = setInterval(() => {
+        setProgress(prev => {
+          const next = prev + 10; // Aumentei para 10 por ciclo para terminar mais rápido
+          
+          // Quando atinge 100%, conclui a mineração
+          if (next >= 100 && !miningCompleteRef.current) {
+            clearInterval(timer);
+            miningCompleteRef.current = true;
+            
+            // Notifica o componente pai que a mineração está concluída
+            if (onMiningComplete) {
+              onMiningComplete();
+            }
+            return 100;
+          }
+          return next;
+        });
+      }, 25); // Intervalo reduzido para 25ms para atualização mais frequente
+      
+      // Backup para garantir que a mineração nunca ultrapasse 5 segundos
+      const maxDurationTimer = setTimeout(() => {
+        if (!miningCompleteRef.current) {
+          clearInterval(timer);
+          miningCompleteRef.current = true;
+          setProgress(100);
+          
+          // Notifica o componente pai que a mineração está concluída
+          if (onMiningComplete) {
+            onMiningComplete();
+          }
+        }
+      }, 3000); // Forçar conclusão após 3 segundos
+      
+      return () => {
+        clearInterval(timer);
+        clearTimeout(maxDurationTimer);
+      };
+    }
+  }, [mining, mined, onMiningComplete]);
+  
+  // Resetar referência quando mined muda para false
+  useEffect(() => {
+    if (!mined) {
+      miningCompleteRef.current = false;
+    }
+  }, [mined]);
+  
+  // Animação da rotação do cubo
+  useFrame((_, delta) => {
+    if (meshRef.current) {
+      // Rotação básica quando ativo
+      const rotation = active ? 0.3 : 0.1;
+      const miningSpeed = mining ? 3.5 : 1;
+      
+      // Adiciona rotação baseada no estado
+      meshRef.current.rotation.x += delta * rotation * rotationDirection.x * miningSpeed;
+      meshRef.current.rotation.y += delta * rotation * rotationDirection.y * miningSpeed;
+      
+      // Efeito de pulso durante a mineração
+      if (mining && !mined) {
+        const pulse = Math.sin(Date.now() * 0.005) * 0.05;
+        meshRef.current.scale.set(1 + pulse, 1 + pulse, 1 + pulse);
+      } else if (mined) {
+        // Tamanho estável depois de minerado
+        meshRef.current.scale.set(1.05, 1.05, 1.05);
+      } else {
+        // Tamanho normal quando não está minerando
+        meshRef.current.scale.set(1, 1, 1);
+      }
+    }
+  });
+  
+  // Calcula a cor atual com base no estado
+  let currentColor = baseColor;
+  if (mining && !mined) {
+    // Durante a mineração, mistura entre a cor de mineração e a cor minerada com base no progresso
+    const ratio = progress / 100;
+    currentColor = mixColors(miningColor, minedColor, ratio);
+  } else if (mined) {
+    currentColor = minedColor;
+  }
   
   return (
-    <div className={`${className} w-full h-full relative overflow-hidden`}>
-      <Canvas {...canvasConfig}>
-        <ambientLight intensity={0.4} />
-        <spotLight 
-          position={[10, 10, 10]} 
-          angle={0.15} 
-          penumbra={1} 
-          intensity={0.8} 
-          castShadow 
-        />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
-        
-        {/* Bloco principal */}
-        <Block 
-          position={[0, 0, 0]}
-          size={[1.2, 0.6, 0.2]}
-          {...cubeProps}
-        />
-        
-        {/* Blocos decorativos - memoizados para performance */}
-        <Block 
-          active={false}
-          mining={false}
-          hash=""
-          position={[-1.5, 0.8, -1]}
-          size={[0.4, 0.4, 0.1]}
-          wireframe
-        />
-        <Block 
-          active={false}
-          mining={false}
-          hash=""
-          position={[1.2, -0.6, -0.8]}
-          size={[0.3, 0.3, 0.1]}
-          wireframe
-        />
-      </Canvas>
-    </div>
+    <Box 
+      ref={meshRef} 
+      args={[1, 1, 1]} 
+      castShadow 
+      receiveShadow
+    >
+      <meshStandardMaterial
+        color={currentColor}
+        emissive={currentColor}
+        emissiveIntensity={mining ? 0.5 : mined ? 0.3 : 0.1}
+        metalness={0.8}
+        roughness={0.2}
+        wireframe={mining && !mined}
+      />
+    </Box>
   );
-}); 
+};
+
+// Função auxiliar para misturar cores (interpolação)
+const mixColors = (color1: string, color2: string, ratio: number) => {
+  // Converte as cores hex para rgb
+  const r1 = parseInt(color1.slice(1, 3), 16);
+  const g1 = parseInt(color1.slice(3, 5), 16);
+  const b1 = parseInt(color1.slice(5, 7), 16);
+  
+  const r2 = parseInt(color2.slice(1, 3), 16);
+  const g2 = parseInt(color2.slice(3, 5), 16);
+  const b2 = parseInt(color2.slice(5, 7), 16);
+  
+  // Mistura cores
+  const r = Math.round(r1 * (1 - ratio) + r2 * ratio);
+  const g = Math.round(g1 * (1 - ratio) + g2 * ratio);
+  const b = Math.round(b1 * (1 - ratio) + b2 * ratio);
+  
+  // Converte de volta para hex
+  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+};
+
+export const BlockchainCube = ({
+  active = false,
+  mining = false,
+  mined = false,
+  hash = "",
+  onMiningComplete
+}: BlockchainCubeProps) => {
+  const { isDark } = useThemeColors();
+  const { t } = useTranslation();
+  const controls = useAnimation();
+  
+  // Efeito de animação quando o estado muda
+  useEffect(() => {
+    controls.start({
+      scale: active ? 1.05 : 1,
+      rotateY: active ? [0, 180, 360] : 0,
+      transition: { duration: 2, ease: "easeInOut" }
+    });
+  }, [active, controls]);
+
+  return (
+    <motion.div 
+      className="relative w-full h-full"
+      animate={controls}
+    >
+      {/* Status da mineração no topo do cubo */}
+      {mining && !mined && (
+        <div 
+          className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-50 text-xs font-mono px-2 py-1 rounded-md text-white animate-pulse"
+          style={{
+            background: "linear-gradient(90deg, #e43f5a, #fd735a)",
+            boxShadow: "0 0 15px rgba(228, 63, 90, 0.7)",
+            minWidth: "70px",
+            textAlign: "center",
+            fontWeight: "bold"
+          }}
+        >
+          {t("developer.blockchain.status.mining")}
+        </div>
+      )}
+      
+      {mined && (
+        <div 
+          className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-50 text-xs font-mono px-2 py-1 rounded-md text-white"
+          style={{
+            background: isDark
+              ? "linear-gradient(90deg, #14F195, #43aa8b)"
+              : "linear-gradient(90deg, #10B981, #38a169)",
+            boxShadow: "0 0 15px rgba(20, 241, 149, 0.5)",
+            minWidth: "70px",
+            textAlign: "center",
+            fontWeight: "bold"
+          }}
+        >
+          {t("developer.blockchain.status.verified")}
+        </div>
+      )}
+      
+      {/* Hash abreviado abaixo do cubo */}
+      {hash && (
+        <div 
+          className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 z-40 text-[10px] font-mono px-1.5 py-0.5 rounded bg-opacity-80 text-black dark:text-white"
+          style={{
+            backgroundColor: isDark ? "rgba(30, 30, 35, 0.8)" : "rgba(245, 245, 250, 0.9)",
+            maxWidth: "100%",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap"
+          }}
+        >
+          {hash.substring(0, 8)}...
+        </div>
+      )}
+      
+      {/* Canvas 3D */}
+      <div 
+        className="w-full h-full rounded-xl overflow-hidden"
+        style={{
+          background: `radial-gradient(circle at center, ${
+            mining 
+              ? isDark ? "rgba(228, 63, 90, 0.2)" : "rgba(228, 63, 90, 0.1)" 
+              : mined 
+                ? isDark ? "rgba(20, 241, 149, 0.2)" : "rgba(16, 185, 129, 0.1)"
+                : isDark ? "rgba(153, 69, 255, 0.2)" : "rgba(122, 53, 204, 0.1)"
+          }, transparent)`,
+          boxShadow: `0 0 20px ${
+            mining 
+              ? "rgba(228, 63, 90, 0.3)" 
+              : mined 
+                ? isDark ? "rgba(20, 241, 149, 0.3)" : "rgba(16, 185, 129, 0.2)"
+                : isDark ? "rgba(153, 69, 255, 0.2)" : "rgba(122, 53, 204, 0.1)"
+          }`
+        }}
+      >
+        <Canvas shadows camera={{ position: [0, 0, 2.5] }}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} castShadow />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} />
+          
+          <Cube 
+            active={active} 
+            mining={mining} 
+            mined={mined} 
+            hash={hash}
+            onMiningComplete={onMiningComplete}
+          />
+          
+          <OrbitControls 
+            enableZoom={false} 
+            enablePan={false} 
+            autoRotate={active && !mining} 
+            autoRotateSpeed={1} 
+          />
+        </Canvas>
+      </div>
+    </motion.div>
+  );
+}; 

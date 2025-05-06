@@ -16,6 +16,8 @@ export const Profile = () => {
     <section
       className={`relative overflow-hidden 
      ${mobileOnly.padding.pt12}
+     ${desktopOnly.padding.pt12}
+       ${desktopOnly.padding.pb20}
      
      `}
     >
@@ -60,7 +62,7 @@ export const Profile = () => {
           />
         </div>
 
-        <div className="">
+        <div >
           {/* Título Principal em 100% da largura */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

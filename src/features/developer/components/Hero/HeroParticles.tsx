@@ -6,49 +6,57 @@ import { Container, tsParticles } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 
-interface BlockchainParticlesProps {
+interface HeroParticlesProps {
   active?: boolean;
   intensity?: number;
   className?: string;
   interactive?: boolean;
 }
 
-// Inicialização única do engine - compartilhada entre todas as instâncias
-let engineInitialized = false;
-let containerInstances = new Map();
-
-const initializeEngine = async () => {
-  if (!engineInitialized) {
+// Inicialização única do engine - independente do componente global
+const initializeHeroEngine = async () => {
+  try {
+    // Inicializa uma instância específica para o Hero
     await loadSlim(tsParticles);
-    engineInitialized = true;
+    console.log("HeroParticles: Engine initialized successfully");
+    return true;
+  } catch (error) {
+    console.error("HeroParticles: Failed to initialize engine", error);
+    return false;
   }
-  return true;
 };
 
-export const BlockchainParticles = ({ 
+export const HeroParticles = ({ 
   active = true,
   intensity = 1,
   className = "",
   interactive = false
-}: BlockchainParticlesProps) => {
+}: HeroParticlesProps) => {
   const { isDark, getColor } = useThemeColors();
-  const initializationRef = useRef(false);
+  const engineInitializedRef = useRef(false);
   const containerRef = useRef<Container | null>(null);
-  const instanceIdRef = useRef<string>(`particles-${Math.random().toString(36).substring(2, 9)}`);
+  const instanceIdRef = useRef<string>(`hero-particles-${Math.random().toString(36).substring(2, 9)}`);
   
-  // Inicializa o engine apenas uma vez por aplicação
+  // Inicializa o engine especificamente para este componente
   useEffect(() => {
-    if (!initializationRef.current) {
-      initializeEngine().then(() => {
-        initializationRef.current = true;
-      });
-    }
+    const initParticles = async () => {
+      if (!engineInitializedRef.current) {
+        console.log("HeroParticles: Initializing engine...");
+        const success = await initializeHeroEngine();
+        if (success) {
+          engineInitializedRef.current = true;
+          console.log("HeroParticles: Engine initialized successfully");
+        }
+      }
+    };
     
-    // Cleanup ao desmontar - preserva a instância
+    initParticles();
+    
     return () => {
+      // Cleanup ao desmontar
       if (containerRef.current) {
-        // Apenas armazena a instância, não a destroi
-        containerInstances.set(instanceIdRef.current, containerRef.current);
+        console.log("HeroParticles: Cleaning up container");
+        containerRef.current.destroy();
       }
     };
   }, []);
@@ -62,6 +70,7 @@ export const BlockchainParticles = ({
         setTimeout(() => {
           if (!container.destroyed) {
             container.play();
+            console.log("HeroParticles: Container playing");
           }
         }, 10);
       } else {
@@ -81,7 +90,7 @@ export const BlockchainParticles = ({
     const secondaryColor = isDark ? "#4B0082" : "#8A2BE2";
     
     // Intensidade afeta a quantidade de partículas
-    const particleCount = Math.floor(15 * intensity);
+    const particleCount = Math.floor(20 * intensity); // Aumentei o número de partículas
     
     return {
       fullScreen: { enable: false },
@@ -183,30 +192,24 @@ export const BlockchainParticles = ({
   // Função para lidar com partículas carregadas
   const handleParticlesLoaded = useCallback(async (container?: Container) => {
     if (container) {
+      console.log("HeroParticles: Container loaded", container.id);
       containerRef.current = container;
-      
-      // Verifica se temos uma instância anterior para reutilizar
-      if (containerInstances.has(instanceIdRef.current)) {
-        // Copia configurações se houver uma instância anterior
-        const prevContainer = containerInstances.get(instanceIdRef.current);
-        if (prevContainer && !prevContainer.destroyed) {
-          // Opcional: copiar estados se necessário
-        }
-        containerInstances.delete(instanceIdRef.current);
-      }
     }
   }, []);
 
-  // Renderização com posicionamento absoluto e pointer-events-none para não interferir
+  // Aumente a opacidade para debug
+  const opacityLevel = active ? (interactive ? 0.8 : 0.5) : 0.1;
+
+  // Renderização com posicionamento absoluto
   return (
     <div 
       className={`absolute inset-0 z-0 ${interactive ? "" : "pointer-events-none"} ${className}`}
       style={{ 
         willChange: 'opacity',
-        opacity: active ? 1 : 0.1, 
+        opacity: opacityLevel, 
         transition: 'opacity 400ms ease-in-out',
         position: 'absolute',
-        zIndex: interactive ? 1 : 0
+        zIndex: 0
       }}
     >
       <Particles
@@ -218,7 +221,7 @@ export const BlockchainParticles = ({
           position: 'absolute',
           width: '100%',
           height: '100%',
-          zIndex: interactive ? 1 : 0
+          zIndex: 0
         }}
       />
     </div>
