@@ -106,8 +106,8 @@ const Block = ({
         return;
       }
       
-      // Velocidade variável mas controlada
-      const progressSpeed = (Math.random() * 0.006 + 0.003) * deltaTime; // Acelerado para ~3s
+      // Velocidade fixa para completar exatamente em 5000ms (5 segundos)
+      const progressSpeed = deltaTime / 5000;
       
       setMiningProgress(prev => {
         const newProgress = Math.min(prev + progressSpeed, 1);

@@ -41,6 +41,8 @@ export interface TypographyProps extends PropsWithChildren {
   gradient?: boolean;
   /** Se deve ser responsivo (ajustar tamanho automaticamente) */
   responsive?: boolean;
+  /** Estilos CSS inline */
+  style?: React.CSSProperties;
 }
 
 /**
@@ -64,6 +66,7 @@ export function Typography({
   lines,
   gradient = false,
   responsive = true,
+  style,
   ...props
 }: TypographyProps) {
   const { getColor, isDark } = useThemeColors();
@@ -214,14 +217,14 @@ export function Typography({
     ${className}
   `;
 
-  return (
-    <Component 
-      className={classes}
-      style={gradient ? {} : {}}
-      {...props}
-    >
-      {children}
-    </Component>
+  return React.createElement(
+    Component,
+    {
+      className: classes,
+      style: gradient ? {} : style,
+      ...props
+    },
+    children
   );
 }
 
@@ -231,7 +234,16 @@ export function Heading1(props: Omit<TypographyProps, "variant">) {
 }
 
 export function Heading2(props: Omit<TypographyProps, "variant">) {
-  return <Typography variant="h2" {...props} />;
+  const { isDark } = useThemeColors();
+
+  return <Typography variant="h2" {...props} 
+    className={` 
+      max-sm:text-3xl
+      md:text-5xl
+      ${
+      isDark ? 'text-shadow-purple experience-title-gradient-dark' : 'experience-title-gradient-light'
+    }`}
+  />;
 }
 
 export function Heading3(props: Omit<TypographyProps, "variant">) {
@@ -239,7 +251,7 @@ export function Heading3(props: Omit<TypographyProps, "variant">) {
 }
 
 export function Heading4(props: Omit<TypographyProps, "variant">) {
-  return <Typography variant="h4" {...props} />;
+  return <Typography variant="h4" className="max-sm:text-xl md:text-2xl p-2" {...props} />;
 }
 
 export function Heading5(props: Omit<TypographyProps, "variant">) {
@@ -255,7 +267,16 @@ export function Subtitle(props: Omit<TypographyProps, "variant">) {
 }
 
 export function Body(props: Omit<TypographyProps, "variant">) {
-  return <Typography variant="body" {...props} />;
+  const { className = "", style, ...rest } = props;
+  return <Typography 
+    variant="body" 
+    className={`
+      max-sm:text-base md:text-2xl p-2 
+      text-black dark:text-white 
+      ${className}`}
+    style={style}
+    {...rest} 
+  />;
 }
 
 export function Small(props: Omit<TypographyProps, "variant">) {
@@ -263,7 +284,7 @@ export function Small(props: Omit<TypographyProps, "variant">) {
 }
 
 export function Caption(props: Omit<TypographyProps, "variant">) {
-  return <Typography variant="caption" {...props} />;
+  return <Typography variant="caption" className="text-xs md:text-[1.2rem]" {...props} />;
 }
 
 export function ButtonText(props: Omit<TypographyProps, "variant">) {

@@ -10,8 +10,10 @@ import { useTranslation } from "@/shared/hooks/useTranslation";
 import { desktopOnly, mobileOnly } from "@/shared/configs/responsive";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useThemeColors } from "@/shared/hooks/useThemeColors";
 
 export function Hero() {
+  const { isDark } = useThemeColors();
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -53,10 +55,17 @@ export function Hero() {
             transition={{ duration: 0.8 }}
           >
             {t('hero.title').split('\n').map((line, index) => (
-              <span key={index}>
+              <span key={index}
+              className={`mb-6 relative z-20 ${
+                isDark ? 'text-shadow-purple experience-title-gradient-dark' : 'experience-title-gradient-light'
+              }`}
+              > 
                 {line}
                 {index < t('hero.title').split('\n').length - 1 && <br />}
               </span>
+              
+
+              
             ))}
           </motion.h1>
 

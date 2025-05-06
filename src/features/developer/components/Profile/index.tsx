@@ -1,6 +1,6 @@
 "use client";
 
-import { Heading1, Typography } from "@/components/Typography";
+import { Body, Caption, Heading1, Heading2, Typography } from "@/components/Typography";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 import { Button } from "@/components/Button";
@@ -13,11 +13,12 @@ export const Profile = () => {
   const { isDark, getColor } = useThemeColors();
 
   return (
-    <section className={`relative overflow-hidden 
+    <section
+      className={`relative overflow-hidden 
      ${mobileOnly.padding.pt12}
      
      `}
-     >
+    >
       <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         {/* Background decorations */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -73,26 +74,21 @@ export const Profile = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <Typography
-                className="text-4xl md:text-5xl font-bold mb-10"
-                variant="h2"
-              >
-                {t("developer.subtitle")}
-              </Typography>
+              <Heading1>{t("developer.subtitle")}</Heading1>
             </motion.div>
 
-            <Typography
-              variant="h1"
-              className="mb-3 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white"
+            <Heading1
+ 
+              className="mb-3 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-black dark:text-white"
             >
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                Renan C.F Correa 
+                Renan C.F Correa
               </motion.span>
-            </Typography>
+            </Heading1>
 
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -100,12 +96,7 @@ export const Profile = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="text-[#14F195] flex  justify-center items-center"
             >
-              <Typography
-                variant="subtitle"
-                className="text-xl md:text-3xl lg:text-4xl font-medium"
-              >
-                {t("developer.hero.title")}
-              </Typography>
+              <Heading2>{t("developer.hero.title")}</Heading2>
             </motion.div>
 
             <motion.div
@@ -210,13 +201,8 @@ export const Profile = () => {
                   boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.3)`,
                 }}
               >
-                <div className="text-white">
-                  <Typography
-                    variant="body"
-                    className="mb-8 max-w-4xl  md:text-lg leading-relaxed text-2xl "
-                  >
-                    {t("developer.summary")}
-                  </Typography>
+                <div className="">
+                  <Body className="text-white dark:text-slate-500">{t("developer.summary")}</Body>
                 </div>
                 {/* Tech badges */}
                 <motion.div
@@ -229,7 +215,9 @@ export const Profile = () => {
                     "Ethereum",
                     "Solana",
                     "Hyperledger",
-                    "Rust",
+                    "Go",
+                    "Java",
+                    "NodeJS",
                     "Solidity",
                     "Tokenização",
                   ].map((tech, i) => (
@@ -277,15 +265,15 @@ export const Profile = () => {
                     { label: "Foco", value: "DLT Solutions" },
                   ].map((stat, i) => (
                     <div key={i} className="text-center p-2">
-                      <p
-                        className="text-xl md:text-2xl font-bold mb-1"
+                      <Body
+              
                         style={{ color: "#14F195" }}
                       >
                         {stat.value}
-                      </p>
-                      <p className="text-xs md:text-sm text-gray-300">
+                      </Body>
+                      <Caption>
                         {stat.label}
-                      </p>
+                      </Caption>
                     </div>
                   ))}
                 </motion.div>
@@ -315,7 +303,6 @@ export const Profile = () => {
                     {t("developer.cta.projects")}
                   </Button>
                 </motion.div>
-
               </motion.div>
             </div>
           </div>

@@ -39,6 +39,7 @@ export const BlockchainNode = ({
   const [mining, setMining] = useState(false);
   const [mined, setMined] = useState(externalMined);
   const [showDetails, setShowDetails] = useState(false);
+  const [showVerified, setShowVerified] = useState(externalMined);
   const nodeRef = useRef<HTMLDivElement>(null);
   const callbackFiredRef = useRef(false);
   
@@ -67,6 +68,7 @@ export const BlockchainNode = ({
       setMined(true);
       setMining(false);
       setShowDetails(true);
+      setShowVerified(true);
     }
   }, [externalMined, mined]);
   
@@ -88,8 +90,13 @@ export const BlockchainNode = ({
     
     callbackFiredRef.current = true;
     setMined(true);
-    setMining(false);
-    setShowDetails(true);
+    
+    // Adiciona um delay antes de mudar o estado de MINING para VERIFIED
+    setTimeout(() => {
+      setMining(false);
+      setShowVerified(true);
+      setShowDetails(true);
+    }, 3000); // Delay de 3 segundos para manter o texto "MINING" visível
     
     // Notifica o componente pai usando microtask para evitar loops de renderização
     if (onMiningComplete) {
@@ -112,16 +119,16 @@ export const BlockchainNode = ({
   return (
     <motion.div
       ref={nodeRef}
-      className="relative mb-24 last:mb-12 blockchain-node"
+      className="relative mb-16 md:mb-24 last:mb-8 last:md:mb-12 blockchain-node"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: index * 0.15 }}
     >
-      {/* Conexão blockchain entre os nós - estilo Solana */}
+      {/* Conexão blockchain entre os nós - estilo Solana - visível apenas em desktop */}
       {index < totalItems - 1 && (
         <>
           <motion.div 
-            className="absolute left-16 top-32 w-1 bottom-0 z-0"
+            className="absolute left-16 top-32 w-1 bottom-0 z-0 hidden md:block"
             style={{ 
               background: isDark 
                 ? `linear-gradient(to bottom, #9945FF, rgba(20, 241, 149, 0.2))`
@@ -133,7 +140,7 @@ export const BlockchainNode = ({
           />
           {/* Conectores horizontais para parecer mais com diagrama blockchain */}
           <motion.div 
-            className="absolute left-16 top-[32px] h-2 w-8 z-0"
+            className="absolute left-16 top-[32px] h-2 w-8 z-0 hidden md:block"
             style={{ 
               background: isDark 
                 ? 'linear-gradient(90deg, rgba(153, 69, 255, 0.8), rgba(20, 241, 149, 0.5))'
@@ -145,7 +152,7 @@ export const BlockchainNode = ({
             transition={{ duration: 0.8, delay: 0.7 + index * 0.2 }}
           />
           <motion.div 
-            className="absolute left-16 bottom-0 h-2 w-8 z-0"
+            className="absolute left-16 bottom-0 h-2 w-8 z-0 hidden md:block"
             style={{ 
               background: isDark 
                 ? 'linear-gradient(90deg, rgba(153, 69, 255, 0.8), rgba(20, 241, 149, 0.5))'
@@ -159,11 +166,11 @@ export const BlockchainNode = ({
         </>
       )}
       
-      {/* Contêiner principal com formato hexagonal/circular */}
-      <div className="flex items-stretch">
-        {/* Cube 3D representando o nó/bloco */}
+      {/* Contêiner principal adaptado para mobile */}
+      <div className="flex flex-col md:flex-row md:items-stretch">
+        {/* Cube 3D representando o nó/bloco - menor no mobile */}
         <motion.div 
-          className="relative w-32 h-32 shrink-0 z-20"
+          className="relative w-32 h-32 shrink-0 z-20 mx-0 mb-0 hidden md:block"
           whileHover={{ scale: 1.05 }}
         >
           {/* Anel em torno do nó, simulando blockchain - Estilo Solana */}
@@ -251,10 +258,10 @@ export const BlockchainNode = ({
           </div>
         </motion.div>
         
-        {/* Cartão de informações - Estilo Solana */}
+        {/* Cartão de informações - Estilo Solana - adaptado para mobile */}
         <motion.div 
-          className={`ml-6 grow rounded-xl p-6 relative overflow-hidden flex flex-col blockchain-node-card ${
-            expanded ? 'max-h-[800px]' : 'max-h-[180px]'
+          className={`ml-0 md:ml-6 grow rounded-xl p-4 md:p-6 relative overflow-hidden flex flex-col blockchain-node-card ${
+            expanded ? 'max-h-[800px]' : 'max-h-none md:max-h-[180px]'
           }`}
           style={{
             backgroundColor: isDark ? 'rgba(26, 26, 26, 0.85)' : 'rgba(255, 255, 255, 0.95)',
@@ -264,6 +271,10 @@ export const BlockchainNode = ({
             borderLeft: mined
               ? `3px solid ${isDark ? '#14F195' : '#10B981'}`
               : `3px solid ${isDark ? '#9945FF' : '#7A35CC'}`,
+            borderTop: `3px solid ${mined 
+              ? (isDark ? '#14F195' : '#10B981')
+              : (isDark ? '#9945FF' : '#7A35CC')
+            }`,
             transition: 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
             backdropFilter: 'blur(20px)',
           }}
@@ -294,15 +305,15 @@ export const BlockchainNode = ({
           {/* Status de mineração e hash - Estilo Solana */}
           {(active || expanded) && (
             <motion.div
-              className="absolute top-3 right-3 flex items-center space-x-2 z-20"
+              className="absolute top-3 right-3 flex md:flex-row flex-col items-end md:items-center space-y-1 md:space-y-0 md:space-x-2 z-20"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.2 }}
             >
               {mining ? (
-                <div className="flex items-center">
+                <div className="flex flex-col md:flex-row items-end md:items-center">
                   <div 
-                    className="mr-2 text-xs font-mono px-2 py-1 rounded-md text-white animate-pulse"
+                    className="mb-1 md:mb-0 md:mr-2 text-xs font-mono px-2 py-1 rounded-md text-white animate-pulse"
                     style={{
                       background: isDark 
                         ? 'linear-gradient(90deg, #e43f5a, #fd735a)'
@@ -311,14 +322,14 @@ export const BlockchainNode = ({
                   >
                     MINING
                   </div>
-                  <div className="text-xs font-mono opacity-70">
+                  <div className="text-xs font-mono opacity-70 hidden md:block">
                     {hash.substring(0, 6)}...
                   </div>
                 </div>
-              ) : mined ? (
-                <div className="flex items-center">
+              ) : showVerified ? (
+                <div className="flex flex-col md:flex-row items-end md:items-center">
                   <div 
-                    className="mr-2 text-xs font-mono px-2 py-1 rounded-md text-white"
+                    className="mb-1 md:mb-0 md:mr-2 text-xs font-mono px-2 py-1 rounded-md text-white"
                     style={{
                       background: isDark 
                         ? 'linear-gradient(90deg, #14F195, #43aa8b)'
@@ -327,14 +338,14 @@ export const BlockchainNode = ({
                   >
                     VERIFIED
                   </div>
-                  <div className="text-xs font-mono opacity-70">
+                  <div className="text-xs font-mono opacity-70 hidden md:block">
                     {hash}
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center">
+                <div className="flex flex-col md:flex-row items-end md:items-center">
                   <div 
-                    className="mr-2 text-xs font-mono px-2 py-1 rounded-md text-white"
+                    className="mb-1 md:mb-0 md:mr-2 text-xs font-mono px-2 py-1 rounded-md text-white"
                     style={{
                       background: isDark 
                         ? 'linear-gradient(90deg, #9945FF, #7b61ff)'
@@ -343,7 +354,7 @@ export const BlockchainNode = ({
                   >
                     PENDING
                   </div>
-                  <div className="text-xs font-mono opacity-70">
+                  <div className="text-xs font-mono opacity-70 hidden md:block">
                     {hash.substring(0, 6)}...
                   </div>
                 </div>
@@ -353,10 +364,10 @@ export const BlockchainNode = ({
           
           {/* Conteúdo - Estilo Solana */}
           <div className="relative z-30 flex-grow blockchain-node-content">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3 md:mb-4">
               <Typography 
                 variant="h3" 
-                className={`mb-2 md:mb-0 font-bold ${
+                className={`mb-2 md:mb-0 font-bold text-base md:text-xl ${
                   mining 
                     ? (isDark ? 'text-[#9945FF]' : 'text-[#7A35CC]')
                     : mined 
@@ -367,7 +378,7 @@ export const BlockchainNode = ({
                 {company}
               </Typography>
               
-              <div className="px-3 py-1 rounded-full inline-block text-sm"
+              <div className="px-3 py-1 rounded-full inline-block text-xs md:text-sm w-fit"
                 style={{
                   background: isDark 
                     ? 'linear-gradient(90deg, rgba(153, 69, 255, 0.2), rgba(20, 241, 149, 0.1))'
@@ -382,25 +393,25 @@ export const BlockchainNode = ({
             
             <Typography 
               variant="h4" 
-              className="mb-4 opacity-90"
+              className="mb-3 md:mb-4 opacity-90 text-sm md:text-base"
             >
               {position}
             </Typography>
             
-            {/* Hash e informações técnicas visíveis mesmo sem expandir - Estilo Solana */}
-            <div className="mb-4">
+            {/* Hash e informações técnicas - Estilo Solana otimizado para mobile */}
+            <div className="mb-3 md:mb-4">
               <div className="flex flex-wrap gap-2 text-xs font-mono opacity-70">
                 <span 
-                  className="px-2 py-1 rounded"
+                  className="px-2 py-1 rounded text-[10px] md:text-xs"
                   style={{
                     backgroundColor: isDark ? 'rgba(30, 30, 35, 0.5)' : 'rgba(245, 245, 250, 0.7)',
                     border: `1px solid ${isDark ? 'rgba(153, 69, 255, 0.2)' : 'rgba(122, 53, 204, 0.1)'}`,
                   }}
                 >
-                  prev: {index > 0 ? `${hash.substring(0, 8)}...` : 'genesis'}
+                  prev: {index > 0 ? `${hash.substring(0, 6)}...` : 'genesis'}
                 </span>
                 <span 
-                  className="px-2 py-1 rounded"
+                  className="px-2 py-1 rounded text-[10px] md:text-xs"
                   style={{
                     backgroundColor: isDark ? 'rgba(30, 30, 35, 0.5)' : 'rgba(245, 245, 250, 0.7)',
                     border: `1px solid ${isDark ? 'rgba(153, 69, 255, 0.2)' : 'rgba(122, 53, 204, 0.1)'}`,
@@ -411,9 +422,9 @@ export const BlockchainNode = ({
               </div>
             </div>
             
-            {/* Indicador de expandir/contrair - Estilo Solana */}
+            {/* Botão expandir/contrair maior e mais acessível em mobile */}
             <motion.div 
-              className="absolute bottom-2 right-2 w-8 h-8 flex items-center justify-center rounded-full cursor-pointer z-40"
+              className="absolute bottom-2 right-2 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full cursor-pointer z-40"
               animate={{ rotate: expanded ? 180 : 0 }}
               transition={{ duration: 0.3 }}
               whileHover={{ scale: 1.1 }}
@@ -432,7 +443,7 @@ export const BlockchainNode = ({
                 }`,
               }}
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </motion.div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/components/Card";
-import { Typography } from "@/components/Typography";
+import { Heading2 } from "@/components/Typography";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { motion } from "framer-motion";
@@ -14,36 +14,36 @@ export const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: t('developer.projects.creatorPro.title'),
-      description: t('developer.projects.creatorPro.description'),
-      tag: t('developer.projects.creatorPro.tag'),
+      title: t("developer.projects.creatorPro.title"),
+      description: t("developer.projects.creatorPro.description"),
+      tag: t("developer.projects.creatorPro.tag"),
       href: "/projects/creator-pro",
       backgroundImage: "/images/solids/neonSolid.png",
       gradientColor: "green",
     },
     {
       id: 2,
-      title: t('developer.projects.drex.title'),
-      description: t('developer.projects.drex.description'),
-      tag: t('developer.projects.drex.tag'),
+      title: t("developer.projects.drex.title"),
+      description: t("developer.projects.drex.description"),
+      tag: t("developer.projects.drex.tag"),
       href: "/projects/drex",
       backgroundImage: "/images/solids/geometric.png",
       gradientColor: "default",
     },
     {
       id: 3,
-      title: t('developer.projects.assetToken.title'),
-      description: t('developer.projects.assetToken.description'),
-      tag: t('developer.projects.assetToken.tag'),
+      title: t("developer.projects.assetToken.title"),
+      description: t("developer.projects.assetToken.description"),
+      tag: t("developer.projects.assetToken.tag"),
       href: "/projects/asset-tokenization",
       backgroundImage: "/images/solids/neonSolid.png",
       gradientColor: "green",
     },
     {
       id: 4,
-      title: t('developer.projects.explorer.title'),
-      description: t('developer.projects.explorer.description'),
-      tag: t('developer.projects.explorer.tag'),
+      title: t("developer.projects.explorer.title"),
+      description: t("developer.projects.explorer.description"),
+      tag: t("developer.projects.explorer.tag"),
       href: "/projects/block-explorer",
       backgroundImage: "/images/solids/geometric.png",
       gradientColor: "default",
@@ -51,10 +51,10 @@ export const Projects = () => {
   ];
 
   return (
-    <section 
-      className="py-24" 
+    <section
+      className="max-sm:py-0 md:py-24"
       style={{
-        backgroundColor: isDark ? getColor('background') : '#ffffff'
+        backgroundColor: isDark ? getColor("background") : "#ffffff",
       }}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8 mb-12">
@@ -64,11 +64,7 @@ export const Projects = () => {
           transition={{ duration: 0.5 }}
           className={`flex justify-between items-center ${mobileOnly.flex.col} ${mobileOnly.gap.gap6}`}
         >
-          <Typography 
-            variant="h2"
-          >
-            {t('developer.projects.title')}
-          </Typography>
+          <Heading2>{t("developer.projects.title")}</Heading2>
         </motion.div>
       </div>
 
@@ -103,7 +99,9 @@ export const Projects = () => {
               title={project.title}
               description={project.description}
               href={project.href}
-              gradientColor={project.gradientColor === "green" ? "green" : "default"}
+              gradientColor={
+                project.gradientColor === "green" ? "green" : "default"
+              }
               topBorder={false}
               index={index}
             />
@@ -112,4 +110,4 @@ export const Projects = () => {
       </div>
     </section>
   );
-}; 
+};

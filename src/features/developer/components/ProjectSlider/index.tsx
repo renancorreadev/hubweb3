@@ -1,7 +1,7 @@
 "use client";
 
 import { HeroSlider } from "@/components/HeroSlider";
-import { Typography } from "@/components/Typography";
+import { Heading2, Typography } from "@/components/Typography";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { motion } from "framer-motion";
@@ -13,15 +13,15 @@ export const ProjectSlider = () => {
   const projects = [
     {
       id: 1,
-      title: t('developer.projects.creatorPro.title'),
-      subtitle: t('developer.projects.creatorPro.description'),
+      title: t("developer.projects.creatorPro.title"),
+      subtitle: t("developer.projects.creatorPro.description"),
       imageUrl: "/images/projects/CreatorPro.png",
       linkUrl: "/projects/creator-pro",
     },
     {
       id: 2,
-      title: t('developer.projects.explorer.title'),
-      subtitle: t('developer.projects.explorer.description'),
+      title: t("developer.projects.explorer.title"),
+      subtitle: t("developer.projects.explorer.description"),
       imageUrl: "/images/projects/Explorer.png",
       linkUrl: "/projects/block-explorer",
     },
@@ -45,7 +45,9 @@ export const ProjectSlider = () => {
     <section
       className="py-16"
       style={{
-        backgroundColor: isDark ? 'rgba(10, 10, 10, 1)' : 'rgba(248, 249, 250, 1)',
+        backgroundColor: isDark
+          ? "rgba(10, 10, 10, 1)"
+          : "rgba(248, 249, 250, 1)",
       }}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -55,15 +57,9 @@ export const ProjectSlider = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-10"
         >
-  
-          <Typography 
-            variant="h2" 
-            className="mb-4 text-3xl md:text-4xl lg:text-5xl font-bold text-[#000] dark:text-white" 
-          >
-            {t('developer.projects.title')}
-          </Typography>
+          <Heading2>{t("developer.projects.title")}</Heading2>
         </motion.div>
-        
+
         <HeroSlider
           projects={projects}
           height="500px"
@@ -74,9 +70,9 @@ export const ProjectSlider = () => {
           borderRadius={20}
           textContainerRadius={12}
           imageRadius={20}
-          buttonText={t('developer.cta.projects')}
+          buttonText={t("developer.cta.projects")}
         />
       </div>
     </section>
   );
-}; 
+};
