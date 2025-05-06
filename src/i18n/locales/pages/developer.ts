@@ -76,12 +76,16 @@ export const developerTranslations = {
     pt: "NodeJs, RESTful, GRPC, GraphQL, NestJS, Rust, Go",
   },
   'developer.projects.title': {
-    en: "Featured Projects",
-    pt: "Projetos em Destaque",
+    en: "Projects",
+    pt: "Projetos",
   },
   'developer.projects.creatorPro.title': {
     en: "CreatorPRO Platform",
     pt: "Plataforma CreatorPRO",
+  },
+  'developer.projects.explorer.title.secundary': {
+    en: "Explore",
+    pt: "Explorar",
   },
   'developer.projects.creatorPro.description': {
     en: "NFT music platform for artists to tokenize and monetize their content with blockchain technology.",

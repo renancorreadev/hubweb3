@@ -376,7 +376,7 @@ export const Experience = () => {
                 {experienceData.slice(0, 5).map((exp, i) => (
                   <motion.div
                     key={`block-nav-${i}`}
-                    className="flex-shrink-0 px-3 py-1.5 rounded-md mr-2 text-xs font-mono"
+                    className="flex-shrink-0 px-3 py-1.5 rounded-md mr-2 text-xs font-mono text-black dark:text-white"
                     style={{
                       backgroundColor: isDark
                         ? "rgba(30, 30, 35, 0.7)"
@@ -403,7 +403,7 @@ export const Experience = () => {
                             : "bg-gray-400"
                         }`}
                       />
-                      #{i + 1}: {exp.hash.substring(0, 8)}
+                      <span className="text-black dark:text-white">#{i + 1}: {exp.hash.substring(0, 8)}</span>
                     </div>
                   </motion.div>
                 ))}

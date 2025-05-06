@@ -64,7 +64,7 @@ export const Projects = () => {
           transition={{ duration: 0.5 }}
           className={`flex justify-between items-center ${mobileOnly.flex.col} ${mobileOnly.gap.gap6}`}
         >
-          <Heading2>{t("developer.projects.title")}</Heading2>
+          <Heading2>{t("developer.projects.explorer.title.secundary")}</Heading2>
         </motion.div>
       </div>
 
