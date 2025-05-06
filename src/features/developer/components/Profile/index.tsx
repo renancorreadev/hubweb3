@@ -1,6 +1,12 @@
 "use client";
 
-import { Body, Caption, Heading1, Heading2, Typography } from "@/components/Typography";
+import {
+  Body,
+  Caption,
+  Heading1,
+  Heading2,
+  Typography,
+} from "@/components/Typography";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 import { Button } from "@/components/Button";
@@ -10,7 +16,7 @@ import Image from "next/image";
 
 export const Profile = () => {
   const { t } = useTranslation();
-  const { isDark, getColor } = useThemeColors();
+  const { isDark } = useThemeColors();
 
   return (
     <section
@@ -62,7 +68,7 @@ export const Profile = () => {
           />
         </div>
 
-        <div >
+        <div>
           {/* Título Principal em 100% da largura */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -79,10 +85,7 @@ export const Profile = () => {
               <Heading1>{t("developer.subtitle")}</Heading1>
             </motion.div>
 
-            <Heading1
- 
-              className="mb-3 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-black dark:text-white"
-            >
+            <Heading1 className="mb-3 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-black dark:text-white">
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -204,7 +207,9 @@ export const Profile = () => {
                 }}
               >
                 <div className="">
-                  <Body className="text-white dark:text-slate-500">{t("developer.summary")}</Body>
+                  <Body className="text-white dark:text-slate-500">
+                    {t("developer.summary")}
+                  </Body>
                 </div>
                 {/* Tech badges */}
                 <motion.div
@@ -267,15 +272,8 @@ export const Profile = () => {
                     { label: "Foco", value: "DLT Solutions" },
                   ].map((stat, i) => (
                     <div key={i} className="text-center p-2">
-                      <Body
-              
-                        style={{ color: "#14F195" }}
-                      >
-                        {stat.value}
-                      </Body>
-                      <Caption>
-                        {stat.label}
-                      </Caption>
+                      <Body style={{ color: "#14F195" }}>{stat.value}</Body>
+                      <Caption>{stat.label}</Caption>
                     </div>
                   ))}
                 </motion.div>
