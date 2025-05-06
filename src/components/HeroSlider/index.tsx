@@ -202,9 +202,22 @@ export const HeroSlider = ({
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
+                    whileHover={{
+                      backgroundColor: "rgba(0, 0, 0, 0.35)",
+                      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+                      transition: { duration: 0.3 }
+                    }}
+                    onHoverStart={(e) => {
+                      const target = e.currentTarget as HTMLElement | null;
+                      if (target && target.style) {
+                        target.style.backgroundColor = "rgba(0, 0, 0, 0.35)";
+                        target.style.boxShadow = "0 8px 32px rgba(0, 0, 0, 0.3)";
+                      }
+                    }}
                     onHoverEnd={(e) => {
                       const target = e.currentTarget as HTMLElement | null;
                       if (target && target.style) {
+                        target.style.backgroundColor = `rgba(255, 255, 255, ${safeTextContainerOpacity})`;
                         target.style.borderBottom = 'none';
                         target.style.boxShadow = 'none';
                       }
@@ -219,6 +232,9 @@ export const HeroSlider = ({
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.8, delay: 0.4 }}
+                      whileHover={{
+                        textShadow: "0 2px 4px rgba(0, 0, 0, 0.5)"
+                      }}
                     >
                       {project.title}
                     </motion.h1>
@@ -231,6 +247,9 @@ export const HeroSlider = ({
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.8, delay: 0.5 }}
+                      whileHover={{
+                        textShadow: "0 1px 3px rgba(0, 0, 0, 0.5)"
+                      }}
                     >
                       {project.subtitle}
                     </motion.p>

@@ -3,56 +3,359 @@
 import { useTranslation } from "@/shared/hooks/useTranslation";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { Typography } from "@/components/Typography";
-import { motion } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { mobileOnly, desktopOnly } from "@/shared/configs/responsive";
+import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 
 interface SkillCardProps {
   title: string;
   content: string;
-  icon: React.ReactNode;
+  icon: string;
   index: number;
+  category: string;
 }
 
-const SkillCard = ({ title, content, icon, index }: SkillCardProps) => {
+const SkillCard = ({ title, content, icon, index, category }: SkillCardProps) => {
   const { isDark, getColor } = useThemeColors();
+  const controls = useAnimation();
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: false, amount: 0.3 });
+  const [isHovered, setIsHovered] = useState(false);
+  
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [controls, isInView]);
+  
+  const getBorderColor = () => {
+    switch (category) {
+      case "blockchain":
+        return isDark ? "#14F195" : "#0EA66B";
+      case "language":
+        return isDark ? "#9945FF" : "#7A35CC";
+      case "backend":
+        return isDark ? "#45BDFF" : "#2A87BE";
+      case "devops":
+        return isDark ? "#F19514" : "#C77200";
+      default:
+        return isDark ? getColor('primary') : getColor('primary');
+    }
+  };
   
   return (
     <motion.div
-      className="rounded-xl p-6 h-full"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
+      ref={cardRef}
+      className="rounded-xl p-8 h-full relative"
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { 
+          opacity: 1, 
+          y: 0, 
+          transition: { 
+            duration: 0.6, 
+            delay: index * 0.15,
+            ease: "easeOut"
+          }
+        }
+      }}
+      whileHover={{ 
+        y: -12,
+        transition: {
+          duration: 0.3,
+          ease: "easeOut"
+        },
+        boxShadow: "0 15px 30px rgba(0, 0, 0, 0.2)" 
+      }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
       style={{
         backgroundColor: isDark ? 'rgba(26, 26, 26, 0.6)' : 'rgba(245, 245, 245, 0.8)',
-        borderLeft: `4px solid ${isDark ? getColor('primary') : getColor('primary')}`,
+        borderLeft: `4px solid ${getBorderColor()}`,
         boxShadow: isDark 
           ? '0 4px 20px rgba(0, 0, 0, 0.3)' 
           : '0 4px 20px rgba(0, 0, 0, 0.1)',
+        backdropFilter: 'blur(8px)',
       }}
     >
-      <div className="flex items-start gap-4">
-        <div 
-          className="p-3 rounded-lg"
+      <div className="flex items-start gap-5">
+        <motion.div 
+          className="p-4 rounded-lg flex justify-center items-center"
           style={{ 
-            backgroundColor: isDark ? 'rgba(20, 241, 149, 0.1)' : 'rgba(14, 166, 107, 0.1)',
-            color: isDark ? getColor('primary') : getColor('primary')
+            backgroundColor: isDark ? `${getBorderColor()}20` : `${getBorderColor()}15`,
+            color: isDark ? getBorderColor() : getBorderColor(),
+            height: 64,
+            width: 64
+          }}
+          animate={{
+            scale: isHovered ? 1.1 : 1,
+            rotate: isHovered ? [0, 5, -5, 0] : 0
+          }}
+          transition={{
+            rotate: {
+              duration: 0.5,
+              ease: "easeInOut"
+            },
+            scale: {
+              duration: 0.3,
+              ease: "easeOut"
+            }
           }}
         >
-          {icon}
-        </div>
+          <div className="relative w-10 h-10 flex items-center justify-center">
+            <Image 
+              src={`/images/techs/${icon}`} 
+              alt={title} 
+              fill
+              className="object-contain"
+              style={{ maxWidth: "100%", maxHeight: "100%" }}
+            />
+          </div>
+        </motion.div>
         
         <div>
           <Typography 
             variant="h4" 
-            className="mb-2"
+            className="mb-3 text-xl md:text-2xl font-bold text-gray-100 dark:text-gray-100"
           >
             {title}
           </Typography>
           
-          <Typography variant="body">
+          <Typography 
+            variant="body"
+            className="text-base md:text-lg leading-relaxed text-gray-300 dark:text-gray-300"
+          >
             {content}
           </Typography>
         </div>
+      </div>
+      
+      {/* Partículas de fundo animadas */}
+      {isHovered && (
+        <motion.div
+          className="absolute inset-0 overflow-hidden rounded-xl pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: Math.random() * 10 + 5,
+                height: Math.random() * 10 + 5,
+                backgroundColor: `${getBorderColor()}${Math.floor(Math.random() * 50 + 20)}`,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -50 - (Math.random() * 50)],
+                x: [0, Math.random() * 40 - 20],
+                opacity: [0, 0.8, 0],
+                scale: [0.5, 1, 0.8]
+              }}
+              transition={{
+                duration: Math.random() * 1.5 + 1,
+                ease: "easeOut",
+                repeat: Infinity,
+                repeatType: "loop",
+                repeatDelay: Math.random() * 0.5,
+              }}
+            />
+          ))}
+        </motion.div>
+      )}
+    </motion.div>
+  );
+};
+
+// Componente de exibição de tecnologias
+interface TechBadgeProps {
+  tech: {
+    name: string;
+    icon: string;
+    category: string;
+    description?: string;
+    level?: number;
+  };
+  delay: number;
+}
+
+const TechBadge = ({ tech, delay }: TechBadgeProps) => {
+  const { isDark } = useThemeColors();
+  const controls = useAnimation();
+  const badgeRef = useRef(null);
+  const isInView = useInView(badgeRef, { once: false, amount: 0.3 });
+  const [isHovered, setIsHovered] = useState(false);
+  
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [controls, isInView]);
+  
+  // Função para obter a cor baseada na categoria
+  const getColorByCategory = (category: string) => {
+    switch (category) {
+      case "blockchain":
+        return isDark ? "#14F195" : "#0EA66B";
+      case "language":
+        return isDark ? "#9945FF" : "#7A35CC";
+      case "backend":
+        return isDark ? "#45BDFF" : "#2A87BE";
+      case "frontend":
+        return isDark ? "#FF6B6B" : "#CC4545";
+      case "devops":
+        return isDark ? "#F19514" : "#C77200";
+      default:
+        return isDark ? "#14F195" : "#0EA66B";
+    }
+  };
+  
+  const color = getColorByCategory(tech.category);
+  
+  return (
+    <motion.div
+      ref={badgeRef}
+      className="flex flex-col items-center justify-between p-3 relative"
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, scale: 0.8, y: 20 },
+        visible: { 
+          opacity: 1, 
+          scale: 1, 
+          y: 0,
+          transition: { 
+            type: "spring",
+            stiffness: 100,
+            damping: 15,
+            delay: delay * 0.1 
+          }
+        }
+      }}
+      whileHover={{ 
+        scale: 1.1,
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 15
+        }
+      }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
+      <div className="relative">
+        <motion.div 
+          className="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center rounded-xl mb-4 p-5"
+          style={{
+            backgroundColor: isDark ? 'rgba(20, 20, 30, 0.5)' : 'rgba(255, 255, 255, 0.8)',
+            boxShadow: isDark 
+              ? '0 4px 20px rgba(0, 0, 0, 0.3)' 
+              : '0 4px 20px rgba(0, 0, 0, 0.1)',
+            border: `1px solid ${isDark ? 'rgba(40, 40, 60, 0.5)' : 'rgba(230, 230, 230, 1)'}`,
+          }}
+          animate={{
+            y: isHovered ? -8 : 0,
+            boxShadow: isHovered 
+              ? isDark 
+                ? `0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px ${color}40` 
+                : `0 15px 30px rgba(0, 0, 0, 0.2), 0 0 20px ${color}40`
+              : isDark 
+                ? '0 4px 20px rgba(0, 0, 0, 0.3)' 
+                : '0 4px 20px rgba(0, 0, 0, 0.1)',
+            transition: {
+              duration: 0.3,
+              ease: "easeOut"
+            }
+          }}
+        >
+          <div className="relative w-full h-full flex items-center justify-center">
+            <Image 
+              src={`/images/techs/${tech.icon}`} 
+              alt={tech.name} 
+              fill
+              className="object-contain p-2"
+              sizes="(max-width: 768px) 96px, 128px"
+            />
+          </div>
+          
+          {isHovered && (
+            <motion.div
+              className="absolute inset-0 rounded-xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.15 }}
+              exit={{ opacity: 0 }}
+              style={{
+                background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
+              }}
+              transition={{ duration: 0.3 }}
+            />
+          )}
+        </motion.div>
+        
+        {/* Indicador de nível de habilidade */}
+        {tech.level && (
+          <motion.div 
+            className="absolute -bottom-2 -right-2 rounded-full flex items-center justify-center text-sm font-bold"
+            style={{ 
+              width: 40, 
+              height: 40,
+              backgroundColor: isDark ? '#FFFFFF' : '#000000',
+              color: isDark ? '#000000' : '#FFFFFF',
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
+              border: `2px solid ${isDark ? '#FFFFFF' : '#000000'}`,
+              zIndex: 20
+            }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ 
+              scale: 1, 
+              opacity: 1,
+              transition: { delay: delay * 0.1 + 0.5, duration: 0.3 }
+            }}
+            whileHover={{
+              scale: 1.15,
+              transition: { duration: 0.2 }
+            }}
+          >
+            {tech.level}
+          </motion.div>
+        )}
+      </div>
+      
+      <div className="text-center mt-1">
+        <Typography 
+          variant="small" 
+          className="font-semibold text-base md:text-lg text-hub-primary"
+        >
+          {tech.name}
+        </Typography>
+        
+        {tech.description && isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="absolute mt-2 w-64 p-3 rounded-md z-10"
+            style={{
+              top: "100%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              backgroundColor: isDark ? "rgba(20, 20, 30, 0.9)" : "rgba(255, 255, 255, 0.9)",
+              boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
+              backdropFilter: "blur(8px)",
+              border: `1px solid ${isDark ? 'rgba(40, 40, 60, 0.5)' : 'rgba(230, 230, 230, 1)'}`,
+            }}
+          >
+            <Typography variant="small" className="text-sm whitespace-normal">
+              {tech.description}
+            </Typography>
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );
@@ -61,86 +364,202 @@ const SkillCard = ({ title, content, icon, index }: SkillCardProps) => {
 export const Skills = () => {
   const { t } = useTranslation();
   const { isDark, getColor } = useThemeColors();
+  const titleRef = useRef(null);
+  const isInView = useInView(titleRef, { once: false, amount: 0.3 });
+  const titleControls = useAnimation();
+  
+  useEffect(() => {
+    if (isInView) {
+      titleControls.start("visible");
+    }
+  }, [titleControls, isInView]);
 
   const skillsData = [
     {
       title: t('developer.skills.blockchain.title'),
       content: t('developer.skills.blockchain.content'),
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
-        </svg>
-      ),
+      icon: "Ethereum.svg",
+      category: "blockchain"
     },
     {
       title: t('developer.skills.languages.title'),
       content: t('developer.skills.languages.content'),
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-          <path d="M6.854 4.646a.5.5 0 0 1 0 .708L4.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0zm2.292 0a.5.5 0 0 0 0 .708L11.793 8l-2.647 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z"/>
-        </svg>
-      ),
+      icon: "Solidity.svg",
+      category: "language"
     },
     {
       title: t('developer.skills.devops.title'),
       content: t('developer.skills.devops.content'),
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6h-1A1.5 1.5 0 0 1 6 4.5v-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm2.5 3.5a.5.5 0 0 0 0 1h11a.5.5 0 0 0 0-1h-11zm.5 5.5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6zm0-4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 8a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
-        </svg>
-      ),
+      icon: "Docker.svg",
+      category: "devops"
     },
     {
       title: t('developer.skills.security.title'),
       content: t('developer.skills.security.content'),
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-        </svg>
-      ),
+      icon: "OpenZeppelin.svg",
+      category: "blockchain"
     },
     {
       title: t('developer.skills.frontend.title'),
       content: t('developer.skills.frontend.content'),
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-        </svg>
-      ),
+      icon: "Next.svg",
+      category: "frontend"
     },
     {
       title: t('developer.skills.backend.title'),
       content: t('developer.skills.backend.content'),
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
-          <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-        </svg>
-      ),
+      icon: "Node.svg",
+      category: "backend"
+    },
+  ];
+  
+  const techIcons = [
+    { 
+      name: "Ethereum", 
+      icon: "Ethereum.svg", 
+      category: "blockchain",
+      description: "Desenvolvimento de DApps, contratos inteligentes e tokens (ERC20, ERC721, ERC1155)",
+      level: 95
+    },
+    { 
+      name: "Solana", 
+      icon: "Solana.svg", 
+      category: "blockchain",
+      description: "Desenvolvimento de programas em Rust e integração com carteiras e NFTs",
+      level: 85
+    },
+    { 
+      name: "Solidity", 
+      icon: "Solidity.svg", 
+      category: "blockchain",
+      description: "Linguagem para contratos inteligentes na EVM com foco em segurança e otimização de gas",
+      level: 95
+    },
+    { 
+      name: "Hyperledger", 
+      icon: "Hyperledger.svg", 
+      category: "blockchain",
+      description: "Frameworks para blockchains empresariais e redes permissionadas",
+      level: 80
+    },
+    { 
+      name: "Rust", 
+      icon: "Rust.svg", 
+      category: "language",
+      description: "Linguagem de programação de alto desempenho para blockchains como Solana e Polkadot",
+      level: 85
+    },
+    { 
+      name: "Go", 
+      icon: "Go.svg", 
+      category: "language",
+      description: "Linguagem de programação para sistemas distribuídos, APIs e microserviços",
+      level: 90
+    },
+    { 
+      name: "Node.js", 
+      icon: "Node.svg", 
+      category: "backend",
+      description: "Desenvolvimento de servidores, APIs RESTful e integração com blockchains",
+      level: 95
+    },
+    { 
+      name: "TypeScript", 
+      icon: "Typescript.svg", 
+      category: "language",
+      description: "Linguagem tipada para projetos robustos e escaláveis",
+      level: 95
+    },
+    { 
+      name: "Python", 
+      icon: "python.svg", 
+      category: "language",
+      description: "Automação, scripts de análise e prototipagem rápida",
+      level: 90
+    },
+    { 
+      name: "Docker", 
+      icon: "Docker.svg", 
+      category: "devops",
+      description: "Containerização para ambientes reproduzíveis e escaláveis",
+      level: 90
+    },
+    { 
+      name: "The Graph", 
+      icon: "theGraph.svg", 
+      category: "blockchain",
+      description: "Indexação e consulta de dados de blockchain através de GraphQL",
+      level: 85
+    },
+    { 
+      name: "Next.js", 
+      icon: "Next.svg", 
+      category: "frontend",
+      description: "Framework React para aplicações web de alta performance",
+      level: 90
     },
   ];
 
   return (
     <section 
-      className="py-20"
+      className="py-20 md:py-24 relative overflow-hidden"
       style={{
-        backgroundColor: isDark ? 'rgba(10, 10, 10, 1)' : 'rgba(248, 249, 250, 1)',
+        backgroundColor: isDark ? '#000000' : '#FFFFFF',
       }}
     >
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          ref={titleRef}
+          initial="hidden"
+          animate={titleControls}
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: { duration: 0.6 }
+            }
+          }}
+          className="text-center mb-20"
         >
           <Typography 
             variant="h2" 
-            className="mb-6"
+            className="mb-4 text-3xl md:text-4xl lg:text-5xl font-bold text-[#000] dark:text-white" 
           >
             {t('developer.skills.title')}
           </Typography>
+          <motion.div 
+            className="h-1 w-20 bg-gradient-to-r from-hub-primary to-hub-secondary mx-auto mb-6"
+            initial={{ width: 0 }}
+            animate={{ width: isInView ? 80 : 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          />
+          <Typography 
+            variant="h2" 
+            className=" mx-auto text-base md:text-lg leading-relaxed text-gray-300 dark:text-gray-300"
+          >
+            {t('developer.skills.description')}
+          </Typography>
+        </motion.div>
+
+        {/* Tech Stack - Ícones de tecnologias */}
+        <motion.div 
+          className="mb-24 py-16 px-6 md:px-12 rounded-xl relative"
+          style={{
+            backgroundColor: isDark ? 'rgba(15, 15, 20, 0.4)' : 'rgba(245, 245, 245, 0.5)',
+            backdropFilter: 'blur(8px)',
+            border: `1px solid ${isDark ? 'rgba(30, 30, 40, 0.3)' : 'rgba(220, 220, 230, 0.8)'}`,
+          }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+        
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 md:gap-10 justify-items-center">
+            {techIcons.map((tech, index) => (
+              <TechBadge key={tech.name} tech={tech} delay={index} />
+            ))}
+          </div>
         </motion.div>
 
         <div className={`grid ${mobileOnly.grid.cols1} ${desktopOnly.grid.cols3} ${mobileOnly.gap.gap6} ${desktopOnly.gap.gap8}`}>
@@ -151,6 +570,7 @@ export const Skills = () => {
               content={skill.content}
               icon={skill.icon}
               index={index}
+              category={skill.category}
             />
           ))}
         </div>

@@ -7,4 +7,92 @@ html, body {
   @apply bg-hub-background text-white min-h-screen antialiased;
 }
 
+/* Adicionando classes de gradiente para o componente Experience */
+.experience-title-gradient-dark {
+  background: -webkit-linear-gradient(45deg, #9945FF, #14F195);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.experience-title-gradient-light {
+  background: -webkit-linear-gradient(45deg, #7A35CC, #10B981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Ajustes para tamanho de fonte no desktop e tema claro/escuro */
+@media (min-width: 1024px) {
+  .blockchain-node h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  .blockchain-node h4 {
+    font-size: 1.25rem !important;
+  }
+  
+  .blockchain-node p {
+    font-size: 1.125rem !important;
+  }
+  
+  .blockchain-stats h3, 
+  .blockchain-timeline h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  .blockchain-stats h4 {
+    font-size: 1.25rem !important;
+  }
+  
+  .blockchain-stats p,
+  .blockchain-timeline p {
+    font-size: 1.125rem !important;
+  }
+  
+  .blockchain-node pre,
+  .blockchain-node .font-mono {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Adaptações para tema claro */
+.light .blockchain-node-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #1e293b;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 15px rgba(122, 53, 204, 0.1);
+}
+
+.light .blockchain-node-content {
+  color: #1e293b;
+}
+
+.light .blockchain-stats-card {
+  background: linear-gradient(135deg, white, rgba(250, 250, 255, 0.9));
+  color: #1e293b;
+}
+
+.light .blockchain-node-text {
+  color: #1e293b;
+}
+
+/* Adaptações mobile */
+@media (max-width: 768px) {
+  .blockchain-node-mobile {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    border-left: 3px solid;
+  }
+  
+  .dark .blockchain-node-mobile {
+    background: linear-gradient(135deg, rgba(25, 25, 30, 0.95), rgba(20, 20, 25, 0.9));
+    border-color: #9945FF;
+  }
+  
+  .light .blockchain-node-mobile {
+    background: linear-gradient(135deg, white, rgba(250, 250, 255, 0.9));
+    border-color: #7A35CC;
+    color: #1e293b;
+  }
+}
+
 

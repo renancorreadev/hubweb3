@@ -1,0 +1,57 @@
+/* Estilos para efeitos de blockchain */
+
+/* Sombra de texto para títulos */
+.text-shadow-purple {
+  text-shadow: 0 0 15px rgba(153, 69, 255, 0.5);
+}
+
+/* Cores para blockchain */
+.dark .text-secondary {
+  color: #9945FF;
+}
+
+.text-primary {
+  color: #7A35CC;
+}
+
+.dark .bg-secondary-light {
+  background-color: rgba(153, 69, 255, 0.2);
+}
+
+.bg-primary-light {
+  background-color: rgba(122, 53, 204, 0.1);
+}
+
+/* Transições suaves para elementos blockchain */
+.blockchain-timeline {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Estilos para canvas 3D */
+canvas {
+  display: block;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Animação de pulso para blocos em mineração */
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* Trata algumas questões de overflow */
+.overflow-fix {
+  overscroll-behavior: none;
+} 

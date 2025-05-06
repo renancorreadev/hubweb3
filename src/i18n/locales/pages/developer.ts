@@ -4,8 +4,8 @@ export const developerTranslations = {
     pt: "Desenvolvedor",
   },
   'developer.subtitle': {
-    en: "Senior Software Engineer & Blockchain Specialist",
-    pt: "Engenheiro de Software Senior & Especialista em Blockchain",
+    en: "Software Engineer",
+    pt: "Engenheiro de Software",
   },
   'developer.summary': {
     en: "Software Engineer with over 7 years of experience in web development, backend and blockchain. Specialist in asset tokenization and DLT solutions focused on traceability, governance and compliance.",
@@ -22,6 +22,10 @@ export const developerTranslations = {
   'developer.skills.title': {
     en: "Technical Skills",
     pt: "Habilidades Técnicas",
+  },
+  'developer.skills.description': {
+    en: "Proficient in the latest blockchain technologies for development and web3 applications",
+    pt: "Proficiente nas tecnologias blockchain mais avançadas para desenvolvimento e aplicações web3",
   },
   'developer.skills.blockchain.title': {
     en: "Blockchain",

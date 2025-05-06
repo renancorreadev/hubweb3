@@ -15,30 +15,30 @@ export const ProjectSlider = () => {
       id: 1,
       title: t('developer.projects.creatorPro.title'),
       subtitle: t('developer.projects.creatorPro.description'),
-      imageUrl: "/images/projects/creator-pro.jpg",
+      imageUrl: "/images/projects/CreatorPro.png",
       linkUrl: "/projects/creator-pro",
     },
     {
       id: 2,
-      title: t('developer.projects.drex.title'),
-      subtitle: t('developer.projects.drex.description'),
-      imageUrl: "/images/projects/drex.jpg",
-      linkUrl: "/projects/drex",
-    },
-    {
-      id: 3,
-      title: t('developer.projects.assetToken.title'),
-      subtitle: t('developer.projects.assetToken.description'),
-      imageUrl: "/images/projects/tokenization.jpg",
-      linkUrl: "/projects/asset-tokenization",
-    },
-    {
-      id: 4,
       title: t('developer.projects.explorer.title'),
       subtitle: t('developer.projects.explorer.description'),
-      imageUrl: "/images/projects/block-explorer.jpg",
+      imageUrl: "/images/projects/Explorer.png",
       linkUrl: "/projects/block-explorer",
     },
+    // {
+    //   id: 2,
+    //   title: t('developer.projects.drex.title'),
+    //   subtitle: t('developer.projects.drex.description'),
+    //   imageUrl: "/images/projects/drex.jpg",
+    //   linkUrl: "/projects/drex",
+    // },
+    // {
+    //   id: 3,
+    //   title: t('developer.projects.assetToken.title'),
+    //   subtitle: t('developer.projects.assetToken.description'),
+    //   imageUrl: "/images/projects/tokenization.jpg",
+    //   linkUrl: "/projects/asset-tokenization",
+    // },
   ];
 
   return (
@@ -55,9 +55,10 @@ export const ProjectSlider = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-10"
         >
+  
           <Typography 
-            variant="h3" 
-            className="mb-4"
+            variant="h2" 
+            className="mb-4 text-3xl md:text-4xl lg:text-5xl font-bold text-[#000] dark:text-white" 
           >
             {t('developer.projects.title')}
           </Typography>
