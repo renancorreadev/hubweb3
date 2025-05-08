@@ -1,228 +1,221 @@
 "use client";
 
-import { ProjectLayout } from "@/components/ProjectLayout";
 import { useTranslation } from "@/shared/hooks/useTranslation";
-import { Heading2, Body } from "@/components/Typography";
-import { motion } from "framer-motion";
+import { ProjectPageTemplate } from "@/components/ProjectPageTemplate";
+import { MediaItem } from "@/components/MediaRenderer";
 
 export default function AssetTokenization() {
   const { t } = useTranslation();
 
   const techStack = [
     "Solidity",
-    "ERC-1400",
-    "ERC-3643",
-    "Polygon",
+    "ERC-1155",
+    "OpenZeppelin",
+    "Hardhat",
     "React",
     "Next.js",
+    "TypeScript",
     "Node.js",
-    "Express",
-    "PostgreSQL"
+    "AWS"
   ];
 
+  // Mídia do projeto
+  const mediaItems: MediaItem[] = [
+    // {
+    //   type: "image",
+    //   url: "/images/projects/asset-tokenization.jpg",
+    //   alt: "Asset Tokenization Platform",
+    //   title: "Plataforma de Tokenização",
+    //   description: "Interface principal da plataforma de tokenização de ativos"
+    // },
+    {
+      type: "video",
+      url: "/media/docker.mp4",
+      thumbnail: "/images/projects/docker-thumb.jpg",
+      title: "Demo da Plataforma",
+      description: "Demonstração das principais funcionalidades da plataforma"
+    }
+  ];
+
+  const architectureDetails = {
+    title: "Arquitetura da Plataforma",
+    description: "A arquitetura da plataforma de tokenização de ativos é projetada para ser modular, escalável e segura. O sistema é construído com base em três principais componentes que trabalham em harmonia para fornecer uma solução completa de tokenização.",
+    flowchartImage: {
+      type: "image" as const, // Corrigindo o erro de tipo
+      url: "/images/projects/loyahub/blockmonitor.png",
+      alt: "Arquitetura da Plataforma de Tokenização de Ativos",
+      title: "Visão Geral da Arquitetura",
+      description: "Diagrama detalhado mostrando a interação entre os componentes do sistema"
+    },
+    highlights: [
+      {
+        title: "Smart Contracts Layer",
+        description: "Camada fundamental que gerencia os tokens, direitos e transações através de contratos inteligentes auditados e seguros.",
+        icon: "⚡"
+      },
+      {
+        title: "Middleware & APIs",
+        description: "Camada intermediária que processa eventos da blockchain, gerencia dados off-chain e fornece APIs para integrações.",
+        icon: "🔄"
+      },
+      {
+        title: "Interface & UX",
+        description: "Interface moderna e intuitiva que simplifica a interação com ativos tokenizados e processos complexos.",
+        icon: "💻"
+      },
+      {
+        title: "Segurança & Compliance",
+        description: "Sistema robusto de segurança com múltiplas camadas de proteção e conformidade regulatória integrada.",
+        icon: "🔒"
+      },
+      {
+        title: "Escalabilidade",
+        description: "Arquitetura projetada para crescer, suportando múltiplos tipos de ativos e grande volume de transações.",
+        icon: "🚀"
+      },
+      {
+        title: "Interoperabilidade",
+        description: "Capacidade de integração com diferentes blockchains e sistemas externos através de bridges e oráculos.",
+        icon: "🌐"
+      }
+    ]
+  };
+
   return (
-    <ProjectLayout
+    <ProjectPageTemplate
+      // Layout props
       title={t("projects.assetTokenization.title")}
       subtitle={t("projects.assetTokenization.subtitle")}
       description={t("projects.assetTokenization.description")}
-      tags={[t("projects.assetTokenization.tag"), "DeFi", "RWA"]}
+      tags={[t("projects.assetTokenization.tag"), "DeFi", "NFT"]}
       techStack={techStack}
+      mediaItems={mediaItems}
       imagePath="/images/projects/asset-tokenization.jpg"
       githubUrl="https://github.com/hubweb3/asset-tokenization"
-      demoUrl="https://assets.hubweb3.com"
+      demoUrl="https://asset-tokenization.hubweb3.com"
       nextProject={{
-        name: t("projects.creatorPro.title"),
-        url: "/projects/creator-pro"
+        name: t("projects.drex.title"),
+        url: "/projects/drex"
       }}
       prevProject={{
         name: t("projects.besuScope.title"),
         url: "/projects/besu-scope"
       }}
-    >
-      <div className="space-y-12">
-        <section>
-          <Heading2>{t("projects.features")}</Heading2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-            {[
-              {
-                title: "Tokenização Compliant",
-                description: "Plataforma para tokenização de ativos com conformidade regulatória integrada, suportando KYC, AML e restrições de transferência.",
-                icon: "🏢"
-              },
-              {
-                title: "Fracionamento de Ativos",
-                description: "Divisão de ativos de alto valor em frações digitais, permitindo investimentos menores e maior liquidez.",
-                icon: "✂️"
-              },
-              {
-                title: "Mercado Secundário",
-                description: "Marketplace integrado para negociação de tokens de ativos, com liquidez organizada e transparência nas transações.",
-                icon: "🔄"
-              },
-              {
-                title: "Gestão de Dividendos",
-                description: "Distribuição automática de rendimentos e dividendos para detentores de tokens, com rastreabilidade completa.",
-                icon: "💰"
-              }
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                className="p-6 rounded-xl"
-                style={{
-                  backgroundColor: "rgba(20, 241, 149, 0.05)",
-                  border: "1px solid rgba(20, 241, 149, 0.2)",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold mb-3 text-black dark:text-white">{feature.title}</h3>
-                <p className="text-gray-700 dark:text-gray-300">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <Heading2>{t("projects.architecture")}</Heading2>
-          <Body>
-            A plataforma de tokenização de ativos utiliza uma arquitetura modular baseada em contratos inteligentes que implementam os padrões ERC-1400 e ERC-3643 para tokens de segurança compliant. O sistema inclui um módulo de identidade digital para KYC/AML, gerenciamento de permissões, e integração com sistemas financeiros tradicionais para liquidação e custódia.
-          </Body>
-          
-          <div className="mt-8 p-6 rounded-xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-gray-800">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 rounded-lg bg-white/20 dark:bg-black/20">
-                <h4 className="font-bold mb-2 text-black dark:text-white">Módulo de Tokenização</h4>
-                <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
-                  <li>Contratos ERC-1400/ERC-3643</li>
-                  <li>Sistema de particionamento</li>
-                  <li>Controles de transferência</li>
-                  <li>Gestão de compliance</li>
-                </ul>
-              </div>
-              
-              <div className="p-4 rounded-lg bg-white/20 dark:bg-black/20">
-                <h4 className="font-bold mb-2 text-black dark:text-white">Módulo de Identidade</h4>
-                <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
-                  <li>Sistema de identidade verificável</li>
-                  <li>Integração com provedores KYC</li>
-                  <li>Lista de permissões e restrições</li>
-                  <li>Monitoramento AML</li>
-                </ul>
-              </div>
-              
-              <div className="p-4 rounded-lg bg-white/20 dark:bg-black/20">
-                <h4 className="font-bold mb-2 text-black dark:text-white">Módulo de Mercado</h4>
-                <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
-                  <li>Livro de ofertas descentralizado</li>
-                  <li>Sistema de correspondência</li>
-                  <li>Ordens com limite e mercado</li>
-                  <li>Liquidação automática</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <Heading2>Casos de Uso</Heading2>
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              className="p-6 rounded-xl"
-              style={{
-                backgroundColor: "rgba(153, 69, 255, 0.05)",
-                border: "1px solid rgba(153, 69, 255, 0.2)",
-              }}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-bold mb-3 text-black dark:text-white">Tokenização Imobiliária</h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
-                Conversão de propriedades imobiliárias em tokens digitais, permitindo investimento fracionado e rentabilidade através de aluguel ou valorização do imóvel.
-              </p>
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                <div className="flex items-center">
-                  <span className="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Retorno médio: 8-12% ao ano</span>
-                </div>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              className="p-6 rounded-xl"
-              style={{
-                backgroundColor: "rgba(153, 69, 255, 0.05)",
-                border: "1px solid rgba(153, 69, 255, 0.2)",
-              }}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-bold mb-3 text-black dark:text-white">Títulos de Dívida</h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
-                Tokenização de títulos de crédito corporativo, com pagamento automático de juros, amortização programada e segurança jurídica.
-              </p>
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                <div className="flex items-center">
-                  <span className="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Redução de custos operacionais: 70%</span>
-                </div>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              className="p-6 rounded-xl"
-              style={{
-                backgroundColor: "rgba(153, 69, 255, 0.05)",
-                border: "1px solid rgba(153, 69, 255, 0.2)",
-              }}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-bold mb-3 text-black dark:text-white">Arte e Colecionáveis</h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
-                Fracionamento de obras de arte e itens colecionáveis valiosos, permitindo propriedade compartilhada e valorização do ativo ao longo do tempo.
-              </p>
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                <div className="flex items-center">
-                  <span className="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Acessibilidade: investimento mínimo de R$ 100</span>
-                </div>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              className="p-6 rounded-xl"
-              style={{
-                backgroundColor: "rgba(153, 69, 255, 0.05)",
-                border: "1px solid rgba(153, 69, 255, 0.2)",
-              }}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-bold mb-3 text-black dark:text-white">Recebíveis e Direitos Creditórios</h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
-                Tokenização de recebíveis comerciais e direitos creditórios, criando liquidez imediata para empresas e oportunidades de investimento para investidores.
-              </p>
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                <div className="flex items-center">
-                  <span className="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Antecipação de recebíveis com custo 40% menor</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      </div>
-    </ProjectLayout>
+      
+      // Architecture Section
+      hasArchitecture={true}
+      architectureDetails={architectureDetails}
+      
+      // Features Section
+      features={[
+        {
+          title: "Tokenização Multi-Ativo",
+          description: "Plataforma flexível para tokenização de diferentes classes de ativos como imóveis, arte, commodities e títulos.",
+          icon: "🏢",
+          color: "purple"
+        },
+        {
+          title: "Conformidade Regulatória",
+          description: "Sistema integrado de KYC/AML e conformidade com regulamentações locais e globais para tokenização de ativos.",
+          icon: "⚖️",
+          color: "green"
+        },
+        {
+          title: "Fracionamento Inteligente",
+          description: "Mecanismo avançado para fracionamento de ativos com gestão automática de direitos e dividendos.",
+          icon: "📊",
+          color: "purple"
+        },
+        {
+          title: "Mercado Secundário",
+          description: "Ambiente de negociação integrado para tokens de ativos com liquidez e descoberta de preços.",
+          icon: "💱",
+          color: "green"
+        }
+      ]}
+      
+      architectureTitle="Arquitetura"
+      architectureDescription="Nossa plataforma de tokenização de ativos é construída sobre uma arquitetura modular e escalável,
+        combinando smart contracts seguros com uma interface moderna e intuitiva. O sistema utiliza
+        contratos ERC-1155 para suportar múltiplos tipos de tokens e implementa mecanismos avançados
+        de governança e compliance."
+      architectureSections={[
+        {
+          title: "Smart Contracts",
+          items: [
+            "Contratos ERC-1155 customizados",
+            "Sistema de governança on-chain",
+            "Gestão de direitos e dividendos",
+            "Mecanismos de compliance"
+          ]
+        },
+        {
+          title: "Backend & APIs",
+          items: [
+            "Indexação e cache de eventos",
+            "APIs REST e GraphQL",
+            "Integração com KYC/AML",
+            "Sistema de notificações"
+          ]
+        },
+        {
+          title: "Frontend & UX",
+          items: [
+            "Interface responsiva moderna",
+            "Dashboards interativos",
+            "Carteira digital integrada",
+            "Analytics em tempo real"
+          ]
+        }
+      ]}
+      
+      processTitle="Processo de Tokenização"
+      processSteps={[
+        {
+          title: "Avaliação e Due Diligence",
+          description: "Análise completa do ativo, documentação legal e avaliação de viabilidade para tokenização.",
+          icon: "📋"
+        },
+        {
+          title: "Estruturação do Token",
+          description: "Definição das características do token, direitos, governança e mecanismos de distribuição.",
+          icon: "⚙️"
+        },
+        {
+          title: "Emissão e Distribuição",
+          description: "Deploy dos smart contracts, mint dos tokens e distribuição inicial para investidores.",
+          icon: "🚀"
+        },
+        {
+          title: "Gestão e Governança",
+          description: "Administração contínua do ativo tokenizado, distribuição de rendimentos e governança.",
+          icon: "🔄"
+        }
+      ]}
+      
+      benefitsTitle="Benefícios da Tokenização"
+      benefitGroups={[
+        {
+          title: "Para Emissores",
+          benefits: [
+            "Acesso a um pool global de investidores",
+            "Redução de custos operacionais",
+            "Maior liquidez para ativos ilíquidos",
+            "Automação de processos administrativos"
+          ],
+          color: "primary"
+        },
+        {
+          title: "Para Investidores",
+          benefits: [
+            "Investimento fracionado em ativos premium",
+            "Maior transparência e rastreabilidade",
+            "Negociação 24/7 em mercado secundário",
+            "Gestão simplificada de portfolio"
+          ],
+          color: "secondary"
+        }
+      ]}
+    />
   );
 } 
