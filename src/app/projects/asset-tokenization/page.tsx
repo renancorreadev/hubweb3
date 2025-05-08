@@ -21,13 +21,13 @@ export default function AssetTokenization() {
 
   // Mídia do projeto
   const mediaItems: MediaItem[] = [
-    // {
-    //   type: "image",
-    //   url: "/images/projects/asset-tokenization.jpg",
-    //   alt: "Asset Tokenization Platform",
-    //   title: "Plataforma de Tokenização",
-    //   description: "Interface principal da plataforma de tokenização de ativos"
-    // },
+    {
+      type: "image",
+      url: "/images/projects/loyahub/API_Infra.png",
+      alt: "Asset Tokenization Platform",
+      title: "Plataforma de Tokenização",
+      description: "Interface principal da plataforma de tokenização de ativos"
+    },
     {
       type: "video",
       url: "/media/docker.mp4",
