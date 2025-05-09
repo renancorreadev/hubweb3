@@ -41,7 +41,7 @@ export default function AssetTokenization() {
     title: "Arquitetura da Plataforma",
     description: "A arquitetura da plataforma de tokenização de ativos é projetada para ser modular, escalável e segura. O sistema é construído com base em três principais componentes que trabalham em harmonia para fornecer uma solução completa de tokenização.",
     flowchartImage: {
-      type: "image" as const, // Corrigindo o erro de tipo
+      type: "image" as const, 
       url: "/images/projects/loyahub/blockmonitor.png",
       alt: "Arquitetura da Plataforma de Tokenização de Ativos",
       title: "Visão Geral da Arquitetura",
@@ -90,7 +90,7 @@ export default function AssetTokenization() {
       tags={[t("projects.assetTokenization.tag"), "DeFi", "NFT"]}
       techStack={techStack}
       mediaItems={mediaItems}
-      imagePath="/images/projects/asset-tokenization.jpg"
+      imagePath="/images/projects/rwahub/rwa.png"
       githubUrl="https://github.com/hubweb3/asset-tokenization"
       demoUrl="https://asset-tokenization.hubweb3.com"
       nextProject={{

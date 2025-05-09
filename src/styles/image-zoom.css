@@ -1,0 +1,27 @@
+[data-rmiz-modal-overlay] {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(0px) !important;
+}
+
+[data-rmiz-modal-img] {
+  background-color: transparent !important;
+}
+
+[data-rmiz-btn-unzoom] {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-rmiz-btn-unzoom]:hover {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+[data-rmiz-content="found"] img {
+  transition: transform 0.3s ease !important;
+} 

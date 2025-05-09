@@ -9,6 +9,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { RenderContainer } from "@/shared/components/RenderContainer";
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
+import '@/styles/image-zoom.css';
 
 interface ProjectLayoutProps {
   children: ReactNode;
@@ -316,16 +319,20 @@ export function ProjectLayout({
                     : "0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(122, 53, 204, 0.1)",
                 }}
               >
-                <div className="relative w-full h-0 pb-[56.25%]">
-                  <Image
-                    src={imagePath}
-                    alt={title}
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    style={{ objectFit: "cover" }}
-                    className="transition-transform duration-700 hover:scale-105"
-                  />
+                <div className="relative w-full overflow-hidden rounded-lg bg-[#1a1b26]">
+                  <Zoom
+                    classDialog="bg-transparent"
+                    zoomMargin={40}
+                  >
+                    <Image
+                      src={imagePath}
+                      alt={title}
+                      width={1920}
+                      height={1080}
+                      priority
+                      className="w-full h-auto transition-transform duration-700 hover:scale-105"
+                    />
+                  </Zoom>
                 </div>
               </motion.div>
             </div>

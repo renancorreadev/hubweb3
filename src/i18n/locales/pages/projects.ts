@@ -63,8 +63,8 @@ export const projectsTranslations = {
 
   // Asset Tokenization
   "projects.assetTokenization.title": {
-    pt: "Tokenização de Ativos",
-    en: "Asset Tokenization"
+    pt: "RWA HUB",
+    en: "RWA HUB"
   },
   "projects.assetTokenization.subtitle": {
     pt: "Plataforma de tokenização de ativos do mundo real",
