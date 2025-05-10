@@ -278,8 +278,9 @@ export const Profile = () => {
                   ))}
                 </motion.div>
 
+                {/* Botões de contato e projetos */}
                 <motion.div
-                  className="flex flex-wrap gap-6 mt-6 md:mt-8"
+                  className="flex flex-col max-sm:space-y-4 sm:flex-row sm:gap-6 mt-6 md:mt-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
@@ -287,14 +288,14 @@ export const Profile = () => {
                   <Button
                     href="/contact"
                     variant="primary"
-                    className="text-base px-6 py-3"
+                    className="text-base px-6 py-3 w-full sm:w-auto text-center"
                   >
                     {t("developer.cta.contact")}
                   </Button>
                   <Button
                     href="/projects"
                     variant="secondary"
-                    className={`text-base px-6 py-3 ${
+                    className={`text-base px-6 py-3 w-full sm:w-auto text-center ${
                       isDark
                         ? ""
                         : "border-2 border-hub-primary text-white bg-black hover:bg-hub-primary hover:text-white"

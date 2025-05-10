@@ -26,7 +26,7 @@ export function Hero() {
 
   const styles = {
     h1: `text-white font-monument leading-tight tracking-tight ${desktopOnly.text["8xl"]} ${mobileOnly.text["5xl"]}`,
-    p: `mt-6 max-w-2xl mx-auto text-base md:text-lg text-white/80 font-diatype leading-relaxed ${desktopOnly.text["2xl"]} ${mobileOnly.text["sm"]}`,
+    p: `mt-6 max-w-2xl text-base md:text-lg text-white/80 font-diatype leading-relaxed ${desktopOnly.text["2xl"]} ${mobileOnly.text["sm"]}`,
   };
 
   return (

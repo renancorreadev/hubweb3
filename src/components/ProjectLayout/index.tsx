@@ -350,11 +350,11 @@ export function ProjectLayout({
 
           {/* Navegação para outros projetos */}
           <div className="border-t border-gray-200 dark:border-gray-800 pt-12 mt-16">
-            <div className="flex flex-col md:flex-row md:justify-between items-center gap-8">
+            <div className="flex flex-row justify-between items-center gap-2 max-sm:px-2">
               {prevProject && (
                 <Link
                   href={prevProject.url}
-                  className="flex items-center gap-3 px-6 py-3 rounded-full transition-colors"
+                  className="flex items-center gap-2 px-6 py-3 rounded-full transition-colors max-sm:flex-1 max-sm:justify-center max-sm:text-sm max-sm:px-2"
                   style={{
                     backgroundColor: isDark
                       ? "rgba(153, 69, 255, 0.1)"
@@ -368,7 +368,7 @@ export function ProjectLayout({
                   }}
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-5 h-5 max-sm:w-4 max-sm:h-4 shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -381,14 +381,14 @@ export function ProjectLayout({
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
-                  {prevProject.name}
+                  <span className="max-sm:line-clamp-1">{prevProject.name}</span>
                 </Link>
               )}
 
               {nextProject && (
                 <Link
                   href={nextProject.url}
-                  className="flex items-center gap-3 px-6 py-3 rounded-full transition-colors"
+                  className="flex items-center gap-2 px-6 py-3 rounded-full transition-colors max-sm:flex-1 max-sm:justify-center max-sm:text-sm max-sm:px-2"
                   style={{
                     backgroundColor: isDark
                       ? "rgba(20, 241, 149, 0.1)"
@@ -401,9 +401,9 @@ export function ProjectLayout({
                     }`,
                   }}
                 >
-                  {nextProject.name}
+                  <span className="max-sm:line-clamp-1">{nextProject.name}</span>
                   <svg
-                    className="w-5 h-5"
+                    className="w-5 h-5 max-sm:w-4 max-sm:h-4 shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

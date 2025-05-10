@@ -186,7 +186,7 @@ export function ProjectPageTemplate({
 
         {/* Features Section */}
         <motion.section
-          className="relative"
+          className="relative my-32 max-sm:!my-10"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -229,7 +229,7 @@ export function ProjectPageTemplate({
         {hasArchitecture && architectureDetails && (
           <motion.section
             ref={architectureRef}
-            className="relative py-24 lg:px-10 overflow-hidden"
+            className="relative py-24 lg:px-10 overflow-hidden max-sm:!my-1 max-sm:!py-4"
             style={{ opacity: architectureOpacity }}
           >
             {/* Background Effects */}
@@ -273,7 +273,7 @@ export function ProjectPageTemplate({
               {/* Hero Architecture Image (if provided) */}
               {architectureDetails.heroArchitecture && (
                 <motion.div 
-                  className="mb-24"
+                  className="max-sm:!mb-10 lg:mb-24"
                   style={{ y: architectureYSpring }}
                 >
                   <motion.div
@@ -299,7 +299,7 @@ export function ProjectPageTemplate({
               {architectureDetails.sections.map((section, sectionIndex) => (
                 <motion.div
                   key={sectionIndex}
-                  className="mb-24"
+                  className="max-sm:!mb-8 lg:mb-24"
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: sectionIndex * 0.2 }}
@@ -356,7 +356,7 @@ export function ProjectPageTemplate({
 
               {/* Existing Highlights Section */}
               <motion.div 
-                className="pt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+                className="lg:pt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
                 style={{ scale: highlightScaleSpring }}
               >
                 {architectureDetails.highlights.map((highlight, index) => (
@@ -403,29 +403,44 @@ export function ProjectPageTemplate({
         )}
 
         {/* Process Section */}
-        <section className="relative">
+        <section className="relative max-sm:!my-1 max-sm:!py-4 ">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Heading2>{processTitle}</Heading2>
-            <div className="mt-8 relative">
-              <div className="absolute left-[50%] top-0 bottom-0 w-0.5 bg-gradient-to-b from-hub-primary to-hub-secondary" />
+            <Heading2 className="w-full max-sm:text-sm ">{processTitle}</Heading2>
+            <div className="mt-8 relative ">
+              <div className="absolute left-[50%] md:block hidden top-0 bottom-0 w-0.5 bg-gradient-to-b from-hub-primary to-hub-secondary" />
+              {/* Linha vertical para mobile */}
+              <div className="absolute left-4 md:hidden block top-0 bottom-0 w-0.5 bg-gradient-to-b from-hub-primary to-hub-secondary" />
               
               {processSteps.map((step, index) => (
                 <motion.div
                   key={index}
-                  className={`flex items-center gap-8 mb-12 ${
-                    index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                  className={`flex items-start gap-8 mb-12 max-sm:flex-row ${
+                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
                   initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
                   viewport={{ once: true }}
                 >
-                  <div className="flex-1">
+                  {/* Círculo numerado para mobile sempre à esquerda */}
+                  <div className="relative md:hidden block min-w-[32px]">
+                    <motion.div
+                      className="w-8 h-8 rounded-full bg-hub-primary flex items-center justify-center"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 300, delay: index * 0.2 }}
+                      viewport={{ once: true }}
+                    >
+                      <span className="text-white font-bold">{index + 1}</span>
+                    </motion.div>
+                  </div>
+
+                  <div className="flex-1 max-sm:ml-4">
                     <motion.div
                       className="p-6 rounded-xl"
                       style={{
@@ -448,7 +463,8 @@ export function ProjectPageTemplate({
                     </motion.div>
                   </div>
                   
-                  <div className="relative">
+                  {/* Círculo numerado para desktop */}
+                  <div className="relative hidden md:block">
                     <motion.div
                       className="w-8 h-8 rounded-full bg-hub-primary flex items-center justify-center"
                       initial={{ scale: 0 }}
@@ -460,7 +476,7 @@ export function ProjectPageTemplate({
                     </motion.div>
                   </div>
                   
-                  <div className="flex-1" />
+                  <div className="flex-1 md:block hidden" />
                 </motion.div>
               ))}
             </div>
@@ -469,6 +485,7 @@ export function ProjectPageTemplate({
 
         {/* Benefits Section */}
         <motion.section
+          className="max-sm:!my-1 max-sm:!py-4"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}

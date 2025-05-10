@@ -221,7 +221,7 @@ export const Experience = () => {
 
   return (
     <section
-      className={`py-16 md:py-24 relative overflow-hidden ${
+      className={`relative overflow-hidden ${
         isDark ? "dark" : "light"
       }`}
       style={{

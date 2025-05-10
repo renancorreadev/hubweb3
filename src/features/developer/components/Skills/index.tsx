@@ -518,12 +518,12 @@ export const Skills = () => {
 
   return (
     <section
-      className="py-20 md:py-24 relative overflow-hidden"
+      className="sm:py-10 md:py-20 relative overflow-hidden"
       style={{
         backgroundColor: isDark ? "#000000" : "#f5f7fa",
       }}
     >
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+      <div className="px-4 md:px-6 lg:px-8 relative z-10">
         <motion.div
           ref={titleRef}
           initial="hidden"
@@ -550,7 +550,7 @@ export const Skills = () => {
 
         {/* Tech Stack - Ícones de tecnologias */}
         <motion.div
-          className="mb-24 py-16 px-6 md:px-12 rounded-xl relative"
+          className="mb-8 md:mb-24 md:py-16 sm:px-6 px-14 rounded-xl relative"
           style={{
             backgroundColor: isDark
               ? "rgba(15, 15, 20, 0.4)"
@@ -572,7 +572,7 @@ export const Skills = () => {
         </motion.div>
 
         <div
-          className={`grid ${mobileOnly.grid.cols1} ${desktopOnly.grid.cols3} ${mobileOnly.gap.gap6} ${desktopOnly.gap.gap8}`}
+          className={`grid ${mobileOnly.grid.cols1} ${desktopOnly.grid.cols3} ${mobileOnly.gap.gap6} ${desktopOnly.gap.gap8}  md:px-18`}
         >
           {skillsData.map((skill, index) => (
             <SkillCard

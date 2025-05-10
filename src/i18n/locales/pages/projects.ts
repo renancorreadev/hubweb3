@@ -121,8 +121,8 @@ export const projectsTranslations = {
   
   // DREX
   "projects.drex.title": {
-    pt: "DREX Sandbox",
-    en: "DREX Sandbox"
+    pt: "DREX",
+    en: "DREX"
   },
   "projects.drex.subtitle": {
     pt: "Ambiente de simulação para o Real Digital brasileiro",
@@ -173,7 +173,7 @@ export const projectsTranslations = {
     en: "INFRASTRUCTURE"
   },
 
-  // Asset Tokenization - Architecture
+  // RWZ Tokenization - Architecture
   "projects.assetTokenization.architecture.overview": {
     pt: "Plataforma de tokenização de ativos construída com foco em segurança e escalabilidade",
     en: "Asset tokenization platform built with focus on security and scalability"
@@ -209,8 +209,8 @@ export const projectsTranslations = {
 
   // Asset Tokenization - Features
   "projects.assetTokenization.features.multiAsset.title": {
-    pt: "Tokenização Multi-Ativo",
-    en: "Multi-Asset Tokenization"
+    pt: "Tokenização Multi-Ativo RWAs",
+    en: "Multi-Asset Tokenization of RWAs"
   },
   "projects.assetTokenization.features.multiAsset.description": {
     pt: "Plataforma flexível para tokenização de diferentes classes de ativos como imóveis, arte, commodities e títulos.",
@@ -290,16 +290,16 @@ export const projectsTranslations = {
   },
   "projects.assetTokenization.benefits.issuers.list": {
     pt: [
-      "Acesso a um pool global de investidores",
+      "Tokenização de ativos do mundo real",
       "Redução de custos operacionais",
-      "Maior liquidez para ativos ilíquidos",
-      "Automação de processos administrativos"
+      "Possibilidade de criar programas de fidelidade tokenizados",
+      "Automação de processos administrativos e de compliance"
     ],
     en: [
-      "Access to a global investor pool",
+      "Tokenization of real-world assets",
       "Reduced operational costs",
-      "Increased liquidity for illiquid assets",
-      "Automation of administrative processes"
+      "Possibility to create tokenized loyalty programs",
+      "Automation of administrative processes and compliance"
     ]
   },
   "projects.assetTokenization.benefits.investors.title": {
@@ -310,13 +310,13 @@ export const projectsTranslations = {
     pt: [
       "Investimento fracionado em ativos premium",
       "Maior transparência e rastreabilidade",
-      "Negociação 24/7 em mercado secundário",
+      "Rapidez na compra e venda de tokens",
       "Gestão simplificada de portfolio"
     ],
     en: [
       "Fractionalized investment in premium assets",
       "Enhanced transparency and traceability",
-      "24/7 trading in secondary market",
+      "Speed in buying and selling tokens",
       "Simplified portfolio management"
     ]
   }

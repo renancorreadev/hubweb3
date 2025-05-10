@@ -144,6 +144,14 @@ const config: Config = {
         'xl': '1280px',  // desktops
         '2xl': '1536px', // large screens, 2K
         '3xl': '1920px', // ultra-wide monitors, 4K
+        // Max-width breakpoints
+        'max-3xl': {'max': '1920px'},
+        'max-2xl': {'max': '1536px'},
+        'max-xl': {'max': '1280px'},
+        'max-lg': {'max': '1024px'},
+        'max-md': {'max': '768px'},
+        'max-sm': {'max': '640px'},
+        'max-xs': {'max': '480px'},
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
