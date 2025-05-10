@@ -11,7 +11,6 @@ export const headerStyles = {
     border-b 
     border-white/10
     ${mobileOnly.padding.p2}
-    ${tabletOnly.padding.p4}
   `,
 
   wrapper: `

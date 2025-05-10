@@ -25,7 +25,7 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const styles = {
-    h1: `text-white font-monument leading-tight tracking-tight ${desktopOnly.text["8xl"]} ${mobileOnly.text["5xl"]}`,
+    h1: `text-white font-monument leading-tight tracking-tight ${desktopOnly.text["7xl"]} ${mobileOnly.text["5xl"]} ${desktopOnly.margin.mt12}`,
     p: `mt-6 max-w-2xl text-base md:text-lg text-white/80 font-diatype leading-relaxed ${desktopOnly.text["2xl"]} ${mobileOnly.text["sm"]}`,
   };
 

@@ -77,7 +77,7 @@ export function Header() {
             <Image
               src="/logos/hub.png"
               alt={"HubWeb3"}
-              width={isMobile ? 50 : 70}
+              width={isMobile ? 50 : 50}
               height={isMobile ? 20 : 30}
               priority
               style={{
