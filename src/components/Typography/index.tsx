@@ -43,6 +43,10 @@ export interface TypographyProps extends PropsWithChildren {
   responsive?: boolean;
   /** Estilos CSS inline */
   style?: React.CSSProperties;
+  /** HTML perigoso para renderização */
+  dangerouslySetInnerHTML?: {
+    __html: string;
+  };
 }
 
 /**
@@ -222,9 +226,10 @@ export function Typography({
     {
       className: classes,
       style: gradient ? {} : style,
+      dangerouslySetInnerHTML: props.dangerouslySetInnerHTML,
       ...props
     },
-    children
+    !props.dangerouslySetInnerHTML ? children : undefined
   );
 }
 

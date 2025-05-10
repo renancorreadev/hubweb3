@@ -11,6 +11,9 @@ import {
 } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { RenderContainer } from "@/shared/components/RenderContainer";
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
+import '@/styles/image-zoom.css';
 
 export interface MediaItem {
   type: "image" | "video";
@@ -24,7 +27,6 @@ export interface MediaItem {
 interface MediaRendererProps {
   media: MediaItem[];
   className?: string;
-  isArchitecture?: boolean;
 }
 
 const shimmer = (w: number, h: number) => `
@@ -54,23 +56,53 @@ const MediaContent = ({
   onClose?: () => void;
 }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [showVideo, setShowVideo] = useState(false);
+
+  if (media.type === "video" && !showVideo) {
+    return (
+      <div className="relative w-full h-full group cursor-pointer" onClick={() => setShowVideo(true)}>
+        <Image
+          src={media.thumbnail || media.url}
+          alt={media.alt || "Video thumbnail"}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          sizes="100vw"
+          priority={!onClose}
+          quality={100}
+          placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+        />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-black/50 backdrop-blur-sm text-white">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            <span className="text-sm font-medium">Play Video</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return media.type === "image" ? (
-    <div className="relative w-full h-full group">
-      <Image
-        src={media.url}
-        alt={media.alt || "Project media"}
-        fill
-        className={`object-cover transition-transform duration-700 group-hover:scale-105 ${
-          isLoading ? "scale-110 blur-lg" : "scale-100 blur-0"
-        }`}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-        priority={!onClose} // priority only for main view
-        quality={90}
-        placeholder="blur"
-        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-        onLoadingComplete={() => setIsLoading(false)}
-      />
+    <div className="relative w-full h-[600px]">
+      <Zoom classDialog="bg-transparent" zoomMargin={40}>
+        <Image
+          src={media.url}
+          alt={media.alt || "Project media"}
+          width={1920}
+          height={1080}
+          className={`w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 ${
+            isLoading ? "scale-110 blur-lg" : "scale-100 blur-0"
+          }`}
+          sizes="100vw"
+          priority={!onClose}
+          quality={100}
+          placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+          onLoadingComplete={() => setIsLoading(false)}
+        />
+      </Zoom>
       {isLoading && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -90,6 +122,7 @@ const MediaContent = ({
         playsInline
         onLoadStart={() => setIsLoading(true)}
         onLoadedData={() => setIsLoading(false)}
+        autoPlay
       >
         <source src={media.url} type="video/mp4" />
         <p className="text-gray-700 dark:text-gray-300">
@@ -111,10 +144,8 @@ const MediaContent = ({
 export function MediaRenderer({
   media,
   className = "",
-  isArchitecture = false,
 }: MediaRendererProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [showPreview, setShowPreview] = useState(false);
   const selectedMedia = media[selectedIndex];
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -168,24 +199,20 @@ export function MediaRenderer({
         {/* Main Display */}
         <Suspense
           fallback={
-            <div className="w-full aspect-video rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-900 animate-pulse">
+            <div className="w-full h-[600px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-900 animate-pulse">
               <Skeleton className="w-full h-full" />
             </div>
           }
         >
           <motion.div
-            className={`relative w-full ${
-              isArchitecture ? "aspect-[16/9]" : "aspect-video"
-            } rounded-2xl overflow-hidden
-            bg-gradient-to-br from-gray-100 via-white to-gray-200 
+            className="relative w-full h-[600px] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 via-white to-gray-200 
             dark:from-gray-900 dark:via-gray-800 dark:to-gray-950
             shadow-[0_0_50px_rgba(0,0,0,0.1)] dark:shadow-[0_0_50px_rgba(255,255,255,0.05)]
-            group cursor-pointer`}
+            group"
             style={{
               rotateX: rotateXSpring,
               rotateY: rotateYSpring,
             }}
-            onClick={() => setShowPreview(true)}
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
           >
@@ -229,40 +256,6 @@ export function MediaRenderer({
             <MediaContent media={selectedMedia} />
           </motion.div>
         </Suspense>
-
-        {/* Preview Modal */}
-        <AnimatePresence>
-          {showPreview && (
-            <motion.div
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowPreview(false)}
-            >
-              <Suspense
-                fallback={
-                  <div className="relative w-[90vw] h-[90vh] rounded-2xl overflow-hidden bg-gray-900 animate-pulse">
-                    <Skeleton className="w-full h-full" />
-                  </div>
-                }
-              >
-                <motion.div
-                  className="relative w-[90vw] h-[90vh] rounded-2xl overflow-hidden"
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.9, opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                >
-                  <MediaContent
-                    media={selectedMedia}
-                    onClose={() => setShowPreview(false)}
-                  />
-                </motion.div>
-              </Suspense>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* Thumbnails */}
         <Suspense

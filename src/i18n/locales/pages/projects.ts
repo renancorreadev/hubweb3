@@ -32,6 +32,10 @@ export const projectsTranslations = {
     pt: "Arquitetura",
     en: "Architecture"
   },
+  "projects.architecture.description": {
+    pt: "A arquitetura da plataforma de tokenização de ativos é projetada para ser modular, escalável e segura. O sistema é construído com base em três principais componentes que trabalham em harmonia para fornecer uma solução completa de tokenização.",
+    en: "The asset tokenization platform architecture is designed to be modular, scalable, and secure. The system is built on three main components that work in harmony to provide a complete tokenization solution."
+  },
   "projects.useCases": {
     pt: "Casos de Uso",
     en: "Use Cases"
@@ -71,8 +75,8 @@ export const projectsTranslations = {
     en: "Real-world asset tokenization platform"
   },
   "projects.assetTokenization.description": {
-    pt: "Plataforma completa para tokenização de ativos do mundo real, permitindo a digitalização, fracionamento e negociação de ativos como imóveis, arte e commodities. A solução utiliza contratos inteligentes para garantir conformidade regulatória, rastreabilidade e governança transparente.",
-    en: "Complete platform for tokenizing real-world assets, enabling the digitization, fractionation, and trading of assets such as real estate, art, and commodities. The solution uses smart contracts to ensure regulatory compliance, traceability, and transparent governance."
+    pt: "RWA Compliance Hub é um ecossistema modular para tokenização de ativos do mundo real, baseado no padrão <em>ERC‑3643</em>. Permite que reguladores implementem seus próprios contratos de compliance (KYC/AML, limites de negociação, controles de risco), sem alterar o core token. Oferece governança on‑chain, monitoramento em tempo real e APIs para integração com sistemas legados, garantindo transparência, auditabilidade e conformidade regulatória.",
+    en: "RWA Compliance Hub is a modular ecosystem for real-world asset tokenization, based on the <em>ERC-3643</em> standard. It allows regulators to implement their own compliance contracts (KYC/AML, trading limits, risk controls), without changing the core token. It offers on-chain governance, real-time monitoring and APIs for integration with legacy systems, ensuring transparency, auditability and regulatory compliance."
   },
   "projects.assetTokenization.tag": {
     pt: "BLOCKCHAIN",

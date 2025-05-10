@@ -5,17 +5,14 @@ import { Heading2, Body } from "@/components/Typography";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
 import { MediaRenderer, MediaItem } from "@/components/MediaRenderer";
+import { useTranslation } from "@/shared/hooks/useTranslation";
+import Image from "next/image";
 
 export interface Feature {
   title: string;
   description: string;
   icon: string;
   color: "purple" | "green";
-}
-
-export interface ArchitectureSection {
-  title: string;
-  items: string[];
 }
 
 export interface ProcessStep {
@@ -30,15 +27,37 @@ export interface BenefitGroup {
   color: "primary" | "secondary";
 }
 
+export interface DiagramItem {
+  url: string;
+  alt?: string;
+  diagramType: 'flowchart' | 'sequence' | 'architecture' | 'component' | 'deployment';
+  description: string;
+}
+
+export interface ArchitectureSection {
+  title: string;
+  description: string;
+  diagrams: DiagramItem[];
+}
+
 export interface ArchitectureDetails {
   title: string;
   description: string;
-  flowchartImage: MediaItem;
+  overview: string;
+  sections: ArchitectureSection[];
+  heroArchitecture?: MediaItem;
+  content?: React.ReactNode;
   highlights: {
     title: string;
     description: string;
     icon: string;
   }[];
+  technicalSpecs?: {
+    stack: string[];
+    apis: string[];
+    databases: string[];
+    infrastructure: string[];
+  };
 }
 
 export interface ProjectPageTemplateProps {
@@ -65,9 +84,6 @@ export interface ProjectPageTemplateProps {
   
   // Content props
   features: Feature[];
-  architectureTitle: string;
-  architectureDescription: string;
-  architectureSections: ArchitectureSection[];
   processTitle: string;
   processSteps: ProcessStep[];
   benefitsTitle: string;
@@ -96,9 +112,6 @@ export function ProjectPageTemplate({
   
   // Content props
   features,
-  architectureTitle,
-  architectureDescription,
-  architectureSections,
   processTitle,
   processSteps,
   benefitsTitle,
@@ -110,6 +123,7 @@ export function ProjectPageTemplate({
 }: ProjectPageTemplateProps) {
   const containerRef = useRef(null);
   const architectureRef = useRef(null);
+  const { t } = useTranslation();
   
   // Scroll progress para o container principal
   const { scrollYProgress: mainScrollProgress } = useScroll({
@@ -170,7 +184,7 @@ export function ProjectPageTemplate({
 
         {/* Features Section */}
         <motion.section
-          className="bg-white dark:bg-black"
+          className="relative"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -213,18 +227,17 @@ export function ProjectPageTemplate({
         {hasArchitecture && architectureDetails && (
           <motion.section
             ref={architectureRef}
-            className="relative py-24 overflow-hidden"
+            className="relative py-24 lg:px-10 overflow-hidden"
             style={{ opacity: architectureOpacity }}
           >
             {/* Background Effects */}
             <div className="absolute inset-0">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-hub-primary/5 to-transparent dark:via-hub-primary/10" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--hub-primary-rgb),0.1)_0%,transparent_60%)]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-hub-primary/[0.04] to-transparent" />
               <motion.div
-                className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--hub-secondary-rgb),0.1)_0%,transparent_60%)]"
+                className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--hub-secondary-rgb),0.04)_0%,transparent_70%)]"
                 animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.5, 0.3]
+                  scale: [1, 1.1, 1],
+                  opacity: [0.04, 0.06, 0.04]
                 }}
                 transition={{
                   duration: 8,
@@ -235,7 +248,7 @@ export function ProjectPageTemplate({
             </div>
             
             <div className="container mx-auto px-4 relative">
-              {/* Title and Description */}
+              {/* Overview Section */}
               <motion.div 
                 className="text-center mb-16"
                 style={{ y: architectureYSpring }}
@@ -250,32 +263,94 @@ export function ProjectPageTemplate({
                     {architectureDetails.title}
                   </Heading2>
                   <Body className="max-w-3xl mx-auto mt-6 text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-                    {architectureDetails.description}
+                    {architectureDetails.overview}
                   </Body>
                 </motion.div>
               </motion.div>
 
-              {/* Flowchart with 3D effect */}
-              <motion.div 
-                className="mb-24 perspective-1000"
-                style={{ y: architectureYSpring }}
-              >
-                <motion.div
-                  className="relative rounded-2xl overflow-hidden shadow-2xl"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              {/* Hero Architecture Image (if provided) */}
+              {architectureDetails.heroArchitecture && (
+                <motion.div 
+                  className="mb-24"
+                  style={{ y: architectureYSpring }}
                 >
-                  <MediaRenderer 
-                    media={[architectureDetails.flowchartImage]}
-                    className="max-w-5xl mx-auto"
-                    isArchitecture={true}
-                  />
+                  <motion.div
+                    className="relative rounded-2xl overflow-hidden bg-black/20 backdrop-blur-sm"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  >
+                    <Image
+                      src={architectureDetails.heroArchitecture.url}
+                      alt={architectureDetails.heroArchitecture.alt || "Architecture Overview"}
+                      width={1920}
+                      height={1080}
+                      className="w-full h-auto"
+                      priority
+                    />
+                  </motion.div>
                 </motion.div>
-              </motion.div>
+              )}
 
-              {/* Architecture Highlights */}
+              {/* Architecture Sections */}
+              {architectureDetails.sections.map((section, sectionIndex) => (
+                <motion.div
+                  key={sectionIndex}
+                  className="mb-24"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: sectionIndex * 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+                    {section.title}
+                  </h3>
+                  <p className="text-gray-700 dark:text-gray-300 mb-8">
+                    {section.description}
+                  </p>
+                  
+                  {/* Diagrams Grid */}
+                  <div className={`grid gap-8 ${
+                    section.diagrams.length === 1 
+                      ? 'grid-cols-1' 
+                      : section.diagrams.length === 2 
+                        ? 'grid-cols-1 md:grid-cols-2' 
+                        : section.diagrams.length === 3 
+                          ? 'grid-cols-1 md:grid-cols-2 [&>*:last-child]:md:col-span-2'
+                          : 'grid-cols-1 md:grid-cols-2'
+                  }`}>
+                    {section.diagrams.map((diagram, diagramIndex) => (
+                      <motion.div
+                        key={diagramIndex}
+                        className="relative rounded-xl overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 p-4"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      >
+                        <Image
+                          src={diagram.url}
+                          alt={diagram.alt || ""}
+                          width={800}
+                          height={500}
+                          className="w-full h-auto rounded-lg mb-4"
+                        />
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="px-3 py-1 rounded-full text-sm bg-hub-primary/10 text-hub-primary">
+                              {diagram.diagramType}
+                            </span>
+                          </div>
+                          <p className="text-gray-700 dark:text-gray-300">
+                            {diagram.description}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+
+              {/* Existing Highlights Section */}
               <motion.div 
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+                className="pt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
                 style={{ scale: highlightScaleSpring }}
               >
                 {architectureDetails.highlights.map((highlight, index) => (

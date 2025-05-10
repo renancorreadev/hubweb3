@@ -204,30 +204,18 @@ export function ProjectLayout({
                     {t("projects.description")}
                   </h3>
                   {typeof description === "string" ? (
-                    <Body>{description}</Body>
+                    <Body 
+                      dangerouslySetInnerHTML={{ 
+                        __html: description.replace(
+                          /<em>(.*?)<\/em>/g, 
+                          '<em class="text-hub-primary dark:text-hub-primary" style="font-family: inherit; font-size: inherit; font-weight: inherit; font-style: normal;">$1</em>'
+                        ) 
+                      }} 
+                    />
                   ) : (
                     description
                   )}
                 </div>
-
-                {/* Tech Stack */}
-                {techStack.length > 0 && (
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold mb-4 text-black dark:text-white">
-                      {t("projects.technologies")}
-                    </h3>
-                    <div className="flex flex-wrap gap-3">
-                      {techStack.map((tech, index) => (
-                        <span
-                          key={index}
-                          className="px-4 py-2 rounded-lg text-sm bg-black dark:bg-white text-white dark:text-black font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
 
                 {/* Links */}
                 <div className="flex flex-wrap gap-4">
@@ -307,7 +295,7 @@ export function ProjectLayout({
             </div>
 
             {/* Lado Direito - Imagem */}
-            <div className="w-full lg:w-1/2">
+            <div className="w-full lg:w-1/2 lg:pt-4" >
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -337,6 +325,25 @@ export function ProjectLayout({
               </motion.div>
             </div>
           </div>
+
+          {/* Tech Stack - Agora fora do container de duas colunas */}
+          {techStack.length > 0 && (
+            <div className="mt-12 space-y-4 w-full">
+              <h3 className="text-2xl font-bold mb-4 text-black dark:text-white">
+                {t("projects.technologies")}
+              </h3>
+              <div className="flex flex-wrap gap-3 w-full">
+                {techStack.map((tech, index) => (
+                  <span
+                    key={index}
+                    className="px-4 py-2 rounded-lg text-sm bg-black dark:bg-white text-white dark:text-black font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Conteúdo Detalhado */}
           <div className="mt-20 mb-16">{children}</div>

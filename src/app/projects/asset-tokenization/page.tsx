@@ -11,75 +11,31 @@ export default function AssetTokenization() {
     "Solidity",
     "ERC-1155",
     "OpenZeppelin",
-    "Hardhat",
+    "MythX",
+    "Slither",
+    "Securify",
+    "Echidna",
+    "Foundryup",
+    "MongoDB",
     "React",
     "Next.js",
     "TypeScript",
     "Node.js",
-    "AWS"
+    "AWS",
+    "Docker",
+    'Go'
   ];
 
   // Mídia do projeto
   const mediaItems: MediaItem[] = [
     {
-      type: "image",
-      url: "/images/projects/loyahub/API_Infra.png",
-      alt: "Asset Tokenization Platform",
-      title: "Plataforma de Tokenização",
-      description: "Interface principal da plataforma de tokenização de ativos"
-    },
-    {
       type: "video",
-      url: "/media/docker.mp4",
-      thumbnail: "/images/projects/docker-thumb.jpg",
+      url: "/images/projects/rwahub/RegisterNew.mp4",
+      thumbnail: "/images/projects/rwahub/thumb.png",
       title: "Demo da Plataforma",
       description: "Demonstração das principais funcionalidades da plataforma"
     }
   ];
-
-  const architectureDetails = {
-    title: "Arquitetura da Plataforma",
-    description: "A arquitetura da plataforma de tokenização de ativos é projetada para ser modular, escalável e segura. O sistema é construído com base em três principais componentes que trabalham em harmonia para fornecer uma solução completa de tokenização.",
-    flowchartImage: {
-      type: "image" as const, 
-      url: "/images/projects/loyahub/blockmonitor.png",
-      alt: "Arquitetura da Plataforma de Tokenização de Ativos",
-      title: "Visão Geral da Arquitetura",
-      description: "Diagrama detalhado mostrando a interação entre os componentes do sistema"
-    },
-    highlights: [
-      {
-        title: "Smart Contracts Layer",
-        description: "Camada fundamental que gerencia os tokens, direitos e transações através de contratos inteligentes auditados e seguros.",
-        icon: "⚡"
-      },
-      {
-        title: "Middleware & APIs",
-        description: "Camada intermediária que processa eventos da blockchain, gerencia dados off-chain e fornece APIs para integrações.",
-        icon: "🔄"
-      },
-      {
-        title: "Interface & UX",
-        description: "Interface moderna e intuitiva que simplifica a interação com ativos tokenizados e processos complexos.",
-        icon: "💻"
-      },
-      {
-        title: "Segurança & Compliance",
-        description: "Sistema robusto de segurança com múltiplas camadas de proteção e conformidade regulatória integrada.",
-        icon: "🔒"
-      },
-      {
-        title: "Escalabilidade",
-        description: "Arquitetura projetada para crescer, suportando múltiplos tipos de ativos e grande volume de transações.",
-        icon: "🚀"
-      },
-      {
-        title: "Interoperabilidade",
-        description: "Capacidade de integração com diferentes blockchains e sistemas externos através de bridges e oráculos.",
-        icon: "🌐"
-      }
-    ]
-  };
 
   return (
     <ProjectPageTemplate
@@ -91,8 +47,8 @@ export default function AssetTokenization() {
       techStack={techStack}
       mediaItems={mediaItems}
       imagePath="/images/projects/rwahub/rwa.png"
-      githubUrl="https://github.com/hubweb3/asset-tokenization"
-      demoUrl="https://asset-tokenization.hubweb3.com"
+      githubUrl="https://github.com/rwa-hub"
+      demoUrl="https://github.com/rwa-hub"
       nextProject={{
         name: t("projects.drex.title"),
         url: "/projects/drex"
@@ -104,7 +60,48 @@ export default function AssetTokenization() {
       
       // Architecture Section
       hasArchitecture={true}
-      architectureDetails={architectureDetails}
+      architectureDetails={{
+        title: t("projects.architecture"),
+        description: t("projects.architecture.description"),
+        overview: "Plataforma de tokenização de ativos construída com foco em segurança e escalabilidade",
+        // heroArchitecture: {
+        //   type: "image",
+        //   url: "/images/projects/loyahub/API_Infra.png",
+        //   alt: "Asset Tokenization Architecture Overview"
+        // },
+        sections: [
+          {
+            title: "",
+            description: "",
+            diagrams: [
+              {
+                url: "/images/projects/rwahub/fluxes/monitor.png",
+                alt: "Asset Tokenization Architecture",
+                diagramType: "architecture",
+                description: "Diagrama de Operações da RWA Hub"
+              },   
+            ]
+          },
+          
+        ],
+        highlights: [
+          {
+            title: "Arquitetura em Camadas",
+            description: "Uma arquitetura moderna e escalável para tokenização de ativos",
+            icon: "🏗️"
+          },
+          {
+            title: "Integração Blockchain",
+            description: "Conexão segura com smart contracts e serviços blockchain",
+            icon: "⛓️"
+          },
+          {
+            title: "Gestão de Dados",
+            description: "Sistema robusto para gerenciamento de metadados e eventos",
+            icon: "📊"
+          }
+        ]
+      }}
       
       // Features Section
       features={[
@@ -131,41 +128,6 @@ export default function AssetTokenization() {
           description: "Ambiente de negociação integrado para tokens de ativos com liquidez e descoberta de preços.",
           icon: "💱",
           color: "green"
-        }
-      ]}
-      
-      architectureTitle="Arquitetura"
-      architectureDescription="Nossa plataforma de tokenização de ativos é construída sobre uma arquitetura modular e escalável,
-        combinando smart contracts seguros com uma interface moderna e intuitiva. O sistema utiliza
-        contratos ERC-1155 para suportar múltiplos tipos de tokens e implementa mecanismos avançados
-        de governança e compliance."
-      architectureSections={[
-        {
-          title: "Smart Contracts",
-          items: [
-            "Contratos ERC-1155 customizados",
-            "Sistema de governança on-chain",
-            "Gestão de direitos e dividendos",
-            "Mecanismos de compliance"
-          ]
-        },
-        {
-          title: "Backend & APIs",
-          items: [
-            "Indexação e cache de eventos",
-            "APIs REST e GraphQL",
-            "Integração com KYC/AML",
-            "Sistema de notificações"
-          ]
-        },
-        {
-          title: "Frontend & UX",
-          items: [
-            "Interface responsiva moderna",
-            "Dashboards interativos",
-            "Carteira digital integrada",
-            "Analytics em tempo real"
-          ]
         }
       ]}
       
