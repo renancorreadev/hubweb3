@@ -7,6 +7,8 @@ import { useRef } from "react";
 import { MediaRenderer, MediaItem } from "@/components/MediaRenderer";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 import Image from "next/image";
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 export interface Feature {
   title: string;
@@ -279,14 +281,16 @@ export function ProjectPageTemplate({
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   >
-                    <Image
-                      src={architectureDetails.heroArchitecture.url}
-                      alt={architectureDetails.heroArchitecture.alt || "Architecture Overview"}
-                      width={1920}
-                      height={1080}
-                      className="w-full h-auto"
-                      priority
-                    />
+                    <Zoom>
+                      <Image
+                        src={architectureDetails.heroArchitecture.url}
+                        alt={architectureDetails.heroArchitecture.alt || "Architecture Overview"}
+                        width={1920}
+                        height={1080}
+                        className="w-full h-auto"
+                        priority
+                      />
+                    </Zoom>
                   </motion.div>
                 </motion.div>
               )}
@@ -325,13 +329,15 @@ export function ProjectPageTemplate({
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       >
-                        <Image
-                          src={diagram.url}
-                          alt={diagram.alt || ""}
-                          width={800}
-                          height={500}
-                          className="w-full h-auto rounded-lg mb-4"
-                        />
+                        <Zoom>
+                          <Image
+                            src={diagram.url}
+                            alt={diagram.alt || ""}
+                            width={800}
+                            height={500}
+                            className="w-full h-auto rounded-lg mb-4"
+                          />
+                        </Zoom>
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
                             <span className="px-3 py-1 rounded-full text-sm bg-hub-primary/10 text-hub-primary">

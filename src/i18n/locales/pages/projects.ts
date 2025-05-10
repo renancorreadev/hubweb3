@@ -171,5 +171,153 @@ export const projectsTranslations = {
   "projects.rwa.tag": {
     pt: "INFRAESTRUTURA",
     en: "INFRASTRUCTURE"
+  },
+
+  // Asset Tokenization - Architecture
+  "projects.assetTokenization.architecture.overview": {
+    pt: "Plataforma de tokenização de ativos construída com foco em segurança e escalabilidade",
+    en: "Asset tokenization platform built with focus on security and scalability"
+  },
+  "projects.assetTokenization.architecture.diagrams.operations": {
+    pt: "Diagrama de Operações da RWA Hub",
+    en: "RWA Hub Operations Diagram"
+  },
+  "projects.assetTokenization.architecture.highlights.layers.title": {
+    pt: "Arquitetura em Camadas",
+    en: "Layered Architecture"
+  },
+  "projects.assetTokenization.architecture.highlights.layers.description": {
+    pt: "Uma arquitetura moderna e escalável para tokenização de ativos",
+    en: "A modern and scalable architecture for asset tokenization"
+  },
+  "projects.assetTokenization.architecture.highlights.blockchain.title": {
+    pt: "Integração Blockchain",
+    en: "Blockchain Integration"
+  },
+  "projects.assetTokenization.architecture.highlights.blockchain.description": {
+    pt: "Conexão segura com smart contracts e serviços blockchain",
+    en: "Secure connection with smart contracts and blockchain services"
+  },
+  "projects.assetTokenization.architecture.highlights.data.title": {
+    pt: "Gestão de Dados",
+    en: "Data Management"
+  },
+  "projects.assetTokenization.architecture.highlights.data.description": {
+    pt: "Sistema robusto para gerenciamento de metadados e eventos",
+    en: "Robust system for metadata and event management"
+  },
+
+  // Asset Tokenization - Features
+  "projects.assetTokenization.features.multiAsset.title": {
+    pt: "Tokenização Multi-Ativo",
+    en: "Multi-Asset Tokenization"
+  },
+  "projects.assetTokenization.features.multiAsset.description": {
+    pt: "Plataforma flexível para tokenização de diferentes classes de ativos como imóveis, arte, commodities e títulos.",
+    en: "Flexible platform for tokenizing different asset classes such as real estate, art, commodities, and securities."
+  },
+  "projects.assetTokenization.features.compliance.title": {
+    pt: "Conformidade Regulatória",
+    en: "Regulatory Compliance"
+  },
+  "projects.assetTokenization.features.compliance.description": {
+    pt: "Sistema integrado de KYC/AML e conformidade com regulamentações locais e globais para tokenização de ativos.",
+    en: "Integrated KYC/AML system and compliance with local and global regulations for asset tokenization."
+  },
+  "projects.assetTokenization.features.fractionalization.title": {
+    pt: "Fracionamento Inteligente",
+    en: "Smart Fractionalization"
+  },
+  "projects.assetTokenization.features.fractionalization.description": {
+    pt: "Mecanismo avançado para fracionamento de ativos com gestão automática de direitos e dividendos.",
+    en: "Advanced mechanism for asset fractionalization with automatic rights and dividend management."
+  },
+  "projects.assetTokenization.features.market.title": {
+    pt: "Mercado Secundário",
+    en: "Secondary Market"
+  },
+  "projects.assetTokenization.features.market.description": {
+    pt: "Ambiente de negociação integrado para tokens de ativos com liquidez e descoberta de preços.",
+    en: "Integrated trading environment for asset tokens with liquidity and price discovery."
+  },
+
+  // Asset Tokenization - Process
+  "projects.assetTokenization.process.title": {
+    pt: "Processo de Tokenização",
+    en: "Tokenization Process"
+  },
+  "projects.assetTokenization.process.steps.dueDiligence.title": {
+    pt: "Avaliação e Due Diligence",
+    en: "Assessment and Due Diligence"
+  },
+  "projects.assetTokenization.process.steps.dueDiligence.description": {
+    pt: "Análise completa do ativo, documentação legal e avaliação de viabilidade para tokenização.",
+    en: "Complete asset analysis, legal documentation, and tokenization feasibility assessment."
+  },
+  "projects.assetTokenization.process.steps.structuring.title": {
+    pt: "Estruturação do Token",
+    en: "Token Structuring"
+  },
+  "projects.assetTokenization.process.steps.structuring.description": {
+    pt: "Definição das características do token, direitos, governança e mecanismos de distribuição.",
+    en: "Definition of token characteristics, rights, governance, and distribution mechanisms."
+  },
+  "projects.assetTokenization.process.steps.issuance.title": {
+    pt: "Emissão e Distribuição",
+    en: "Issuance and Distribution"
+  },
+  "projects.assetTokenization.process.steps.issuance.description": {
+    pt: "Deploy dos smart contracts, mint dos tokens e distribuição inicial para investidores.",
+    en: "Smart contracts deployment, token minting, and initial distribution to investors."
+  },
+  "projects.assetTokenization.process.steps.management.title": {
+    pt: "Gestão e Governança",
+    en: "Management and Governance"
+  },
+  "projects.assetTokenization.process.steps.management.description": {
+    pt: "Administração contínua do ativo tokenizado, distribuição de rendimentos e governança.",
+    en: "Continuous management of tokenized asset, yield distribution, and governance."
+  },
+
+  // Asset Tokenization - Benefits
+  "projects.assetTokenization.benefits.title": {
+    pt: "Benefícios da Tokenização",
+    en: "Tokenization Benefits"
+  },
+  "projects.assetTokenization.benefits.issuers.title": {
+    pt: "Para Emissores",
+    en: "For Issuers"
+  },
+  "projects.assetTokenization.benefits.issuers.list": {
+    pt: [
+      "Acesso a um pool global de investidores",
+      "Redução de custos operacionais",
+      "Maior liquidez para ativos ilíquidos",
+      "Automação de processos administrativos"
+    ],
+    en: [
+      "Access to a global investor pool",
+      "Reduced operational costs",
+      "Increased liquidity for illiquid assets",
+      "Automation of administrative processes"
+    ]
+  },
+  "projects.assetTokenization.benefits.investors.title": {
+    pt: "Para Investidores",
+    en: "For Investors"
+  },
+  "projects.assetTokenization.benefits.investors.list": {
+    pt: [
+      "Investimento fracionado em ativos premium",
+      "Maior transparência e rastreabilidade",
+      "Negociação 24/7 em mercado secundário",
+      "Gestão simplificada de portfolio"
+    ],
+    en: [
+      "Fractionalized investment in premium assets",
+      "Enhanced transparency and traceability",
+      "24/7 trading in secondary market",
+      "Simplified portfolio management"
+    ]
   }
 }; 

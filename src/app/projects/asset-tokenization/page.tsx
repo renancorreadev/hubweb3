@@ -63,12 +63,7 @@ export default function AssetTokenization() {
       architectureDetails={{
         title: t("projects.architecture"),
         description: t("projects.architecture.description"),
-        overview: "Plataforma de tokenização de ativos construída com foco em segurança e escalabilidade",
-        // heroArchitecture: {
-        //   type: "image",
-        //   url: "/images/projects/loyahub/API_Infra.png",
-        //   alt: "Asset Tokenization Architecture Overview"
-        // },
+        overview: t("projects.assetTokenization.architecture.overview"),
         sections: [
           {
             title: "",
@@ -78,26 +73,25 @@ export default function AssetTokenization() {
                 url: "/images/projects/rwahub/fluxes/monitor.png",
                 alt: "Asset Tokenization Architecture",
                 diagramType: "architecture",
-                description: "Diagrama de Operações da RWA Hub"
+                description: t("projects.assetTokenization.architecture.diagrams.operations")
               },   
             ]
           },
-          
         ],
         highlights: [
           {
-            title: "Arquitetura em Camadas",
-            description: "Uma arquitetura moderna e escalável para tokenização de ativos",
+            title: t("projects.assetTokenization.architecture.highlights.layers.title"),
+            description: t("projects.assetTokenization.architecture.highlights.layers.description"),
             icon: "🏗️"
           },
           {
-            title: "Integração Blockchain",
-            description: "Conexão segura com smart contracts e serviços blockchain",
+            title: t("projects.assetTokenization.architecture.highlights.blockchain.title"),
+            description: t("projects.assetTokenization.architecture.highlights.blockchain.description"),
             icon: "⛓️"
           },
           {
-            title: "Gestão de Dados",
-            description: "Sistema robusto para gerenciamento de metadados e eventos",
+            title: t("projects.assetTokenization.architecture.highlights.data.title"),
+            description: t("projects.assetTokenization.architecture.highlights.data.description"),
             icon: "📊"
           }
         ]
@@ -106,75 +100,65 @@ export default function AssetTokenization() {
       // Features Section
       features={[
         {
-          title: "Tokenização Multi-Ativo",
-          description: "Plataforma flexível para tokenização de diferentes classes de ativos como imóveis, arte, commodities e títulos.",
+          title: t("projects.assetTokenization.features.multiAsset.title"),
+          description: t("projects.assetTokenization.features.multiAsset.description"),
           icon: "🏢",
           color: "purple"
         },
         {
-          title: "Conformidade Regulatória",
-          description: "Sistema integrado de KYC/AML e conformidade com regulamentações locais e globais para tokenização de ativos.",
+          title: t("projects.assetTokenization.features.compliance.title"),
+          description: t("projects.assetTokenization.features.compliance.description"),
           icon: "⚖️",
           color: "green"
         },
         {
-          title: "Fracionamento Inteligente",
-          description: "Mecanismo avançado para fracionamento de ativos com gestão automática de direitos e dividendos.",
+          title: t("projects.assetTokenization.features.fractionalization.title"),
+          description: t("projects.assetTokenization.features.fractionalization.description"),
           icon: "📊",
           color: "purple"
         },
         {
-          title: "Mercado Secundário",
-          description: "Ambiente de negociação integrado para tokens de ativos com liquidez e descoberta de preços.",
+          title: t("projects.assetTokenization.features.market.title"),
+          description: t("projects.assetTokenization.features.market.description"),
           icon: "💱",
           color: "green"
         }
       ]}
       
-      processTitle="Processo de Tokenização"
+      processTitle={t("projects.assetTokenization.process.title")}
       processSteps={[
         {
-          title: "Avaliação e Due Diligence",
-          description: "Análise completa do ativo, documentação legal e avaliação de viabilidade para tokenização.",
+          title: t("projects.assetTokenization.process.steps.dueDiligence.title"),
+          description: t("projects.assetTokenization.process.steps.dueDiligence.description"),
           icon: "📋"
         },
         {
-          title: "Estruturação do Token",
-          description: "Definição das características do token, direitos, governança e mecanismos de distribuição.",
+          title: t("projects.assetTokenization.process.steps.structuring.title"),
+          description: t("projects.assetTokenization.process.steps.structuring.description"),
           icon: "⚙️"
         },
         {
-          title: "Emissão e Distribuição",
-          description: "Deploy dos smart contracts, mint dos tokens e distribuição inicial para investidores.",
+          title: t("projects.assetTokenization.process.steps.issuance.title"),
+          description: t("projects.assetTokenization.process.steps.issuance.description"),
           icon: "🚀"
         },
         {
-          title: "Gestão e Governança",
-          description: "Administração contínua do ativo tokenizado, distribuição de rendimentos e governança.",
+          title: t("projects.assetTokenization.process.steps.management.title"),
+          description: t("projects.assetTokenization.process.steps.management.description"),
           icon: "🔄"
         }
       ]}
       
-      benefitsTitle="Benefícios da Tokenização"
+      benefitsTitle={t("projects.assetTokenization.benefits.title")}
       benefitGroups={[
         {
-          title: "Para Emissores",
-          benefits: [
-            "Acesso a um pool global de investidores",
-            "Redução de custos operacionais",
-            "Maior liquidez para ativos ilíquidos",
-            "Automação de processos administrativos"
-          ],
+          title: t("projects.assetTokenization.benefits.issuers.title"),
+          benefits: (t("projects.assetTokenization.benefits.issuers.list") as unknown) as string[],
           color: "primary"
         },
         {
-          title: "Para Investidores",
-          benefits: [
-            "Investimento fracionado em ativos premium",
-            "Maior transparência e rastreabilidade",
-            "Negociação 24/7 em mercado secundário",
-            "Gestão simplificada de portfolio"
-          ],
+          title: t("projects.assetTokenization.benefits.investors.title"),
+          benefits: (t("projects.assetTokenization.benefits.investors.list") as unknown) as string[],
           color: "secondary"
         }
       ]}
