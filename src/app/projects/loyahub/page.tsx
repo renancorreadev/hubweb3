@@ -22,7 +22,7 @@ export default function LoyaHub() {
   const mediaItems: MediaItem[] = [
     {
       type: "video",
-      url: "/images/projects/loyahub/screen/Full.mp4",
+      url: "/images/projects/loyahub/screen/Recovery",
       thumbnail: "/images/projects/loyahub/screen/Transferir.png",
       title: "Demo do App",
       description: "Demonstração das principais funcionalidades do aplicativo"
