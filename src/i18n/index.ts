@@ -10,6 +10,7 @@ import { projectsTranslations } from './locales/pages/projects';
 import { drexTranslations } from './locales/pages/drex';
 import { projectsListTranslations } from './locales/pages/projects/projects-list';
 import { contactTranslations } from './locales/pages/contact';
+import { blockchainSubs } from './locales/pages/blockchain';
 
 // Types for the internationalization system
 export type SupportedLanguage = 'en' | 'es' | 'pt';
@@ -44,6 +45,7 @@ export const translations: Translations = {
   ...drexTranslations,
   ...projectsListTranslations,
   ...contactTranslations,
+  ...blockchainSubs,
 };
 
 // List of supported languages for language selectors

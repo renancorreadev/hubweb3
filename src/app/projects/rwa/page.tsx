@@ -33,12 +33,12 @@ export default function RwaConnect() {
         githubUrl="https://github.com/hubweb3/rwa-connect"
         demoUrl="https://rwa.hubweb3.com"
         nextProject={{
-          name: t("projects.besuScope.title"),
-          url: "/projects/besu-scope",
+          name: t("projects.assetTokenization.title"),
+          url: "/projects/asset-tokenization",
         }}
         prevProject={{
-          name: t("projects.loyahub.title"),
-          url: "/projects/loyahub",
+            name: t("projects.loyahub.title"),
+            url: "/projects/loyahub",
         }}
       >
         <div className="space-y-12">

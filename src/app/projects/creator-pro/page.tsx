@@ -28,7 +28,7 @@ export default function CreatorPro() {
       techStack={techStack}
       imagePath="/images/projects/CreatorPro.png"
       githubUrl="https://github.com/hubweb3/creator-pro"
-      demoUrl="https://creator-pro.hubweb3.com"
+      demoUrl="https://musicpro.live/"
       nextProject={{
         name: t("projects.drex.title"),
         url: "/projects/drex"

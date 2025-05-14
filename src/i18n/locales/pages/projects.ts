@@ -76,7 +76,7 @@ export const projectsTranslations = {
   },
   "projects.assetTokenization.description": {
     pt: "RWA Compliance Hub é um ecossistema modular para tokenização de ativos do mundo real, baseado no padrão <em>ERC‑3643</em>. Permite que reguladores implementem seus próprios contratos de compliance (KYC/AML, limites de negociação, controles de risco), sem alterar o core token. Oferece governança on‑chain, monitoramento em tempo real e APIs para integração com sistemas legados, garantindo transparência, auditabilidade e conformidade regulatória.",
-    en: "RWA Compliance Hub is a modular ecosystem for real-world asset tokenization, based on the <em>ERC-3643</em> standard. It allows regulators to implement their own compliance contracts (KYC/AML, trading limits, risk controls), without changing the core token. It offers on-chain governance, real-time monitoring and APIs for integration with legacy systems, ensuring transparency, auditability and regulatory compliance."
+    en: "RWA Compliance Hub is a modular ecosystem for real-world asset tokenization, based on the ERC-3643 standard. It allows regulators to implement their own compliance contracts (KYC/AML, trading limits, risk controls), without changing the core token. It offers on-chain governance, real-time monitoring and APIs for integration with legacy systems, ensuring transparency, auditability and regulatory compliance."
   },
   "projects.assetTokenization.tag": {
     pt: "BLOCKCHAIN",
@@ -573,5 +573,139 @@ export const projectsTranslations = {
   "projects.loyahub.video.demo.description": {
     pt: "Demonstração das principais funcionalidades do aplicativo",
     en: "Demonstration of the main app functionalities"
+  },
+
+  // Blockchain Page
+  "projects.blockchain.title": {
+    pt: "Blockchain",
+    en: "Blockchain"
+  },
+  "projects.blockchain.intro.title": {
+    pt: "O que é Blockchain?",
+    en: "What is Blockchain?"
+  },
+  "projects.blockchain.intro.description": {
+    pt: "Blockchain é uma tecnologia de registro distribuído que permite transações seguras, transparentes e imutáveis sem a necessidade de intermediários. Funciona como um livro-razão digital descentralizado, onde as transações são agrupadas em blocos e verificadas por uma rede de computadores.",
+    en: "Blockchain is a distributed ledger technology that enables secure, transparent, and immutable transactions without intermediaries. It works as a decentralized digital ledger where transactions are grouped into blocks and verified by a network of computers."
+  },
+  "projects.blockchain.advantages.title": {
+    pt: "Vantagens da Tecnologia Blockchain",
+    en: "Advantages of Blockchain Technology"
+  },
+  "projects.blockchain.advantages.security": {
+    pt: "Segurança",
+    en: "Security"
+  },
+  "projects.blockchain.advantages.security.description": {
+    pt: "Utiliza criptografia avançada e consenso distribuído para proteger dados contra alterações e ataques.",
+    en: "Uses advanced cryptography and distributed consensus to protect data against tampering and attacks."
+  },
+  "projects.blockchain.advantages.transparency": {
+    pt: "Transparência",
+    en: "Transparency"
+  },
+  "projects.blockchain.advantages.transparency.description": {
+    pt: "Todas as transações são publicamente verificáveis e rastreáveis, aumentando a confiança entre participantes.",
+    en: "All transactions are publicly verifiable and traceable, increasing trust among participants."
+  },
+  "projects.blockchain.advantages.immutability": {
+    pt: "Imutabilidade",
+    en: "Immutability"
+  },
+  "projects.blockchain.advantages.immutability.description": {
+    pt: "Uma vez registrados, os dados não podem ser alterados ou excluídos, garantindo integridade e auditabilidade.",
+    en: "Once recorded, data cannot be altered or deleted, ensuring integrity and auditability."
+  },
+  "projects.blockchain.advantages.decentralization": {
+    pt: "Descentralização",
+    en: "Decentralization"
+  },
+  "projects.blockchain.advantages.decentralization.description": {
+    pt: "Elimina pontos únicos de falha e controle centralizado, aumentando a resiliência do sistema.",
+    en: "Eliminates single points of failure and centralized control, increasing system resilience."
+  },
+  "projects.blockchain.architecture.title": {
+    pt: "Arquitetura Blockchain",
+    en: "Blockchain Architecture"
+  },
+  "projects.blockchain.architecture.description": {
+    pt: "A arquitetura blockchain é composta por diversos componentes que trabalham em conjunto para criar um sistema seguro e descentralizado:",
+    en: "Blockchain architecture consists of various components working together to create a secure and decentralized system:"
+  },
+  "projects.blockchain.architecture.consensus": {
+    pt: "Mecanismos de Consenso",
+    en: "Consensus Mechanisms"
+  },
+  "projects.blockchain.architecture.consensus.description": {
+    pt: "Processos como Prova de Trabalho (PoW) ou Prova de Participação (PoS) que garantem acordo entre os participantes da rede.",
+    en: "Processes like Proof of Work (PoW) or Proof of Stake (PoS) that ensure agreement among network participants."
+  },
+  "projects.blockchain.architecture.smart_contracts": {
+    pt: "Contratos Inteligentes",
+    en: "Smart Contracts"
+  },
+  "projects.blockchain.architecture.smart_contracts.description": {
+    pt: "Programas autoexecutáveis que automatizam processos de negócios quando condições predefinidas são atendidas.",
+    en: "Self-executing programs that automate business processes when predefined conditions are met."
+  },
+  "projects.blockchain.architecture.networks": {
+    pt: "Tipos de Redes",
+    en: "Network Types"
+  },
+  "projects.blockchain.architecture.networks.description": {
+    pt: "Públicas (como Bitcoin, Ethereum), privadas (corporativas) ou híbridas, cada uma com diferentes níveis de acesso e permissões.",
+    en: "Public (like Bitcoin, Ethereum), private (corporate), or hybrid, each with different levels of access and permissions."
+  },
+  "projects.blockchain.projects.title": {
+    pt: "Nossos Projetos Blockchain",
+    en: "Our Blockchain Projects"
+  },
+  "projects.blockchain.projects.description": {
+    pt: "Na HubWeb3, desenvolvemos soluções inovadoras utilizando tecnologia blockchain para diversos setores:",
+    en: "At HubWeb3, we develop innovative solutions using blockchain technology for various sectors:"
+  },
+  "projects.blockchain.drex.title": {
+    pt: "DREX e o Futuro do Mercado",
+    en: "DREX and the Future of the Market"
+  },
+  "projects.blockchain.drex.description": {
+    pt: "O DREX (Real Digital Brasileiro) representa uma evolução fundamental no sistema financeiro nacional, trazendo diversas oportunidades para o mercado:",
+    en: "DREX (Brazilian Digital Real) represents a fundamental evolution in the national financial system, bringing various opportunities to the market:"
+  },
+  "projects.blockchain.drex.benefits.inclusion": {
+    pt: "Inclusão Financeira",
+    en: "Financial Inclusion"
+  },
+  "projects.blockchain.drex.benefits.inclusion.description": {
+    pt: "Ampliação do acesso a serviços financeiros para populações não bancarizadas ou sub-bancarizadas.",
+    en: "Expanding access to financial services for unbanked or underbanked populations."
+  },
+  "projects.blockchain.drex.benefits.efficiency": {
+    pt: "Eficiência Operacional",
+    en: "Operational Efficiency"
+  },
+  "projects.blockchain.drex.benefits.efficiency.description": {
+    pt: "Redução de custos e tempo nas transações financeiras, especialmente em pagamentos internacionais.",
+    en: "Reducing costs and time in financial transactions, especially in international payments."
+  },
+  "projects.blockchain.drex.benefits.innovation": {
+    pt: "Inovação Financeira",
+    en: "Financial Innovation"
+  },
+  "projects.blockchain.drex.benefits.innovation.description": {
+    pt: "Criação de novos modelos de negócio e serviços financeiros baseados em contratos inteligentes e programabilidade.",
+    en: "Creating new business models and financial services based on smart contracts and programmability."
+  },
+  "projects.blockchain.drex.benefits.integration": {
+    pt: "Integração com Economia Tokenizada",
+    en: "Integration with Tokenized Economy"
+  },
+  "projects.blockchain.drex.benefits.integration.description": {
+    pt: "Facilitação da integração entre ativos digitais e tradicionais, impulsionando o ecossistema de tokenização.",
+    en: "Facilitating integration between digital and traditional assets, boosting the tokenization ecosystem."
+  },
+  "projects.blockchain.architecture.animation.replay": {
+    pt: "Repetir Animação",
+    en: "Replay Animation"
   }
 }; 
