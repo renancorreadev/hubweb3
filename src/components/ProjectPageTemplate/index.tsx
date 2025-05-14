@@ -9,6 +9,8 @@ import { useTranslation } from "@/shared/hooks/useTranslation";
 import Image from "next/image";
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import { ImageGallery, GalleryItem } from "@/components/ImageGallery";
+import { ImageSlider } from "@/components/ImageSlider";
 
 export interface Feature {
   title: string;
@@ -84,6 +86,12 @@ export interface ProjectPageTemplateProps {
   // Media props
   mediaItems?: MediaItem[];
   
+  // Gallery props
+  hasGallery?: boolean;
+  galleryTitle?: string;
+  galleryItems?: GalleryItem[];
+  useSlider?: boolean;
+  
   // Content props
   features: Feature[];
   processTitle: string;
@@ -112,6 +120,12 @@ export function ProjectPageTemplate({
   // Media props
   mediaItems = [],
   
+  // Gallery props
+  hasGallery = false,
+  galleryTitle = "Galeria de Imagens",
+  galleryItems = [],
+  useSlider = true,
+  
   // Content props
   features,
   processTitle,
@@ -125,6 +139,7 @@ export function ProjectPageTemplate({
 }: ProjectPageTemplateProps) {
   const containerRef = useRef(null);
   const architectureRef = useRef(null);
+  const galleryRef = useRef(null);
   const { t } = useTranslation();
   
   // Scroll progress para o container principal
@@ -136,6 +151,12 @@ export function ProjectPageTemplate({
   // Scroll progress específico para a seção de arquitetura
   const { scrollYProgress: architectureScrollProgress } = useScroll({
     target: architectureRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Scroll progress específico para a seção de galeria
+  const { scrollYProgress: galleryScrollProgress } = useScroll({
+    target: galleryRef,
     offset: ["start end", "end start"]
   });
 
@@ -153,6 +174,11 @@ export function ProjectPageTemplate({
   const mainScaleSpring = useSpring(mainScale, springConfig);
   const architectureYSpring = useSpring(architectureY, springConfig);
   const highlightScaleSpring = useSpring(highlightScale, springConfig);
+
+  // Efeitos específicos para a seção de galeria
+  const galleryY = useTransform(galleryScrollProgress, [0, 1], ["5%", "-5%"]);
+  const galleryOpacity = useTransform(galleryScrollProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const galleryYSpring = useSpring(galleryY, springConfig);
 
   // Adiciona a imagem principal aos itens de mídia se não houver nenhum
   const allMediaItems = mediaItems.length > 0 
@@ -172,7 +198,7 @@ export function ProjectPageTemplate({
       nextProject={nextProject}
       prevProject={prevProject}
     >
-      <div ref={containerRef} className="space-y-32">
+      <div ref={containerRef} className="space-y-16">
         {/* Media Section */}
         <motion.section
           initial={{ opacity: 0, y: 50 }}
@@ -225,11 +251,44 @@ export function ProjectPageTemplate({
           </div>
         </motion.section>
 
+        {/* Gallery Section */}
+        {hasGallery && galleryItems.length > 0 && (
+          <motion.section
+            ref={galleryRef}
+            className="relative py-8 overflow-hidden"
+            style={{ opacity: galleryOpacity, y: galleryYSpring }}
+          >
+            <div className="container mx-auto px-4 relative">
+              {/* Alternando entre ImageSlider e ImageGallery */}
+              {useSlider ? (
+                <ImageSlider 
+                  title={galleryTitle}
+                  images={galleryItems.map(item => ({
+                    url: item.url,
+                    alt: item.alt,
+                    title: item.title,
+                    description: item.description
+                  }))}
+                  height="600px"
+                  borderRadius={12}
+                  showCaption={true}
+                  autoplayDelay={6000}
+                />
+              ) : (
+                <ImageGallery 
+                  title={galleryTitle}
+                  items={galleryItems}
+                />
+              )}
+            </div>
+          </motion.section>
+        )}
+
         {/* Architecture Section */}
         {hasArchitecture && architectureDetails && (
           <motion.section
             ref={architectureRef}
-            className="relative py-24 lg:px-10 overflow-hidden max-sm:!my-1 max-sm:!py-4"
+            className="relative py-4 lg:px-10 overflow-hidden max-sm:!my-1 max-sm:!py-4"
             style={{ opacity: architectureOpacity }}
           >
             {/* Background Effects */}
@@ -252,7 +311,7 @@ export function ProjectPageTemplate({
             <div className="container mx-auto px-4 relative">
               {/* Overview Section */}
               <motion.div 
-                className="text-center mb-16"
+                className="text-center mb-2"
                 style={{ y: architectureYSpring }}
               >
                 <motion.div
@@ -264,7 +323,7 @@ export function ProjectPageTemplate({
                   <Heading2 className="text-gray-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-hub-primary to-hub-secondary">
                     {architectureDetails.title}
                   </Heading2>
-                  <Body className="max-w-3xl mx-auto mt-6 text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                  <Body className="max-w-3xl mx-auto mt-6 text-gray-700 dark:text-gray-300 text-lg leading-relaxed lg:pb-12">
                     {architectureDetails.overview}
                   </Body>
                 </motion.div>

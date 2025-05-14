@@ -1,0 +1,66 @@
+/* Estilos customizados para react-medium-image-zoom */
+
+/* Torna o overlay mais escuro para destacar a imagem */
+[data-rmiz-overlay="visible"] {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Maximiza o tamanho da imagem ampliada para tela cheia */
+[data-rmiz-content="found"] img,
+[data-rmiz-content="found"] svg,
+[data-rmiz-content="found"] [role="img"],
+[data-rmiz-content="found"] [data-zoom] {
+  max-width: 98vw !important;
+  max-height: 98vh !important;
+  object-fit: contain !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Aumenta a área de visualização da imagem no zoom */
+[data-rmiz-modal-content] {
+  width: 100vw !important;
+  height: 100vh !important;
+  padding: 0.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Aumenta suavemente a escala da imagem durante a transição */
+[data-rmiz-content="found"] [data-rmiz-image-content] {
+  transition: transform 0.3s ease-in-out !important;
+  transform-origin: center center !important;
+  transform: scale(1) !important;
+}
+
+/* Adiciona transformação maior no hover */
+[data-rmiz-content="found"]:hover [data-rmiz-image-content] {
+  transform: scale(1.02) !important;
+}
+
+/* Ajusta o botão de fechar para ser mais visível, mas mais discreto */
+[data-rmiz-btn-close] {
+  top: 1rem !important;
+  right: 1rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+  border-radius: 50% !important;
+  z-index: 9999 !important;
+  opacity: 0.7 !important;
+}
+
+[data-rmiz-btn-close]:hover {
+  opacity: 1 !important;
+  background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Melhora a apresentação da imagem no card */
+.aspect-4\/3 {
+  aspect-ratio: 4/3 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+} 

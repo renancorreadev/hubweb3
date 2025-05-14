@@ -319,5 +319,259 @@ export const projectsTranslations = {
       "Speed in buying and selling tokens",
       "Simplified portfolio management"
     ]
+  },
+
+  // LoyaHub - Novos textos para internacionalização
+  "projects.loyahub.gallery.title": {
+    pt: "Galeria do Projeto",
+    en: "Project Gallery"
+  },
+  "projects.loyahub.architecture.description": {
+    pt: "O LoyaHub utiliza uma arquitetura de várias camadas que combina blockchain para registro imutável e transparente de pontos de fidelidade com sistemas tradicionais para desempenho e usabilidade.",
+    en: "LoyaHub uses a multi-layer architecture that combines blockchain for immutable and transparent loyalty points registry with traditional systems for performance and usability."
+  },
+  "projects.loyahub.architecture.overview": {
+    pt: "Os tokens de fidelidade são implementados como tokens ERC-20 personalizados na rede Polygon, garantindo baixas taxas e alta velocidade de transação.",
+    en: "Loyalty tokens are implemented as custom ERC-20 tokens on the Polygon network, ensuring low fees and high transaction speed."
+  },
+  "projects.loyahub.architecture.section.title": {
+    pt: "Arquitetura do Sistema",
+    en: "System Architecture"
+  },
+  "projects.loyahub.architecture.section.description": {
+    pt: "Diagrama de processos do LoyaHub",
+    en: "LoyaHub process diagram"
+  },
+  "projects.loyahub.architecture.highlight.blockchain.title": {
+    pt: "Camada Blockchain",
+    en: "Blockchain Layer"
+  },
+  "projects.loyahub.architecture.highlight.blockchain.description": {
+    pt: "Contratos para tokens de fidelidade, sistema de conversão entre tokens, regras de governança para coalizões e registros imutáveis de transações",
+    en: "Contracts for loyalty tokens, token conversion system, governance rules for coalitions, and immutable transaction records"
+  },
+  "projects.loyahub.architecture.highlight.api.title": {
+    pt: "Camada de API",
+    en: "API Layer"
+  },
+  "projects.loyahub.architecture.highlight.api.description": {
+    pt: "Endpoints RESTful e GraphQL, autenticação e autorização, indexação e cache para desempenho, integração com sistemas empresariais",
+    en: "RESTful and GraphQL endpoints, authentication and authorization, indexing and caching for performance, integration with enterprise systems"
+  },
+  "projects.loyahub.architecture.highlight.client.title": {
+    pt: "Aplicações Cliente",
+    en: "Client Applications"
+  },
+  "projects.loyahub.architecture.highlight.client.description": {
+    pt: "App mobile React Native, painel administrativo React, widgets para integração em sites e SDK para desenvolvedores",
+    en: "React Native mobile app, React admin panel, widgets for website integration, and SDK for developers"
+  },
+  "projects.loyahub.process.title": {
+    pt: "Tipos de Recompensas",
+    en: "Reward Types"
+  },
+  "projects.loyahub.benefits.title": {
+    pt: "Benefícios do Sistema",
+    en: "System Benefits"
+  },
+  "projects.loyahub.benefits.companies.title": {
+    pt: "Para Empresas",
+    en: "For Companies"
+  },
+  "projects.loyahub.benefits.companies.list": {
+    pt: [
+      "Aumento significativo na retenção de clientes",
+      "Redução nos custos operacionais do programa",
+      "Insights valiosos sobre comportamento do consumidor"
+    ],
+    en: [
+      "Significant increase in customer retention",
+      "Reduction in program operational costs",
+      "Valuable insights into consumer behavior"
+    ]
+  },
+  "projects.loyahub.benefits.customers.title": {
+    pt: "Para Clientes",
+    en: "For Customers"
+  },
+  "projects.loyahub.benefits.customers.list": {
+    pt: [
+      "Acesso unificado a múltiplos programas de fidelidade",
+      "Maior flexibilidade no uso dos pontos",
+      "Transparência total sobre pontos e recompensas"
+    ],
+    en: [
+      "Unified access to multiple loyalty programs",
+      "Greater flexibility in using points",
+      "Complete transparency regarding points and rewards"
+    ]
+  },
+  
+  // LoyaHub Features
+  "projects.loyahub.features.tokenization.title": {
+    pt: "Tokenização de Pontos",
+    en: "Points Tokenization"
+  },
+  "projects.loyahub.features.tokenization.description": {
+    pt: "Conversão de programas de fidelidade tradicionais em tokens blockchain, garantindo transparência e portabilidade.",
+    en: "Conversion of traditional loyalty programs into blockchain tokens, ensuring transparency and portability."
+  },
+  "projects.loyahub.features.interoperability.title": {
+    pt: "Interoperabilidade entre Marcas",
+    en: "Brand Interoperability"
+  },
+  "projects.loyahub.features.interoperability.description": {
+    pt: "Sistema de coalizão que permite cooperação entre diferentes empresas e transferência de pontos entre programas.",
+    en: "Coalition system that allows cooperation between different companies and transfer of points between programs."
+  },
+  "projects.loyahub.features.mobileapp.title": {
+    pt: "App Mobile para Clientes",
+    en: "Mobile App for Customers"
+  },
+  "projects.loyahub.features.mobileapp.description": {
+    pt: "Aplicativo intuitivo para consumidores rastrearem, acumularem e resgatarem pontos de fidelidade de múltiplas marcas.",
+    en: "Intuitive application for consumers to track, accumulate, and redeem loyalty points from multiple brands."
+  },
+  "projects.loyahub.features.dashboard.title": {
+    pt: "Dashboard para Empresas",
+    en: "Dashboard for Companies"
+  },
+  "projects.loyahub.features.dashboard.description": {
+    pt: "Painel administrativo para empresas gerenciarem seus programas, ofertas e analisarem o comportamento dos clientes.",
+    en: "Administrative panel for companies to manage their programs, offers, and analyze customer behavior."
+  },
+  
+  // LoyaHub Process Steps
+  "projects.loyahub.process.purchasepoints.title": {
+    pt: "Pontos de Compra",
+    en: "Purchase Points"
+  },
+  "projects.loyahub.process.purchasepoints.description": {
+    pt: "Acúmulo de pontos baseado em valor de compra, com diferentes níveis de multiplicadores por categoria.",
+    en: "Accumulation of points based on purchase value, with different levels of multipliers by category."
+  },
+  "projects.loyahub.process.engagement.title": {
+    pt: "Recompensas por Engajamento",
+    en: "Engagement Rewards"
+  },
+  "projects.loyahub.process.engagement.description": {
+    pt: "Bonificações por ações específicas como avaliações, compartilhamentos e participação em programas.",
+    en: "Bonuses for specific actions such as reviews, shares, and program participation."
+  },
+  "projects.loyahub.process.exclusive.title": {
+    pt: "Benefícios Exclusivos",
+    en: "Exclusive Benefits"
+  },
+  "projects.loyahub.process.exclusive.description": {
+    pt: "Acesso VIP, experiências únicas e produtos exclusivos desbloqueados com pontos ou níveis específicos.",
+    en: "VIP access, unique experiences, and exclusive products unlocked with specific points or levels."
+  },
+  "projects.loyahub.process.cashback.title": {
+    pt: "Cashback e Descontos",
+    en: "Cashback and Discounts"
+  },
+  "projects.loyahub.process.cashback.description": {
+    pt: "Sistema de retorno em dinheiro e descontos progressivos baseados em pontuação e nível do usuário.",
+    en: "Cashback system and progressive discounts based on user score and level."
+  },
+  
+  // LoyaHub Gallery Items
+  "projects.loyahub.gallery.adminI.title": {
+    pt: "Recompensas",
+    en: "Rewards"
+  },
+  "projects.loyahub.gallery.adminI.description": {
+    pt: "Painel de administração exibindo tokens de fidelidade e seus detalhes",
+    en: "Admin panel displaying loyalty tokens and their details"
+  },
+  "projects.loyahub.gallery.adminII.title": {
+    pt: "Gestão de Clientes",
+    en: "Customer Management"
+  },
+  "projects.loyahub.gallery.adminII.description": {
+    pt: "Listagem de usuários cadastrados na blockchain com detalhes de carteira",
+    en: "List of users registered on the blockchain with wallet details"
+  },
+  "projects.loyahub.gallery.adminIII.title": {
+    pt: "Adicionar Pontos",
+    en: "Add Points"
+  },
+  "projects.loyahub.gallery.adminIII.description": {
+    pt: "Interface para administradores adicionarem pontos às carteiras dos clientes",
+    en: "Interface for administrators to add points to customer wallets"
+  },
+  "projects.loyahub.gallery.adminIV.title": {
+    pt: "Cadastro de Cliente",
+    en: "Customer Registration"
+  },
+  "projects.loyahub.gallery.adminIV.description": {
+    pt: "Formulário para registro de novos clientes no sistema",
+    en: "Form for registering new customers in the system"
+  },
+  "projects.loyahub.gallery.cardPontos.title": {
+    pt: "Cartão de Pontos",
+    en: "Points Card"
+  },
+  "projects.loyahub.gallery.cardPontos.description": {
+    pt: "Visualização dos pontos e saldo do usuário",
+    en: "View of user points and balance"
+  },
+  "projects.loyahub.gallery.profileI.title": {
+    pt: "Perfil Básico",
+    en: "Basic Profile"
+  },
+  "projects.loyahub.gallery.profileI.description": {
+    pt: "Tela de perfil do usuário exibindo detalhes da conta",
+    en: "User profile screen displaying account details"
+  },
+  "projects.loyahub.gallery.profileII.title": {
+    pt: "Status de Nível",
+    en: "Level Status"
+  },
+  "projects.loyahub.gallery.profileII.description": {
+    pt: "Tela mostrando o status do cliente sem benefícios ativos",
+    en: "Screen showing customer status without active benefits"
+  },
+  "projects.loyahub.gallery.profileIII.title": {
+    pt: "Cliente Premium",
+    en: "Premium Customer"
+  },
+  "projects.loyahub.gallery.profileIII.description": {
+    pt: "Tela exibindo benefícios disponíveis para clientes Premium",
+    en: "Screen displaying benefits available for Premium customers"
+  },
+  "projects.loyahub.gallery.profileUpdated.title": {
+    pt: "Informações Detalhadas",
+    en: "Detailed Information"
+  },
+  "projects.loyahub.gallery.profileUpdated.description": {
+    pt: "Visão detalhada das informações pessoais e saldo do usuário",
+    en: "Detailed view of user personal information and balance"
+  },
+  "projects.loyahub.gallery.registro.title": {
+    pt: "Criação de Conta",
+    en: "Account Creation"
+  },
+  "projects.loyahub.gallery.registro.description": {
+    pt: "Formulário para novos usuários criarem uma conta no sistema",
+    en: "Form for new users to create an account in the system"
+  },
+  "projects.loyahub.gallery.transferir.title": {
+    pt: "Transferir Pontos",
+    en: "Transfer Points"
+  },
+  "projects.loyahub.gallery.transferir.description": {
+    pt: "Modal para transferência de tokens entre carteiras",
+    en: "Modal for transferring tokens between wallets"
+  },
+  
+  // LoyaHub Videos
+  "projects.loyahub.video.demo.title": {
+    pt: "Demo do App",
+    en: "App Demo"
+  },
+  "projects.loyahub.video.demo.description": {
+    pt: "Demonstração das principais funcionalidades do aplicativo",
+    en: "Demonstration of the main app functionalities"
   }
 }; 
