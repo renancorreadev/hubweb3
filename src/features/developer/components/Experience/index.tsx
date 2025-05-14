@@ -221,7 +221,7 @@ export const Experience = () => {
 
   return (
     <section
-      className={`relative overflow-hidden ${
+      className={`relative overflow-hidden max-sm:pt-12 lg:py-12 ${
         isDark ? "dark" : "light"
       }`}
       style={{
@@ -267,7 +267,7 @@ export const Experience = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-8 md:mb-16"
         >
-          <div className="relative inline-block">
+          <div className="relative inline-block ">
             <div className="relative">
               <Heading2>{t("developer.experience.title")}</Heading2>
             </div>
@@ -279,7 +279,7 @@ export const Experience = () => {
             animate={{ opacity: 0.8 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            <Body className="text-start w-full" >
+            <Body className="text-start w-full max-sm:text-center" >
               {t("developer.experience.intro")}
             </Body>
           </motion.div>

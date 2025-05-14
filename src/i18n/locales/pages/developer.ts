@@ -108,8 +108,8 @@ export const developerTranslations = {
     pt: "CBDC",
   },
   'developer.projects.assetToken.title': {
-    en: "Asset Tokenization",
-    pt: "Tokenização de Ativos",
+    en: "RWA",
+    pt: "RWA",
   },
   'developer.projects.assetToken.description': {
     en: "Smart contract architecture for real estate and receivables securitization with compliance features.",
@@ -120,12 +120,12 @@ export const developerTranslations = {
     pt: "TOKENIZAÇÃO",
   },
   'developer.projects.explorer.title': {
-    en: "Custom Block Explorer",
-    pt: "Explorador de Blocos Customizado",
+    en: "Loyahub",
+    pt: "Loyahub",
   },
   'developer.projects.explorer.description': {
-    en: "Custom blockchain explorer with event tracking and real-time data visualization for private networks.",
-    pt: "Explorador de blockchain personalizado com rastreamento de eventos e visualização de dados em tempo real para redes privadas.",
+    en: "A complete blockchain ecosystem focused on DREX infrastructure, scoring and rewards system.",
+    pt: "Um ecossistema de blockchain completo focado em infraestrutura DREX, sistema de pontuação e recompensas em blockchain",
   },
   'developer.projects.explorer.tag': {
     en: "EXPLORER",

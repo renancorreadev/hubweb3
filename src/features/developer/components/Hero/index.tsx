@@ -538,457 +538,459 @@ contract DeveloperProfile {
         />
       )}
 
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-30">
-        <div className="flex flex-col lg:flex-row items-center gap-8">
-          {/* Solidity Contract - Left Side */}
-          <div className="w-full lg:w-1/2">
-            <motion.div
-              className="relative"
-              style={{
-                perspective: 1000,
-              }}
-              whileHover={{ scale: 1.02 }}
-            >
-              <motion.div 
-                className="relative rounded-2xl overflow-hidden shadow-2xl"
-                style={{ 
-                  transformStyle: "preserve-3d",
-                  transform: "translateZ(20px)",
-                  rotateX,
-                  rotateY,
-                  backgroundColor: isDark ? 'rgba(10, 10, 10, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-                  backdropFilter: 'blur(10px)',
-                  boxShadow: isDark 
-                    ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 15px rgba(20, 241, 149, 0.2)' 
-                    : '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(14, 166, 107, 0.2)',
+      <div className="w-full relative z-30">
+        <div className="container mx-auto">
+          <div className="flex flex-col lg:flex-row items-stretch gap-8">
+            {/* Solidity Contract - Left Side */}
+            <div className="w-full lg:w-1/2">
+              <motion.div
+                className="relative h-full"
+                style={{
+                  perspective: 1000,
                 }}
+                whileHover={{ scale: 1.02 }}
               >
-                <div className="bg-gradient-to-r from-hub-primary to-hub-secondary p-1">
-                  <div className="bg-black p-4 rounded-t-lg flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span className="text-white text-xs md:text-sm ml-4 font-mono">blockchain_developer.sol</span>
-                    
-                    <div className="ml-auto flex items-center gap-2 relative z-50">
-                      <motion.button 
-                        className="bg-[#14F19520] text-[#14F195] px-2 py-1 rounded text-xs font-mono border border-[#14F19540] hover:bg-[#14F19540]"
-                        whileTap={{ scale: 0.95 }}
-                        onClick={startCompilation}
-                        aria-label="Compile and run the smart contract"
-                      >
-                        Compile & Run
-                      </motion.button>
-                    </div>
-                  </div>
-                </div>
-                
-                <div 
-                  className="font-mono text-xs md:text-sm code-container text-black dark:text-white"
+                <motion.div 
+                  className="relative rounded-2xl overflow-hidden shadow-2xl"
                   style={{ 
                     transformStyle: "preserve-3d",
-                    transform: "translateZ(40px)",
-                    maxHeight: "60vh",
-                    overflowY: "auto",
-                    backgroundColor: isDark ? 'rgba(20, 20, 20, 0.95)' : 'rgba(250, 250, 250, 0.95)',
+                    transform: "translateZ(20px)",
+                    rotateX,
+                    rotateY,
+                    backgroundColor: isDark ? 'rgba(10, 10, 10, 0.8)' : 'rgba(255, 255, 255, 0.9)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: isDark 
+                      ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 15px rgba(20, 241, 149, 0.2)' 
+                      : '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(14, 166, 107, 0.2)',
                   }}
                 >
-                  <pre className="language-solidity" style={{ margin: 0 }}>
-                    <code className="language-solidity">{solidityCode}</code>
-                  </pre>
-                </div>
-                
-                {/* Glowing points */}
-                <motion.div 
-                  className="absolute w-3 h-3 rounded-full"
-                  style={{ 
-                    background: isDark ? '#14F195' : '#0EA66B',
-                    top: '30%',
-                    right: '5%',
-                    boxShadow: `0 0 15px ${isDark ? '#14F195' : '#0EA66B'}`,
-                    filter: 'blur(1px)'
-                  }}
-                  animate={{ 
-                    opacity: [0.7, 1, 0.7],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{ 
-                    duration: 3, 
-                    repeat: Infinity, 
-                    repeatType: 'reverse' 
-                  }}
-                />
+                  <div className="bg-gradient-to-r from-hub-primary to-hub-secondary p-1">
+                    <div className="bg-black p-4 rounded-t-lg flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      <span className="text-white text-xs md:text-sm ml-4 font-mono">blockchain_developer.sol</span>
+                      
+                      <div className="ml-auto flex items-center gap-2 relative z-50">
+                        <motion.button 
+                          className="bg-[#14F19520] text-[#14F195] px-2 py-1 rounded text-xs font-mono border border-[#14F19540] hover:bg-[#14F19540]"
+                          whileTap={{ scale: 0.95 }}
+                          onClick={startCompilation}
+                          aria-label="Compile and run the smart contract"
+                        >
+                          Compile & Run
+                        </motion.button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div 
+                    className="font-mono text-xs md:text-sm code-container text-black dark:text-white"
+                    style={{ 
+                      transformStyle: "preserve-3d",
+                      transform: "translateZ(40px)",
+                      maxHeight: "60vh",
+                      overflowY: "auto",
+                      backgroundColor: isDark ? 'rgba(20, 20, 20, 0.95)' : 'rgba(250, 250, 250, 0.95)',
+                    }}
+                  >
+                    <pre className="language-solidity" style={{ margin: 0 }}>
+                      <code className="language-solidity">{solidityCode}</code>
+                    </pre>
+                  </div>
+                  
+                  {/* Glowing points */}
+                  <motion.div 
+                    className="absolute w-3 h-3 rounded-full"
+                    style={{ 
+                      background: isDark ? '#14F195' : '#0EA66B',
+                      top: '30%',
+                      right: '5%',
+                      boxShadow: `0 0 15px ${isDark ? '#14F195' : '#0EA66B'}`,
+                      filter: 'blur(1px)'
+                    }}
+                    animate={{ 
+                      opacity: [0.7, 1, 0.7],
+                      scale: [1, 1.2, 1],
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity, 
+                      repeatType: 'reverse' 
+                    }}
+                  />
 
-                <motion.div 
-                  className="absolute w-2 h-2 rounded-full"
-                  style={{ 
-                    background: isDark ? '#9945FF' : '#7A35CC',
-                    bottom: '20%',
-                    left: '10%',
-                    boxShadow: `0 0 15px ${isDark ? '#9945FF' : '#7A35CC'}`,
-                    filter: 'blur(1px)'
-                  }}
-                  animate={{ 
-                    opacity: [0.7, 1, 0.7],
-                    scale: [1, 1.3, 1],
-                  }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    repeatType: 'reverse',
-                    delay: 1
-                  }}
-                />
+                  <motion.div 
+                    className="absolute w-2 h-2 rounded-full"
+                    style={{ 
+                      background: isDark ? '#9945FF' : '#7A35CC',
+                      bottom: '20%',
+                      left: '10%',
+                      boxShadow: `0 0 15px ${isDark ? '#9945FF' : '#7A35CC'}`,
+                      filter: 'blur(1px)'
+                    }}
+                    animate={{ 
+                      opacity: [0.7, 1, 0.7],
+                      scale: [1, 1.3, 1],
+                    }}
+                    transition={{ 
+                      duration: 4, 
+                      repeat: Infinity, 
+                      repeatType: 'reverse',
+                      delay: 1
+                    }}
+                  />
+                </motion.div>
               </motion.div>
-            </motion.div>
-          </div>
-          
-          {/* Energy Flow Animation */}
-          {showEnergyFlow && (
-            <motion.div 
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-full lg:block"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              {/* Desktop animation */}
-              <div className="hidden lg:block">
-                <svg width="100%" height="60" viewBox="0 0 100 60">
-                  {/* Main energy beam */}
-                  <motion.rect
-                    x="0" y="28" width="100" height="4"
-                    rx="2"
-                    fill={isDark ? "rgba(20, 241, 149, 0.3)" : "rgba(14, 166, 107, 0.3)"}
-                    initial={{ scaleX: 0, opacity: 0 }}
-                    animate={{ 
-                      scaleX: 1,
-                      opacity: [0, 0.8, 0]
-                    }}
-                    style={{ originX: 0 }}
-                    transition={{ 
-                      duration: 1.5,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  
-                  {/* Glowing center line */}
-                  <motion.path
-                    d="M0,30 L100,30"
-                    strokeWidth="2"
-                    stroke={isDark ? "#14F195" : "#0EA66B"}
-                    strokeDasharray="3,3"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ 
-                      pathLength: 1,
-                      opacity: [0, 1, 0],
-                    }}
-                    transition={{ 
-                      duration: 1.8,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  
-                  <motion.path
-                    d="M0,30 L100,30"
-                    strokeWidth="2"
-                    stroke={isDark ? "#9945FF" : "#7A35CC"}
-                    strokeDasharray="5,5"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ 
-                      pathLength: 1,
-                      opacity: [0, 1, 0],
-                    }}
-                    transition={{ 
-                      delay: 0.3,
-                      duration: 1.5,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  
-                  {/* Data packets */}
-                  {Array.from({ length: 10 }).map((_, i) => (
+            </div>
+            
+            {/* Energy Flow Animation */}
+            {showEnergyFlow && (
+              <motion.div 
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-full lg:block"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                {/* Desktop animation */}
+                <div className="hidden lg:block">
+                  <svg width="100%" height="60" viewBox="0 0 100 60">
+                    {/* Main energy beam */}
                     <motion.rect
-                      key={i}
-                      x="0" y="26" width="6" height="8"
-                      rx="1"
-                      fill={i % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
-                      initial={{ x: 0, opacity: 0 }}
+                      x="0" y="28" width="100" height="4"
+                      rx="2"
+                      fill={isDark ? "rgba(20, 241, 149, 0.3)" : "rgba(14, 166, 107, 0.3)"}
+                      initial={{ scaleX: 0, opacity: 0 }}
                       animate={{ 
-                        x: [0, 100],
-                        opacity: [0, 1, 0]
-                      }}
-                      transition={{
-                        duration: 1.2,
-                        delay: i * 0.1,
-                        ease: "easeOut"
-                      }}
-                    />
-                  ))}
-                  
-                  {/* Binary data flowing */}
-                  {Array.from({ length: 15 }).map((_, i) => (
-                    <motion.text
-                      key={`text-${i}`}
-                      x="0"
-                      y={i % 3 === 0 ? "20" : (i % 3 === 1 ? "40" : "30")}
-                      fontSize="6"
-                      fill={i % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
-                      fontFamily="monospace"
-                      initial={{ x: 0, opacity: 0 }}
-                      animate={{ 
-                        x: [0, 100],
+                        scaleX: 1,
                         opacity: [0, 0.8, 0]
                       }}
-                      transition={{
+                      style={{ originX: 0 }}
+                      transition={{ 
                         duration: 1.5,
-                        delay: i * 0.15,
-                        ease: "easeOut"
-                      }}
-                    >
-                      {i % 2 === 0 ? "01" : "10"}
-                    </motion.text>
-                  ))}
-                  
-                  {/* Flash effect at target */}
-                  <motion.circle
-                    cx="100" cy="30" r="10"
-                    fill={isDark ? "#14F195" : "#0EA66B"}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ 
-                      opacity: [0, 0.7, 0],
-                      scale: [0, 1.5, 0]
-                    }}
-                    transition={{ 
-                      delay: 1.2,
-                      duration: 0.8
-                    }}
-                  />
-                  
-                  <motion.circle
-                    cx="100" cy="30" r="15"
-                    fill={isDark ? "#9945FF" : "#7A35CC"}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ 
-                      opacity: [0, 0.5, 0],
-                      scale: [0, 1.8, 0]
-                    }}
-                    transition={{ 
-                      delay: 1.4,
-                      duration: 1
-                    }}
-                  />
-                </svg>
-              </div>
-              
-              {/* Mobile animation */}
-              <div className="lg:hidden w-full">
-                <svg width="20" height="100%" viewBox="0 0 20 100" preserveAspectRatio="none">
-                  {/* Glowing center line */}
-                  <motion.path
-                    d="M10,0 L10,100"
-                    strokeWidth="2"
-                    stroke={isDark ? "#14F195" : "#0EA66B"}
-                    strokeDasharray="3,3"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ 
-                      pathLength: 1,
-                      opacity: [0, 1, 0],
-                    }}
-                    transition={{ 
-                      duration: 1.8,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  
-                  {/* Data packets */}
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <motion.rect
-                      key={i}
-                      x="6" y="0" width="8" height="6"
-                      rx="1"
-                      fill={i % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
-                      initial={{ y: 0, opacity: 0 }}
-                      animate={{ 
-                        y: [0, 100],
-                        opacity: [0, 1, 0]
-                      }}
-                      transition={{
-                        duration: 1.2,
-                        delay: i * 0.15,
-                        ease: "easeOut"
+                        ease: "easeInOut"
                       }}
                     />
-                  ))}
-                  
-                  {/* Flash effect at target */}
-                  <motion.circle
-                    cx="10" cy="100" r="8"
-                    fill={isDark ? "#14F195" : "#0EA66B"}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ 
-                      opacity: [0, 0.7, 0],
-                      scale: [0, 1.5, 0]
-                    }}
-                    transition={{ 
-                      delay: 1.2,
-                      duration: 0.8
-                    }}
-                  />
-                </svg>
-              </div>
-            </motion.div>
-          )}
-          
-          {/* Terminal flash effect on receiving data */}
-          {showEnergyFlow && (
-            <motion.div 
-              className="absolute inset-0 pointer-events-none z-10"
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: [0, 0.2, 0],
-              }}
-              transition={{ 
-                delay: 1.5,
-                duration: 0.8
-              }}
-              style={{
-                background: `radial-gradient(circle at ${window.innerWidth > 1024 ? 'right center' : 'center bottom'}, ${isDark ? 'rgba(20, 241, 149, 0.3)' : 'rgba(14, 166, 107, 0.3)'}, transparent 70%)`,
-              }}
-            />
-          )}
-          
-          {/* Compilation Terminal - Right Side */}
-          <div className="w-full lg:w-1/2" ref={terminalRef}>
-            <motion.div
-              className="relative"
-              style={{
-                perspective: 1000,
-              }}
-              whileHover={{ scale: 1.02 }}
-            >
-              <motion.div 
-                className="relative rounded-2xl overflow-hidden shadow-2xl h-full"
-                style={{ 
-                  transformStyle: "preserve-3d",
-                  transform: "translateZ(20px)",
-                  backgroundColor: isDark ? 'rgba(10, 10, 10, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-                  backdropFilter: 'blur(10px)',
-                  boxShadow: isDark 
-                    ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 15px rgba(153, 69, 255, 0.2)' 
-                    : '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(122, 53, 204, 0.2)',
-                }}
-              >
-                {/* Terminal Header */}
-                <div className="bg-gradient-to-r from-hub-secondary to-hub-primary p-1">
-                  <div className="bg-black p-4 rounded-t-lg flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span className="text-white text-xs md:text-sm ml-4 font-mono">ethereum_vm_terminal</span>
-                  </div>
-                </div>
-                
-                {/* EVM Terminal Output */}
-                <div 
-                  className="p-6 md:p-8 font-mono text-xs md:text-sm text-black dark:text-white"
-                  style={{ 
-                    maxHeight: "60vh",
-                    height: "60vh",
-                    overflowY: "auto",
-                    backgroundColor: isDark ? 'rgba(0, 0, 0, 0.95)' : 'rgba(30, 30, 40, 0.95)',
-                  }}
-                >
-                  <div className="flex flex-col gap-1">
-                    {terminalOutput.map((line, i) => (
-                      <motion.div 
-                        key={i}
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                          duration: 0.2,
-                        }}
-                        className={
-                          line.includes("Error") ? "text-red-400" : 
-                          line.includes(">") ? (isDark ? "text-blue-400" : "text-blue-600") : 
-                          line.includes("0x") ? (isDark ? "text-purple-400" : "text-purple-600") :
-                          line.includes("=>") ? (isDark ? "text-yellow-300" : "text-yellow-600") :
-                          ""
-                        }
-                      >
-                        {line}
-                      </motion.div>
-                    ))}
                     
-                    {isCompiling && (
-                      <motion.div
-                        animate={{ opacity: [0, 1, 0] }}
-                        transition={{ 
-                          duration: 1,
-                          repeat: Infinity 
-                        }}
-                        className={isDark ? "text-green-400" : "text-green-500"}
-                      >
-                        _
-                      </motion.div>
-                    )}
-                  </div>
-                </div>
-                
-                {/* Blockchain Visualization Overlay */}
-                <div className="absolute inset-0 pointer-events-none opacity-20">
-                  <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    {/* Network nodes */}
-                    {nodes.map(node => (
-                      <motion.circle
-                        key={node.id}
-                        cx={`${node.x}%`}
-                        cy={`${node.y}%`}
-                        r="1.5"
-                        fill={node.id % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
-                        animate={{
-                          r: [1.5, 2, 1.5],
-                          opacity: [0.6, 1, 0.6]
+                    {/* Glowing center line */}
+                    <motion.path
+                      d="M0,30 L100,30"
+                      strokeWidth="2"
+                      stroke={isDark ? "#14F195" : "#0EA66B"}
+                      strokeDasharray="3,3"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ 
+                        pathLength: 1,
+                        opacity: [0, 1, 0],
+                      }}
+                      transition={{ 
+                        duration: 1.8,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    
+                    <motion.path
+                      d="M0,30 L100,30"
+                      strokeWidth="2"
+                      stroke={isDark ? "#9945FF" : "#7A35CC"}
+                      strokeDasharray="5,5"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ 
+                        pathLength: 1,
+                        opacity: [0, 1, 0],
+                      }}
+                      transition={{ 
+                        delay: 0.3,
+                        duration: 1.5,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    
+                    {/* Data packets */}
+                    {Array.from({ length: 10 }).map((_, i) => (
+                      <motion.rect
+                        key={i}
+                        x="0" y="26" width="6" height="8"
+                        rx="1"
+                        fill={i % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
+                        initial={{ x: 0, opacity: 0 }}
+                        animate={{ 
+                          x: [0, 100],
+                          opacity: [0, 1, 0]
                         }}
                         transition={{
-                          duration: 2 + Math.random() * 2,
-                          repeat: Infinity,
-                          repeatType: "reverse"
+                          duration: 1.2,
+                          delay: i * 0.1,
+                          ease: "easeOut"
                         }}
                       />
                     ))}
+                    
+                    {/* Binary data flowing */}
+                    {Array.from({ length: 15 }).map((_, i) => (
+                      <motion.text
+                        key={`text-${i}`}
+                        x="0"
+                        y={i % 3 === 0 ? "20" : (i % 3 === 1 ? "40" : "30")}
+                        fontSize="6"
+                        fill={i % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
+                        fontFamily="monospace"
+                        initial={{ x: 0, opacity: 0 }}
+                        animate={{ 
+                          x: [0, 100],
+                          opacity: [0, 0.8, 0]
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          delay: i * 0.15,
+                          ease: "easeOut"
+                        }}
+                      >
+                        {i % 2 === 0 ? "01" : "10"}
+                      </motion.text>
+                    ))}
+                    
+                    {/* Flash effect at target */}
+                    <motion.circle
+                      cx="100" cy="30" r="10"
+                      fill={isDark ? "#14F195" : "#0EA66B"}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ 
+                        opacity: [0, 0.7, 0],
+                        scale: [0, 1.5, 0]
+                      }}
+                      transition={{ 
+                        delay: 1.2,
+                        duration: 0.8
+                      }}
+                    />
+                    
+                    <motion.circle
+                      cx="100" cy="30" r="15"
+                      fill={isDark ? "#9945FF" : "#7A35CC"}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ 
+                        opacity: [0, 0.5, 0],
+                        scale: [0, 1.8, 0]
+                      }}
+                      transition={{ 
+                        delay: 1.4,
+                        duration: 1
+                      }}
+                    />
                   </svg>
                 </div>
                 
-                {/* EVM Execution State - GAS Monitor */}
-                <div 
-                  className="absolute bottom-0 left-0 right-0 p-2 border-t"
-                  style={{
-                    backgroundColor: isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(20, 20, 30, 0.9)',
-                    borderColor: isDark ? 'rgba(60, 60, 60, 0.5)' : 'rgba(100, 100, 100, 0.5)'
-                  }}
-                >
-                  <div className="flex justify-between items-center text-xs text-gray-400 font-mono text-black dark:text-white">
-                    <div>Gas Used: <span className={isDark ? "text-green-400" : "text-green-600"}>{isCompiling ? 
-                      <motion.span
-                        animate={{ opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                      >
-                        {Math.floor(Math.random() * 20000) + 50000}
-                      </motion.span> : "134,529"}
-                    </span></div>
-                    <div>Block: <span className={isDark ? "text-purple-400" : "text-purple-600"}>{isCompiling ? 
-                      <motion.span
-                        animate={{ opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                      >
-                        {Math.floor(Math.random() * 1000) + 17000000}
-                      </motion.span> : "17284392"}
-                    </span></div>
-                    <div className="hidden md:block">Network: <span className={isDark ? "text-yellow-400" : "text-yellow-600"}>Ethereum</span></div>
-                  </div>
+                {/* Mobile animation */}
+                <div className="lg:hidden w-full">
+                  <svg width="20" height="100%" viewBox="0 0 20 100" preserveAspectRatio="none">
+                    {/* Glowing center line */}
+                    <motion.path
+                      d="M10,0 L10,100"
+                      strokeWidth="2"
+                      stroke={isDark ? "#14F195" : "#0EA66B"}
+                      strokeDasharray="3,3"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ 
+                        pathLength: 1,
+                        opacity: [0, 1, 0],
+                      }}
+                      transition={{ 
+                        duration: 1.8,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    
+                    {/* Data packets */}
+                    {Array.from({ length: 8 }).map((_, i) => (
+                      <motion.rect
+                        key={i}
+                        x="6" y="0" width="8" height="6"
+                        rx="1"
+                        fill={i % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
+                        initial={{ y: 0, opacity: 0 }}
+                        animate={{ 
+                          y: [0, 100],
+                          opacity: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 1.2,
+                          delay: i * 0.15,
+                          ease: "easeOut"
+                        }}
+                      />
+                    ))}
+                    
+                    {/* Flash effect at target */}
+                    <motion.circle
+                      cx="10" cy="100" r="8"
+                      fill={isDark ? "#14F195" : "#0EA66B"}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ 
+                        opacity: [0, 0.7, 0],
+                        scale: [0, 1.5, 0]
+                      }}
+                      transition={{ 
+                        delay: 1.2,
+                        duration: 0.8
+                      }}
+                    />
+                  </svg>
                 </div>
               </motion.div>
-            </motion.div>
+            )}
+            
+            {/* Terminal flash effect on receiving data */}
+            {showEnergyFlow && (
+              <motion.div 
+                className="absolute inset-0 pointer-events-none z-10"
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: [0, 0.2, 0],
+                }}
+                transition={{ 
+                  delay: 1.5,
+                  duration: 0.8
+                }}
+                style={{
+                  background: `radial-gradient(circle at ${window.innerWidth > 1024 ? 'right center' : 'center bottom'}, ${isDark ? 'rgba(20, 241, 149, 0.3)' : 'rgba(14, 166, 107, 0.3)'}, transparent 70%)`,
+                }}
+              />
+            )}
+            
+            {/* Compilation Terminal - Right Side */}
+            <div className="w-full lg:w-1/2" ref={terminalRef}>
+              <motion.div
+                className="relative h-full"
+                style={{
+                  perspective: 1000,
+                }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <motion.div 
+                  className="relative rounded-2xl overflow-hidden shadow-2xl h-full"
+                  style={{ 
+                    transformStyle: "preserve-3d",
+                    transform: "translateZ(20px)",
+                    backgroundColor: isDark ? 'rgba(10, 10, 10, 0.8)' : 'rgba(255, 255, 255, 0.9)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: isDark 
+                      ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 15px rgba(153, 69, 255, 0.2)' 
+                      : '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(122, 53, 204, 0.2)',
+                  }}
+                >
+                  {/* Terminal Header */}
+                  <div className="bg-gradient-to-r from-hub-secondary to-hub-primary p-1">
+                    <div className="bg-black p-4 rounded-t-lg flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      <span className="text-white text-xs md:text-sm ml-4 font-mono">ethereum_vm_terminal</span>
+                    </div>
+                  </div>
+                  
+                  {/* EVM Terminal Output */}
+                  <div 
+                    className="p-6 md:p-8 font-mono text-xs md:text-sm text-black dark:text-white"
+                    style={{ 
+                      maxHeight: "60vh",
+                      height: "60vh",
+                      overflowY: "auto",
+                      backgroundColor: isDark ? 'rgba(0, 0, 0, 0.95)' : 'rgba(30, 30, 40, 0.95)',
+                    }}
+                  >
+                    <div className="flex flex-col gap-1">
+                      {terminalOutput.map((line, i) => (
+                        <motion.div 
+                          key={i}
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{
+                            duration: 0.2,
+                          }}
+                          className={
+                            line.includes("Error") ? "text-red-400" : 
+                            line.includes(">") ? (isDark ? "text-blue-400" : "text-blue-600") : 
+                            line.includes("0x") ? (isDark ? "text-purple-400" : "text-purple-600") :
+                            line.includes("=>") ? (isDark ? "text-yellow-300" : "text-yellow-600") :
+                            ""
+                          }
+                        >
+                          {line}
+                        </motion.div>
+                      ))}
+                      
+                      {isCompiling && (
+                        <motion.div
+                          animate={{ opacity: [0, 1, 0] }}
+                          transition={{ 
+                            duration: 1,
+                            repeat: Infinity 
+                          }}
+                          className={isDark ? "text-green-400" : "text-green-500"}
+                        >
+                          _
+                        </motion.div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Blockchain Visualization Overlay */}
+                  <div className="absolute inset-0 pointer-events-none opacity-20">
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                      {/* Network nodes */}
+                      {nodes.map(node => (
+                        <motion.circle
+                          key={node.id}
+                          cx={`${node.x}%`}
+                          cy={`${node.y}%`}
+                          r="1.5"
+                          fill={node.id % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
+                          animate={{
+                            r: [1.5, 2, 1.5],
+                            opacity: [0.6, 1, 0.6]
+                          }}
+                          transition={{
+                            duration: 2 + Math.random() * 2,
+                            repeat: Infinity,
+                            repeatType: "reverse"
+                          }}
+                        />
+                      ))}
+                    </svg>
+                  </div>
+                  
+                  {/* EVM Execution State - GAS Monitor */}
+                  <div 
+                    className="absolute bottom-0 left-0 right-0 p-2 border-t"
+                    style={{
+                      backgroundColor: isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(20, 20, 30, 0.9)',
+                      borderColor: isDark ? 'rgba(60, 60, 60, 0.5)' : 'rgba(100, 100, 100, 0.5)'
+                    }}
+                  >
+                    <div className="flex justify-between items-center text-xs text-gray-400 font-mono text-black dark:text-white">
+                      <div>Gas Used: <span className={isDark ? "text-green-400" : "text-green-600"}>{isCompiling ? 
+                        <motion.span
+                          animate={{ opacity: [1, 0.5, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        >
+                          {Math.floor(Math.random() * 20000) + 50000}
+                        </motion.span> : "134,529"}
+                      </span></div>
+                      <div>Block: <span className={isDark ? "text-purple-400" : "text-purple-600"}>{isCompiling ? 
+                        <motion.span
+                          animate={{ opacity: [1, 0.5, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        >
+                          {Math.floor(Math.random() * 1000) + 17000000}
+                        </motion.span> : "17284392"}
+                      </span></div>
+                      <div className="hidden md:block">Network: <span className={isDark ? "text-yellow-400" : "text-yellow-600"}>Ethereum</span></div>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,9 +1,8 @@
 "use client";
 
-import { ProjectLayout } from "@/components/ProjectLayout";
 import { useTranslation } from "@/shared/hooks/useTranslation";
-import { Heading2, Body } from "@/components/Typography";
-import { motion } from "framer-motion";
+import { ProjectPageTemplate } from "@/components/ProjectPageTemplate";
+import { MediaItem } from "@/components/MediaRenderer";
 
 export default function LoyaHub() {
   const { t } = useTranslation();
@@ -20,13 +19,24 @@ export default function LoyaHub() {
     "AWS"
   ];
 
+  const mediaItems: MediaItem[] = [
+    {
+      type: "video",
+      url: "/images/projects/loyahub/demo.mp4",
+      thumbnail: "/images/projects/loyahub/thumb.png",
+      title: "Demo do App",
+      description: "Demonstração das principais funcionalidades do aplicativo"
+    }
+  ];
+
   return (
-    <ProjectLayout
+    <ProjectPageTemplate
       title={t("projects.loyahub.title")}
       subtitle={t("projects.loyahub.subtitle")}
       description={t("projects.loyahub.description")}
       tags={[t("projects.loyahub.tag"), "Rewards", "Mobile"]}
       techStack={techStack}
+      mediaItems={mediaItems}
       imagePath="/images/projects/loyahub.jpg"
       githubUrl="https://github.com/hubweb3/loyahub"
       demoUrl="https://loyahub.hubweb3.com"
@@ -38,205 +48,119 @@ export default function LoyaHub() {
         name: t("projects.drex.title"),
         url: "/projects/drex"
       }}
-    >
-      <div className="space-y-12">
-        <section>
-          <Heading2>{t("projects.features")}</Heading2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-            {[
+      
+      // Architecture Section
+      hasArchitecture={true}
+      architectureDetails={{
+        title: t("projects.architecture"),
+        description: "O LoyaHub utiliza uma arquitetura de várias camadas que combina blockchain para registro imutável e transparente de pontos de fidelidade com sistemas tradicionais para desempenho e usabilidade.",
+        overview: "Os tokens de fidelidade são implementados como tokens ERC-20 personalizados na rede Polygon, garantindo baixas taxas e alta velocidade de transação.",
+        sections: [
+          {
+            title: "Arquitetura do Sistema",
+            description: "Estrutura em camadas do LoyaHub",
+            diagrams: [
               {
-                title: "Tokenização de Pontos",
-                description: "Conversão de programas de fidelidade tradicionais em tokens blockchain, garantindo transparência e portabilidade.",
-                icon: "🔄"
-              },
-              {
-                title: "Interoperabilidade entre Marcas",
-                description: "Sistema de coalizão que permite cooperação entre diferentes empresas e transferência de pontos entre programas.",
-                icon: "🤝"
-              },
-              {
-                title: "App Mobile para Clientes",
-                description: "Aplicativo intuitivo para consumidores rastrearem, acumularem e resgatarem pontos de fidelidade de múltiplas marcas.",
-                icon: "📱"
-              },
-              {
-                title: "Dashboard para Empresas",
-                description: "Painel administrativo para empresas gerenciarem seus programas, ofertas e analisarem o comportamento dos clientes.",
-                icon: "📊"
+                url: "/images/projects/loyahub/architecture.png",
+                alt: "LoyaHub Architecture",
+                diagramType: "architecture",
+                description: "Visão geral da arquitetura do sistema"
               }
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                className="p-6 rounded-xl"
-                style={{
-                  backgroundColor: "rgba(153, 69, 255, 0.05)",
-                  border: "1px solid rgba(153, 69, 255, 0.2)",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold mb-3 text-black dark:text-white">{feature.title}</h3>
-                <p className="text-gray-700 dark:text-gray-300">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <Heading2>{t("projects.architecture")}</Heading2>
-          <Body>
-            O LoyaHub utiliza uma arquitetura de várias camadas que combina blockchain para registro imutável e transparente de pontos de fidelidade com sistemas tradicionais para desempenho e usabilidade. Os tokens de fidelidade são implementados como tokens ERC-20 personalizados na rede Polygon, garantindo baixas taxas e alta velocidade de transação.
-          </Body>
-          
-          <div className="mt-8 p-6 rounded-xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-gray-800">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 rounded-lg bg-white/20 dark:bg-black/20">
-                <h4 className="font-bold mb-2 text-black dark:text-white">Camada Blockchain</h4>
-                <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
-                  <li>Contratos para tokens de fidelidade</li>
-                  <li>Sistema de conversão entre tokens</li>
-                  <li>Regras de governança para coalizões</li>
-                  <li>Registros imutáveis de transações</li>
-                </ul>
-              </div>
-              
-              <div className="p-4 rounded-lg bg-white/20 dark:bg-black/20">
-                <h4 className="font-bold mb-2 text-black dark:text-white">Camada de API</h4>
-                <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
-                  <li>Endpoints RESTful e GraphQL</li>
-                  <li>Autenticação e autorização</li>
-                  <li>Indexação e cache para desempenho</li>
-                  <li>Integração com sistemas empresariais</li>
-                </ul>
-              </div>
-              
-              <div className="p-4 rounded-lg bg-white/20 dark:bg-black/20">
-                <h4 className="font-bold mb-2 text-black dark:text-white">Aplicações Cliente</h4>
-                <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
-                  <li>App mobile React Native</li>
-                  <li>Painel administrativo React</li>
-                  <li>Widgets para integração em sites</li>
-                  <li>SDK para desenvolvedores</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <Heading2>Vantagens para Empresas</Heading2>
-          <div className="mt-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <motion.div
-                className="relative p-6 pt-12 rounded-xl overflow-hidden"
-                style={{
-                  backgroundColor: "rgba(20, 241, 149, 0.05)",
-                  border: "1px solid rgba(20, 241, 149, 0.2)",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-green-500"></div>
-                <h3 className="text-xl font-bold mb-4 text-black dark:text-white">Aumento de Engajamento</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Aumento médio de 45% na retenção de clientes</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Incremento de 32% no ticket médio de compras</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Maior frequência de visitas e interações</span>
-                  </li>
-                </ul>
-              </motion.div>
-              
-              <motion.div
-                className="relative p-6 pt-12 rounded-xl overflow-hidden"
-                style={{
-                  backgroundColor: "rgba(20, 241, 149, 0.05)",
-                  border: "1px solid rgba(20, 241, 149, 0.2)",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-green-500"></div>
-                <h3 className="text-xl font-bold mb-4 text-black dark:text-white">Redução de Custos</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Diminuição de 60% nos custos operacionais do programa</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Automação de processos antes manuais</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Menor custo de aquisição de clientes via parcerias</span>
-                  </li>
-                </ul>
-              </motion.div>
-            </div>
-            
-            <motion.div
-              className="relative p-6 pt-12 rounded-xl overflow-hidden mt-8"
-              style={{
-                backgroundColor: "rgba(153, 69, 255, 0.05)",
-                border: "1px solid rgba(153, 69, 255, 0.2)",
-              }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-green-500"></div>
-              <h3 className="text-xl font-bold mb-4 text-black dark:text-white">Analytics e Insights</h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
-                Dashboard analítico avançado que oferece insights detalhados sobre o comportamento dos clientes, eficácia das recompensas e oportunidades de otimização.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                <div className="bg-black/5 dark:bg-white/5 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2 text-black dark:text-white">Segmentação de Clientes</h4>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">Grupos automáticos baseados em comportamento, valor e engajamento.</p>
-                </div>
-                
-                <div className="bg-black/5 dark:bg-white/5 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2 text-black dark:text-white">ROI das Campanhas</h4>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">Métricas detalhadas de retorno sobre investimento para cada campanha e oferta.</p>
-                </div>
-                
-                <div className="bg-black/5 dark:bg-white/5 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2 text-black dark:text-white">Previsão de Tendências</h4>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">Modelos preditivos para antecipar comportamentos e otimizar ofertas.</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      </div>
-    </ProjectLayout>
+            ]
+          }
+        ],
+        highlights: [
+          {
+            title: "Camada Blockchain",
+            description: "Contratos para tokens de fidelidade, sistema de conversão entre tokens, regras de governança para coalizões e registros imutáveis de transações",
+            icon: "🔗"
+          },
+          {
+            title: "Camada de API",
+            description: "Endpoints RESTful e GraphQL, autenticação e autorização, indexação e cache para desempenho, integração com sistemas empresariais",
+            icon: "🔌"
+          },
+          {
+            title: "Aplicações Cliente",
+            description: "App mobile React Native, painel administrativo React, widgets para integração em sites e SDK para desenvolvedores",
+            icon: "📱"
+          }
+        ]
+      }}
+      
+      // Features Section
+      features={[
+        {
+          title: "Tokenização de Pontos",
+          description: "Conversão de programas de fidelidade tradicionais em tokens blockchain, garantindo transparência e portabilidade.",
+          icon: "🔄",
+          color: "purple"
+        },
+        {
+          title: "Interoperabilidade entre Marcas",
+          description: "Sistema de coalizão que permite cooperação entre diferentes empresas e transferência de pontos entre programas.",
+          icon: "🤝",
+          color: "green"
+        },
+        {
+          title: "App Mobile para Clientes",
+          description: "Aplicativo intuitivo para consumidores rastrearem, acumularem e resgatarem pontos de fidelidade de múltiplas marcas.",
+          icon: "📱",
+          color: "purple"
+        },
+        {
+          title: "Dashboard para Empresas",
+          description: "Painel administrativo para empresas gerenciarem seus programas, ofertas e analisarem o comportamento dos clientes.",
+          icon: "📊",
+          color: "green"
+        }
+      ]}
+      
+      processTitle="Tipos de Recompensas"
+      processSteps={[
+        {
+          title: "Pontos de Compra",
+          description: "Acúmulo de pontos baseado em valor de compra, com diferentes níveis de multiplicadores por categoria.",
+          icon: "🛍️"
+        },
+        {
+          title: "Recompensas por Engajamento",
+          description: "Bonificações por ações específicas como avaliações, compartilhamentos e participação em programas.",
+          icon: "🎯"
+        },
+        {
+          title: "Benefícios Exclusivos",
+          description: "Acesso VIP, experiências únicas e produtos exclusivos desbloqueados com pontos ou níveis específicos.",
+          icon: "🎁"
+        },
+        {
+          title: "Cashback e Descontos",
+          description: "Sistema de retorno em dinheiro e descontos progressivos baseados em pontuação e nível do usuário.",
+          icon: "💰"
+        }
+      ]}
+      
+      benefitsTitle="Benefícios do Sistema"
+      benefitGroups={[
+        {
+          title: "Para Empresas",
+          benefits: [
+            "Aumento significativo na retenção de clientes",
+            "Redução nos custos operacionais do programa",
+            "Insights valiosos sobre comportamento do consumidor"
+          ],
+          color: "primary"
+        },
+        {
+          title: "Para Clientes",
+          benefits: [
+            "Acesso unificado a múltiplos programas de fidelidade",
+            "Maior flexibilidade no uso dos pontos",
+            "Transparência total sobre pontos e recompensas"
+          ],
+          color: "secondary"
+        }
+      ]}
+    />
   );
 } 

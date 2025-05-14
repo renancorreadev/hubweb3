@@ -7,6 +7,7 @@ import { loyahubDocsTranslations } from './locales/components/docs/breadcrumb';
 import { rwaDocsTranslations } from './locales/components/docs/breadcrumb';
 import { developerTranslations } from './locales/pages/developer';
 import { projectsTranslations } from './locales/pages/projects';
+import { drexTranslations } from './locales/pages/drex';
 
 // Types for the internationalization system
 export type SupportedLanguage = 'en' | 'es' | 'pt';
@@ -19,8 +20,8 @@ export interface LocaleOption {
 
 // Type for translation values
 export interface TranslationValue {
-  en: string;
-  pt: string;
+  en: string | string[];
+  pt: string | string[];
 }
 
 // Type for translations object
@@ -38,6 +39,7 @@ export const translations: Translations = {
   ...rwaDocsTranslations,
   ...developerTranslations,
   ...projectsTranslations,
+  ...drexTranslations,
 };
 
 // List of supported languages for language selectors
