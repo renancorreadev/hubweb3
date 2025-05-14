@@ -42,10 +42,10 @@ export function Footer() {
         >
           <div className="container mx-auto px-4 md:px-6 lg:px-8">
             <div
-              className={`grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12 mb-12`}
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mb-12`}
             >
               {/* Coluna 1: Logo e descrição */}
-              <div className="col-span-1 lg:col-span-1">
+              <div className="col-span-1">
                 <div className="flex flex-col">
                   <Heading3 className="mb-4">
                     {t("footer.managedBy")}
@@ -61,7 +61,7 @@ export function Footer() {
                       }}
                     />
                   </div>
-                  <div className="flex gap-4 mb-6">
+                  {/* <div className="flex gap-4 mb-6">
                     <Link
                       href="https://youtube.com"
                       aria-label={t("footer.social.youtube")}
@@ -132,12 +132,12 @@ export function Footer() {
                         </svg>
                       </div>
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
               {/* Coluna 2: Links HubWeb3 */}
-              <div className="col-span-1">
+              {/* <div className="col-span-1">
                 <Heading3 className="mb-4">
                   {t("footer.hubweb3.title")}
                 </Heading3>
@@ -203,7 +203,7 @@ export function Footer() {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </div> */}
 
               {/* Coluna 3: Links CONECTE-SE */}
               <div className="col-span-1">
@@ -211,7 +211,7 @@ export function Footer() {
                   {t("footer.connect.title")}
                 </Heading3>
                 <ul className="space-y-3">
-                  <li>
+                  {/* <li>
                     <Link
                       href="/blog"
                       className="hover:text-hub-primary transition-colors"
@@ -225,10 +225,10 @@ export function Footer() {
                         {t("footer.connect.blog")}
                       </Typography>
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link
-                      href="/boletim"
+                      href="/contact"
                       className="hover:text-hub-primary transition-colors"
                     >
                       <Typography 
@@ -237,15 +237,15 @@ export function Footer() {
                         color="text.secondary"
                         size="xl"
                       >
-                        {t("footer.connect.newsletter")}
+                        {t("footer.connect.contact")}
                       </Typography>
                     </Link>
                   </li>
                 </ul>
               </div>
 
-              {/* Coluna 4: Seletor de idioma (apenas em desktop) */}
-              <div className={`col-span-1 ${mobileOnly.display.hidden} md:flex flex-col`}>
+              {/* Coluna 4: Seletor de idioma */}
+              <div className="col-span-1">
                 <Heading3 className="mb-4">
                   {t("footer.language.title")}
                 </Heading3>

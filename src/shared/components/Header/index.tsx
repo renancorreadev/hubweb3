@@ -131,7 +131,7 @@ export function Header() {
           {/* Nav items desktop */}
           <div className={headerStyles.navDesktop}>
             <SubMenuList />
-            <InkeepSearchBar />
+            {/* <InkeepSearchBar /> */}
             <div className="flex items-center gap-3">
               {isMounted && (
                 <motion.button
@@ -234,7 +234,7 @@ export function Header() {
                     </motion.button>
                   )}
                 </div>
-                <InkeepSearchBar />
+                {/* <InkeepSearchBar /> */}
               </div>
             </motion.div>
           )}

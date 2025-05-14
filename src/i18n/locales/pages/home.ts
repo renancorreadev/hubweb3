@@ -182,20 +182,20 @@ export const home = {
   
   // Hero
   'hero.startBuilding': {
-    en: 'Start Building',
-    pt: 'Começar a Construir'
+    en: 'Curriculum',
+    pt: 'Currículo'
   },
   'hero.resources': {
-    en: 'Resources',
-    pt: 'Recursos'
+    en: 'Projects',
+    pt: 'Projetos'
   },
   'hero.title': {
-    en: 'Powerful for developers.\nFast for everyone.',
-    pt: 'Poderoso para desenvolvedores.\nRápido para todos.'
+    en: 'Building Web3 since 2018.\nShaping the future of blockchain.',
+    pt: 'Construindo Web3 desde 2018.\nModelando o futuro do blockchain.'
   },
   'hero.description': {
-    en: 'Bring blockchain to the people. HubWeb3 supports experiences for power users, new consumers, and everyone in between.',
-    pt: 'Leve o blockchain para as pessoas. HubWeb3 suporta experiências para usuários avançados, novos consumidores e todos os outros.'
+    en: 'Architecting the decentralized revolution since day one. From code to adoption, I transform blockchain complexity into solutions that change how we interact with digital value.',
+    pt: 'Arquitetando a revolução descentralizada desde o início. Do código à adoção, transformo a complexidade do blockchain em soluções que mudam como interagimos com valor digital.'
   },
   
   // Projects

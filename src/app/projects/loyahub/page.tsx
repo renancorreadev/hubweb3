@@ -10,7 +10,7 @@ export default function LoyaHub() {
   const techStack = [
     "Solidity",
     "ERC-20",
-    "Polygon",
+    "Hyperledger Besu",
     "React Native",
     "TypeScript",
     "Node.js",
@@ -22,10 +22,91 @@ export default function LoyaHub() {
   const mediaItems: MediaItem[] = [
     {
       type: "video",
-      url: "/images/projects/loyahub/demo.mp4",
-      thumbnail: "/images/projects/loyahub/thumb.png",
+      url: "/images/projects/loyahub/screen/Recovery",
+      thumbnail: "/images/projects/loyahub/screen/Transferir.png",
       title: "Demo do App",
       description: "Demonstração das principais funcionalidades do aplicativo"
+    }
+  ];
+
+  const galleryItems = [
+    {
+      url: "/images/projects/loyahub/screen/adminI.png",
+      alt: t("projects.loyahub.gallery.adminI.title"),
+      title: t("projects.loyahub.gallery.adminI.title"),
+      description: t("projects.loyahub.gallery.adminI.description"),
+      size: "large" as const
+    },
+    {
+      url: "/images/projects/loyahub/screen/adminII.png",
+      alt: t("projects.loyahub.gallery.adminII.title"),
+      title: t("projects.loyahub.gallery.adminII.title"),
+      description: t("projects.loyahub.gallery.adminII.description"),
+      size: "medium" as const
+    },
+    {
+      url: "/images/projects/loyahub/screen/adminIII.png",
+      alt: t("projects.loyahub.gallery.adminIII.title"),
+      title: t("projects.loyahub.gallery.adminIII.title"),
+      description: t("projects.loyahub.gallery.adminIII.description"),
+      size: "medium" as const
+    },
+    {
+      url: "/images/projects/loyahub/screen/adminIV.png",
+      alt: t("projects.loyahub.gallery.adminIV.title"),
+      title: t("projects.loyahub.gallery.adminIV.title"),
+      description: t("projects.loyahub.gallery.adminIV.description"),
+      size: "medium" as const
+    },
+
+    {
+      url: "/images/projects/loyahub/screen/CardPontos.png",
+      alt: t("projects.loyahub.gallery.cardPontos.title"),
+      title: t("projects.loyahub.gallery.cardPontos.title"),
+      description: t("projects.loyahub.gallery.cardPontos.description"),
+      size: "medium" as const
+    },
+    {
+      url: "/images/projects/loyahub/screen/ProfileI.png",
+      alt: t("projects.loyahub.gallery.profileI.title"),
+      title: t("projects.loyahub.gallery.profileI.title"),
+      description: t("projects.loyahub.gallery.profileI.description"),
+      size: "medium" as const
+    },
+    {
+      url: "/images/projects/loyahub/screen/ProfileII.png",
+      alt: t("projects.loyahub.gallery.profileII.title"),
+      title: t("projects.loyahub.gallery.profileII.title"),
+      description: t("projects.loyahub.gallery.profileII.description"),
+      size: "small" as const
+    },
+    {
+      url: "/images/projects/loyahub/screen/ProfileIII.png",
+      alt: t("projects.loyahub.gallery.profileIII.title"),
+      title: t("projects.loyahub.gallery.profileIII.title"),
+      description: t("projects.loyahub.gallery.profileIII.description"),
+      size: "medium" as const
+    },
+    {
+      url: "/images/projects/loyahub/screen/ProfileUpadted.png",
+      alt: t("projects.loyahub.gallery.profileUpdated.title"),
+      title: t("projects.loyahub.gallery.profileUpdated.title"),
+      description: t("projects.loyahub.gallery.profileUpdated.description"),
+      size: "medium" as const
+    },
+    {
+      url: "/images/projects/loyahub/screen/Registro.png",
+      alt: t("projects.loyahub.gallery.registro.title"),
+      title: t("projects.loyahub.gallery.registro.title"),
+      description: t("projects.loyahub.gallery.registro.description"),
+      size: "small" as const
+    },
+    {
+      url: "/images/projects/loyahub/screen/Transferir.png",
+      alt: t("projects.loyahub.gallery.transferir.title"),
+      title: t("projects.loyahub.gallery.transferir.title"),
+      description: t("projects.loyahub.gallery.transferir.description"),
+      size: "small" as const
     }
   ];
 
@@ -37,9 +118,9 @@ export default function LoyaHub() {
       tags={[t("projects.loyahub.tag"), "Rewards", "Mobile"]}
       techStack={techStack}
       mediaItems={mediaItems}
-      imagePath="/images/projects/loyahub.jpg"
-      githubUrl="https://github.com/hubweb3/loyahub"
-      demoUrl="https://loyahub.hubweb3.com"
+      imagePath="/images/projects/loyahub/screen/app.png"
+      githubUrl="https://github.com/renancorreadev/loyahub"
+      demoUrl="https://github.com/renancorreadev/loyahub"
       nextProject={{
         name: t("projects.rwa.title"),
         url: "/projects/rwa"
@@ -49,19 +130,25 @@ export default function LoyaHub() {
         url: "/projects/drex"
       }}
       
+      // Gallery Section
+      hasGallery={true}
+      galleryTitle={t("projects.loyahub.gallery.title")}
+      galleryItems={galleryItems}
+      useSlider={true}
+      
       // Architecture Section
       hasArchitecture={true}
       architectureDetails={{
         title: t("projects.architecture"),
-        description: "O LoyaHub utiliza uma arquitetura de várias camadas que combina blockchain para registro imutável e transparente de pontos de fidelidade com sistemas tradicionais para desempenho e usabilidade.",
-        overview: "Os tokens de fidelidade são implementados como tokens ERC-20 personalizados na rede Polygon, garantindo baixas taxas e alta velocidade de transação.",
+        description: t("projects.loyahub.architecture.description"),
+        overview: t("projects.loyahub.architecture.overview"),
         sections: [
           {
-            title: "Arquitetura do Sistema",
-            description: "Estrutura em camadas do LoyaHub",
+            title: t("projects.loyahub.architecture.section.title"),
+            description: t("projects.loyahub.architecture.section.description"),
             diagrams: [
               {
-                url: "/images/projects/loyahub/architecture.png",
+                url: "/images/projects/loyahub/screen/Diagram.png",
                 alt: "LoyaHub Architecture",
                 diagramType: "architecture",
                 description: "Visão geral da arquitetura do sistema"
@@ -71,18 +158,18 @@ export default function LoyaHub() {
         ],
         highlights: [
           {
-            title: "Camada Blockchain",
-            description: "Contratos para tokens de fidelidade, sistema de conversão entre tokens, regras de governança para coalizões e registros imutáveis de transações",
+            title: t("projects.loyahub.architecture.highlight.blockchain.title"),
+            description: t("projects.loyahub.architecture.highlight.blockchain.description"),
             icon: "🔗"
           },
           {
-            title: "Camada de API",
-            description: "Endpoints RESTful e GraphQL, autenticação e autorização, indexação e cache para desempenho, integração com sistemas empresariais",
+            title: t("projects.loyahub.architecture.highlight.api.title"),
+            description: t("projects.loyahub.architecture.highlight.api.description"),
             icon: "🔌"
           },
           {
-            title: "Aplicações Cliente",
-            description: "App mobile React Native, painel administrativo React, widgets para integração em sites e SDK para desenvolvedores",
+            title: t("projects.loyahub.architecture.highlight.client.title"),
+            description: t("projects.loyahub.architecture.highlight.client.description"),
             icon: "📱"
           }
         ]
@@ -91,73 +178,65 @@ export default function LoyaHub() {
       // Features Section
       features={[
         {
-          title: "Tokenização de Pontos",
-          description: "Conversão de programas de fidelidade tradicionais em tokens blockchain, garantindo transparência e portabilidade.",
+          title: t("projects.loyahub.features.tokenization.title"),
+          description: t("projects.loyahub.features.tokenization.description"),
           icon: "🔄",
           color: "purple"
         },
         {
-          title: "Interoperabilidade entre Marcas",
-          description: "Sistema de coalizão que permite cooperação entre diferentes empresas e transferência de pontos entre programas.",
+          title: t("projects.loyahub.features.interoperability.title"),
+          description: t("projects.loyahub.features.interoperability.description"),
           icon: "🤝",
           color: "green"
         },
         {
-          title: "App Mobile para Clientes",
-          description: "Aplicativo intuitivo para consumidores rastrearem, acumularem e resgatarem pontos de fidelidade de múltiplas marcas.",
+          title: t("projects.loyahub.features.mobileapp.title"),
+          description: t("projects.loyahub.features.mobileapp.description"),
           icon: "📱",
           color: "purple"
         },
         {
-          title: "Dashboard para Empresas",
-          description: "Painel administrativo para empresas gerenciarem seus programas, ofertas e analisarem o comportamento dos clientes.",
+          title: t("projects.loyahub.features.dashboard.title"),
+          description: t("projects.loyahub.features.dashboard.description"),
           icon: "📊",
           color: "green"
         }
       ]}
       
-      processTitle="Tipos de Recompensas"
+      processTitle={t("projects.loyahub.process.title")}
       processSteps={[
         {
-          title: "Pontos de Compra",
-          description: "Acúmulo de pontos baseado em valor de compra, com diferentes níveis de multiplicadores por categoria.",
+          title: t("projects.loyahub.process.purchasepoints.title"),
+          description: t("projects.loyahub.process.purchasepoints.description"),
           icon: "🛍️"
         },
         {
-          title: "Recompensas por Engajamento",
-          description: "Bonificações por ações específicas como avaliações, compartilhamentos e participação em programas.",
+          title: t("projects.loyahub.process.engagement.title"),
+          description: t("projects.loyahub.process.engagement.description"),
           icon: "🎯"
         },
         {
-          title: "Benefícios Exclusivos",
-          description: "Acesso VIP, experiências únicas e produtos exclusivos desbloqueados com pontos ou níveis específicos.",
+          title: t("projects.loyahub.process.exclusive.title"),
+          description: t("projects.loyahub.process.exclusive.description"),
           icon: "🎁"
         },
         {
-          title: "Cashback e Descontos",
-          description: "Sistema de retorno em dinheiro e descontos progressivos baseados em pontuação e nível do usuário.",
+          title: t("projects.loyahub.process.cashback.title"),
+          description: t("projects.loyahub.process.cashback.description"),
           icon: "💰"
         }
       ]}
       
-      benefitsTitle="Benefícios do Sistema"
+      benefitsTitle={t("projects.loyahub.benefits.title")}
       benefitGroups={[
         {
-          title: "Para Empresas",
-          benefits: [
-            "Aumento significativo na retenção de clientes",
-            "Redução nos custos operacionais do programa",
-            "Insights valiosos sobre comportamento do consumidor"
-          ],
+          title: t("projects.loyahub.benefits.companies.title"),
+          benefits: (t("projects.loyahub.benefits.companies.list") as unknown) as string[],
           color: "primary"
         },
         {
-          title: "Para Clientes",
-          benefits: [
-            "Acesso unificado a múltiplos programas de fidelidade",
-            "Maior flexibilidade no uso dos pontos",
-            "Transparência total sobre pontos e recompensas"
-          ],
+          title: t("projects.loyahub.benefits.customers.title"),
+          benefits: (t("projects.loyahub.benefits.customers.list") as unknown) as string[],
           color: "secondary"
         }
       ]}

@@ -26,9 +26,9 @@ export default function CreatorPro() {
       description={t("projects.creatorPro.description")}
       tags={[t("projects.creatorPro.tag"), "NFT", "Marketplace"]}
       techStack={techStack}
-      imagePath="/images/projects/creator-pro.jpg"
+      imagePath="/images/projects/CreatorPro.png"
       githubUrl="https://github.com/hubweb3/creator-pro"
-      demoUrl="https://creator-pro.hubweb3.com"
+      demoUrl="https://musicpro.live/"
       nextProject={{
         name: t("projects.drex.title"),
         url: "/projects/drex"

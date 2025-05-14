@@ -59,6 +59,10 @@ export const footer = {
         en: 'Blog',
         pt: 'Blog'
     },
+    'footer.connect.contact': {
+        en: 'Contact',
+        pt: 'Contato'
+    },
     'footer.connect.newsletter': {
         en: 'Newsletter',
         pt: 'Boletim Informativo'

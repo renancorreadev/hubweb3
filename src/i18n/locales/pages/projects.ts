@@ -76,7 +76,7 @@ export const projectsTranslations = {
   },
   "projects.assetTokenization.description": {
     pt: "RWA Compliance Hub é um ecossistema modular para tokenização de ativos do mundo real, baseado no padrão <em>ERC‑3643</em>. Permite que reguladores implementem seus próprios contratos de compliance (KYC/AML, limites de negociação, controles de risco), sem alterar o core token. Oferece governança on‑chain, monitoramento em tempo real e APIs para integração com sistemas legados, garantindo transparência, auditabilidade e conformidade regulatória.",
-    en: "RWA Compliance Hub is a modular ecosystem for real-world asset tokenization, based on the <em>ERC-3643</em> standard. It allows regulators to implement their own compliance contracts (KYC/AML, trading limits, risk controls), without changing the core token. It offers on-chain governance, real-time monitoring and APIs for integration with legacy systems, ensuring transparency, auditability and regulatory compliance."
+    en: "RWA Compliance Hub is a modular ecosystem for real-world asset tokenization, based on the ERC-3643 standard. It allows regulators to implement their own compliance contracts (KYC/AML, trading limits, risk controls), without changing the core token. It offers on-chain governance, real-time monitoring and APIs for integration with legacy systems, ensuring transparency, auditability and regulatory compliance."
   },
   "projects.assetTokenization.tag": {
     pt: "BLOCKCHAIN",
@@ -319,5 +319,393 @@ export const projectsTranslations = {
       "Speed in buying and selling tokens",
       "Simplified portfolio management"
     ]
+  },
+
+  // LoyaHub - Novos textos para internacionalização
+  "projects.loyahub.gallery.title": {
+    pt: "Galeria do Projeto",
+    en: "Project Gallery"
+  },
+  "projects.loyahub.architecture.description": {
+    pt: "O LoyaHub utiliza uma arquitetura de várias camadas que combina blockchain para registro imutável e transparente de pontos de fidelidade com sistemas tradicionais para desempenho e usabilidade.",
+    en: "LoyaHub uses a multi-layer architecture that combines blockchain for immutable and transparent loyalty points registry with traditional systems for performance and usability."
+  },
+  "projects.loyahub.architecture.overview": {
+    pt: "Os tokens de fidelidade são implementados como tokens ERC-20 personalizados na rede Polygon, garantindo baixas taxas e alta velocidade de transação.",
+    en: "Loyalty tokens are implemented as custom ERC-20 tokens on the Polygon network, ensuring low fees and high transaction speed."
+  },
+  "projects.loyahub.architecture.section.title": {
+    pt: "Arquitetura do Sistema",
+    en: "System Architecture"
+  },
+  "projects.loyahub.architecture.section.description": {
+    pt: "Diagrama de processos do LoyaHub",
+    en: "LoyaHub process diagram"
+  },
+  "projects.loyahub.architecture.highlight.blockchain.title": {
+    pt: "Camada Blockchain",
+    en: "Blockchain Layer"
+  },
+  "projects.loyahub.architecture.highlight.blockchain.description": {
+    pt: "Contratos para tokens de fidelidade, sistema de conversão entre tokens, regras de governança para coalizões e registros imutáveis de transações",
+    en: "Contracts for loyalty tokens, token conversion system, governance rules for coalitions, and immutable transaction records"
+  },
+  "projects.loyahub.architecture.highlight.api.title": {
+    pt: "Camada de API",
+    en: "API Layer"
+  },
+  "projects.loyahub.architecture.highlight.api.description": {
+    pt: "Endpoints RESTful e GraphQL, autenticação e autorização, indexação e cache para desempenho, integração com sistemas empresariais",
+    en: "RESTful and GraphQL endpoints, authentication and authorization, indexing and caching for performance, integration with enterprise systems"
+  },
+  "projects.loyahub.architecture.highlight.client.title": {
+    pt: "Aplicações Cliente",
+    en: "Client Applications"
+  },
+  "projects.loyahub.architecture.highlight.client.description": {
+    pt: "App mobile React Native, painel administrativo React, widgets para integração em sites e SDK para desenvolvedores",
+    en: "React Native mobile app, React admin panel, widgets for website integration, and SDK for developers"
+  },
+  "projects.loyahub.process.title": {
+    pt: "Tipos de Recompensas",
+    en: "Reward Types"
+  },
+  "projects.loyahub.benefits.title": {
+    pt: "Benefícios do Sistema",
+    en: "System Benefits"
+  },
+  "projects.loyahub.benefits.companies.title": {
+    pt: "Para Empresas",
+    en: "For Companies"
+  },
+  "projects.loyahub.benefits.companies.list": {
+    pt: [
+      "Aumento significativo na retenção de clientes",
+      "Redução nos custos operacionais do programa",
+      "Insights valiosos sobre comportamento do consumidor"
+    ],
+    en: [
+      "Significant increase in customer retention",
+      "Reduction in program operational costs",
+      "Valuable insights into consumer behavior"
+    ]
+  },
+  "projects.loyahub.benefits.customers.title": {
+    pt: "Para Clientes",
+    en: "For Customers"
+  },
+  "projects.loyahub.benefits.customers.list": {
+    pt: [
+      "Acesso unificado a múltiplos programas de fidelidade",
+      "Maior flexibilidade no uso dos pontos",
+      "Transparência total sobre pontos e recompensas"
+    ],
+    en: [
+      "Unified access to multiple loyalty programs",
+      "Greater flexibility in using points",
+      "Complete transparency regarding points and rewards"
+    ]
+  },
+  
+  // LoyaHub Features
+  "projects.loyahub.features.tokenization.title": {
+    pt: "Tokenização de Pontos",
+    en: "Points Tokenization"
+  },
+  "projects.loyahub.features.tokenization.description": {
+    pt: "Conversão de programas de fidelidade tradicionais em tokens blockchain, garantindo transparência e portabilidade.",
+    en: "Conversion of traditional loyalty programs into blockchain tokens, ensuring transparency and portability."
+  },
+  "projects.loyahub.features.interoperability.title": {
+    pt: "Interoperabilidade entre Marcas",
+    en: "Brand Interoperability"
+  },
+  "projects.loyahub.features.interoperability.description": {
+    pt: "Sistema de coalizão que permite cooperação entre diferentes empresas e transferência de pontos entre programas.",
+    en: "Coalition system that allows cooperation between different companies and transfer of points between programs."
+  },
+  "projects.loyahub.features.mobileapp.title": {
+    pt: "App Mobile para Clientes",
+    en: "Mobile App for Customers"
+  },
+  "projects.loyahub.features.mobileapp.description": {
+    pt: "Aplicativo intuitivo para consumidores rastrearem, acumularem e resgatarem pontos de fidelidade de múltiplas marcas.",
+    en: "Intuitive application for consumers to track, accumulate, and redeem loyalty points from multiple brands."
+  },
+  "projects.loyahub.features.dashboard.title": {
+    pt: "Dashboard para Empresas",
+    en: "Dashboard for Companies"
+  },
+  "projects.loyahub.features.dashboard.description": {
+    pt: "Painel administrativo para empresas gerenciarem seus programas, ofertas e analisarem o comportamento dos clientes.",
+    en: "Administrative panel for companies to manage their programs, offers, and analyze customer behavior."
+  },
+  
+  // LoyaHub Process Steps
+  "projects.loyahub.process.purchasepoints.title": {
+    pt: "Pontos de Compra",
+    en: "Purchase Points"
+  },
+  "projects.loyahub.process.purchasepoints.description": {
+    pt: "Acúmulo de pontos baseado em valor de compra, com diferentes níveis de multiplicadores por categoria.",
+    en: "Accumulation of points based on purchase value, with different levels of multipliers by category."
+  },
+  "projects.loyahub.process.engagement.title": {
+    pt: "Recompensas por Engajamento",
+    en: "Engagement Rewards"
+  },
+  "projects.loyahub.process.engagement.description": {
+    pt: "Bonificações por ações específicas como avaliações, compartilhamentos e participação em programas.",
+    en: "Bonuses for specific actions such as reviews, shares, and program participation."
+  },
+  "projects.loyahub.process.exclusive.title": {
+    pt: "Benefícios Exclusivos",
+    en: "Exclusive Benefits"
+  },
+  "projects.loyahub.process.exclusive.description": {
+    pt: "Acesso VIP, experiências únicas e produtos exclusivos desbloqueados com pontos ou níveis específicos.",
+    en: "VIP access, unique experiences, and exclusive products unlocked with specific points or levels."
+  },
+  "projects.loyahub.process.cashback.title": {
+    pt: "Cashback e Descontos",
+    en: "Cashback and Discounts"
+  },
+  "projects.loyahub.process.cashback.description": {
+    pt: "Sistema de retorno em dinheiro e descontos progressivos baseados em pontuação e nível do usuário.",
+    en: "Cashback system and progressive discounts based on user score and level."
+  },
+  
+  // LoyaHub Gallery Items
+  "projects.loyahub.gallery.adminI.title": {
+    pt: "Recompensas",
+    en: "Rewards"
+  },
+  "projects.loyahub.gallery.adminI.description": {
+    pt: "Painel de administração exibindo tokens de fidelidade e seus detalhes",
+    en: "Admin panel displaying loyalty tokens and their details"
+  },
+  "projects.loyahub.gallery.adminII.title": {
+    pt: "Gestão de Clientes",
+    en: "Customer Management"
+  },
+  "projects.loyahub.gallery.adminII.description": {
+    pt: "Listagem de usuários cadastrados na blockchain com detalhes de carteira",
+    en: "List of users registered on the blockchain with wallet details"
+  },
+  "projects.loyahub.gallery.adminIII.title": {
+    pt: "Adicionar Pontos",
+    en: "Add Points"
+  },
+  "projects.loyahub.gallery.adminIII.description": {
+    pt: "Interface para administradores adicionarem pontos às carteiras dos clientes",
+    en: "Interface for administrators to add points to customer wallets"
+  },
+  "projects.loyahub.gallery.adminIV.title": {
+    pt: "Cadastro de Cliente",
+    en: "Customer Registration"
+  },
+  "projects.loyahub.gallery.adminIV.description": {
+    pt: "Formulário para registro de novos clientes no sistema",
+    en: "Form for registering new customers in the system"
+  },
+  "projects.loyahub.gallery.cardPontos.title": {
+    pt: "Cartão de Pontos",
+    en: "Points Card"
+  },
+  "projects.loyahub.gallery.cardPontos.description": {
+    pt: "Visualização dos pontos e saldo do usuário",
+    en: "View of user points and balance"
+  },
+  "projects.loyahub.gallery.profileI.title": {
+    pt: "Perfil Básico",
+    en: "Basic Profile"
+  },
+  "projects.loyahub.gallery.profileI.description": {
+    pt: "Tela de perfil do usuário exibindo detalhes da conta",
+    en: "User profile screen displaying account details"
+  },
+  "projects.loyahub.gallery.profileII.title": {
+    pt: "Status de Nível",
+    en: "Level Status"
+  },
+  "projects.loyahub.gallery.profileII.description": {
+    pt: "Tela mostrando o status do cliente sem benefícios ativos",
+    en: "Screen showing customer status without active benefits"
+  },
+  "projects.loyahub.gallery.profileIII.title": {
+    pt: "Cliente Premium",
+    en: "Premium Customer"
+  },
+  "projects.loyahub.gallery.profileIII.description": {
+    pt: "Tela exibindo benefícios disponíveis para clientes Premium",
+    en: "Screen displaying benefits available for Premium customers"
+  },
+  "projects.loyahub.gallery.profileUpdated.title": {
+    pt: "Informações Detalhadas",
+    en: "Detailed Information"
+  },
+  "projects.loyahub.gallery.profileUpdated.description": {
+    pt: "Visão detalhada das informações pessoais e saldo do usuário",
+    en: "Detailed view of user personal information and balance"
+  },
+  "projects.loyahub.gallery.registro.title": {
+    pt: "Criação de Conta",
+    en: "Account Creation"
+  },
+  "projects.loyahub.gallery.registro.description": {
+    pt: "Formulário para novos usuários criarem uma conta no sistema",
+    en: "Form for new users to create an account in the system"
+  },
+  "projects.loyahub.gallery.transferir.title": {
+    pt: "Transferir Pontos",
+    en: "Transfer Points"
+  },
+  "projects.loyahub.gallery.transferir.description": {
+    pt: "Modal para transferência de tokens entre carteiras",
+    en: "Modal for transferring tokens between wallets"
+  },
+  
+  // LoyaHub Videos
+  "projects.loyahub.video.demo.title": {
+    pt: "Demo do App",
+    en: "App Demo"
+  },
+  "projects.loyahub.video.demo.description": {
+    pt: "Demonstração das principais funcionalidades do aplicativo",
+    en: "Demonstration of the main app functionalities"
+  },
+
+  // Blockchain Page
+  "projects.blockchain.title": {
+    pt: "Blockchain",
+    en: "Blockchain"
+  },
+  "projects.blockchain.intro.title": {
+    pt: "O que é Blockchain?",
+    en: "What is Blockchain?"
+  },
+  "projects.blockchain.intro.description": {
+    pt: "Blockchain é uma tecnologia de registro distribuído que permite transações seguras, transparentes e imutáveis sem a necessidade de intermediários. Funciona como um livro-razão digital descentralizado, onde as transações são agrupadas em blocos e verificadas por uma rede de computadores.",
+    en: "Blockchain is a distributed ledger technology that enables secure, transparent, and immutable transactions without intermediaries. It works as a decentralized digital ledger where transactions are grouped into blocks and verified by a network of computers."
+  },
+  "projects.blockchain.advantages.title": {
+    pt: "Vantagens da Tecnologia Blockchain",
+    en: "Advantages of Blockchain Technology"
+  },
+  "projects.blockchain.advantages.security": {
+    pt: "Segurança",
+    en: "Security"
+  },
+  "projects.blockchain.advantages.security.description": {
+    pt: "Utiliza criptografia avançada e consenso distribuído para proteger dados contra alterações e ataques.",
+    en: "Uses advanced cryptography and distributed consensus to protect data against tampering and attacks."
+  },
+  "projects.blockchain.advantages.transparency": {
+    pt: "Transparência",
+    en: "Transparency"
+  },
+  "projects.blockchain.advantages.transparency.description": {
+    pt: "Todas as transações são publicamente verificáveis e rastreáveis, aumentando a confiança entre participantes.",
+    en: "All transactions are publicly verifiable and traceable, increasing trust among participants."
+  },
+  "projects.blockchain.advantages.immutability": {
+    pt: "Imutabilidade",
+    en: "Immutability"
+  },
+  "projects.blockchain.advantages.immutability.description": {
+    pt: "Uma vez registrados, os dados não podem ser alterados ou excluídos, garantindo integridade e auditabilidade.",
+    en: "Once recorded, data cannot be altered or deleted, ensuring integrity and auditability."
+  },
+  "projects.blockchain.advantages.decentralization": {
+    pt: "Descentralização",
+    en: "Decentralization"
+  },
+  "projects.blockchain.advantages.decentralization.description": {
+    pt: "Elimina pontos únicos de falha e controle centralizado, aumentando a resiliência do sistema.",
+    en: "Eliminates single points of failure and centralized control, increasing system resilience."
+  },
+  "projects.blockchain.architecture.title": {
+    pt: "Arquitetura Blockchain",
+    en: "Blockchain Architecture"
+  },
+  "projects.blockchain.architecture.description": {
+    pt: "A arquitetura blockchain é composta por diversos componentes que trabalham em conjunto para criar um sistema seguro e descentralizado:",
+    en: "Blockchain architecture consists of various components working together to create a secure and decentralized system:"
+  },
+  "projects.blockchain.architecture.consensus": {
+    pt: "Mecanismos de Consenso",
+    en: "Consensus Mechanisms"
+  },
+  "projects.blockchain.architecture.consensus.description": {
+    pt: "Processos como Prova de Trabalho (PoW) ou Prova de Participação (PoS) que garantem acordo entre os participantes da rede.",
+    en: "Processes like Proof of Work (PoW) or Proof of Stake (PoS) that ensure agreement among network participants."
+  },
+  "projects.blockchain.architecture.smart_contracts": {
+    pt: "Contratos Inteligentes",
+    en: "Smart Contracts"
+  },
+  "projects.blockchain.architecture.smart_contracts.description": {
+    pt: "Programas autoexecutáveis que automatizam processos de negócios quando condições predefinidas são atendidas.",
+    en: "Self-executing programs that automate business processes when predefined conditions are met."
+  },
+  "projects.blockchain.architecture.networks": {
+    pt: "Tipos de Redes",
+    en: "Network Types"
+  },
+  "projects.blockchain.architecture.networks.description": {
+    pt: "Públicas (como Bitcoin, Ethereum), privadas (corporativas) ou híbridas, cada uma com diferentes níveis de acesso e permissões.",
+    en: "Public (like Bitcoin, Ethereum), private (corporate), or hybrid, each with different levels of access and permissions."
+  },
+  "projects.blockchain.projects.title": {
+    pt: "Nossos Projetos Blockchain",
+    en: "Our Blockchain Projects"
+  },
+  "projects.blockchain.projects.description": {
+    pt: "Na HubWeb3, desenvolvemos soluções inovadoras utilizando tecnologia blockchain para diversos setores:",
+    en: "At HubWeb3, we develop innovative solutions using blockchain technology for various sectors:"
+  },
+  "projects.blockchain.drex.title": {
+    pt: "DREX e o Futuro do Mercado",
+    en: "DREX and the Future of the Market"
+  },
+  "projects.blockchain.drex.description": {
+    pt: "O DREX (Real Digital Brasileiro) representa uma evolução fundamental no sistema financeiro nacional, trazendo diversas oportunidades para o mercado:",
+    en: "DREX (Brazilian Digital Real) represents a fundamental evolution in the national financial system, bringing various opportunities to the market:"
+  },
+  "projects.blockchain.drex.benefits.inclusion": {
+    pt: "Inclusão Financeira",
+    en: "Financial Inclusion"
+  },
+  "projects.blockchain.drex.benefits.inclusion.description": {
+    pt: "Ampliação do acesso a serviços financeiros para populações não bancarizadas ou sub-bancarizadas.",
+    en: "Expanding access to financial services for unbanked or underbanked populations."
+  },
+  "projects.blockchain.drex.benefits.efficiency": {
+    pt: "Eficiência Operacional",
+    en: "Operational Efficiency"
+  },
+  "projects.blockchain.drex.benefits.efficiency.description": {
+    pt: "Redução de custos e tempo nas transações financeiras, especialmente em pagamentos internacionais.",
+    en: "Reducing costs and time in financial transactions, especially in international payments."
+  },
+  "projects.blockchain.drex.benefits.innovation": {
+    pt: "Inovação Financeira",
+    en: "Financial Innovation"
+  },
+  "projects.blockchain.drex.benefits.innovation.description": {
+    pt: "Criação de novos modelos de negócio e serviços financeiros baseados em contratos inteligentes e programabilidade.",
+    en: "Creating new business models and financial services based on smart contracts and programmability."
+  },
+  "projects.blockchain.drex.benefits.integration": {
+    pt: "Integração com Economia Tokenizada",
+    en: "Integration with Tokenized Economy"
+  },
+  "projects.blockchain.drex.benefits.integration.description": {
+    pt: "Facilitação da integração entre ativos digitais e tradicionais, impulsionando o ecossistema de tokenização.",
+    en: "Facilitating integration between digital and traditional assets, boosting the tokenization ecosystem."
+  },
+  "projects.blockchain.architecture.animation.replay": {
+    pt: "Repetir Animação",
+    en: "Replay Animation"
   }
 }; 

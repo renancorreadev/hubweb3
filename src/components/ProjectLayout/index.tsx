@@ -124,7 +124,7 @@ export function ProjectLayout({
                 className="flex gap-4"
               >
                 <Link
-                  href="/projects"
+                  href="/developer"
                   className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center gap-2 text-black dark:text-white"
                 >
                   <svg

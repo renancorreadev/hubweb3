@@ -54,8 +54,8 @@ export default function AssetTokenization() {
         url: "/projects/drex"
       }}
       prevProject={{
-        name: t("projects.besuScope.title"),
-        url: "/projects/besu-scope"
+        name: t("projects.drex.title"),
+        url: "/projects/drex"
       }}
       
       // Architecture Section

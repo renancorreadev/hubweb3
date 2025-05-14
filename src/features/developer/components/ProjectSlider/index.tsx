@@ -22,8 +22,15 @@ export const ProjectSlider = () => {
       id: 2,
       title: t("developer.projects.explorer.title"),
       subtitle: t("developer.projects.explorer.description"),
-      imageUrl: "/images/projects/Explorer.png",
-      linkUrl: "/projects/block-explorer",
+      imageUrl: "/images/projects/loyahub/screen/app.png",
+      linkUrl: "/projects/loyahub",
+    },
+    {
+      id: 3,
+      title: t("developer.projects.rwa.title"),
+      subtitle: t("developer.projects.rwa.description"),
+      imageUrl: "/images/projects/rwahub/rwa.png",
+      linkUrl: "/projects/asset-tokenization",
     },
     // {
     //   id: 2,
@@ -71,6 +78,7 @@ export const ProjectSlider = () => {
           textContainerRadius={12}
           imageRadius={20}
           buttonText={t("developer.cta.projects")}
+          showButton={false}
         />
       </div>
     </section>

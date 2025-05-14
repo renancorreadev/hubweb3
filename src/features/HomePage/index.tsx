@@ -44,11 +44,10 @@ export function HomePage() {
         className={desktopOnly.padding.p6}
         imageRadius={24}
         textContainerRadius={16}
-        showButton={true}
-        buttonText={t('projects.seeNow')}
+        showButton={false}
       />
       {/* Bloco de dicas de blockchain */}
-      <BlockchainTips />
+      {/* <BlockchainTips /> */}
     </RenderContainer>
   );
 }
