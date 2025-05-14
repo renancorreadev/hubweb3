@@ -65,7 +65,7 @@ export const HeroSlider = ({
   borderRadius = 0,
   textContainerRadius = 16,
   imageRadius = 0,
-  showButton = true,
+  showButton = false,
   buttonText = "Start Building",
 }: HeroSliderProps) => {
   const [mounted, setMounted] = useState(false);
@@ -172,63 +172,38 @@ export const HeroSlider = ({
                     ...imageStyle,
                     backgroundImage: `url(${project.imageUrl})`,
                   }}
-                  initial={{ scale: 1.1 }}
+                  initial={{ scale: 1.05 }}
                   animate={{ 
-                    scale: isHovered ? 1.15 : 1.1,
+                    scale: isHovered ? 1.08 : 1.05,
                     transition: { duration: 1.5 }
                   }}
                 >
                   <motion.div
-                    className="hero-overlay absolute inset-0"
-                    style={overlayStyle}
-                    initial={{ opacity: 0.7 }}
+                    className="hero-overlay absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"
+                    initial={{ opacity: 0.8 }}
                     animate={{ 
-                      opacity: isHovered ? 0.5 : 0.7,
+                      opacity: isHovered ? 0.6 : 0.8,
                       transition: { duration: 0.5 }
                     }}
                   />
                 </motion.div>
 
                 <div
-                  className={`relative h-full flex flex-col justify-center items-start
-                  ${desktopOnly.padding.px16} ${mobileOnly.padding.px4}
-                  ${desktopOnly.padding.py8} ${mobileOnly.padding.py4}`}
+                  className="relative h-full flex flex-col justify-end items-start p-4 sm:p-6 md:p-8 lg:p-12"
                 >
                   <motion.div
-                    className="text-container p-6 md:p-8 max-w-2xl w-full md:w-auto"
-                    style={{
-                      ...textContainerStyle
-                    }}
+                    className="text-container p-5 md:p-6 max-w-lg w-full sm:w-auto rounded-lg mb-8 md:mb-10 bg-black bg-opacity-80 backdrop-blur-md shadow-lg"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
                     whileHover={{
-                      backgroundColor: "rgba(0, 0, 0, 0.35)",
-                      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+                      backgroundColor: "rgba(0, 0, 0, 0.9)",
+                      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.5)",
                       transition: { duration: 0.3 }
-                    }}
-                    onHoverStart={(e) => {
-                      const target = e.currentTarget as HTMLElement | null;
-                      if (target && target.style) {
-                        target.style.backgroundColor = "rgba(0, 0, 0, 0.35)";
-                        target.style.boxShadow = "0 8px 32px rgba(0, 0, 0, 0.3)";
-                      }
-                    }}
-                    onHoverEnd={(e) => {
-                      const target = e.currentTarget as HTMLElement | null;
-                      if (target && target.style) {
-                        target.style.backgroundColor = `rgba(255, 255, 255, ${safeTextContainerOpacity})`;
-                        target.style.borderBottom = 'none';
-                        target.style.boxShadow = 'none';
-                      }
                     }}
                   >
                     <motion.h1
-                      className={`hero-title font-bold mb-4
-                    ${desktopOnly.text["3xl"]} ${mobileOnly.text.xl}`}
-                      style={{
-                        color: `rgba(255, 255, 255, ${safeTextOpacity})`,
-                      }}
+                      className="hero-title font-bold mb-2 md:mb-3 text-white text-xl sm:text-2xl md:text-3xl"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.8, delay: 0.4 }}
@@ -239,11 +214,7 @@ export const HeroSlider = ({
                       {project.title}
                     </motion.h1>
                     <motion.p
-                      className={`hero-subtitle
-                    ${desktopOnly.text.lg} ${mobileOnly.text.sm}`}
-                      style={{
-                        color: `rgba(255, 255, 255, ${safeTextOpacity * 0.9})`,
-                      }}
+                      className="hero-subtitle text-gray-200 text-sm sm:text-base md:text-lg"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.8, delay: 0.5 }}
@@ -266,11 +237,10 @@ export const HeroSlider = ({
           {/* Botão flutuante que fica fora do ciclo de slides mas dentro do Swiper */}
           {showButton && (
             <motion.div 
-              className="hero-slider-button-container absolute bottom-8 right-8 md:bottom-12 md:right-12 z-30"
+              className="hero-slider-button-container absolute bottom-8 left-8 md:left-14 md:bottom-10 z-30"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-
             >
               <Button 
                 variant="secondary"

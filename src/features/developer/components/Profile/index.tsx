@@ -293,7 +293,7 @@ export const Profile = () => {
                     {t("developer.cta.contact")}
                   </Button>
                   <Button
-                    href="/projects"
+                    href="/blockchain/projects"
                     variant="secondary"
                     className={`text-base px-6 py-3 w-full sm:w-auto text-center ${
                       isDark

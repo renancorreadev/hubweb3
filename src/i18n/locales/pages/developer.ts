@@ -87,6 +87,14 @@ export const developerTranslations = {
     en: "Explore",
     pt: "Explorar",
   },
+  'developer.projects.rwa.title': {
+    en: "RWA Hub",
+    pt: "RWA Hub",
+  },
+  'developer.projects.rwa.description': {
+    en: "Smart contract architecture for real estate and receivables securitization with compliance features.",
+    pt: "Arquitetura de contratos inteligentes para imóveis e recebíveis em securitização com recursos de compliance.",
+  },
   'developer.projects.creatorPro.description': {
     en: "NFT music platform for artists to tokenize and monetize their content with blockchain technology.",
     pt: "Plataforma de música NFT para artistas tokenizarem e monetizarem seu conteúdo com tecnologia blockchain.",

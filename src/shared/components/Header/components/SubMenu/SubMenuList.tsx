@@ -10,7 +10,7 @@ export function SubMenuList() {
 
   return (
     <nav className="flex flex-col lg:flex-row gap-4 lg:gap-6 font-monument">
-      <SubMenu
+      {/* <SubMenu
         label={t("nav-hub-label")}
         icon={<Code2 size={20} className="" />}
         href="/hub"
@@ -37,7 +37,7 @@ export function SubMenuList() {
             level={1}
           />
         </SubMenuItem>
-      </SubMenu>
+      </SubMenu> */}
 
       <SubMenu
         label={t("nav-developer-label")}
@@ -83,7 +83,7 @@ export function SubMenuList() {
         >
           {/* BLOCKCHAIN RWA HUB */}
           <SubMenuItem
-            href="/blockchain/projects/rwa"
+            href="/blockchain/projects/rwa/docs"
             label={t("nav-blockchain-rwa-hub-label")}
             icon={<Network size={16} />}
             description={t("nav-blockchain-rwa-hub-description")}
@@ -91,7 +91,7 @@ export function SubMenuList() {
           />
           {/* BLOCKCHAIN LOYAHUB */}
           <SubMenuItem
-            href="/blockchain/projects/loyahub"
+            href="/blockchain/projects/loyahub/docs"
             label={t("nav-blockchain-loyahub-label")}
             icon={<Network size={16} />}
             description={t("nav-blockchain-loyahub-description")}
@@ -100,7 +100,7 @@ export function SubMenuList() {
         </SubMenuItem>
 
         {/* BLOCKCHAIN TIPS */}
-        <SubMenuItem
+        {/* <SubMenuItem
           href="/blockchain/tips"
           label={t("nav-blockchain-tips-label")}
           icon={<Network size={20} />}
@@ -121,10 +121,10 @@ export function SubMenuList() {
             description={t("nav-blockchain-advanced-description")}
             level={1}
           />
-        </SubMenuItem>
+        </SubMenuItem> */}
 
         <SubMenuItem
-          href="/blockchain/drex"
+          href="/projects/drex"
           label={t("nav-blockchain-drex-label")}
           icon={<Network size={20} />}
           description={t("nav-blockchain-drex-description")}

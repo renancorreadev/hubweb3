@@ -64,6 +64,7 @@ export const ImageSlider = ({
   const swiperRef = useRef<any>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const isMobile = useMediaQuery("(max-width: 767px)");
+  const [isHovered, setIsHovered] = useState(false);
   
   // Validação do borderRadius
   const safeBorderRadius = Math.max(0, borderRadius);
@@ -133,7 +134,12 @@ export const ImageSlider = ({
           className={`w-full h-full relative ${showCaption ? 'with-caption' : ''}`}
         >
           {images.map((image, index) => (
-            <SwiperSlide key={index} className="h-full">
+            <SwiperSlide 
+              key={index} 
+              className="h-full"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
               <div className="slide-image-container">
                 <div className="relative w-full h-full">
                   {isMobile ? (
@@ -157,16 +163,44 @@ export const ImageSlider = ({
                 </div>
               </div>
               
-              {/* Informações opcionais sobre a imagem com estilo moderno */}
+              {/* Informações no canto inferior esquerdo com estilo moderno */}
               {showCaption && (image.title || image.description) && (
-                <div className="slide-caption absolute left-0 right-0">
-                  {image.title && (
-                    <h3>{image.title}</h3>
-                  )}
-                  {image.description && (
-                    <p>{image.description}</p>
-                  )}
-                </div>
+                <motion.div 
+                  className="slide-caption-container absolute left-4 bottom-16 md:left-8 md:bottom-20 right-4 md:right-auto md:max-w-md z-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <motion.div 
+                    className="caption-content p-4 md:p-6 rounded-lg backdrop-blur-md bg-opacity-75 bg-black dark:bg-opacity-85"
+                    whileHover={{
+                      backgroundColor: "rgba(0, 0, 0, 0.85)",
+                      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+                      transition: { duration: 0.3 }
+                    }}
+                  >
+                    {image.title && (
+                      <motion.h3 
+                        className="text-lg md:text-xl font-semibold text-white mb-1"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                      >
+                        {image.title}
+                      </motion.h3>
+                    )}
+                    {image.description && (
+                      <motion.p 
+                        className="text-sm md:text-base text-gray-200"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                      >
+                        {image.description}
+                      </motion.p>
+                    )}
+                  </motion.div>
+                </motion.div>
               )}
             </SwiperSlide>
           ))}
