@@ -39,6 +39,8 @@ export const Hero = () => {
   // Para controle de partículas
   const [particlesLoaded, setParticlesLoaded] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(false);
+
   // Inicializar Prism para syntax highlighting e partículas 
   useEffect(() => {
     Prism.highlightAll();
@@ -63,6 +65,12 @@ export const Hero = () => {
         particlesContainerRef.current.destroy();
       }
     };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsMobile(window.innerWidth < 768);
+    }
   }, []);
 
   // Configuração das partículas
@@ -391,143 +399,149 @@ contract DeveloperProfile {
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Partículas blockchain direto no componente */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div 
-            className="absolute inset-0 opacity-70" 
-            style={{ 
-              willChange: 'opacity',
-              transition: 'opacity 400ms ease-in-out'
-            }}
-          >
-            <Particles
-              id={particlesIdRef.current}
-              options={particlesConfig}
-              particlesLoaded={handleParticlesLoaded}
-              className="absolute inset-0"
-            />
-          </div>
-        </div>
-        
-        {/* SVG Pattern Background */}
-        <div className="absolute inset-0 opacity-5">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "#14F195" : "#0EA66B"} strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-
-        {/* Floating Hexagons */}
-        <div className="absolute inset-0">
-          {hexagons.map((hex) => (
-            <motion.div
-              key={hex.id}
-              className="absolute opacity-10"
-              style={{
-                left: `${hex.x}%`,
-                top: `${hex.y}%`,
-                width: `${hex.size}px`,
-                height: `${hex.size}px`,
-              }}
-              initial={{ y: -20, x: 0, opacity: 0.05 }}
-              animate={{ 
-                y: [0, -30, 0], 
-                opacity: [0.05, 0.15, 0.05],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{ 
-                duration: hex.duration,
-                delay: hex.delay, 
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut"
+        {!isMobile && (
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <div 
+              className="absolute inset-0 opacity-70" 
+              style={{ 
+                willChange: 'opacity',
+                transition: 'opacity 400ms ease-in-out'
               }}
             >
-              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polygon 
-                  points="50 0, 93.3 25, 93.3 75, 50 100, 6.7 75, 6.7 25" 
-                  fill={hex.id % 2 === 0 ? (isDark ? "#14F19508" : "#0EA66B08") : (isDark ? "#9945FF08" : "#7A35CC08")}
-                  stroke={hex.id % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
-                  strokeWidth="1"
-                />
-              </svg>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Blockchain Network */}
-        <div className="absolute bottom-0 right-0 w-full h-full opacity-5">
-          <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            {/* Connections between nodes */}
-            {nodes.map(node => 
-              node.connections.map(connId => {
-                const connectedNode = nodes.find(n => n.id === connId);
-                if (!connectedNode) return null;
-                return (
-                  <motion.line 
-                    key={`${node.id}-${connId}`}
-                    x1={`${node.x}%`} 
-                    y1={`${node.y}%`} 
-                    x2={`${connectedNode.x}%`} 
-                    y2={`${connectedNode.y}%`}
-                    stroke={isDark ? "#14F195" : "#0EA66B"}
-                    strokeWidth="0.2"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ 
-                      pathLength: 1,
-                      opacity: [0.3, 0.6, 0.3]
-                    }}
-                    transition={{ 
-                      duration: 3 + Math.random() * 2,
-                      delay: Math.random() * 2,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
+              <Particles
+                id={particlesIdRef.current}
+                options={particlesConfig}
+                particlesLoaded={handleParticlesLoaded}
+                className="absolute inset-0"
+              />
+            </div>
+          </div>
+        )}
+        {/* SVG Pattern Background */}
+        {!isMobile && (
+          <div className="absolute inset-0 opacity-5">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "#14F195" : "#0EA66B"} strokeWidth="0.5" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+          </div>
+        )}
+        {/* Floating Hexagons */}
+        {!isMobile && (
+          <div className="absolute inset-0">
+            {hexagons.map((hex) => (
+              <motion.div
+                key={hex.id}
+                className="absolute opacity-10"
+                style={{
+                  left: `${hex.x}%`,
+                  top: `${hex.y}%`,
+                  width: `${hex.size}px`,
+                  height: `${hex.size}px`,
+                }}
+                initial={{ y: -20, x: 0, opacity: 0.05 }}
+                animate={{ 
+                  y: [0, -30, 0], 
+                  opacity: [0.05, 0.15, 0.05],
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{ 
+                  duration: hex.duration,
+                  delay: hex.delay, 
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut"
+                }}
+              >
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <polygon 
+                    points="50 0, 93.3 25, 93.3 75, 50 100, 6.7 75, 6.7 25" 
+                    fill={hex.id % 2 === 0 ? (isDark ? "#14F19508" : "#0EA66B08") : (isDark ? "#9945FF08" : "#7A35CC08")}
+                    stroke={hex.id % 2 === 0 ? (isDark ? "#14F195" : "#0EA66B") : (isDark ? "#9945FF" : "#7A35CC")}
+                    strokeWidth="1"
                   />
-                );
-              })
-            )}
-          </svg>
-        </div>
-
+                </svg>
+              </motion.div>
+            ))}
+          </div>
+        )}
+        {/* Blockchain Network */}
+        {!isMobile && (
+          <div className="absolute bottom-0 right-0 w-full h-full opacity-5">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              {/* Connections between nodes */}
+              {nodes.map(node => 
+                node.connections.map(connId => {
+                  const connectedNode = nodes.find(n => n.id === connId);
+                  if (!connectedNode) return null;
+                  return (
+                    <motion.line 
+                      key={`${node.id}-${connId}`}
+                      x1={`${node.x}%`} 
+                      y1={`${node.y}%`} 
+                      x2={`${connectedNode.x}%`} 
+                      y2={`${connectedNode.y}%`}
+                      stroke={isDark ? "#14F195" : "#0EA66B"}
+                      strokeWidth="0.2"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ 
+                        pathLength: 1,
+                        opacity: [0.3, 0.6, 0.3]
+                      }}
+                      transition={{ 
+                        duration: 3 + Math.random() * 2,
+                        delay: Math.random() * 2,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    />
+                  );
+                })
+              )}
+            </svg>
+          </div>
+        )}
         {/* Gradient Circle */}
-        <motion.div 
-          className="absolute -right-40 -top-40 w-96 h-96 rounded-full opacity-20 blur-3xl"
-          style={{ 
-            background: `radial-gradient(circle, ${isDark ? '#14F195' : '#0EA66B'} 0%, transparent 70%)` 
-          }}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.3, 0.2],
-          }}
-          transition={{
-            duration: 8,
-            ease: "easeInOut",
-            repeat: Infinity,
-          }}
-        />
-        
-        <motion.div 
-          className="absolute -left-20 bottom-40 w-80 h-80 rounded-full opacity-10 blur-3xl"
-          style={{ 
-            background: `radial-gradient(circle, ${isDark ? '#9945FF' : '#7A35CC'} 0%, transparent 70%)` 
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{
-            duration: 10,
-            ease: "easeInOut",
-            repeat: Infinity,
-            delay: 1,
-          }}
-        />
+        {!isMobile && (
+          <motion.div 
+            className="absolute -right-40 -top-40 w-96 h-96 rounded-full opacity-20 blur-3xl"
+            style={{ 
+              background: `radial-gradient(circle, ${isDark ? '#14F195' : '#0EA66B'} 0%, transparent 70%)` 
+            }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.2, 0.3, 0.2],
+            }}
+            transition={{
+              duration: 8,
+              ease: "easeInOut",
+              repeat: Infinity,
+            }}
+          />
+        )}
+        {!isMobile && (
+          <motion.div 
+            className="absolute -left-20 bottom-40 w-80 h-80 rounded-full opacity-10 blur-3xl"
+            style={{ 
+              background: `radial-gradient(circle, ${isDark ? '#9945FF' : '#7A35CC'} 0%, transparent 70%)` 
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.1, 0.2, 0.1],
+            }}
+            transition={{
+              duration: 10,
+              ease: "easeInOut",
+              repeat: Infinity,
+              delay: 1,
+            }}
+          />
+        )}
       </div>
-
       {/* Mouse follow light effect */}
       {cursorVisible && (
         <div 

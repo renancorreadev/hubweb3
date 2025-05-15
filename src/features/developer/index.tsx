@@ -2,11 +2,13 @@
 
 import { Hero } from "./components/Hero";
 import { Skills } from "./components/Skills";
-import { Projects } from "./components/Projects";
-import { Experience } from "./components/Experience";
-import { ProjectSlider } from "./components/ProjectSlider";
 import { Profile } from "./components/Profile";
+import dynamic from "next/dynamic";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
+
+const ProjectSlider = dynamic(() => import("./components/ProjectSlider").then(mod => mod.ProjectSlider), { ssr: false, loading: () => <div>Carregando projetos...</div> });
+const Projects = dynamic(() => import("./components/Projects").then(mod => mod.Projects), { ssr: false, loading: () => <div>Carregando lista de projetos...</div> });
+const Experience = dynamic(() => import("./components/Experience").then(mod => mod.Experience), { ssr: false, loading: () => <div>Carregando experiências...</div> });
 
 export function DeveloperPage() {
   const { isDark } = useThemeColors();

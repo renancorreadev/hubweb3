@@ -5,7 +5,7 @@ import { Hero } from "./components/Hero";
 import { RenderContainer } from "@/shared/components/RenderContainer";
 import { HeroSlider } from "@/components/HeroSlider";
 import { desktopOnly } from "@/shared/configs/responsive";
-import { BlockchainTips } from "@/features/homepage/components/BlockchainTips";
+// import { BlockchainTips } from "@/features/homepage/components/BlockchainTips";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 
 export function HomePage() {

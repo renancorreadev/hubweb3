@@ -190,12 +190,12 @@ export const home = {
     pt: 'Projetos'
   },
   'hero.title': {
-    en: 'Building Web3 since 2018.\nShaping the future of blockchain.',
-    pt: 'Construindo Web3 desde 2018.\nModelando o futuro do blockchain.'
+    en: 'Engineering Blockchain Solutions',
+    pt: 'Projetando Soluções em Blockchain'
   },
   'hero.description': {
-    en: 'Architecting the decentralized revolution since day one. From code to adoption, I transform blockchain complexity into solutions that change how we interact with digital value.',
-    pt: 'Arquitetando a revolução descentralizada desde o início. Do código à adoção, transformo a complexidade do blockchain em soluções que mudam como interagimos com valor digital.'
+    en: 'Architecting the decentralized revolution since 2018. From code to adoption, I transform blockchain complexity into solutions that change how we interact with digital value.',
+    pt: 'Arquitetando a revolução descentralizada desde 2018. Do código à adoção, transformo a complexidade do blockchain em soluções que mudam como interagimos com valor digital.'
   },
   
   // Projects

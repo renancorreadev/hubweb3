@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useMemo } from "react";
+import React, { useCallback, useEffect, useRef, useMemo, useState } from "react";
 import Particles from "@tsparticles/react";
 import { Container, tsParticles } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
@@ -36,6 +36,7 @@ export const HeroParticles = ({
   const engineInitializedRef = useRef(false);
   const containerRef = useRef<Container | null>(null);
   const instanceIdRef = useRef<string>(`hero-particles-${Math.random().toString(36).substring(2, 9)}`);
+  const [isMobile, setIsMobile] = useState(false);
   
   // Inicializa o engine especificamente para este componente
   useEffect(() => {
@@ -83,6 +84,12 @@ export const HeroParticles = ({
       }
     }
   }, [active]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsMobile(window.innerWidth < 768);
+    }
+  }, []);
 
   // Configuração base para partículas - memorizada para evitar recriações
   const particlesConfig = useMemo(() => {
@@ -201,6 +208,7 @@ export const HeroParticles = ({
   const opacityLevel = active ? (interactive ? 0.8 : 0.5) : 0.1;
 
   // Renderização com posicionamento absoluto
+  if (isMobile) return null;
   return (
     <div 
       className={`absolute inset-0 z-0 ${interactive ? "" : "pointer-events-none"} ${className}`}
