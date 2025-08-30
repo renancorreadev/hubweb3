@@ -11,6 +11,7 @@ import { drexTranslations } from './locales/pages/drex';
 import { projectsListTranslations } from './locales/pages/projects/projects-list';
 import { contactTranslations } from './locales/pages/contact';
 import { blockchainSubs } from './locales/pages/blockchain';
+import { technicalExpertise } from './locales/components/technical-expertise';
 
 // Types for the internationalization system
 export type SupportedLanguage = 'en' | 'es' | 'pt';
@@ -46,6 +47,7 @@ export const translations: Translations = {
   ...projectsListTranslations,
   ...contactTranslations,
   ...blockchainSubs,
+  ...technicalExpertise,
 };
 
 // List of supported languages for language selectors
@@ -57,10 +59,10 @@ export const localeOptions: LocaleOption[] = [
 // Detect browser's preferred language
 export const detectBrowserLanguage = (): SupportedLanguage => {
   if (typeof window === 'undefined') return 'pt'; // Default value for SSR
-  
+
   const browserLang = navigator.language.split('-')[0];
-  return (browserLang === 'pt' || browserLang === 'en') 
-    ? browserLang as SupportedLanguage 
+  return (browserLang === 'pt' || browserLang === 'en')
+    ? browserLang as SupportedLanguage
     : 'pt'; // Default if language is not supported
 };
 
@@ -69,4 +71,4 @@ export const languageCodeToHtml: Record<SupportedLanguage, string> = {
   pt: 'pt-BR',
   en: 'en-US',
   es: 'es',
-}; 
+};

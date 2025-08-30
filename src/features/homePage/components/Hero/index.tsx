@@ -33,7 +33,7 @@ export function Hero() {
     <RenderContainer>
       <section ref={containerRef} className={`${heroStyles.section} relative overflow-hidden`}>
         {/* Background Pattern with Parallax */}
-        <motion.div 
+        <motion.div
           style={{ y, opacity }}
           className="absolute inset-0"
         >
@@ -48,7 +48,7 @@ export function Hero() {
         </motion.div>
 
         <div className={heroStyles.content}>
-          <motion.h1 
+          <motion.h1
             className={`${styles.h1} ${desktopOnly.padding.py12}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -56,20 +56,19 @@ export function Hero() {
           >
             {t('hero.title').split('\n').map((line, index) => (
               <span key={index}
-              className={`mb-6 relative z-20 ${
-                isDark ? 'text-shadow-purple experience-title-gradient-dark' : 'experience-title-gradient-light'
-              }`}
-              > 
+                className={`mb-6 relative z-20 ${isDark ? 'text-shadow-purple experience-title-gradient-dark' : 'experience-title-gradient-light'
+                  }`}
+              >
                 {line}
                 {index < t('hero.title').split('\n').length - 1 && <br />}
               </span>
-              
 
-              
+
+
             ))}
           </motion.h1>
 
-          <motion.p 
+          <motion.p
             className={styles.p}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,7 +77,7 @@ export function Hero() {
             {t('hero.description')}
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className={heroStyles.buttonsContainer}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -87,7 +86,7 @@ export function Hero() {
             <PrimaryButton href="/developer" >
               {t("hero.startBuilding")}
             </PrimaryButton>
-            <SecondaryButton href="/projects" >
+            <SecondaryButton href="/blockchain/projects" >
               {t("hero.resources")}
             </SecondaryButton>
           </motion.div>

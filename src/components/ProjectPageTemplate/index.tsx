@@ -10,7 +10,9 @@ import Image from "next/image";
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import { ImageGallery, GalleryItem } from "@/components/ImageGallery";
+import { EnhancedImageGallery } from "@/components/EnhancedImageGallery";
 import { ImageSlider } from "@/components/ImageSlider";
+import { DiagramZoom } from "@/components/DiagramZoom";
 
 export interface Feature {
   title: string;
@@ -34,7 +36,7 @@ export interface BenefitGroup {
 export interface DiagramItem {
   url: string;
   alt?: string;
-  diagramType: 'flowchart' | 'sequence' | 'architecture' | 'component' | 'deployment';
+  diagramType: 'flowchart' | 'sequence' | 'architecture' | 'component' | 'deployment' | 'uml';
   description: string;
 }
 
@@ -82,23 +84,23 @@ export interface ProjectPageTemplateProps {
     name: string;
     url: string;
   };
-  
+
   // Media props
   mediaItems?: MediaItem[];
-  
+
   // Gallery props
   hasGallery?: boolean;
   galleryTitle?: string;
   galleryItems?: GalleryItem[];
   useSlider?: boolean;
-  
+
   // Content props
   features: Feature[];
   processTitle: string;
   processSteps: ProcessStep[];
   benefitsTitle: string;
   benefitGroups: BenefitGroup[];
-  
+
   // Architecture props
   hasArchitecture?: boolean;
   architectureDetails?: ArchitectureDetails;
@@ -116,23 +118,23 @@ export function ProjectPageTemplate({
   demoUrl,
   nextProject,
   prevProject,
-  
+
   // Media props
   mediaItems = [],
-  
+
   // Gallery props
   hasGallery = false,
   galleryTitle = "Galeria de Imagens",
   galleryItems = [],
   useSlider = true,
-  
+
   // Content props
   features,
   processTitle,
   processSteps,
   benefitsTitle,
   benefitGroups,
-  
+
   // Architecture props
   hasArchitecture = false,
   architectureDetails,
@@ -141,7 +143,7 @@ export function ProjectPageTemplate({
   const architectureRef = useRef(null);
   const galleryRef = useRef(null);
   const { t } = useTranslation();
-  
+
   // Scroll progress para o container principal
   const { scrollYProgress: mainScrollProgress } = useScroll({
     target: containerRef,
@@ -181,8 +183,8 @@ export function ProjectPageTemplate({
   const galleryYSpring = useSpring(galleryY, springConfig);
 
   // Adiciona a imagem principal aos itens de mídia se não houver nenhum
-  const allMediaItems = mediaItems.length > 0 
-    ? mediaItems 
+  const allMediaItems = mediaItems.length > 0
+    ? mediaItems
     : [{ type: "image" as const, url: imagePath, alt: title }];
 
   return (
@@ -223,8 +225,8 @@ export function ProjectPageTemplate({
               <motion.div
                 key={index}
                 className={`relative p-6 rounded-xl overflow-hidden group
-                  ${feature.color === "purple" 
-                    ? "bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800/30" 
+                  ${feature.color === "purple"
+                    ? "bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800/30"
                     : "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800/30"
                   } border`}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -233,7 +235,7 @@ export function ProjectPageTemplate({
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02 }}
               >
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent dark:via-white/5"
                   initial={{ x: "-100%" }}
                   whileHover={{ x: "100%" }}
@@ -259,9 +261,9 @@ export function ProjectPageTemplate({
             style={{ opacity: galleryOpacity, y: galleryYSpring }}
           >
             <div className="container mx-auto px-4 relative">
-              {/* Alternando entre ImageSlider e ImageGallery */}
+              {/* Alternando entre ImageSlider e EnhancedImageGallery */}
               {useSlider ? (
-                <ImageSlider 
+                <ImageSlider
                   title={galleryTitle}
                   images={galleryItems.map(item => ({
                     url: item.url,
@@ -275,7 +277,7 @@ export function ProjectPageTemplate({
                   autoplayDelay={6000}
                 />
               ) : (
-                <ImageGallery 
+                <EnhancedImageGallery
                   title={galleryTitle}
                   items={galleryItems}
                 />
@@ -307,10 +309,10 @@ export function ProjectPageTemplate({
                 }}
               />
             </div>
-            
+
             <div className="container mx-auto px-4 relative">
               {/* Overview Section */}
-              <motion.div 
+              <motion.div
                 className="text-center mb-2"
                 style={{ y: architectureYSpring }}
               >
@@ -331,7 +333,7 @@ export function ProjectPageTemplate({
 
               {/* Hero Architecture Image (if provided) */}
               {architectureDetails.heroArchitecture && (
-                <motion.div 
+                <motion.div
                   className="max-sm:!mb-10 lg:mb-24"
                   style={{ y: architectureYSpring }}
                 >
@@ -370,17 +372,16 @@ export function ProjectPageTemplate({
                   <p className="text-gray-700 dark:text-gray-300 mb-8">
                     {section.description}
                   </p>
-                  
+
                   {/* Diagrams Grid */}
-                  <div className={`grid gap-8 ${
-                    section.diagrams.length === 1 
-                      ? 'grid-cols-1' 
-                      : section.diagrams.length === 2 
-                        ? 'grid-cols-1 md:grid-cols-2' 
-                        : section.diagrams.length === 3 
-                          ? 'grid-cols-1 md:grid-cols-2 [&>*:last-child]:md:col-span-2'
-                          : 'grid-cols-1 md:grid-cols-2'
-                  }`}>
+                  <div className={`grid gap-8 ${section.diagrams.length === 1
+                    ? 'grid-cols-1'
+                    : section.diagrams.length === 2
+                      ? 'grid-cols-1 md:grid-cols-2'
+                      : section.diagrams.length === 3
+                        ? 'grid-cols-1 md:grid-cols-2 [&>*:last-child]:md:col-span-2'
+                        : 'grid-cols-1 md:grid-cols-2'
+                    }`}>
                     {section.diagrams.map((diagram, diagramIndex) => (
                       <motion.div
                         key={diagramIndex}
@@ -388,15 +389,15 @@ export function ProjectPageTemplate({
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       >
-                        <Zoom>
-                          <Image
-                            src={diagram.url}
-                            alt={diagram.alt || ""}
-                            width={800}
-                            height={500}
-                            className="w-full h-auto rounded-lg mb-4"
-                          />
-                        </Zoom>
+                        <DiagramZoom
+                          src={diagram.url}
+                          alt={diagram.alt || ""}
+                          width={800}
+                          height={500}
+                          className="mb-4"
+                          diagramType={diagram.diagramType}
+                          maxZoom={3}
+                        />
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
                             <span className="px-3 py-1 rounded-full text-sm bg-hub-primary/10 text-hub-primary">
@@ -414,7 +415,7 @@ export function ProjectPageTemplate({
               ))}
 
               {/* Existing Highlights Section */}
-              <motion.div 
+              <motion.div
                 className="lg:pt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
                 style={{ scale: highlightScaleSpring }}
               >
@@ -424,7 +425,7 @@ export function ProjectPageTemplate({
                     className="group relative"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ 
+                    transition={{
                       delay: index * 0.1,
                       duration: 0.6,
                       type: "spring",
@@ -438,7 +439,7 @@ export function ProjectPageTemplate({
                     />
                     <motion.div
                       className="relative h-full p-8 rounded-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg hover:shadow-2xl transition-all duration-300"
-                      whileHover={{ 
+                      whileHover={{
                         y: -5,
                         scale: 1.02,
                         transition: { type: "spring", stiffness: 400 }
@@ -474,13 +475,12 @@ export function ProjectPageTemplate({
               <div className="absolute left-[50%] md:block hidden top-0 bottom-0 w-0.5 bg-gradient-to-b from-hub-primary to-hub-secondary" />
               {/* Linha vertical para mobile */}
               <div className="absolute left-4 md:hidden block top-0 bottom-0 w-0.5 bg-gradient-to-b from-hub-primary to-hub-secondary" />
-              
+
               {processSteps.map((step, index) => (
                 <motion.div
                   key={index}
-                  className={`flex items-start gap-8 mb-12 max-sm:flex-row ${
-                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
+                  className={`flex items-start gap-8 mb-12 max-sm:flex-row ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                    }`}
                   initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -503,7 +503,7 @@ export function ProjectPageTemplate({
                     <motion.div
                       className="p-6 rounded-xl"
                       style={{
-                        backgroundColor: index % 2 === 0 
+                        backgroundColor: index % 2 === 0
                           ? "rgba(153, 69, 255, 0.05)"
                           : "rgba(20, 241, 149, 0.05)",
                         border: index % 2 === 0
@@ -521,7 +521,7 @@ export function ProjectPageTemplate({
                       </p>
                     </motion.div>
                   </div>
-                  
+
                   {/* Círculo numerado para desktop */}
                   <div className="relative hidden md:block">
                     <motion.div
@@ -534,7 +534,7 @@ export function ProjectPageTemplate({
                       <span className="text-white font-bold">{index + 1}</span>
                     </motion.div>
                   </div>
-                  
+
                   <div className="flex-1 md:block hidden" />
                 </motion.div>
               ))}
@@ -571,17 +571,17 @@ export function ProjectPageTemplate({
                       transition={{ delay: index * 0.1 }}
                       viewport={{ once: true }}
                     >
-                      <svg 
-                        className={`w-5 h-5 text-hub-${group.color}`} 
-                        fill="none" 
-                        stroke="currentColor" 
+                      <svg
+                        className={`w-5 h-5 text-hub-${group.color}`}
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round" 
-                          strokeWidth="2" 
-                          d="M5 13l4 4L19 7" 
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M5 13l4 4L19 7"
                         />
                       </svg>
                       {benefit}
@@ -595,4 +595,4 @@ export function ProjectPageTemplate({
       </div>
     </ProjectLayout>
   );
-} 
+}

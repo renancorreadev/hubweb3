@@ -1,66 +1,104 @@
-/* Estilos customizados para react-medium-image-zoom */
+/* Customização do overlay do react-medium-image-zoom para modo escuro */
 
-/* Torna o overlay mais escuro para destacar a imagem */
-[data-rmiz-overlay="visible"] {
-  background-color: rgba(0, 0, 0, 0.95) !important;
+/* Overlay do zoom com fundo escuro */
+.medium-zoom-overlay {
+  background: rgba(0, 0, 0, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
-/* Maximiza o tamanho da imagem ampliada para tela cheia */
-[data-rmiz-content="found"] img,
-[data-rmiz-content="found"] svg,
-[data-rmiz-content="found"] [role="img"],
-[data-rmiz-content="found"] [data-zoom] {
-  max-width: 98vw !important;
-  max-height: 98vh !important;
+/* Animação do overlay */
+.medium-zoom-overlay--opened {
+  background: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Imagem no zoom */
+.medium-zoom-image {
+  border-radius: 8px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Estado da imagem quando aberta */
+.medium-zoom-image--opened {
+  cursor: zoom-out !important;
+}
+
+/* Garantir que o overlay cubra toda a tela */
+.medium-zoom-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 999 !important;
+}
+
+/* Melhorar a transição */
+.medium-zoom-overlay,
+.medium-zoom-image {
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.2, 1) !important;
+}
+
+/* Cursor personalizado */
+.medium-zoom-image:not(.medium-zoom-image--opened) {
+  cursor: zoom-in !important;
+}
+
+/* Estilo para modo dark específico */
+.dark .medium-zoom-overlay {
+  background: rgba(0, 0, 0, 0.98) !important;
+}
+
+/* Estilo para modo light (caso seja usado no futuro) */
+.light .medium-zoom-overlay {
+  background: rgba(0, 0, 0, 0.90) !important;
+}
+
+/* Responsivo - ajustar margens no mobile */
+@media (max-width: 768px) {
+  .medium-zoom-image--opened {
+    margin: 20px !important;
+    max-width: calc(100vw - 40px) !important;
+    max-height: calc(100vh - 40px) !important;
+  }
+}
+
+/* Desktop - margens maiores */
+@media (min-width: 769px) {
+  .medium-zoom-image--opened {
+    margin: 40px !important;
+    max-width: calc(100vw - 80px) !important;
+    max-height: calc(100vh - 80px) !important;
+  }
+}
+
+/* Animação suave para entrada */
+.medium-zoom-image--opening {
+  transform: scale(0.95) !important;
+  opacity: 0.8 !important;
+}
+
+/* Animação suave para saída */
+.medium-zoom-image--closing {
+  transform: scale(1.05) !important;
+  opacity: 0.8 !important;
+}
+
+/* Garantir que a imagem mantenha proporção */
+.medium-zoom-image--opened {
   object-fit: contain !important;
   width: auto !important;
   height: auto !important;
 }
 
-/* Aumenta a área de visualização da imagem no zoom */
-[data-rmiz-modal-content] {
-  width: 100vw !important;
-  height: 100vh !important;
-  padding: 0.5rem !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+/* Indicador de carregamento se necessário */
+.medium-zoom-overlay::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border: 0 solid transparent;
+  transition: all 0.1s ease;
 }
-
-/* Aumenta suavemente a escala da imagem durante a transição */
-[data-rmiz-content="found"] [data-rmiz-image-content] {
-  transition: transform 0.3s ease-in-out !important;
-  transform-origin: center center !important;
-  transform: scale(1) !important;
-}
-
-/* Adiciona transformação maior no hover */
-[data-rmiz-content="found"]:hover [data-rmiz-image-content] {
-  transform: scale(1.02) !important;
-}
-
-/* Ajusta o botão de fechar para ser mais visível, mas mais discreto */
-[data-rmiz-btn-close] {
-  top: 1rem !important;
-  right: 1rem !important;
-  width: 2rem !important;
-  height: 2rem !important;
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  color: white !important;
-  border-radius: 50% !important;
-  z-index: 9999 !important;
-  opacity: 0.7 !important;
-}
-
-[data-rmiz-btn-close]:hover {
-  opacity: 1 !important;
-  background-color: rgba(255, 255, 255, 0.25) !important;
-}
-
-/* Melhora a apresentação da imagem no card */
-.aspect-4\/3 {
-  aspect-ratio: 4/3 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-} 

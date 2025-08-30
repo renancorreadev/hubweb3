@@ -1,0 +1,62 @@
+graph TB
+    subgraph "🔗 Hyperledger Besu Network"
+        BESU[🏢 Hyperledger Besu<br/>Enterprise Blockchain]
+        RPC[🔌 RPC/WebSocket APIs]
+        BESU --> RPC
+    end
+
+    subgraph "🚀 Besuscan Microservices Platform"
+        subgraph "👂 Data Capture Layer"
+            INDEXER[🔍 Indexer Service<br/>Go - Real-time Event Listener]
+            INDEXER --> |WebSocket Stream| RPC
+        end
+
+        subgraph "📨 Message Queue Layer"
+            REDIS[(💾 Redis<br/>Cache & Pub/Sub)]
+            RABBITMQ[(🐰 RabbitMQ<br/>Message Queue)]
+            INDEXER --> |Publish Events| REDIS
+            INDEXER --> |Queue Messages| RABBITMQ
+        end
+
+        subgraph "⚙️ Processing Layer"
+            WORKER[🔧 Worker Service<br/>Go - Data Processor & Enricher]
+            WORKER --> |Consume| REDIS
+            WORKER --> |Process| RABBITMQ
+        end
+
+        subgraph "🗄️ Storage Layer"
+            POSTGRES[(🐘 PostgreSQL<br/>Main Database)]
+            WORKER --> |Persist Data| POSTGRES
+        end
+
+        subgraph "🔌 API Layer"
+            API[📡 API Service<br/>Go - REST Endpoints]
+            API --> |Query| POSTGRES
+        end
+
+        subgraph "🎨 Frontend Layer"
+            FRONTEND[⚛️ Frontend<br/>React + Vite + TypeScript]
+            FRONTEND --> |HTTP Requests| API
+        end
+
+        subgraph "🛠️ Management Layer"
+            CLI[💻 Besucli<br/>Go - Management Tool]
+            CLI --> |Deploy Contracts| BESU
+            CLI --> |Configure Triggers| INDEXER
+            CLI --> |Admin Operations| API
+        end
+    end
+
+    classDef blockchain fill:#1e293b,stroke:#3b82f6,stroke-width:3px,color:#ffffff
+    classDef microservice fill:#374151,stroke:#6b7280,stroke-width:2px,color:#ffffff
+    classDef storage fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#ffffff
+    classDef frontend fill:#581c87,stroke:#8b5cf6,stroke-width:2px,color:#ffffff
+    classDef infrastructure fill:#92400e,stroke:#f59e0b,stroke-width:2px,color:#ffffff
+    classDef management fill:#7f1d1d,stroke:#ef4444,stroke-width:2px,color:#ffffff
+
+    class BESU,RPC blockchain
+    class INDEXER,WORKER,API microservice
+    class REDIS,RABBITMQ,POSTGRES storage
+    class FRONTEND frontend
+    class DOCKER,K8S,MONITORING infrastructure
+    class CLI management

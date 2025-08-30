@@ -16,7 +16,7 @@
     border-color: rgba(200, 200, 200, 0.25);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   }
-  
+
   .swiper-button-prev,
   .swiper-button-next {
     background: linear-gradient(135deg, rgba(0, 194, 255, 0.9), rgba(123, 23, 255, 0.9)) !important;
@@ -75,7 +75,8 @@
 
 /* Com legenda, mova a paginação mais para baixo */
 .with-caption .swiper-pagination {
-  bottom: 70px !important; /* Ajuste conforme a altura da sua legenda */
+  bottom: 70px !important;
+  /* Ajuste conforme a altura da sua legenda */
 }
 
 /* Fade effect para transição elegante */
@@ -90,15 +91,19 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  position: relative; /* Importante para posicionamento absoluto interno */
-  padding-bottom: 40px; /* Espaço para os dots de navegação */
-  height: 100% !important; /* Garantir altura total */
+  position: relative;
+  /* Importante para posicionamento absoluto interno */
+  padding-bottom: 40px;
+  /* Espaço para os dots de navegação */
+  height: 100% !important;
+  /* Garantir altura total */
 }
 
 /* Container de imagem com borda refinada */
 .slide-image-container {
   width: 100%;
-  height: calc(100% - 40px); /* Altura menos o espaço para dots */
+  height: calc(100% - 40px);
+  /* Altura menos o espaço para dots */
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -115,8 +120,10 @@
   backdrop-filter: blur(4px);
   padding: 16px 20px !important;
   transition: all 0.3s ease;
-  bottom: 40px !important; /* Espaço para os dots de navegação */
-  z-index: 5; /* Garantir que fique acima da imagem */
+  bottom: 40px !important;
+  /* Espaço para os dots de navegação */
+  z-index: 5;
+  /* Garantir que fique acima da imagem */
 }
 
 .slide-caption h3 {
@@ -137,6 +144,7 @@
 
 /* AJUSTES COMPLETOS PARA MOBILE - VERSÃO 2.0 */
 @media (max-width: 767px) {
+
   /* Container principal do slider */
   .swiper {
     height: auto !important;
@@ -146,16 +154,17 @@
     width: calc(100% + 16px) !important;
     border-radius: 8px !important;
   }
-  
+
   /* Slides */
   .swiper-slide {
     height: 480px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding-bottom: 60px !important; /* Mais espaço para legenda e paginação */
+    padding-bottom: 60px !important;
+    /* Mais espaço para legenda e paginação */
   }
-  
+
   /* Container da imagem */
   .slide-image-container {
     height: 360px !important;
@@ -169,7 +178,7 @@
     justify-content: center !important;
     position: relative !important;
   }
-  
+
   /* Ajuste para o div relativo dentro do container */
   .slide-image-container .relative {
     position: static !important;
@@ -179,19 +188,19 @@
     align-items: center !important;
     justify-content: center !important;
   }
-  
+
   /* Imagem específica para mobile - img nativo em vez de Next/Image */
   .mobile-slide-image {
     display: block !important;
     max-width: 100% !important;
     max-height: 360px !important;
-    width: auto !important;
-    height: auto !important;
+    width: 100% !important;
+    height: 100% !important;
     margin: 0 auto !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
     border-radius: 4px !important;
   }
-  
+
   /* Imagem */
   .slide-image-container img {
     position: relative !important;
@@ -203,12 +212,12 @@
     margin: 0 auto !important;
     display: block !important;
   }
-  
+
   /* Container do slider */
   .slider-container {
     overflow: visible !important;
   }
-  
+
   /* Botões de navegação */
   .swiper-button-prev,
   .swiper-button-next {
@@ -216,27 +225,27 @@
     height: 32px !important;
     top: 45% !important;
   }
-  
+
   .swiper-button-prev:after,
   .swiper-button-next:after {
     font-size: 12px !important;
   }
-  
+
   /* Paginação */
   .swiper-pagination {
     bottom: 20px !important;
   }
-  
+
   .swiper-pagination-bullet-custom {
     width: 16px !important;
     height: 3px !important;
     margin: 0 3px !important;
   }
-  
+
   .swiper-pagination-bullet-custom.swiper-pagination-bullet-active {
     width: 24px !important;
   }
-  
+
   /* Legenda */
   .slide-caption {
     position: absolute !important;
@@ -248,17 +257,17 @@
     background: rgba(0, 0, 0, 0.7) !important;
     backdrop-filter: blur(8px) !important;
   }
-  
+
   .slide-caption h3 {
     font-size: 15px !important;
     margin-bottom: 3px !important;
   }
-  
+
   .slide-caption p {
     font-size: 13px !important;
     line-height: 1.3 !important;
   }
-  
+
   /* Com legenda, mova a paginação mais para baixo */
   .with-caption .swiper-pagination {
     bottom: 8px !important;
@@ -271,24 +280,24 @@
     transform: translateX(-5px);
     opacity: 0;
   }
-  
+
   .swiper-button-next {
     transform: translateX(5px);
     opacity: 0;
   }
-  
+
   .swiper:hover .swiper-button-prev,
   .swiper:hover .swiper-button-next {
     transform: translateX(0);
     opacity: 1;
   }
-  
+
   .slide-caption {
     transform: translateY(0);
     opacity: 0.9;
   }
-  
+
   .swiper-slide:hover .slide-caption {
     opacity: 1;
   }
-} 
+}

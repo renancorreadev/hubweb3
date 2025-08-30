@@ -5,7 +5,9 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import './zoom-styles.css';
 import { Heading2 } from '@/components/Typography';
+import { useIsMobile } from '@/shared/hooks/useIsMobile';
 
 export interface GalleryItem {
   url: string;
@@ -22,10 +24,12 @@ interface ImageGalleryProps {
 }
 
 export function ImageGallery({ title, items, className = '' }: ImageGalleryProps) {
+  const isMobile = useIsMobile();
+
   return (
     <div className={`relative w-full ${className}`}>
       {title && (
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,12 +45,12 @@ export function ImageGallery({ title, items, className = '' }: ImageGalleryProps
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min">
         {items.map((item, index) => {
           // Determinar o tamanho da célula na grade
-          const sizeClass = item.size === 'large' 
-            ? 'col-span-1 row-span-2 sm:col-span-2' 
+          const sizeClass = item.size === 'large'
+            ? 'col-span-1 row-span-2 sm:col-span-2'
             : item.size === 'medium'
               ? 'col-span-1 sm:col-span-1 lg:col-span-1'
               : 'col-span-1';
-            
+
           return (
             <motion.div
               key={index}
@@ -58,24 +62,39 @@ export function ImageGallery({ title, items, className = '' }: ImageGalleryProps
             >
               <motion.div
                 className="h-full group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.03,
                   transition: { duration: 0.3 }
                 }}
               >
-                <Zoom zoomMargin={0}>
+                {!isMobile ? (
+                  <Zoom
+                    zoomMargin={40}
+                  >
+                    <div className="aspect-[4/3] w-full relative overflow-hidden flex items-center justify-center">
+                      <Image
+                        src={item.url}
+                        alt={item.alt || ""}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover w-full h-full transition-all duration-500 group-hover:scale-105"
+                        priority={index < 6}
+                      />
+                    </div>
+                  </Zoom>
+                ) : (
                   <div className="aspect-[4/3] w-full relative overflow-hidden flex items-center justify-center">
                     <Image
                       src={item.url}
                       alt={item.alt || ""}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-contain w-full h-full transition-all duration-500 group-hover:scale-105"
+                      className="object-cover w-full h-full transition-all duration-500"
                       priority={index < 6}
                     />
                   </div>
-                </Zoom>
-                
+                )}
+
                 {(item.title || item.description) && (
                   <div className="p-4">
                     {item.title && (
@@ -91,7 +110,7 @@ export function ImageGallery({ title, items, className = '' }: ImageGalleryProps
                   </div>
                 )}
 
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-hub-primary/5 to-hub-secondary/5 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300"
                   initial={false}
                 />
@@ -101,4 +120,5 @@ export function ImageGallery({ title, items, className = '' }: ImageGalleryProps
         })}
       </div>
     </div>
-  );} 
+  );
+}

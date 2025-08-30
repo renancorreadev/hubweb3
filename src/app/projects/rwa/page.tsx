@@ -37,8 +37,8 @@ export default function RwaConnect() {
           url: "/projects/asset-tokenization",
         }}
         prevProject={{
-            name: t("projects.loyahub.title"),
-            url: "/projects/loyahub",
+          name: t("projects.loyahub.title"),
+          url: "/projects/loyahub",
         }}
       >
         <div className="space-y-12">

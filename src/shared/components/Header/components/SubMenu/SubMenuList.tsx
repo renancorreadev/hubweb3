@@ -83,7 +83,7 @@ export function SubMenuList() {
         >
           {/* BLOCKCHAIN RWA HUB */}
           <SubMenuItem
-            href="/blockchain/projects/rwa/docs"
+            href="/projects/rwa"
             label={t("nav-blockchain-rwa-hub-label")}
             icon={<Network size={16} />}
             description={t("nav-blockchain-rwa-hub-description")}
@@ -91,10 +91,34 @@ export function SubMenuList() {
           />
           {/* BLOCKCHAIN LOYAHUB */}
           <SubMenuItem
-            href="/blockchain/projects/loyahub/docs"
+            href="/projects/loyahub"
             label={t("nav-blockchain-loyahub-label")}
             icon={<Network size={16} />}
             description={t("nav-blockchain-loyahub-description")}
+            level={1}
+          />
+          {/* BLOCKCHAIN BESUSCAN */}
+          <SubMenuItem
+            href="/projects/besuscan"
+            label={t("nav-blockchain-besuscan-label")}
+            icon={<Network size={16} />}
+            description={t("nav-blockchain-besuscan-description")}
+            level={1}
+          />
+          {/* BLOCKCHAIN ASSET TOKENIZATION */}
+          <SubMenuItem
+            href="/projects/asset-tokenization"
+            label={t("nav-blockchain-asset-tokenization-label")}
+            icon={<Network size={16} />}
+            description={t("nav-blockchain-asset-tokenization-description")}
+            level={1}
+          />
+          {/* BLOCKCHAIN CREATOR PRO */}
+          <SubMenuItem
+            href="/projects/creator-pro"
+            label={t("nav-blockchain-creator-pro-label")}
+            icon={<Network size={16} />}
+            description={t("nav-blockchain-creator-pro-description")}
             level={1}
           />
         </SubMenuItem>

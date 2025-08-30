@@ -1,0 +1,263 @@
+classDiagram
+    note "Besuscan Enterprise Block Explorer - Domain Model"
+
+    class Block {
+        +String hash
+        +BigInteger number
+        +String parentHash
+        +Timestamp timestamp
+        +String miner
+        +BigInteger gasLimit
+        +BigInteger gasUsed
+        +BigInteger difficulty
+        +BigInteger totalDifficulty
+        +Integer size
+        +String extraData
+        +String[] transactionHashes
+        +calculateBlockReward() BigInteger
+        +validateIntegrity() Boolean
+        +getTransactionCount() Integer
+    }
+
+    class Transaction {
+        +String hash
+        +String blockHash
+        +BigInteger blockNumber
+        +Integer transactionIndex
+        +String from
+        +String to
+        +BigInteger value
+        +BigInteger gasPrice
+        +BigInteger gasLimit
+        +BigInteger gasUsed
+        +String input
+        +Integer nonce
+        +String status
+        +TransactionReceipt receipt
+        +calculateGasCost() BigInteger
+        +isContractCreation() Boolean
+        +getExecutionStatus() ExecutionStatus
+    }
+
+    class Account {
+        +String address
+        +BigInteger balance
+        +BigInteger nonce
+        +String code
+        +String codeHash
+        +Timestamp lastActivity
+        +AccountType type
+        +Transaction[] transactions
+        +updateBalance(BigInteger amount)
+        +incrementNonce()
+        +isContract() Boolean
+        +getTransactionHistory() Transaction[]
+    }
+
+    class SmartContract {
+        +String contractAddress
+        +String creatorAddress
+        +String transactionHash
+        +BigInteger blockNumber
+        +String bytecode
+        +String sourceCode
+        +ABI abi
+        +ContractMetadata metadata
+        +Event[] events
+        +deployContract(String bytecode) Boolean
+        +verifySource(String sourceCode) Boolean
+        +getEventLogs() Event[]
+    }
+
+    class Event {
+        +String transactionHash
+        +String contractAddress
+        +BigInteger blockNumber
+        +Integer logIndex
+        +String[] topics
+        +String data
+        +Timestamp timestamp
+        +EventSignature signature
+        +decodeEventData() Map
+        +getEventName() String
+    }
+
+    class Validator {
+        +String address
+        +String name
+        +BigInteger stake
+        +ValidatorStatus status
+        +Integer blocksProduced
+        +BigInteger rewards
+        +Double uptime
+        +updateStatus(ValidatorStatus status)
+        +calculateRewards() BigInteger
+        +getPerformanceMetrics() ValidatorMetrics
+    }
+
+    class IndexerService {
+        -BlockchainClient client
+        -MessageQueue queue
+        -DataValidator validator
+        +startListening()
+        +processNewBlock(Block block)
+        +processTransaction(Transaction tx)
+        +handleEvent(Event event)
+        +validateData(Object data) Boolean
+    }
+
+    class WorkerService {
+        -DatabaseConnection db
+        -RedisClient cache
+        -AnalyticsEngine analytics
+        +processBlockData(Block block)
+        +enrichTransactionData(Transaction tx)
+        +updateAccountAnalytics(Account account)
+        +calculateNetworkMetrics()
+        +persistData(Object data)
+    }
+
+    class APIService {
+        -DatabaseRepository repository
+        -CacheManager cache
+        -AuthenticationService auth
+        +getBlocks(QueryParams params) Block[]
+        +getTransactions(QueryParams params) Transaction[]
+        +getAccount(String address) Account
+        +getContractDetails(String address) SmartContract
+        +getNetworkStats() NetworkStatistics
+    }
+
+    class BlockchainClient {
+        -String rpcEndpoint
+        -WebSocketConnection wsConnection
+        +subscribeToNewBlocks() Stream~Block~
+        +subscribeToTransactions() Stream~Transaction~
+        +getBlockByNumber(BigInteger number) Block
+        +getTransactionByHash(String hash) Transaction
+        +call(ContractCall call) CallResult
+    }
+
+    class DatabaseRepository {
+        -Connection connection
+        -QueryBuilder queryBuilder
+        +saveBlock(Block block) Boolean
+        +saveTransaction(Transaction tx) Boolean
+        +updateAccount(Account account) Boolean
+        +getBlocksByRange(BigInteger start, BigInteger end) Block[]
+        +getTransactionsByAccount(String address) Transaction[]
+    }
+
+    class MessageQueue {
+        -RedisConnection redis
+        -RabbitMQConnection rabbitmq
+        +publishEvent(String topic, Object data)
+        +subscribeToEvents(String topic, EventHandler handler)
+        +acknowledgeMessage(String messageId)
+    }
+
+    class AnalyticsEngine {
+        -MetricsCalculator calculator
+        -TrendAnalyzer analyzer
+        +calculateBlockMetrics(Block block) BlockMetrics
+        +analyzeTransactionPatterns(Transaction[] txs) PatternAnalysis
+        +generateNetworkInsights() NetworkInsights
+        +updatePerformanceMetrics()
+    }
+
+    %% Entity Relationships
+    Block --> Transaction
+    Account --> Transaction
+    SmartContract --> Event
+    Transaction --> Event
+    Block --> Validator
+
+    %% Service Dependencies
+    IndexerService --> BlockchainClient
+    IndexerService --> MessageQueue
+    IndexerService --> Block
+    IndexerService --> Transaction
+    IndexerService --> Event
+
+    WorkerService --> MessageQueue
+    WorkerService --> DatabaseRepository
+    WorkerService --> AnalyticsEngine
+    WorkerService --> Account
+
+    APIService --> DatabaseRepository
+    APIService --> Block
+    APIService --> Transaction
+    APIService --> Account
+    APIService --> SmartContract
+
+    DatabaseRepository --> Block
+    DatabaseRepository --> Transaction
+    DatabaseRepository --> Account
+    DatabaseRepository --> SmartContract
+    DatabaseRepository --> Event
+    DatabaseRepository --> Validator
+
+    %% Enums and Value Objects
+    class AccountType {
+        <<enumeration>>
+        EXTERNAL_ACCOUNT
+        CONTRACT_ACCOUNT
+        SYSTEM_ACCOUNT
+    }
+
+    class ExecutionStatus {
+        <<enumeration>>
+        SUCCESS
+        FAILED
+        PENDING
+        REVERTED
+    }
+
+    class ValidatorStatus {
+        <<enumeration>>
+        ACTIVE
+        INACTIVE
+        SLASHED
+        PENDING
+    }
+
+    class TransactionReceipt {
+        +String transactionHash
+        +BigInteger gasUsed
+        +String status
+        +Event[] logs
+        +String contractAddress
+    }
+
+    class ABI {
+        +Function[] functions
+        +Event[] events
+        +Constructor constructor
+        +encodeFunction(String name, Object[] params) String
+        +decodeEvent(String data, String[] topics) Event
+    }
+
+    %% Styling with high contrast text for dark/light mode compatibility
+    classDef entity fill:#1e40af,stroke:#3b82f6,stroke-width:3px,color:#ffffff
+    classDef service fill:#166534,stroke:#22c55e,stroke-width:3px,color:#ffffff
+    classDef infrastructure fill:#92400e,stroke:#f59e0b,stroke-width:3px,color:#ffffff
+    classDef valueObject fill:#be185d,stroke:#ec4899,stroke-width:3px,color:#ffffff
+
+    class Block entity
+    class Transaction entity
+    class Account entity
+    class SmartContract entity
+    class Event entity
+    class Validator entity
+    class IndexerService service
+    class WorkerService service
+    class APIService service
+    class AnalyticsEngine service
+    class BlockchainClient infrastructure
+    class DatabaseRepository infrastructure
+    class MessageQueue infrastructure
+    class AccountType valueObject
+    class ExecutionStatus valueObject
+    class ValidatorStatus valueObject
+    class TransactionReceipt valueObject
+    class ABI valueObject

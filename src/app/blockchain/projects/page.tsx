@@ -8,7 +8,7 @@ import { useTranslation } from "@/shared/hooks/useTranslation";
 import { useThemeColors } from "@/shared/hooks/useThemeColors";
 import { RenderContainer } from "@/shared/components/RenderContainer";
 
-type ProjectCategory = 'all' | 'cbdc' | 'tokenization' | 'defi' | 'loyalty' | 'nft';
+type ProjectCategory = 'all' | 'cbdc' | 'tokenization' | 'defi' | 'loyalty' | 'nft' | 'explorer';
 
 interface Project {
   id: string;
@@ -91,13 +91,26 @@ export default function ProjectsPage() {
         githubUrl: "https://github.com/hubweb3/creator-pro",
         demoUrl: "https://creator-pro.hubweb3.com"
       },
+      {
+        id: "besuscan",
+        title: t("projects.besuscan.title"),
+        description: t("projects.besuscan.description"),
+        imagePath: "/images/projects/besuscan/home.png",
+        categories: ['explorer', 'tokenization'],
+        tags: [t("projects.besuscan.tag"), "Block Explorer", "Enterprise", "Microservices"],
+        techStack: ["Go", "TypeScript", "React", "PostgreSQL", "Redis", "RabbitMQ", "Hyperledger Besu", "Docker"],
+        url: "/projects/besuscan",
+        githubUrl: "https://github.com/renancorreadev/besuscan",
+        demoUrl: "https://besuscan.hubweb3.com",
+        featured: true
+      },
     ];
 
     setProjects(projectsData);
   }, [t]);
 
-  const filteredProjects = selectedCategory === 'all' 
-    ? projects 
+  const filteredProjects = selectedCategory === 'all'
+    ? projects
     : projects.filter(project => project.categories.includes(selectedCategory));
 
   const categories: { id: ProjectCategory; label: string }[] = [
@@ -106,13 +119,14 @@ export default function ProjectsPage() {
     { id: 'tokenization', label: t("projects.list.filters.tokenization") },
     { id: 'defi', label: t("projects.list.filters.defi") },
     { id: 'loyalty', label: t("projects.list.filters.loyalty") },
-    { id: 'nft', label: t("projects.list.filters.nft") }
+    { id: 'nft', label: t("projects.list.filters.nft") },
+    { id: 'explorer', label: t("projects.list.filters.explorer") }
   ];
 
   // Container animation
   const containerVariants = {
-    hidden: { 
-      opacity: 0 
+    hidden: {
+      opacity: 0
     },
     visible: {
       opacity: 1,
@@ -124,7 +138,7 @@ export default function ProjectsPage() {
 
   // Item animation
   const itemVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: 20
     },
@@ -153,9 +167,8 @@ export default function ProjectsPage() {
           <motion.div
             className="absolute -left-20 top-40 w-80 h-80 rounded-full opacity-5 blur-3xl"
             style={{
-              background: `radial-gradient(circle, ${
-                isDark ? "#14F195" : "#14F195"
-              } 0%, transparent 70%)`,
+              background: `radial-gradient(circle, ${isDark ? "#14F195" : "#14F195"
+                } 0%, transparent 70%)`,
             }}
             animate={{
               scale: [1, 1.2, 1],
@@ -171,9 +184,8 @@ export default function ProjectsPage() {
           <motion.div
             className="absolute -right-20 bottom-0 w-96 h-96 rounded-full opacity-5 blur-3xl"
             style={{
-              background: `radial-gradient(circle, ${
-                isDark ? "#9945FF" : "#9945FF"
-              } 0%, transparent 70%)`,
+              background: `radial-gradient(circle, ${isDark ? "#9945FF" : "#9945FF"
+                } 0%, transparent 70%)`,
             }}
             animate={{
               scale: [1, 1.3, 1],
@@ -227,15 +239,14 @@ export default function ProjectsPage() {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 py-2 rounded-full text-sm md:text-base transition-all ${
-                  selectedCategory === category.id
-                    ? isDark
-                      ? "bg-hub-primary text-black font-medium"
-                      : "bg-hub-primary-light text-white font-medium"
-                    : isDark
+                className={`px-4 py-2 rounded-full text-sm md:text-base transition-all ${selectedCategory === category.id
+                  ? isDark
+                    ? "bg-hub-primary text-black font-medium"
+                    : "bg-hub-primary-light text-white font-medium"
+                  : isDark
                     ? "bg-white/10 text-white hover:bg-white/20"
                     : "bg-black/5 text-black hover:bg-black/10"
-                }`}
+                  }`}
               >
                 {category.label}
               </button>
@@ -271,10 +282,10 @@ export default function ProjectsPage() {
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       style={{ objectPosition: "center" }}
                     />
-                    
+
                     {/* Featured badge */}
                     {project.featured && (
-                      <div 
+                      <div
                         className="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-medium"
                         style={{
                           backgroundColor: isDark ? "rgba(153, 69, 255, 0.8)" : "rgba(122, 53, 204, 0.8)",
@@ -292,7 +303,7 @@ export default function ProjectsPage() {
                     <h3 className="text-xl font-bold mb-2 dark:text-white text-black">
                       {project.title}
                     </h3>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-3">
                       {project.tags.slice(0, 3).map((tag, index) => (
                         <span
@@ -303,22 +314,21 @@ export default function ProjectsPage() {
                               ? "rgba(20, 241, 149, 0.1)"
                               : "rgba(14, 166, 107, 0.1)",
                             color: isDark ? "#14F195" : "#0EA66B",
-                            border: `1px solid ${
-                              isDark
-                                ? "rgba(20, 241, 149, 0.3)"
-                                : "rgba(14, 166, 107, 0.3)"
-                            }`,
+                            border: `1px solid ${isDark
+                              ? "rgba(20, 241, 149, 0.3)"
+                              : "rgba(14, 166, 107, 0.3)"
+                              }`,
                           }}
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
-                    
+
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 flex-grow">
                       {project.description}
                     </p>
-                    
+
                     {/* Tech stack pills */}
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.techStack.slice(0, 4).map((tech, index) => (
@@ -335,7 +345,7 @@ export default function ProjectsPage() {
                         </span>
                       )}
                     </div>
-                    
+
                     {/* Action buttons */}
                     <div className="flex flex-wrap gap-2 mt-auto">
                       <Link
@@ -346,16 +356,15 @@ export default function ProjectsPage() {
                             ? "rgba(153, 69, 255, 0.1)"
                             : "rgba(122, 53, 204, 0.1)",
                           color: isDark ? "#9945FF" : "#7A35CC",
-                          border: `1px solid ${
-                            isDark
-                              ? "rgba(153, 69, 255, 0.3)"
-                              : "rgba(122, 53, 204, 0.3)"
-                          }`,
+                          border: `1px solid ${isDark
+                            ? "rgba(153, 69, 255, 0.3)"
+                            : "rgba(122, 53, 204, 0.3)"
+                            }`,
                         }}
                       >
                         {t("projects.list.viewDetails")}
                       </Link>
-                      
+
                       {project.githubUrl && (
                         <a
                           href={project.githubUrl}
@@ -380,7 +389,7 @@ export default function ProjectsPage() {
                           </svg>
                         </a>
                       )}
-                      
+
                       {project.demoUrl && (
                         <a
                           href={project.demoUrl}

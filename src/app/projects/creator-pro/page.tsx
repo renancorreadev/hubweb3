@@ -9,11 +9,11 @@ export default function CreatorPro() {
   const { t } = useTranslation();
 
   const techStack = [
-    "React", 
-    "Next.js", 
-    "Solidity", 
-    "Ethereum", 
-    "IPFS", 
+    "React",
+    "Next.js",
+    "Solidity",
+    "Ethereum",
+    "IPFS",
     "Node.js",
     "PostgreSQL",
     "TailwindCSS"
@@ -34,8 +34,8 @@ export default function CreatorPro() {
         url: "/projects/drex"
       }}
       prevProject={{
-        name: t("projects.assetTokenization.title"),
-        url: "/projects/asset-tokenization"
+        name: t("projects.besuscan.title"),
+        url: "/projects/besuscan"
       }}
     >
       <div className="space-y-12">
@@ -89,7 +89,7 @@ export default function CreatorPro() {
           <Body>
             A plataforma Creator PRO utiliza uma arquitetura distribuída que combina blockchain e armazenamento descentralizado para garantir a propriedade dos criadores sobre seu conteúdo e a integridade das transações. Os metadados dos NFTs são armazenados em IPFS, enquanto contratos inteligentes na blockchain Ethereum gerenciam direitos, royalties e propriedade.
           </Body>
-          
+
           <div className="mt-8 p-6 rounded-xl bg-black/5 dark:bg-white/5 border border-gray-200 dark:border-gray-800">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 rounded-lg bg-white/20 dark:bg-black/20">
@@ -101,7 +101,7 @@ export default function CreatorPro() {
                   <li>Sistema de autenticação com wallet</li>
                 </ul>
               </div>
-              
+
               <div className="p-4 rounded-lg bg-white/20 dark:bg-black/20">
                 <h4 className="font-bold mb-2 text-black dark:text-white">Back-end</h4>
                 <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
@@ -111,7 +111,7 @@ export default function CreatorPro() {
                   <li>Microsserviço de gerenciamento de mídia</li>
                 </ul>
               </div>
-              
+
               <div className="p-4 rounded-lg bg-white/20 dark:bg-black/20">
                 <h4 className="font-bold mb-2 text-black dark:text-white">Blockchain</h4>
                 <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  hubweb3-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hubweb3-app
+    ports:
+      - "1000:1000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - PORT=1000
+      - HOSTNAME=0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:1000/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - hubweb3-network
+
+networks:
+  hubweb3-network:
+    driver: bridge

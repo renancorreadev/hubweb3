@@ -4,6 +4,7 @@ import React from "react";
 import { Hero } from "./components/Hero";
 import { RenderContainer } from "@/shared/components/RenderContainer";
 import { HeroSlider } from "@/components/HeroSlider";
+import { TechnicalExpertise } from "./components/TechnicalExpertise";
 import { desktopOnly } from "@/shared/configs/responsive";
 // import { BlockchainTips } from "@/features/homepage/components/BlockchainTips";
 import { useTranslation } from "@/shared/hooks/useTranslation";
@@ -38,6 +39,8 @@ export function HomePage() {
   return (
     <RenderContainer>
       <Hero />
+
+
       {/* Slider de projetos */}
       <HeroSlider
         projects={projects}
@@ -46,7 +49,9 @@ export function HomePage() {
         textContainerRadius={16}
         showButton={false}
       />
-      {/* Bloco de dicas de blockchain */}
+      {/* Seção de Expertise Técnica */}
+      <TechnicalExpertise />
+
       {/* <BlockchainTips /> */}
     </RenderContainer>
   );

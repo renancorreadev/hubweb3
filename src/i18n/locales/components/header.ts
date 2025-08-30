@@ -1,8 +1,8 @@
 
 
 export const header = {
-   // Navigation components
-   'nav-hub-label': {
+  // Navigation components
+  'nav-hub-label': {
     en: 'Hub',
     pt: 'Hub'
   },
@@ -53,6 +53,30 @@ export const header = {
   'nav-blockchain-loyahub-description': {
     en: 'A complete tokenization project of points and rewards for Drex',
     pt: 'Um projeto completo de tokenização de pontos e recompensas para Drex'
+  },
+  'nav-blockchain-besuscan-label': {
+    en: 'Besuscan',
+    pt: 'Besuscan'
+  },
+  'nav-blockchain-besuscan-description': {
+    en: 'Enterprise Block Explorer for Hyperledger Besu',
+    pt: 'Block Explorer Enterprise para Hyperledger Besu'
+  },
+  'nav-blockchain-asset-tokenization-label': {
+    en: 'Asset Tokenization',
+    pt: 'Tokenização de Ativos'
+  },
+  'nav-blockchain-asset-tokenization-description': {
+    en: 'Complete platform for real-world asset tokenization',
+    pt: 'Plataforma completa para tokenização de ativos do mundo real'
+  },
+  'nav-blockchain-creator-pro-label': {
+    en: 'Creator Pro',
+    pt: 'Creator Pro'
+  },
+  'nav-blockchain-creator-pro-description': {
+    en: 'Professional NFT creation and management platform',
+    pt: 'Plataforma profissional de criação e gestão de NFTs'
   },
   // BLOCKCHAIN TIPS
   'nav-blockchain-tips-label': {

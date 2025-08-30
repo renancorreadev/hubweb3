@@ -33,15 +33,20 @@ export function Header() {
     setMounted(true);
   }, []);
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // const toggleTheme = () => {
+  //   setTheme(theme === "dark" ? "light" : "dark");
+  // };
 
   const toggleLanguage = () => {
     setLanguage(language === 'pt' ? 'en' : 'pt');
   };
 
-  const isThemePage = true; 
+  // const isThemePage = false; // Desabilitado - apenas modo dark
 
   const menuVariants = {
     closed: {
@@ -64,7 +69,7 @@ export function Header() {
 
   return (
     <RenderContainer>
-      <header 
+      <header
         className={headerStyles.container}
         style={{
           backgroundColor: isDark ? getColor('background') : '#ffffff',
@@ -97,8 +102,8 @@ export function Header() {
               color: isDark ? '#ffffff' : '#1A1A1A',
             }}
           >
-            <motion.span 
-              className={headerStyles.menuIconLine} 
+            <motion.span
+              className={headerStyles.menuIconLine}
               style={{
                 backgroundColor: isDark ? '#ffffff' : '#1A1A1A',
               }}
@@ -107,8 +112,8 @@ export function Header() {
                 y: isOpen ? 8 : 0,
               }}
             />
-            <motion.span 
-              className={headerStyles.menuIconLine} 
+            <motion.span
+              className={headerStyles.menuIconLine}
               style={{
                 backgroundColor: isDark ? '#ffffff' : '#1A1A1A',
               }}
@@ -116,8 +121,8 @@ export function Header() {
                 opacity: isOpen ? 0 : 1,
               }}
             />
-            <motion.span 
-              className={headerStyles.menuIconLine} 
+            <motion.span
+              className={headerStyles.menuIconLine}
               style={{
                 backgroundColor: isDark ? '#ffffff' : '#1A1A1A',
               }}
@@ -145,7 +150,7 @@ export function Header() {
                   }}
                 >
                   <Globe size={22} />
-                  <Typography 
+                  <Typography
                     variant="button"
                     color="text.primary"
                     className="ml-1"
@@ -158,7 +163,7 @@ export function Header() {
                   </Typography>
                 </motion.button>
               )}
-              {isMounted && isThemePage && (
+              {/* {isMounted && isThemePage && (
                 <motion.button
                   onClick={toggleTheme}
                   className={headerStyles.themeToggle}
@@ -171,7 +176,7 @@ export function Header() {
                 >
                   {theme === "light" ? <Moon size={24} /> : <Sun size={24} />}
                 </motion.button>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -179,7 +184,7 @@ export function Header() {
         {/* Nav items mobile */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div 
+            <motion.div
               className={headerStyles.navMobile}
               variants={menuVariants}
               initial="closed"
@@ -205,7 +210,7 @@ export function Header() {
                       }}
                     >
                       <Globe size={18} />
-                      <Typography 
+                      <Typography
                         variant="button"
                         color="text.primary"
                         className="ml-1"
@@ -218,8 +223,8 @@ export function Header() {
                       </Typography>
                     </motion.button>
                   )}
-                  
-                  {isMounted && isThemePage && (
+
+                  {/* {isMounted && isThemePage && (
                     <motion.button
                       onClick={toggleTheme}
                       className={`${headerStyles.themeToggle} self-start ml-2`}
@@ -232,7 +237,7 @@ export function Header() {
                     >
                       {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
                     </motion.button>
-                  )}
+                  )} */}
                 </div>
                 {/* <InkeepSearchBar /> */}
               </div>

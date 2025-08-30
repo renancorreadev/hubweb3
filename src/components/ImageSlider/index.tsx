@@ -65,7 +65,7 @@ export const ImageSlider = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const isMobile = useMediaQuery("(max-width: 767px)");
   const [isHovered, setIsHovered] = useState(false);
-  
+
   // Validação do borderRadius
   const safeBorderRadius = Math.max(0, borderRadius);
 
@@ -81,7 +81,7 @@ export const ImageSlider = ({
   return (
     <div className={`w-full mb-4 ${className}`}>
       {title && (
-        <motion.div 
+        <motion.div
           className="text-center mb-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -134,8 +134,8 @@ export const ImageSlider = ({
           className={`w-full h-full relative ${showCaption ? 'with-caption' : ''}`}
         >
           {images.map((image, index) => (
-            <SwiperSlide 
-              key={index} 
+            <SwiperSlide
+              key={index}
               className="h-full"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
@@ -157,21 +157,21 @@ export const ImageSlider = ({
                       fill
                       priority={index < 2}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                      className="object-contain dark:opacity-95 opacity-100"
+                      className="object-cover dark:opacity-95 opacity-100"
                     />
                   )}
                 </div>
               </div>
-              
+
               {/* Informações no canto inferior esquerdo com estilo moderno */}
               {showCaption && (image.title || image.description) && (
-                <motion.div 
+                <motion.div
                   className="slide-caption-container absolute left-4 bottom-16 md:left-8 md:bottom-20 right-4 md:right-auto md:max-w-md z-10"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  <motion.div 
+                  <motion.div
                     className="caption-content p-4 md:p-6 rounded-lg backdrop-blur-md bg-opacity-75 bg-black dark:bg-opacity-85"
                     whileHover={{
                       backgroundColor: "rgba(0, 0, 0, 0.85)",
@@ -180,7 +180,7 @@ export const ImageSlider = ({
                     }}
                   >
                     {image.title && (
-                      <motion.h3 
+                      <motion.h3
                         className="text-lg md:text-xl font-semibold text-white mb-1"
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -190,7 +190,7 @@ export const ImageSlider = ({
                       </motion.h3>
                     )}
                     {image.description && (
-                      <motion.p 
+                      <motion.p
                         className="text-sm md:text-base text-gray-200"
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -219,4 +219,4 @@ export const ImageSlider = ({
       </motion.div>
     </div>
   );
-}; 
+};

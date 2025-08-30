@@ -82,7 +82,7 @@ export const projectsTranslations = {
     pt: "BLOCKCHAIN",
     en: "BLOCKCHAIN"
   },
-  
+
   // Besu Scope
   "projects.besuScope.title": {
     pt: "Besu Scope",
@@ -100,7 +100,7 @@ export const projectsTranslations = {
     pt: "FERRAMENTA",
     en: "TOOL"
   },
-  
+
   // Creator Pro
   "projects.creatorPro.title": {
     pt: "Creator PRO",
@@ -118,7 +118,7 @@ export const projectsTranslations = {
     pt: "WEB3",
     en: "WEB3"
   },
-  
+
   // DREX
   "projects.drex.title": {
     pt: "DREX",
@@ -136,7 +136,7 @@ export const projectsTranslations = {
     pt: "CBDC",
     en: "CBDC"
   },
-  
+
   // Loyahub
   "projects.loyahub.title": {
     pt: "LoyaHub",
@@ -154,7 +154,7 @@ export const projectsTranslations = {
     pt: "LOYALTECH",
     en: "LOYALTECH"
   },
-  
+
   // RWA
   "projects.rwa.title": {
     pt: "RWA Connect",
@@ -171,6 +171,24 @@ export const projectsTranslations = {
   "projects.rwa.tag": {
     pt: "INFRAESTRUTURA",
     en: "INFRASTRUCTURE"
+  },
+
+  // Besuscan
+  "projects.besuscan.title": {
+    pt: "Besuscan",
+    en: "Besuscan"
+  },
+  "projects.besuscan.subtitle": {
+    pt: "Block Explorer Enterprise para Hyperledger Besu",
+    en: "Enterprise Block Explorer for Hyperledger Besu"
+  },
+  "projects.besuscan.description": {
+    pt: "Plataforma completa de exploração blockchain especializada em Hyperledger Besu para ambientes empresariais. Oferece indexação em tempo real, análise de dados avançada e ferramentas de gerenciamento através de uma arquitetura de microserviços escalável.",
+    en: "Complete blockchain exploration platform specialized in Hyperledger Besu for enterprise environments. Offers real-time indexing, advanced data analysis, and management tools through a scalable microservices architecture."
+  },
+  "projects.besuscan.tag": {
+    pt: "BLOCKCHAIN",
+    en: "BLOCKCHAIN"
   },
 
   // RWZ Tokenization - Architecture
@@ -406,7 +424,7 @@ export const projectsTranslations = {
       "Complete transparency regarding points and rewards"
     ]
   },
-  
+
   // LoyaHub Features
   "projects.loyahub.features.tokenization.title": {
     pt: "Tokenização de Pontos",
@@ -440,7 +458,7 @@ export const projectsTranslations = {
     pt: "Painel administrativo para empresas gerenciarem seus programas, ofertas e analisarem o comportamento dos clientes.",
     en: "Administrative panel for companies to manage their programs, offers, and analyze customer behavior."
   },
-  
+
   // LoyaHub Process Steps
   "projects.loyahub.process.purchasepoints.title": {
     pt: "Pontos de Compra",
@@ -474,7 +492,7 @@ export const projectsTranslations = {
     pt: "Sistema de retorno em dinheiro e descontos progressivos baseados em pontuação e nível do usuário.",
     en: "Cashback system and progressive discounts based on user score and level."
   },
-  
+
   // LoyaHub Gallery Items
   "projects.loyahub.gallery.adminI.title": {
     pt: "Recompensas",
@@ -564,7 +582,7 @@ export const projectsTranslations = {
     pt: "Modal para transferência de tokens entre carteiras",
     en: "Modal for transferring tokens between wallets"
   },
-  
+
   // LoyaHub Videos
   "projects.loyahub.video.demo.title": {
     pt: "Demo do App",
@@ -707,5 +725,281 @@ export const projectsTranslations = {
   "projects.blockchain.architecture.animation.replay": {
     pt: "Repetir Animação",
     en: "Replay Animation"
+  },
+
+  // Besuscan - Architecture & Features
+  "projects.besuscan.gallery.title": {
+    pt: "Galeria do Projeto",
+    en: "Project Gallery"
+  },
+  "projects.besuscan.architecture.description": {
+    pt: "O Besuscan utiliza uma arquitetura de microserviços moderna e escalável, projetada especificamente para ambientes empresariais que requerem alta disponibilidade e performance na exploração de dados blockchain.",
+    en: "Besuscan uses a modern and scalable microservices architecture, specifically designed for enterprise environments that require high availability and performance in blockchain data exploration."
+  },
+  "projects.besuscan.architecture.overview": {
+    pt: "A solução é composta por cinco microserviços especializados: Indexer para captura de eventos, Worker para processamento, API para consultas, Frontend para interface e Besucli para gerenciamento.",
+    en: "The solution consists of five specialized microservices: Indexer for event capture, Worker for processing, API for queries, Frontend for interface, and Besucli for management."
+  },
+  "projects.besuscan.architecture.microservices.title": {
+    pt: "Arquitetura de Microserviços",
+    en: "Microservices Architecture"
+  },
+  "projects.besuscan.architecture.microservices.description": {
+    pt: "Cinco serviços independentes trabalhando em conjunto para oferecer uma solução completa de exploração blockchain",
+    en: "Five independent services working together to provide a complete blockchain exploration solution"
+  },
+  "projects.besuscan.architecture.dataflow.title": {
+    pt: "Fluxo de Dados",
+    en: "Data Flow"
+  },
+  "projects.besuscan.architecture.dataflow.description": {
+    pt: "Demonstração de como os dados fluem desde a blockchain até a interface do usuário",
+    en: "Demonstration of how data flows from blockchain to user interface"
+  },
+  "projects.besuscan.architecture.highlight.indexer.title": {
+    pt: "Indexer - Captura de Eventos",
+    en: "Indexer - Event Capture"
+  },
+  "projects.besuscan.architecture.highlight.indexer.description": {
+    pt: "Serviço Go que monitora a blockchain Hyperledger Besu em tempo real, capturando blocos, transações e eventos para indexação",
+    en: "Go service that monitors Hyperledger Besu blockchain in real-time, capturing blocks, transactions and events for indexing"
+  },
+  "projects.besuscan.architecture.highlight.worker.title": {
+    pt: "Worker - Processamento",
+    en: "Worker - Processing"
+  },
+  "projects.besuscan.architecture.highlight.worker.description": {
+    pt: "Processa dados recebidos do Indexer via RabbitMQ/Redis, enriquece informações e persiste no PostgreSQL",
+    en: "Processes data received from Indexer via RabbitMQ/Redis, enriches information and persists to PostgreSQL"
+  },
+  "projects.besuscan.architecture.highlight.api.title": {
+    pt: "API REST - Consultas",
+    en: "REST API - Queries"
+  },
+  "projects.besuscan.architecture.highlight.api.description": {
+    pt: "API em Go que serve dados do PostgreSQL para o frontend, oferecendo endpoints para blocos, transações e estatísticas",
+    en: "Go API that serves data from PostgreSQL to frontend, offering endpoints for blocks, transactions and statistics"
+  },
+  "projects.besuscan.architecture.highlight.cli.title": {
+    pt: "Besucli - Gerenciamento",
+    en: "Besucli - Management"
+  },
+  "projects.besuscan.architecture.highlight.cli.description": {
+    pt: "Ferramenta CLI para registrar contratos inteligentes, deployar e configurar triggers para indexação",
+    en: "CLI tool for registering smart contracts, deploying and configuring triggers for indexing"
+  },
+
+  // Besuscan Features
+  "projects.besuscan.features.realtime.title": {
+    pt: "Indexação em Tempo Real",
+    en: "Real-time Indexing"
+  },
+  "projects.besuscan.features.realtime.description": {
+    pt: "Captura e indexação de eventos blockchain em tempo real através de WebSockets e event listeners.",
+    en: "Real-time blockchain event capture and indexing through WebSockets and event listeners."
+  },
+  "projects.besuscan.features.enterprise.title": {
+    pt: "Focado em Enterprise",
+    en: "Enterprise Focused"
+  },
+  "projects.besuscan.features.enterprise.description": {
+    pt: "Projetado especificamente para ambientes empresariais com Hyperledger Besu, oferecendo recursos de governança e compliance.",
+    en: "Specifically designed for enterprise environments with Hyperledger Besu, offering governance and compliance features."
+  },
+  "projects.besuscan.features.microservices.title": {
+    pt: "Arquitetura de Microserviços",
+    en: "Microservices Architecture"
+  },
+  "projects.besuscan.features.microservices.description": {
+    pt: "Separação clara de responsabilidades com serviços independentes para indexação, processamento, API e interface.",
+    en: "Clear separation of responsibilities with independent services for indexing, processing, API and interface."
+  },
+  "projects.besuscan.features.analytics.title": {
+    pt: "Analytics Avançado",
+    en: "Advanced Analytics"
+  },
+  "projects.besuscan.features.analytics.description": {
+    pt: "Análise detalhada de dados blockchain com métricas de performance, estatísticas de rede e insights de transações.",
+    en: "Detailed blockchain data analysis with performance metrics, network statistics and transaction insights."
+  },
+  "projects.besuscan.features.cli.title": {
+    pt: "Ferramenta CLI",
+    en: "CLI Tool"
+  },
+  "projects.besuscan.features.cli.description": {
+    pt: "Besucli para gerenciamento de contratos inteligentes, deployment e configuração de triggers de indexação.",
+    en: "Besucli for smart contract management, deployment and indexing trigger configuration."
+  },
+  "projects.besuscan.features.scalable.title": {
+    pt: "Altamente Escalável",
+    en: "Highly Scalable"
+  },
+  "projects.besuscan.features.scalable.description": {
+    pt: "Arquitetura preparada para escalar horizontalmente com Redis, RabbitMQ e containerização Docker/Kubernetes.",
+    en: "Architecture ready to scale horizontally with Redis, RabbitMQ and Docker/Kubernetes containerization."
+  },
+
+  // Besuscan Process
+  "projects.besuscan.process.title": {
+    pt: "Fluxo de Processamento",
+    en: "Processing Flow"
+  },
+  "projects.besuscan.process.listening.title": {
+    pt: "Escuta de Eventos",
+    en: "Event Listening"
+  },
+  "projects.besuscan.process.listening.description": {
+    pt: "O Indexer monitora continuamente a blockchain Besu através de WebSockets para capturar eventos em tempo real.",
+    en: "The Indexer continuously monitors the Besu blockchain through WebSockets to capture real-time events."
+  },
+  "projects.besuscan.process.indexing.title": {
+    pt: "Indexação de Dados",
+    en: "Data Indexing"
+  },
+  "projects.besuscan.process.indexing.description": {
+    pt: "Eventos capturados são estruturados e enviados para filas Redis/RabbitMQ para processamento assíncrono.",
+    en: "Captured events are structured and sent to Redis/RabbitMQ queues for asynchronous processing."
+  },
+  "projects.besuscan.process.processing.title": {
+    pt: "Processamento",
+    en: "Processing"
+  },
+  "projects.besuscan.process.processing.description": {
+    pt: "O Worker processa as mensagens das filas, enriquece os dados e realiza validações necessárias.",
+    en: "The Worker processes queue messages, enriches data and performs necessary validations."
+  },
+  "projects.besuscan.process.storing.title": {
+    pt: "Armazenamento",
+    en: "Storage"
+  },
+  "projects.besuscan.process.storing.description": {
+    pt: "Dados processados são persistidos no PostgreSQL com estrutura otimizada para consultas rápidas.",
+    en: "Processed data is persisted in PostgreSQL with structure optimized for fast queries."
+  },
+  "projects.besuscan.process.serving.title": {
+    pt: "Disponibilização",
+    en: "Serving"
+  },
+  "projects.besuscan.process.serving.description": {
+    pt: "A API REST serve os dados para o frontend React/Vite, oferecendo interface intuitiva para exploração.",
+    en: "The REST API serves data to the React/Vite frontend, offering an intuitive interface for exploration."
+  },
+
+  // Besuscan Benefits
+  "projects.besuscan.benefits.title": {
+    pt: "Benefícios da Plataforma",
+    en: "Platform Benefits"
+  },
+  "projects.besuscan.benefits.enterprises.title": {
+    pt: "Para Empresas",
+    en: "For Enterprises"
+  },
+  "projects.besuscan.benefits.enterprises.list": {
+    pt: [
+      "Visibilidade completa das transações da rede privada",
+      "Ferramentas de compliance e auditoria integradas",
+      "Análise de performance e métricas de rede em tempo real",
+      "Integração facilitada com sistemas empresariais existentes"
+    ],
+    en: [
+      "Complete visibility of private network transactions",
+      "Integrated compliance and audit tools",
+      "Real-time performance analysis and network metrics",
+      "Facilitated integration with existing enterprise systems"
+    ]
+  },
+  "projects.besuscan.benefits.developers.title": {
+    pt: "Para Desenvolvedores",
+    en: "For Developers"
+  },
+  "projects.besuscan.benefits.developers.list": {
+    pt: [
+      "API REST completa para integração com aplicações",
+      "Ferramenta CLI para gerenciamento de contratos",
+      "Documentação técnica detalhada e exemplos",
+      "SDKs e bibliotecas para diferentes linguagens"
+    ],
+    en: [
+      "Complete REST API for application integration",
+      "CLI tool for contract management",
+      "Detailed technical documentation and examples",
+      "SDKs and libraries for different languages"
+    ]
+  },
+  "projects.besuscan.benefits.infrastructure.title": {
+    pt: "Para Infraestrutura",
+    en: "For Infrastructure"
+  },
+  "projects.besuscan.benefits.infrastructure.list": {
+    pt: [
+      "Arquitetura de microserviços escalável e resiliente",
+      "Suporte nativo para containerização e orquestração",
+      "Monitoramento e observabilidade integrados",
+      "Backup automático e recuperação de desastres"
+    ],
+    en: [
+      "Scalable and resilient microservices architecture",
+      "Native support for containerization and orchestration",
+      "Integrated monitoring and observability",
+      "Automatic backup and disaster recovery"
+    ]
+  },
+
+  // Besuscan Gallery
+  "projects.besuscan.gallery.dashboard.title": {
+    pt: "Dashboard Principal",
+    en: "Main Dashboard"
+  },
+  "projects.besuscan.gallery.dashboard.description": {
+    pt: "Visão geral da rede com estatísticas em tempo real",
+    en: "Network overview with real-time statistics"
+  },
+  "projects.besuscan.gallery.blocks.title": {
+    pt: "Explorador de Blocos",
+    en: "Block Explorer"
+  },
+  "projects.besuscan.gallery.blocks.description": {
+    pt: "Navegação detalhada através dos blocos da blockchain",
+    en: "Detailed navigation through blockchain blocks"
+  },
+  "projects.besuscan.gallery.transactions.title": {
+    pt: "Visualizador de Transações",
+    en: "Transaction Viewer"
+  },
+  "projects.besuscan.gallery.transactions.description": {
+    pt: "Análise completa de transações com detalhes técnicos",
+    en: "Complete transaction analysis with technical details"
+  },
+  "projects.besuscan.gallery.contracts.title": {
+    pt: "Gerenciador de Contratos",
+    en: "Contract Manager"
+  },
+  "projects.besuscan.gallery.contracts.description": {
+    pt: "Interface para gerenciar e interagir com smart contracts",
+    en: "Interface to manage and interact with smart contracts"
+  },
+  "projects.besuscan.gallery.analytics.title": {
+    pt: "Analytics e Métricas",
+    en: "Analytics and Metrics"
+  },
+  "projects.besuscan.gallery.analytics.description": {
+    pt: "Dashboards avançados com insights de performance da rede",
+    en: "Advanced dashboards with network performance insights"
+  },
+  "projects.besuscan.gallery.api.title": {
+    pt: "Documentação da API",
+    en: "API Documentation"
+  },
+  "projects.besuscan.gallery.api.description": {
+    pt: "Interface interativa para explorar e testar endpoints da API",
+    en: "Interactive interface to explore and test API endpoints"
+  },
+  "projects.besuscan.gallery.cli.title": {
+    pt: "Ferramenta CLI",
+    en: "CLI Tool"
+  },
+  "projects.besuscan.gallery.cli.description": {
+    pt: "Interface de linha de comando para gerenciamento avançado",
+    en: "Command line interface for advanced management"
   }
-}; 
+};

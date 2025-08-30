@@ -35,7 +35,7 @@ export const Experience = () => {
   const nodeRefsMap = useRef<Map<number, HTMLDivElement>>(new Map());
 
   // Força re-renderização apenas quando absolutamente necessário
-  const forceUpdateRef = useRef<() => void>(() => {});
+  const forceUpdateRef = useRef<() => void>(() => { });
   const [forceUpdateCounter, setForceUpdateCounter] = useState(0);
   forceUpdateRef.current = () => setForceUpdateCounter((prev) => prev + 1);
 
@@ -54,6 +54,21 @@ export const Experience = () => {
     };
 
     return [
+      {
+        company: "Stefanini",
+        position: "Blockchain Architect",
+        period: "2025 - Present",
+        description: [
+          "Arquiteto de soluções blockchain em redes permissionadas e privadas",
+          "Implementação de infraestrutura blockchain com Hyperledger Besu",
+          "Prototipagem de soluções de privacidade e segurança em redes blockchain",
+          "Desenvolvimento e manutenção de soluções blockchain em redes EVM",
+          "Treinamento e suporte técnico para clientes e parceiros",
+          "Implantação de soluções blockchain em ambientes de produção e testes",
+          "Auditoria e análise de vulnerabilidades em soluções blockchain",
+        ],
+        hash: generateHash(),
+      },
       {
         company: "Opea",
         position: "Senior Blockchain Architect Engineer",
@@ -221,9 +236,8 @@ export const Experience = () => {
 
   return (
     <section
-      className={`relative overflow-hidden max-sm:pt-12 lg:py-12 ${
-        isDark ? "dark" : "light"
-      }`}
+      className={`relative overflow-hidden max-sm:pt-12 lg:py-12 ${isDark ? "dark" : "light"
+        }`}
       style={{
         backgroundColor: isDark
           ? "rgba(8, 8, 12, 0.97)"
@@ -238,17 +252,15 @@ export const Experience = () => {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 20% 30%, ${
-              isDark ? "rgba(153, 69, 255, 0.07)" : "rgba(122, 53, 204, 0.05)"
-            }, transparent 25%)`,
+            backgroundImage: `radial-gradient(circle at 20% 30%, ${isDark ? "rgba(153, 69, 255, 0.07)" : "rgba(122, 53, 204, 0.05)"
+              }, transparent 25%)`,
           }}
         />
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 80% 70%, ${
-              isDark ? "rgba(20, 241, 149, 0.05)" : "rgba(16, 185, 129, 0.03)"
-            }, transparent 25%)`,
+            backgroundImage: `radial-gradient(circle at 80% 70%, ${isDark ? "rgba(20, 241, 149, 0.05)" : "rgba(16, 185, 129, 0.03)"
+              }, transparent 25%)`,
           }}
         />
 
@@ -381,15 +393,14 @@ export const Experience = () => {
                       backgroundColor: isDark
                         ? "rgba(30, 30, 35, 0.7)"
                         : "rgba(245, 245, 250, 0.9)",
-                      border: `1px solid ${
-                        minedNodesRef.current[i]
-                          ? isDark
-                            ? "#14F195"
-                            : "#10B981"
-                          : isDark
+                      border: `1px solid ${minedNodesRef.current[i]
+                        ? isDark
+                          ? "#14F195"
+                          : "#10B981"
+                        : isDark
                           ? "rgba(153, 69, 255, 0.3)"
                           : "rgba(122, 53, 204, 0.2)"
-                      }`,
+                        }`,
                     }}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -397,11 +408,10 @@ export const Experience = () => {
                   >
                     <div className="flex items-center">
                       <div
-                        className={`w-2 h-2 rounded-full mr-2 ${
-                          minedNodesRef.current[i]
-                            ? "bg-green-400"
-                            : "bg-gray-400"
-                        }`}
+                        className={`w-2 h-2 rounded-full mr-2 ${minedNodesRef.current[i]
+                          ? "bg-green-400"
+                          : "bg-gray-400"
+                          }`}
                       />
                       <span className="text-black dark:text-white">#{i + 1}: {exp.hash.substring(0, 8)}</span>
                     </div>
@@ -590,11 +600,10 @@ export const Experience = () => {
                           backgroundColor: isDark
                             ? "rgba(30, 30, 35, 0.5)"
                             : "rgba(245, 245, 250, 0.8)",
-                          border: `1px solid ${
-                            isDark
-                              ? "rgba(153, 69, 255, 0.2)"
-                              : "rgba(122, 53, 204, 0.1)"
-                          }`,
+                          border: `1px solid ${isDark
+                            ? "rgba(153, 69, 255, 0.2)"
+                            : "rgba(122, 53, 204, 0.1)"
+                            }`,
                         }}
                       >
                         <div
@@ -603,11 +612,10 @@ export const Experience = () => {
                             background: isDark
                               ? "linear-gradient(135deg, rgba(153, 69, 255, 0.2), rgba(20, 241, 149, 0.2))"
                               : "linear-gradient(135deg, rgba(122, 53, 204, 0.1), rgba(16, 185, 129, 0.1))",
-                            border: `1px solid ${
-                              isDark
-                                ? "rgba(153, 69, 255, 0.3)"
-                                : "rgba(122, 53, 204, 0.2)"
-                            }`,
+                            border: `1px solid ${isDark
+                              ? "rgba(153, 69, 255, 0.3)"
+                              : "rgba(122, 53, 204, 0.2)"
+                              }`,
                           }}
                         >
                           <div
@@ -700,11 +708,10 @@ export const Experience = () => {
                           backgroundColor: isDark
                             ? "rgba(30, 30, 35, 0.5)"
                             : "rgba(245, 245, 250, 0.8)",
-                          border: `1px solid ${
-                            isDark
-                              ? "rgba(153, 69, 255, 0.2)"
-                              : "rgba(122, 53, 204, 0.1)"
-                          }`,
+                          border: `1px solid ${isDark
+                            ? "rgba(153, 69, 255, 0.2)"
+                            : "rgba(122, 53, 204, 0.1)"
+                            }`,
                         }}
                         whileHover={{ scale: 1.05 }}
                       >
@@ -801,9 +808,8 @@ export const Experience = () => {
                         backgroundColor: isDark
                           ? "rgba(30, 30, 35, 0.5)"
                           : "rgba(245, 245, 250, 0.8)",
-                        borderLeft: `3px solid ${
-                          isDark ? "#9945FF" : "#7A35CC"
-                        }`,
+                        borderLeft: `3px solid ${isDark ? "#9945FF" : "#7A35CC"
+                          }`,
                       }}
                     >
                       <span className="opacity-60">{t("developer.experience.blockchain.network")}:</span>{" "}
@@ -817,9 +823,8 @@ export const Experience = () => {
                         backgroundColor: isDark
                           ? "rgba(30, 30, 35, 0.5)"
                           : "rgba(245, 245, 250, 0.8)",
-                        borderLeft: `3px solid ${
-                          isDark ? "#9945FF" : "#7A35CC"
-                        }`,
+                        borderLeft: `3px solid ${isDark ? "#9945FF" : "#7A35CC"
+                          }`,
                       }}
                     >
                       <span className="opacity-60">{t("developer.experience.blockchain.consensus")}:</span>{" "}
@@ -833,9 +838,8 @@ export const Experience = () => {
                         backgroundColor: isDark
                           ? "rgba(30, 30, 35, 0.5)"
                           : "rgba(245, 245, 250, 0.8)",
-                        borderLeft: `3px solid ${
-                          isDark ? "#14F195" : "#10B981"
-                        }`,
+                        borderLeft: `3px solid ${isDark ? "#14F195" : "#10B981"
+                          }`,
                       }}
                     >
                       <span className="opacity-60">{t("developer.experience.blockchain.difficulty")}:</span>{" "}
@@ -849,9 +853,8 @@ export const Experience = () => {
                         backgroundColor: isDark
                           ? "rgba(30, 30, 35, 0.5)"
                           : "rgba(245, 245, 250, 0.8)",
-                        borderLeft: `3px solid ${
-                          isDark ? "#14F195" : "#10B981"
-                        }`,
+                        borderLeft: `3px solid ${isDark ? "#14F195" : "#10B981"
+                          }`,
                       }}
                     >
                       <span className="opacity-60 text-black dark:text-white">
@@ -903,14 +906,12 @@ export const Experience = () => {
                             : "linear-gradient(90deg, #7A35CC, #10B981)",
                         }}
                         initial={{
-                          width: `${
-                            (minedBlocksCount / experienceData.length) * 100
-                          }%`,
+                          width: `${(minedBlocksCount / experienceData.length) * 100
+                            }%`,
                         }}
                         animate={{
-                          width: `${
-                            (minedBlocksCount / experienceData.length) * 100
-                          }%`,
+                          width: `${(minedBlocksCount / experienceData.length) * 100
+                            }%`,
                         }}
                         transition={{ duration: 0.5 }}
                       />

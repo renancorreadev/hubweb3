@@ -1,0 +1,72 @@
+sequenceDiagram
+    autonumber
+    participant B as 🔗 Hyperledger Besu<br/>Blockchain Network
+    participant I as 🔍 Indexer Service<br/>Event Listener
+    participant Q as 📨 Message Queue<br/>Redis + RabbitMQ
+    participant W as ⚙️ Worker Service<br/>Data Processor
+    participant D as 🗄️ PostgreSQL<br/>Database
+    participant A as 🔌 API Service<br/>REST Endpoints
+    participant F as 🖥️ Frontend<br/>React Dashboard
+    participant C as 💻 Besucli<br/>Management Tool
+
+    Note over B,F: 🚀 Besuscan Enterprise Data Processing Pipeline
+
+    rect rgba(59, 130, 246, 0.15)
+        Note right of B: 📡 Blockchain Event Generation
+        B->>+I: New Block Mined
+        B->>+I: Transaction Submitted
+        B->>+I: Smart Contract Event
+        I->>I: Parse Event Data
+        I->>I: Validate Structure
+        Note right of I: ✅ Event Validated
+    end
+
+    rect rgba(16, 185, 129, 0.15)
+        Note right of I: 📤 Event Distribution
+        I->>+Q: Publish to Redis Stream
+        I->>+Q: Queue in RabbitMQ
+        Q-->>-I: Acknowledgment
+        Note right of Q: 📋 Events Queued
+    end
+
+    rect rgba(139, 92, 246, 0.15)
+        Note right of Q: ⚙️ Asynchronous Processing
+        Q->>+W: Deliver Event Message
+        W->>W: Enrich Transaction Data
+        W->>W: Calculate Gas Metrics
+        W->>W: Analyze Account Activity
+        W->>W: Update Analytics
+        Note right of W: 📊 Data Processed
+    end
+
+    rect rgba(34, 197, 94, 0.15)
+        Note right of W: 💾 Data Persistence
+        W->>+D: Store Block Data
+        W->>+D: Save Transaction Records
+        W->>+D: Update Account Balances
+        W->>+D: Cache Analytics
+        D-->>-W: Confirmation
+        Note right of D: ✅ Data Persisted
+    end
+
+    rect rgba(249, 115, 22, 0.15)
+        Note right of F: 🔍 User Interaction
+        F->>+A: Request Block Explorer Data
+        F->>+A: Query Transaction History
+        F->>+A: Fetch Analytics Dashboard
+        A->>+D: Execute SQL Queries
+        D-->>-A: Return Results
+        A-->>-F: JSON Response
+        Note right of A: 📋 Data Served
+    end
+
+    rect rgba(239, 68, 68, 0.15)
+        Note right of C: 🛠️ Administrative Operations
+        C->>B: Deploy Smart Contract
+        C->>I: Configure Event Filters
+        C->>A: Update API Configuration
+        C->>D: Run Database Migrations
+        Note right of C: ⚙️ System Configured
+    end
+
+    Note over B,F: ✨ Enterprise-Grade Blockchain Data Pipeline Complete

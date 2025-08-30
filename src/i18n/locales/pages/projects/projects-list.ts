@@ -35,6 +35,10 @@ export const projectsListTranslations = {
     pt: "NFT",
     en: "NFT"
   },
+  "projects.list.filters.explorer": {
+    pt: "Explorer",
+    en: "Explorer"
+  },
   "projects.list.viewDetails": {
     pt: "Ver Detalhes",
     en: "View Details"
@@ -51,4 +55,4 @@ export const projectsListTranslations = {
     pt: "Destaque",
     en: "Featured"
   }
-}; 
+};

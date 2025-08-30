@@ -50,14 +50,14 @@ export default function AssetTokenization() {
       githubUrl="https://github.com/rwa-hub"
       demoUrl="https://github.com/rwa-hub"
       nextProject={{
-        name: t("projects.drex.title"),
-        url: "/projects/drex"
+        name: t("projects.besuscan.title"),
+        url: "/projects/besuscan"
       }}
       prevProject={{
-        name: t("projects.drex.title"),
-        url: "/projects/drex"
+        name: t("projects.rwa.title"),
+        url: "/projects/rwa"
       }}
-      
+
       // Architecture Section
       hasArchitecture={true}
       architectureDetails={{
@@ -74,7 +74,7 @@ export default function AssetTokenization() {
                 alt: "Asset Tokenization Architecture",
                 diagramType: "architecture",
                 description: t("projects.assetTokenization.architecture.diagrams.operations")
-              },   
+              },
             ]
           },
         ],
@@ -96,7 +96,7 @@ export default function AssetTokenization() {
           }
         ]
       }}
-      
+
       // Features Section
       features={[
         {
@@ -124,7 +124,7 @@ export default function AssetTokenization() {
           color: "green"
         }
       ]}
-      
+
       processTitle={t("projects.assetTokenization.process.title")}
       processSteps={[
         {
@@ -148,7 +148,7 @@ export default function AssetTokenization() {
           icon: "🔄"
         }
       ]}
-      
+
       benefitsTitle={t("projects.assetTokenization.benefits.title")}
       benefitGroups={[
         {
@@ -164,4 +164,4 @@ export default function AssetTokenization() {
       ]}
     />
   );
-} 
+}
